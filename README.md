@@ -1,27 +1,45 @@
-# Hashtopolis
+# Hastopolis UI
+This project is for the developers working in Hashtopolis UI.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+![Hashtopolis - Animated gif demo](demo/demo.gif)
 
-## Development server
+# Steps Docker Installation and set up
+1) Install Docker App (Windows, Linux, Mac)
+2) Install Github, create project and in settings-> secrest save the dockeruser name and docker user secret
+3) Git Clone project
+4) In project create, requirements.txt, Dockerfile (to create the container), dockerignore (what we do not need)
+5) We create a folder called app
+6) We build the container cmd: docker build . (Dot is important, defines the folder installation)
+7) Create docker-compose.yml to define version and services the build cmd: docker-compose build
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# Linting and Testing
 
-## Code scaffolding
+Copy details below :
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    @lxpanel --profile LXDE-pi
+    @pcmanfm --desktop --profile LXDE-pi
+    @xscreensaver -no-splash
+    @point-rpi
 
-## Build
+    @xset s off  # Disabled screensaver
+    @xset /dpms   # Disabled DPMS
+    @xset s noblank # Dont blank the video device
+    @chromium-browser --noerrors --disable-session-crashed-bubble --disable-infobars --kiosk --incognito http://localhost:3000/lounge    #If page is open in incognito mode cache is ignored
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+# Steps Create a project
 
-## Running end-to-end tests
+1) Create project, note the dot is important otherwise will create the directory in the wrong path cmd:  docker-compose run --rm app sh -c "hashtopolis-admin startproject app ."
+2) Now we start services in docker using the command cmd: docker-compose up
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Setting up automation using Github actions
 
-## Further help
+This is similar than other tools such as Jenkins or Travis-CI (Free version but goog version cost approx €800 yearly). These tools have some usefuls features such as; app deployment, code linting or unit tests. Apps that help deployment AWS, Terraform or own VPS server. We will be setting up a Trigger to push to Github and run unit tests.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1) Create a folder in root and called it .github then a folder inside called workflows and inally a file checks.yml ( doesnt matter the name only as soon as it is inside the directory)
+2) checks.yml, start with --- that means that is a yaml file
+https://github.com/marketplace/actions/docker-login
+https://github.com/marketplace?type=actions
+
+### Common Errors
