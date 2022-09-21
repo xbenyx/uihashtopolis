@@ -5,17 +5,10 @@ This project is for the developers working in Hashtopolis UI. Front End is devel
 
 # Installation and set up
 1) Install Docker App (Windows, Linux, Mac) [here](https://docs.docker.com/engine/install/)
-2) Git Clone project
-Copy details below :
-
-    git clone https://github.com/xbenyx/uihashtopolis.git
-
-
-3) Go to the root folder project and run docker
-Copy details below :
-
-    docker-compose up
-
+2) CMD: git clone https://github.com/xbenyx/uihashtopolis.git
+(If you want to make some change in to the code and build a new image or container go to step 3, otherwise go to step 4)
+3) Go to the root folder project and run docker: docker-compose up / docker build .  (Note this step is to build and image, for easy use we'll use a built image)
+4) We need to use the image. CMD  docker pull hashtopolisui (IMAGE_NAME)
 4) In project create, requirements.txt, Dockerfile (to create the container), dockerignore (what we do not need)
 5) We create a folder called app
 6) We build the container cmd: docker build . (Dot is important, defines the folder installation)
