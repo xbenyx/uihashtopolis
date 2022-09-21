@@ -9,29 +9,13 @@ This project is for the developers working in Hashtopolis UI. Front End is devel
 (If you want to make some change in to the code and build a new image or container go to step 3, otherwise go to step 4)
 3) Go to the root folder project and run docker: docker-compose up / docker build .  (Note this step is to build and image, for easy use we'll use a built image)
 4) We need to use the image. CMD  docker pull hashtopolisui (IMAGE_NAME)
-4) In project create, requirements.txt, Dockerfile (to create the container), dockerignore (what we do not need)
-5) We create a folder called app
-6) We build the container cmd: docker build . (Dot is important, defines the folder installation)
-7) Create docker-compose.yml to define version and services the build cmd: docker-compose build
 
 # Linting and Testing
-
-Copy details below :
-
-    @lxpanel --profile LXDE-pi
-    @pcmanfm --desktop --profile LXDE-pi
-    @xscreensaver -no-splash
-    @point-rpi
-
-    @xset s off  # Disabled screensaver
-    @xset /dpms   # Disabled DPMS
-    @xset s noblank # Dont blank the video device
-    @chromium-browser --noerrors --disable-session-crashed-bubble --disable-infobars --kiosk --incognito http://localhost:3000/lounge    #If page is open in incognito mode cache is ignored
 
 
 # Steps Create a project
 
-1) Create project, note the dot is important otherwise will create the directory in the wrong path cmd:  docker-compose run --rm app sh -c "hashtopolis-admin startproject app ."
+1) Create project, note the dot is important otherwise will create the directory in the wrong path cmd:  docker-compose run --rm app sh -c "hashtopolis-ui startproject app ."
 2) Now we start services in docker using the command cmd: docker-compose up
 
 # Setting up automation using Github actions
