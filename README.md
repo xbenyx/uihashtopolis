@@ -3,10 +3,9 @@ This project is for the developers working in Hashtopolis UI. Front End is devel
 
 ![Hashtopolis - Animated gif demo](demo/demo.gif)
 
-# Steps Docker Installation and set up
+# Installation and set up
 1) Install Docker App (Windows, Linux, Mac) [here](https://docs.docker.com/engine/install/)
-2) Install Github, create project and in settings-> secrest save the dockeruser name and docker user secret
-3) Git Clone project
+2) Git Clone project
 4) In project create, requirements.txt, Dockerfile (to create the container), dockerignore (what we do not need)
 5) We create a folder called app
 6) We build the container cmd: docker build . (Dot is important, defines the folder installation)
