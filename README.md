@@ -1,10 +1,10 @@
 # Hastopolis UI
-This project is for the developers working in Hashtopolis UI.
+This project is for the developers working in Hashtopolis UI. Front End is developed using Angular.JS
 
 ![Hashtopolis - Animated gif demo](demo/demo.gif)
 
 # Steps Docker Installation and set up
-1) Install Docker App (Windows, Linux, Mac)
+1) Install Docker App (Windows, Linux, Mac) [here](https://docs.docker.com/engine/install/)
 2) Install Github, create project and in settings-> secrest save the dockeruser name and docker user secret
 3) Git Clone project
 4) In project create, requirements.txt, Dockerfile (to create the container), dockerignore (what we do not need)
@@ -25,7 +25,6 @@ Copy details below :
     @xset /dpms   # Disabled DPMS
     @xset s noblank # Dont blank the video device
     @chromium-browser --noerrors --disable-session-crashed-bubble --disable-infobars --kiosk --incognito http://localhost:3000/lounge    #If page is open in incognito mode cache is ignored
-
 
 
 # Steps Create a project
