@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -42,6 +43,7 @@ import { HealthChecksComponent } from './config/health-checks/health-checks.comp
 import { PreprocessorsComponent } from './config/preprocessors/preprocessors.component';
 import { UsersComponent } from './users/users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -88,9 +90,13 @@ import { AllUsersComponent } from './users/all-users/all-users.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}
