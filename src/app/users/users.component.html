@@ -1,1 +1,37 @@
-<p>users works!</p>
+<app-header></app-header>
+
+<h2>New user</h2>
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <div id="user-data" ngModelGroup="userData" >
+            <div class="form-group">
+              <label for="username">User Name</label>
+              <input type='text' class='form-control' id="username" formControlName="username" name='username' title="Username" >
+              <span *ngIf="!signupForm.controls['username'].valid && signupForm.controls['username'].touched" class="help-block" >Please enter a valid name! (Min. Length 3)</span>
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input  type='email' class='form-control' id="email" formControlName="email" name='email' title="Email" >
+              <span *ngIf="!signupForm.controls['email'].valid && signupForm.controls['email'].touched" class="help-block" >Please enter a valid email!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="secret">User Group</label>
+            <select name='group' class='form-control' title="Group" id="group" formControlName="group" >
+                <span *ngIf="!signupForm.controls['group'].valid && signupForm.controls['group'].touched" class="help-block" >Please select a group!</span>
+                <option *ngFor="let group of groups" [value]="group">
+                    {{group}}
+                </option>
+            </select>
+          </div>
+          <span *ngIf="!signupForm.valid && signupForm.touched" class="help-block" >Please select a group!</span>
+          <button class="btn btn-success" type="submit" [disabled]="!signupForm.valid">Create</button>
+        </form>
+        {{ signupForm.value | json }}
+      </div>
+    </div>
+  </div>
+
+<app-footer></app-footer>

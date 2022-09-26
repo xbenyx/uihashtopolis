@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { ServerComponent } from './server/server.component';
-import { ServersComponent } from './servers/servers.component';
-import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AgentsComponent } from './agents/agents.component';
@@ -48,8 +47,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
-    ServerComponent,
-    ServersComponent,
     HeaderComponent,
     FooterComponent,
     AgentsComponent,
@@ -90,7 +87,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
     NgbModule,
     FontAwesomeModule
   ],
