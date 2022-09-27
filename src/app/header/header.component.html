@@ -9,7 +9,7 @@
 	<div id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
       <ul class="navbar-nav mr-auto">
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="agents" id="dropdownAgents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agents</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownAgents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agents</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownAgents">
 			<a class="dropdown-item" routerLink="agents/show-agents">Show Agents</a>
 			<a class="dropdown-item" routerLink="agents/new-agent">New Agent</a>
@@ -17,7 +17,7 @@
 		   </div>
 		</li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="tasks" id="dropdownTasks" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownTasks" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownTasks">
 			<a class="dropdown-item" routerLink="tasks/show-tasks">Show Tasks</a>
 			<a class="dropdown-item" routerLink="tasks/new-tasks">New Task</a>
@@ -29,7 +29,7 @@
 		   </div>
 		</li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="lists" id="dropdownHashlists" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lists</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownHashlists" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lists</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownHashlists">
 			<a class="dropdown-item" routerLink="lists/hashlist">Hashlists</a>
 			<a class="dropdown-item" routerLink="lists/new-hashlist">New hashlist</a>
@@ -39,28 +39,28 @@
 			<a class="dropdown-item" routerLink="lists/show-cracks">Show cracks</a>
 		   </div>
 		</li>
-		<li class="nav-item" routerLinkActive="active">
-			<a class="nav-link" routerLink="files">Files</a>
+		<li class="nav-item" >
+			<a class="nav-link" routerLinkActive="active" routerLink="files">Files</a>
 		</li>
 		<li class="nav-item" routerLinkActive="active">
 			<a class="nav-link" routerLink="chunk-activity">Chunk activity</a>
 		</li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="crackers" id="dropdownCrackers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Crackers</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownCrackers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Crackers</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownCrackers">
 			<a class="dropdown-item" routerLink="crackers/binaries">Binaries</a>
 			<a class="dropdown-item" routerLink="crackers/new-binary">New Binary</a>
 		   </div>
 		</li>
 		<li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="account" id="dropdownAccount" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownAccount" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownAccount">
 			<a class="dropdown-item" routerLink="account/settings">Settings</a>
 			<a class="dropdown-item" routerLink="account/notifications">Notifications</a>
 		   </div>
 		</li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="config" id="dropdownConfig" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Config</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownConfig" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Config</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aaria-labelledby="dropdownConfig">
 			<a class="dropdown-item" routerLink="config/server">Server</a>
 			<a class="dropdown-item" routerLink="config/hashtypes">Hashtypes</a>
@@ -71,9 +71,10 @@
 		   </div>
 		</li>
 		<li ngbDropdown class="nav-item dropdown show" routerLinkActive="active">
-		  <a ngbDropdownToggle class="nav-link dropdown-toggle" routerLink="users" id="dropdownUsers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+		  <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownUsers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
 		   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownUsers">
 			<a class="dropdown-item" routerLink="users/all-users">All users</a>
+			<a class="dropdown-item" routerLink="users">New User</a>
 		   </div>
 		</li>
       </ul>
