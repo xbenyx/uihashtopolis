@@ -3,6 +3,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -35,6 +36,7 @@ import { AccountComponent } from './account/account.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { NotificationsComponent } from './account/notifications/notifications.component';
 import { ConfigComponent } from './config/config.component';
+import { ServerComponent } from './config/server/server.component';
 import { HashtypesComponent } from './config/hashtypes/hashtypes.component';
 import { AgentBinariesComponent } from './config/agent-binaries/agent-binaries.component';
 import { LogComponent } from './config/log/log.component';
@@ -43,6 +45,48 @@ import { PreprocessorsComponent } from './config/preprocessors/preprocessors.com
 import { UsersComponent } from './users/users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home/home.component';
+
+
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'agents', component: AgentsComponent},
+  {path: 'agents/agent-status', component: AgentStatusComponent},
+  {path: 'agents/new-agent', component: NewAgentComponent},
+  {path: 'agents/show-agents', component: ShowAgentsComponent},
+  {path: 'tasks', component: TasksComponent},
+  {path: 'tasks/show-tasks', component: ShowTasksComponent},
+  {path: 'tasks/new-tasks', component: NewTasksComponent},
+  {path: 'tasks/preconfigured-tasks', component: PreconfiguredTasksComponent},
+  {path: 'tasks/new-preconfigured-tasks', component: NewPreconfiguredTasksComponent},
+  {path: 'tasks/supertasks', component: SupertasksComponent},
+  {path: 'tasks/new-supertasks', component: NewSupertasksComponent},
+  {path: 'tasks/import-supertasks', component: ImportSupertasksComponent},
+  {path: 'lists', component: ListsComponent},
+  {path: 'lists/hashlist', component: HashlistComponent},
+  {path: 'lists/new-hashlist', component: NewHashlistComponent},
+  {path: 'lists/superhashlist', component: SuperhashlistComponent},
+  {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent},
+  {path: 'lists/search-hash', component: SearchHashComponent},
+  {path: 'lists/show-cracks', component: ShowCracksComponent},
+  {path: 'files', component: FilesComponent},
+  {path: 'chunk-activity', component: ChunkActivityComponent},
+  {path: 'crackers', component: CrackersComponent},
+  {path: 'crackers/binaries', component: BinariesComponent},
+  {path: 'crackers/new-binary', component: NewBinaryComponent},
+  {path: 'account', component: AccountComponent},
+  {path: 'account/settings', component: SettingsComponent},
+  {path: 'account/notifications', component: NotificationsComponent},
+  {path: 'config', component: ConfigComponent},
+  {path: 'config/server', component: ServerComponent},
+  {path: 'config/hashtypes', component: HashtypesComponent},
+  {path: 'config/agent-binaries', component: AgentBinariesComponent},
+  {path: 'config/log', component: LogComponent},
+  {path: 'config/health-checks', component: HealthChecksComponent},
+  {path: 'config/preprocessors', component: PreprocessorsComponent},
+  {path: 'users', component: UsersComponent},
+  {path: 'users/all-users', component: AllUsersComponent}
+];
 
 @NgModule({
   declarations: [
@@ -83,14 +127,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HealthChecksComponent,
     PreprocessorsComponent,
     UsersComponent,
-    AllUsersComponent
+    AllUsersComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     NgbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]

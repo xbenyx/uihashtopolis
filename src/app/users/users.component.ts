@@ -9,16 +9,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UsersComponent implements OnInit {
 
+  // We need to access groups using the API
   groups = ['Admin', 'Standard User'];
   signupForm: FormGroup;
-
-  // constructor() { }
+  // We need an array uf user names, so we do not create a duplicate name.
+  usedUserNames = ['Admin', 'Guest'];
 
   ngOnInit(): void {
-
     this.signupForm = new FormGroup({
-      'username': new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(25)]),
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'userData': new FormGroup({
+      'username': new FormControl(null, [Validators.required, this.checkUserNameExist.bind(this)]),
+      'email': new FormControl(null, [Validators.required, Validators.email])
+       }),
       'group': new FormControl(null, [Validators.required])
     });
   }
@@ -26,7 +28,16 @@ export class UsersComponent implements OnInit {
   onSubmit(): void{
     if (this.signupForm.valid) {
     console.log(this.signupForm);
-    // form.reset();
+    this.signupForm.reset();
   }
   }
+
+  checkUserNameExist(control: FormControl): {[s: string]: boolean}{
+    if(this.usedUserNames.indexOf(control.value) !== -1){
+      return {'nameIsUsed': true};
+    }
+    return null as any;
+  }
+
+
 }

@@ -7,11 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Hastopolis';
-  username: string = 'Admin';
-
-  getUsername(){
-      return this.username;
-  }
 
 }
