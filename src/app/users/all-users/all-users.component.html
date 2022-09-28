@@ -1,33 +1,37 @@
 <div class="container">
-    <h2>All Users ({{numUsers}})</h2>
-        <div class="card">
-            <div class="table-responsive">
-                <table class="table table-bordered" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Creation date</th>
-                            <th>Last login</th>
-                            <th>Email</th>
-                            <th>Validity</th>
-                            <th>Session lifetime</th>
-                            <th>Right group</th>
-                            <th>Action</th>
-                        </tr>
-                        <tr *ngFor="let user of allUsersTable">
-                            <td>{{ user.userId }}</td>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.registeredSince }}</td>
-                            <td>{{ user.lastLoginDate }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.isValid }}</td>
-                            <td>{{ user.sessionLifetime }}</td>
-                            <td>{{ user.rightGroupId }}</td>
-                        <td>
-                          <a class='btn btn-primary float-right' href="users.php?id=[[entry.getVal('user').getId()]]" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit" aria-hidden="true"></i></a>
-                        </td>
-                        </tr>
-                </table>
-            </div>
+    <div class="card m-5 p-3">
+        <h2>All users ({{allusers.length}})</h2>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Creation date</th>
+                    <th>Last login</th>
+                    <th>Email</th>
+                    <th>Validity</th>
+                    <th>Session lifetime</th>
+                    <th>Right group</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let user of allusers">
+                    <td>{{ user.userId }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.registeredSince*1000 | date: 'dd/MM/yyyy h:mm:ss '}}</td>
+                    <td>{{ user.lastLoginDate*1000 | date: 'dd/MM/yyyy h:mm:ss '}}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.isValid == 1 ? "Valid" : "Invalid/Not activated" }}</td>
+                    <td>{{ user.sessionLifetime }}</td>
+                    <td>{{ user.rightGroupId }}</td>
+                    <td>
+                        <a class='btn btn-primary float-right' href="{{ user.userId }}" data-toggle="tooltip" data-placement="top" title="Edit"><fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 </div>

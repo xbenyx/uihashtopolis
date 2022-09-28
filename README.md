@@ -1,7 +1,7 @@
 # Hastopolis UI
 This project is for the developers working in Hashtopolis UI. Front End is developed using Angular.JS
 
-![Hashtopolis - Animated gif demo](demo/intro.gif)
+![Hashtopolis - Animated gif demo](demo/intro1.gif)
 
 # Installation and set up
 1) Install Docker App (Windows, Linux, Mac) [here](https://docs.docker.com/engine/install/)
