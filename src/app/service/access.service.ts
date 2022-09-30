@@ -17,10 +17,6 @@ export class AccessService {
   constructor(private http: HttpClient) { }
 
   getAccessGroupsOfCurrentUser(): Observable<AccessGroup[]> {
-    return this.http.get<AccessGroup[]>(this.endpoint + '/groups', {
-      params: {
-        api_key: this.accessKey
-      }
-    }); 
+    return this.http.get<AccessGroup[]>(this.endpoint + '/groups');
   }
 }

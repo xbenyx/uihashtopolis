@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { ActivatedRoute, Params } from '@angular/router';
+import { UsersService } from '../service/users/users.service';
 
 @Component({
   selector: 'app-users',
@@ -15,6 +16,8 @@ export class UsersComponent implements OnInit {
   // We need an array uf user names, so we do not create a duplicate name.
   usedUserNames = ['Admin', 'Guest'];
 
+  constructor( private route:ActivatedRoute, private usersService: UsersService){}
+
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       'userData': new FormGroup({
@@ -23,6 +26,8 @@ export class UsersComponent implements OnInit {
        }),
       'group': new FormControl(null, [Validators.required])
     });
+
+
   }
 
   onSubmit(): void{
@@ -38,6 +43,8 @@ export class UsersComponent implements OnInit {
     }
     return null as any;
   }
+
+
 
 
 }

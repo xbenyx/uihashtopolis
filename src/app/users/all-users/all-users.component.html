@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card m-5 p-3">
         <h2>All users ({{allusers.length}})</h2>
-        <div class="card-body">
+        <div class="responsive">
             <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                 <thead>
                 <tr>
@@ -27,7 +27,9 @@
                     <td>{{ user.sessionLifetime }}</td>
                     <td>{{ user.rightGroupId }}</td>
                     <td>
-                        <a class='btn btn-primary float-right' href="{{ user.userId }}" data-toggle="tooltip" data-placement="top" title="Edit"><fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon></a>
+                        <a class='btn btn-primary float-right' [routerLink]="['/users',user.userId,'edit']" [queryParams]="{allowEdit: +user.userId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                        </a>
                     </td>
                 </tr>
                 </tbody>

@@ -1,1 +1,49 @@
-<p>show-agents works!</p>
+<div class="container">
+    <div class="card m-5 p-3">
+        <h2>Agents ({{showagents.length}})</h2>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Act</th>
+                    <th>Name / Owner / Client</th>
+                    <th>GPUs/CPUs</th>
+                    <th>CPU only</th>
+                    <th>Last activity</th>
+                    <th>Access Groups</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let agent of showagents">
+                    <td>{{ agent.agentId }}</td>
+                    <td>{{ agent.isActive }}</td>
+                    <td>
+                        <a href="#">{{ agent.agentName}}</a>
+                        <span *ngIf="agent.IsTrusted == 1" ><fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon></span>
+                        <span *ngIf="agent.IsActive == 0" ><fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon></span>
+                        <br>
+                        <a *ngIf="agent.agentId > 0">Username By Id</a>
+                        <a *ngIf="agent.agentId == 0">---</a>
+                        <br><a *ngIf="agent.clientSignature.length > 0">{{ agent.clientSignature}}</a>
+                        <br><a *ngIf="agent.clientSignature.length == 0">Running: unknown</a>
+                    </td>
+                    <td>{{ agent.devices }}</td>
+                    <td>{{ agent.CpuOnly == 1 ? "Yes" : "No" }}</td>
+                    <td>
+                        <code>{{ agent.lastAct }}</code> at <br>
+                        {{ agent.lastTime *1000 | date: 'dd/MM/yyyy h:mm:ss' }}<br>
+                        IP:
+                        {{ agent.lastIp }}
+                    </td>
+                    <td>Need shared function access groups</td>
+                    <td>
+                        <a class='btn btn-primary float-right' href="{{ agent.agentId }}" data-toggle="tooltip" data-placement="top" title="Edit"><fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

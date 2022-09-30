@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsersService } from '../../service/users/users.service';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,8 +21,10 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  allusers: any = [];
-  constructor(private usersService: UsersService) { }
+  public allusers: {userId: number, username: string, registeredSince: number, lastLoginDate: number, email: string, isValid: number, sessionLifetime:number, rightGroupId: string}[] = [];
+
+  constructor(private usersService: UsersService,
+    private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.usersService.users().subscribe((users: any) => {
@@ -32,10 +36,12 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
       pageLength: 10,
       stateSave: true,
       select: true,
-      buttons: [
-        'copy', 'excel', 'csv', 'edit'
-    ]
+      buttons: ['copy', 'excel', 'csv', 'edit']
     };
+  }
+
+  editButtonClick(){
+    this.router.navigate(['edit'], {relativeTo: this.route});
   }
 }
 

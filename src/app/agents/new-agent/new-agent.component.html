@@ -1,1 +1,81 @@
-<h1>New Agent</h1>
+<h2>Add new agent</h2>
+<div class='alert alert-info'>
+	To add new agents provide them with a valid voucher and download a client.<br><br>
+	Used vouchers are automatically deleted to prevent double spending.<br><br>
+	If you are asked to provide the API url on the client to connect to, you need to enter the following:<br>
+	<code>Add ->[[apiUrl]]</code>
+</div>
+<h3>Clients</h3>
+<div class="card">
+  <!-- <div class="table-responsive"> -->
+    <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+      <tr>
+        <th>ID</th>
+		<th>Version</th>
+        <th>Type</th>
+        <th>Operating Systems</th>
+        <th>Filename</th>
+        <th>&nbsp;</th>
+      </tr>
+        <tr *ngFor="let binary of crackerbinary">
+          <td>{{binary.crackerBinaryId}}</td>
+		  <td>{{binary.version}}</td>
+          <td>{{binary.crackerBinaryTypeId}}</td>
+          <td>{{binary.crackerBinaryTypeId}}</td>
+          <td>{{binary.binaryName}}</td>
+          <td>
+            <form action="agents.php?new=true" method="POST">
+              <input type="hidden" name="action" value="{{binary.downloadUrl}}">
+              <input type="hidden" name="binary" value="{{binary.crackerBinaryId}}">
+			  <input type="hidden" name="csrf" value="[[csrf]]">
+              <input type="submit" class='btn btn-primary' value="Download">
+            </form><br>
+					  <code>[[agentUrl]][[binary.getId()]]</code>
+          </td>
+        </tr>
+
+	  </table>
+  </div>
+<!-- </div> -->
+
+  <!-- <h3>Vouchers</h3>
+	<div class="card">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+
+				  <tr>
+					  <td><code>[[voucher.getVoucher()]]</code></td>
+          			  <td>[[date([[config.getVal(DConfig::TIME_FORMAT)]], [[voucher.getTime()]])]]</td>
+          			  <td>
+          				  <form action="agents.php?new=true" method="POST" onSubmit="if (!confirm('Really delete this voucher?')) return false;">
+          					  <input type="hidden" name="action" value="[[$DAgentAction::DELETE_VOUCHER]]">
+          					  <input type="hidden" name="voucher" value="[[voucher.getId()]]">
+										  <input type="hidden" name="csrf" value="[[csrf]]">
+          					  <input type="submit" class='btn btn-danger' value="Delete">
+          				  </form>
+          			  </td>
+          		  </tr>
+
+		  </table>
+    </div>
+	</div>
+
+<form action="agents.php?new=true" method="POST">
+	<input type="hidden" name="action" value="[[$DAgentAction::CREATE_VOUCHER]]">
+	<input type="hidden" name="csrf" value="[[csrf]]">
+	<div class="card">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+			  <tr>
+				  <td>New voucher</td>
+				  <td>
+					  <input type="text" class='form-control' name="newvoucher" value="[[Util::randomString(8)]]" title="Voucher Code">
+				  </td>
+				  <td>
+					  <input type="submit" class='btn btn-primary' value="Create">
+				  </td>
+			  </tr>
+		  </table>
+    </div>
+	</div>
+</form> -->

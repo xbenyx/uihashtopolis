@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Routes, RouterModule } from '@angular/router';
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -45,6 +46,7 @@ import { LogComponent } from './config/log/log.component';
 import { HealthChecksComponent } from './config/health-checks/health-checks.component';
 import { PreprocessorsComponent } from './config/preprocessors/preprocessors.component';
 import { UsersComponent } from './users/users.component';
+import { EditUsersComponent } from './users/edit-users/edit-users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
@@ -87,6 +89,7 @@ const appRoutes: Routes = [
   {path: 'config/health-checks', component: HealthChecksComponent},
   {path: 'config/preprocessors', component: PreprocessorsComponent},
   {path: 'users', component: UsersComponent},
+  {path: 'users/:id/edit', component: EditUsersComponent},
   {path: 'users/all-users', component: AllUsersComponent}
 ];
 
@@ -129,6 +132,7 @@ const appRoutes: Routes = [
     HealthChecksComponent,
     PreprocessorsComponent,
     UsersComponent,
+    EditUsersComponent,
     AllUsersComponent,
     HomeComponent
   ],
@@ -137,6 +141,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     NgbModule,
     FontAwesomeModule,
     RouterModule.forRoot(appRoutes),

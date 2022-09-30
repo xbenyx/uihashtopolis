@@ -1,11 +1,22 @@
-export class User{
-    public username: string;
-    public email: string;
-    public rightGroupId: number;
-
-    constructor(username: string, email: string, rightGroupId: number ){
-        this.username = username;
-        this.email = email;
-        this.rightGroupId = rightGroupId;
-    }
+export interface Userf {
+    userId: any
+    username: any;
 }
+
+export class User{
+    query:any;
+    user: Userf[];
+
+}
+
+// export class User{
+//     public userId: number;
+//     public username: string;
+//     public registeredSince: number;
+//     public lastLoginDate: number;
+//     public email: string;
+//     public isValid: number;
+//     public sessionLifetime: number;
+//     public rightGroupId: string;
+
+// }

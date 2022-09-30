@@ -1,1 +1,23 @@
-<p>new-binary works!</p>
+<h2>Create new binary type</h2>
+<form action='' method='post'>
+	<input type='hidden' name='action' value='[[$DCrackerBinaryAction::CREATE_BINARY_TYPE]]'>
+	<input type="hidden" name="csrf" value="[[csrf]]">
+	<div class="card">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+			  <tr>
+				  <td>Binary Type Name:</td>
+				  <td>
+					  <select name="name" title="Name" class="form-control">
+						  <option value="hashcat">Hashcat</option>
+						  <option value="generic">Generic Cracker</option>
+					  </select>
+				  </td>
+			  </tr>
+              <tr>
+                <input type="submit" class='btn btn-success' value="Create binary type">
+             </tr>
+		  </table>
+    </div>
+	</div>
+</form>
