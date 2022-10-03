@@ -41,6 +41,7 @@ import { EditUsersComponent } from './users/edit-users/edit-users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
@@ -81,12 +82,14 @@ const appRoutes: Routes = [
     {path: 'users', component: UsersComponent},
     {path: 'users/:id/edit', component: EditUsersComponent},
     {path: 'users/all-users', component: AllUsersComponent},
+    {path: 'error', component: ErrorPageComponent, data:{message: 'Page Not Found!'}},
     {path: 'not-found', component: PageNotFoundComponent},
     {path: '**', redirectTo: 'not-found'}  // Needs to be always the last route
   ];
 
 @NgModule({
     imports: [
+        // RouterModule.forRoot(appRoutes, {useHash: true})  // Any issues with server routing or old browsers a hash could fix it
         RouterModule.forRoot(appRoutes)
     ],
     exports:[

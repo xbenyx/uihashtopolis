@@ -52,6 +52,7 @@ import { EditUsersComponent } from './users/edit-users/edit-users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     EditUsersComponent,
     AllUsersComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

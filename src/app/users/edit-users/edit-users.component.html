@@ -1,30 +1,88 @@
 <h2 *ngIf="!allowEdit">You are not allowed to edit! Talk with your administrator.</h2>
 <div *ngIf="allowEdit">
-  <div class="container">
-    <div class="card m-5 p-3">
+  <div class="card m-5 p-3">
     <div class="container">
-    <h2>Update User</h2>
-    <div class="container">
-        <div class="row">
-          <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-            <form>
-              <div class="form-group">
-                <tr *ngFor="let u of user">
-                <div>
-                  <label for="username">User Name</label>
-                  <input [(ngModel)]="u.username" type='text' name='username' title="Username" class='form-control' id="username">
+      <div class="row">
+        <tr *ngFor="let u of user"><h2>Update User ({{u.username}})</h2></tr><br>
+          <form>
+            <tr *ngFor="let u of user">
+            <div class="row">
+              <div class="row">
+                <div class="col-sm-4 col-md-4 col-xs-12">
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <input  [(ngModel)]="u.userId" type='text' name='userid' title="Userid" class='form-control' id="userid" disabled="disabled" readonly>
+                        <label class="form-label" for="form6Example1" >User ID</label>
+                      </div>
+                    </div>
                 </div>
-              </tr>
+                <div class="col-sm-4 col-md-4 col-xs-12">
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <input [(ngModel)]="u.username" type='text' name='username' title="Username" class='form-control' id="username" disabled="disabled" readonly/>
+                        <label class="form-label" for="form6Example1">User Name</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-xs-12">
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <input [(ngModel)]="u.email" type='text' name='email' title="Email" class='form-control' id="email" disabled="disabled" readonly/>
+                        <label class="form-label" for="form6Example1">Email</label>
+                      </div>
+                    </div>
+                </div>
+            </div>
+              <div class="col-12 col-md-6 mb-4">
+                <div class="form-outline">
+                  <input [ngModel]="u.registeredSince*1000 | date: 'd/MM/yyyy h:mm:ss'" type="text" name='registeredsince' title="Registeredsince" class='form-control' id="registeredsince" disabled="disabled" readonly/>
+                  <label class="form-label" for="form6Example1">Creation date</label>
+                </div>
               </div>
-              <button class="btn btn-success" type="submit">Create</button>
-            </form>
-            <!-- {{ updateForm.value | json }} -->
-          </div>
-        </div>
+              <div class="col-12 col-md-6 mb-4">
+                <div class="form-outline">
+                  <input [ngModel]="u.lastLoginDate*1000 | date: 'd/MM/yyyy h:mm:ss'" type="text" name='lastlogindate' title="Lastlogindate" class='form-control' id="lastlogindate" disabled="disabled" readonly/>
+                  <label class="form-label" for="lastlogindate">Last login</label>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 mb-4">
+                <div class="form-outline">
+                  <input [ngModel]="u.isValid" type='text' name='isvalid' title="isvalid" class='form-control' id="isvalid"/>
+                  <label class="form-label" for="isvalid">Member of groups</label>
+                </div>
+              </div>
+              <div class="col-12 col-md-6 mb-4">
+                <div class="form-outline">
+                  <select  name='group' class='form-control' title="Group" id="group" formControlName="group" >
+                    <option *ngFor="let group of groups" [ngModel]="u.rightGroupId">
+                        {{group}}
+                    </option>
+                  </select>
+                  <label class="form-label" for="isvalid">Set users right group</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-outline mb-4">
+              <input type='password' id="setpassword" class="form-control" />
+              <label class="form-label" for="setpassword">Set password</label>
+            </div>
+            <div class="form-outline mb-4">
+              <input class="form-check-input me-2" type="checkbox" [ngModel]="u.isValid" name='isvalid' title="isvalid"
+              checked />
+              <label *ngIf="u.isValid === 0" class="form-label" for="isvalid">User Disabled</label>
+              <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label>
+            </div>
+            <button  class="btn btn-success" type="submit" (ngSubmit)="onUpdateUser(1)">Save</button>
+            <button  class="btn btn-danger" type="submit" (ngSubmit)="deleteUser(1)" onsubmit="if(!confirm('Do you really want to delete this user? This cannot be undone!')){return false;}">Delete</button>
+          </tr>
+          </form>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
 </div>
+
+
+
+
 
 
