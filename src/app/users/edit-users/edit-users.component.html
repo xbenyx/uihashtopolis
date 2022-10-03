@@ -1,27 +1,30 @@
-<!-- <h2 >You are not allowed to edit! Talk with your administrator.</h2> -->
-<div class="container">
-  <div class="card m-5 p-3">
+<h2 *ngIf="!allowEdit">You are not allowed to edit! Talk with your administrator.</h2>
+<div *ngIf="allowEdit">
   <div class="container">
-  <h2>Update User</h2>
-  <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-          <form>
-            <div class="form-group">
-              <tr *ngFor="let u of user">
-              <div>
-                <label for="username">User Name</label>
-                <input [(ngModel)]="u.username" type='text' name='username' title="Username" class='form-control' id="username">
+    <div class="card m-5 p-3">
+    <div class="container">
+    <h2>Update User</h2>
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+            <form>
+              <div class="form-group">
+                <tr *ngFor="let u of user">
+                <div>
+                  <label for="username">User Name</label>
+                  <input [(ngModel)]="u.username" type='text' name='username' title="Username" class='form-control' id="username">
+                </div>
+              </tr>
               </div>
-            </tr>
-            </div>
-            <button class="btn btn-success" type="submit">Create</button>
-          </form>
-          <!-- {{ updateForm.value | json }} -->
+              <button class="btn btn-success" type="submit">Create</button>
+            </form>
+            <!-- {{ updateForm.value | json }} -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
+    </div>
+    </div>
+</div>
+
 

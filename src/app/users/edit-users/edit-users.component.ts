@@ -13,7 +13,9 @@ export class EditUsersComponent implements OnInit {
 
   user: any[];
 
-  updateForm: FormGroup;
+  updateForm: FormGroup;  // We need to add validation to the form
+
+  allowEdit = false;
 
   constructor(private usersService: UsersService,
     private route:ActivatedRoute) { }
@@ -21,6 +23,14 @@ export class EditUsersComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.route.snapshot.queryParams); // We can use this for authentification
     // this.route.queryParams.subscribe();
+
+    this.route.queryParams
+      .subscribe(
+        (queryParams: Params) => {
+          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+        }
+      )
+
     const id = +this.route.snapshot.params['id'];
     this.usersService.getUser(id).subscribe((user: any) => {
       this.user = user;

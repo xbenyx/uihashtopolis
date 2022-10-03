@@ -1,18 +1,7 @@
-import { NgModule } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DataTablesModule } from 'angular-datatables';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { AppRoutingModule } from './app-routing.module';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
 import { AgentsComponent } from './agents/agents.component';
 import { ShowAgentsComponent } from './agents/show-agents/show-agents.component';
 import { NewAgentComponent } from './agents/new-agent/new-agent.component';
@@ -53,66 +42,58 @@ import { AllUsersComponent } from './users/all-users/all-users.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+const appRoutes: Routes = [
+    {path: '', component: HomeComponent},
+    {path: 'agents', component: AgentsComponent},
+    {path: 'agents/agent-status', component: AgentStatusComponent},
+    {path: 'agents/new-agent', component: NewAgentComponent},
+    {path: 'agents/show-agents', component: ShowAgentsComponent},
+    {path: 'tasks', component: TasksComponent},
+    {path: 'tasks/show-tasks', component: ShowTasksComponent},
+    {path: 'tasks/new-tasks', component: NewTasksComponent},
+    {path: 'tasks/preconfigured-tasks', component: PreconfiguredTasksComponent},
+    {path: 'tasks/new-preconfigured-tasks', component: NewPreconfiguredTasksComponent},
+    {path: 'tasks/supertasks', component: SupertasksComponent},
+    {path: 'tasks/new-supertasks', component: NewSupertasksComponent},
+    {path: 'tasks/import-supertasks', component: ImportSupertasksComponent},
+    {path: 'lists', component: ListsComponent},
+    {path: 'lists/hashlist', component: HashlistComponent},
+    {path: 'lists/new-hashlist', component: NewHashlistComponent},
+    {path: 'lists/superhashlist', component: SuperhashlistComponent},
+    {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent},
+    {path: 'lists/search-hash', component: SearchHashComponent},
+    {path: 'lists/show-cracks', component: ShowCracksComponent},
+    {path: 'files', component: FilesComponent},
+    {path: 'chunk-activity', component: ChunkActivityComponent},
+    {path: 'crackers', component: CrackersComponent},
+    {path: 'crackers/binaries', component: BinariesComponent},
+    {path: 'crackers/new-binary', component: NewBinaryComponent},
+    {path: 'account', component: AccountComponent},
+    {path: 'account/settings', component: SettingsComponent},
+    {path: 'account/notifications', component: NotificationsComponent},
+    {path: 'config', component: ConfigComponent},
+    {path: 'config/server', component: ServerComponent},
+    {path: 'config/hashtypes', component: HashtypesComponent},
+    {path: 'config/agent-binaries', component: AgentBinariesComponent},
+    {path: 'config/log', component: LogComponent},
+    {path: 'config/health-checks', component: HealthChecksComponent},
+    {path: 'config/preprocessors', component: PreprocessorsComponent},
+    {path: 'users', component: UsersComponent},
+    {path: 'users/:id/edit', component: EditUsersComponent},
+    {path: 'users/all-users', component: AllUsersComponent},
+    {path: 'not-found', component: PageNotFoundComponent},
+    {path: '**', redirectTo: 'not-found'}  // Needs to be always the last route
+  ];
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    AgentsComponent,
-    ShowAgentsComponent,
-    NewAgentComponent,
-    AgentStatusComponent,
-    TasksComponent,
-    ShowTasksComponent,
-    NewTasksComponent,
-    PreconfiguredTasksComponent,
-    NewPreconfiguredTasksComponent,
-    SupertasksComponent,
-    NewSupertasksComponent,
-    ImportSupertasksComponent,
-    ListsComponent,
-    HashlistComponent,
-    NewHashlistComponent,
-    SuperhashlistComponent,
-    NewSuperhashlistComponent,
-    SearchHashComponent,
-    ShowCracksComponent,
-    FilesComponent,
-    ChunkActivityComponent,
-    CrackersComponent,
-    BinariesComponent,
-    NewBinaryComponent,
-    AccountComponent,
-    SettingsComponent,
-    NotificationsComponent,
-    ConfigComponent,
-    ServerComponent,
-    HashtypesComponent,
-    AgentBinariesComponent,
-    LogComponent,
-    HealthChecksComponent,
-    PreprocessorsComponent,
-    UsersComponent,
-    EditUsersComponent,
-    AllUsersComponent,
-    HomeComponent,
-    PageNotFoundComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgbModule,
-    FontAwesomeModule,
-    DataTablesModule,
-    CommonModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    imports: [
+        RouterModule.forRoot(appRoutes)
+    ],
+    exports:[
+        RouterModule
+    ]
 })
-export class AppModule {
+
+export class AppRoutingModule{
 
 }
