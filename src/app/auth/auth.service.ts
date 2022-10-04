@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, tap } from 'rxjs/operators';
-import { Subject, throwError } from 'rxjs';
+import { BehaviorSubject,Subject, throwError } from 'rxjs';
 import { User } from './user.model';
+import { Router } from "@angular/router";
 
 export interface AuthResponseData {
     idToken: string,
@@ -15,9 +16,9 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    user = new Subject<User>();
+    user = new BehaviorSubject<User>(null);
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient, private router: Router){}
 
     logIn(email: string, password: string){
         return this.http.post<AuthResponseData>(
@@ -28,20 +29,26 @@ export class AuthService {
                 returnSecureToken: true
             }
         ).pipe(catchError(this.handleError), tap(resData => {
-            this.handleAuthentification(resData.email,resData.localId, resData.idToken, +resData.expiresIn);
+            this.handleAuthentication(resData.email,resData.localId, resData.idToken, +resData.expiresIn);
         }));
     }
 
-    private handleAuthentification(email:string, userId: string, token:string, expiresIn: number){
-        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-        const user = new User(
-            email,
-            userId,
-            token,
-            expirationDate
-        );
-        this.user.next(user);
+    logOut(){
+        this.user.next(null);
+        this.router.navigate(['/auth']);
     }
+
+    private handleAuthentication(
+        email: string,
+        userId: string,
+        token: string,
+        expiresIn: number
+      ) {
+        const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+        const user = new User(email, userId, token, expirationDate);
+        this.user.next(user);
+      }
+
 
     private handleError ( errorRes : HttpErrorResponse ) {
         let errorMessage = 'An unknown error ocurred!';

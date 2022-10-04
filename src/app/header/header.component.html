@@ -81,7 +81,7 @@
     </div>
 	<ul class="nav navbar-nav navbar-right">
 		<li class="nav-item"><a class="nav-link" routerLink="" ><fa-icon [icon]="faSun" aria-hidden="true"></fa-icon></a></li>
-		<li class="nav-item" *ngIf="isAuthentificated"><a class="nav-link" routerLink=""><fa-icon [icon]="faSignOutAlt" aria-hidden="true"></fa-icon></a></li>
+		<li class="nav-item" *ngIf="isAuthentificated"><a class="nav-link" (click)="onLogOut()"><fa-icon [icon]="faSignOutAlt" aria-hidden="true"></fa-icon></a></li>
 	</ul>
   </nav>
 

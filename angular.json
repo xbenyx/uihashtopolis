@@ -5,7 +5,8 @@
   "projects": {
     "hashtopolis": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
