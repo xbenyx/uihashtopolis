@@ -42,8 +42,10 @@ import { AllUsersComponent } from './users/all-users/all-users.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AuthComponent } from './auth/auth.component';
 
 const appRoutes: Routes = [
+    {path: 'auth', component: AuthComponent},
     {path: '', component: HomeComponent},
     {path: 'agents', component: AgentsComponent},
     {path: 'agents/agent-status', component: AgentStatusComponent},
