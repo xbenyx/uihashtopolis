@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faSun } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
@@ -13,6 +13,7 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthentificated = false;
   private userSub: Subscription;
+  isDarkMode = false;
 
   constructor(private authService: AuthService) { }
 
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   faSignOutAlt=faSignOutAlt;
   faSun=faSun;
+  faMoon=faMoon;
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
@@ -37,6 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogOut(){
     this.authService.logOut();
+  }
+
+  switchMode(){
+    this.isDarkMode = !this.isDarkMode;
   }
 
 }

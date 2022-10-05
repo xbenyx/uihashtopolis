@@ -44,9 +44,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ForgotComponent } from './auth/forgot/forgot.component';
 
 const appRoutes: Routes = [
     {path: 'auth', component: AuthComponent },
+    {path: 'auth/forgot', component: ForgotComponent },
     {path: '', component: HomeComponent ,canActivate: [AuthGuard] },
     {path: 'agents', component: AgentsComponent ,canActivate: [AuthGuard] },
     {path: 'agents/agent-status', component: AgentStatusComponent ,canActivate: [AuthGuard] },
@@ -92,7 +94,7 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        // RouterModule.forRoot(appRoutes, {useHash: true})  // Any issues with server routing or old browsers a hash could fix it
+        // RouterModule.forRoot(appRoutes, {useHash: true})  // Old browsers could have issues but can be fix with hash
         RouterModule.forRoot(appRoutes)
     ],
     exports:[
