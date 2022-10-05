@@ -22,16 +22,17 @@ export class AuthComponent implements OnInit {
     if(!form.valid){
       return;
     }
-    const email = form.value.email;
+    const username = form.value.username;
     const password = form.value.password;
 
     let authObs: Observable<AuthResponseData>;
 
     this.isLoading = true;
 
-    authObs = this.authService.logIn(email, password);
+    authObs = this.authService.logIn(username, password);
 
-    authObs.subscribe(resData =>{
+    authObs.subscribe(
+      resData =>{
       console.log(resData);
       this.isLoading = false;
       this.router.navigate(['/']);

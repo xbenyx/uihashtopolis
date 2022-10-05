@@ -59,7 +59,6 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { ForgotComponent } from './auth/forgot/forgot.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthentificated = false;
   private userSub: Subscription;
-  isDarkMode = false;
+  storedToggletheme:string = localStorage.getItem('toggledarkmode');
 
   constructor(private authService: AuthService) { }
 
@@ -42,7 +42,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   switchMode(){
-    this.isDarkMode = !this.isDarkMode;
+    if(this.storedToggletheme === 'dark'){
+      localStorage.setItem('toggledarkmode','light')
+      this.storedToggletheme = localStorage.getItem('toggledarkmode');
+    }else{
+      localStorage.setItem('toggledarkmode','dark')
+      this.storedToggletheme = localStorage.getItem('toggledarkmode');
+    }
   }
 
 }
