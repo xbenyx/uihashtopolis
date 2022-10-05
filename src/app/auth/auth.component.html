@@ -4,9 +4,10 @@
         <div class='col-md-3'></div>
         <div class='col-md-6'>
             <br>
-            <div class="alert alert-danger" *ngIf="errorRes">
+            <!-- <div class="alert alert-danger" *ngIf="errorRes">
                 <p>{{ errorRes }}</p>
-            </div>
+            </div> -->
+            <app-alert [message]="errorRes" *ngIf="errorRes" (close)="onHandleError()"></app-alert>
             <div *ngIf="isLoading" style="text-align: center;">
                 <app-loading-spinner></app-loading-spinner>
             </div>
