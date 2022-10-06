@@ -6,7 +6,7 @@ import {Subject} from 'rxjs';
 @Component({
   selector: 'app-show-agents',
   templateUrl: './show-agents.component.html',
-  styleUrls: ['./show-agents.component.css']
+  styleUrls: ['./show-agents.component.scss']
 })
 export class ShowAgentsComponent implements OnInit, OnDestroy {
   faEdit=faEdit;

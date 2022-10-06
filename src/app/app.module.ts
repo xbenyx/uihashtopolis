@@ -127,3 +127,4 @@ import { ForgotComponent } from './auth/forgot/forgot.component';
 export class AppModule {
 
 }
+
