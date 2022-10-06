@@ -29,6 +29,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@ng-bootstrap/ng-bootstrap": "^13.0.0",
     "@popperjs/core": "^2.10.2",
+    "@schematics/angular": "^14.2.5",
     "angular-datatables": "^14.0.0",
     "bootstrap": "5.2",
     "bootstrap-dark-5": "^1.1.3",
