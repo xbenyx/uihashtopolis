@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsersService } from '../../service/users/users.service';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit,faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class AllUsersComponent  implements OnInit, OnDestroy {
   faEdit=faEdit;
+  faHome=faHomeAlt;
+  faPlus=faPlus;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};

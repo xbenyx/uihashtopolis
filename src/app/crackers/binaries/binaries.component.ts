@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BinaryService } from '../../service/shared/binary.service';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -10,6 +10,8 @@ import {Subject} from 'rxjs';
 })
 export class BinariesComponent implements OnInit, OnDestroy {
   faTrash=faTrash;
+  faHome=faHomeAlt;
+  faPlus=faPlus;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};

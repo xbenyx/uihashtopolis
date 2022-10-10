@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../service/users/users.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faCalendar,faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { User } from '../user.model';
 
 @Component({
@@ -10,6 +11,10 @@ import { User } from '../user.model';
   styleUrls: ['./edit-users.component.scss']
 })
 export class EditUsersComponent implements OnInit {
+  faCalendar=faCalendar;
+  faLock=faLock;
+  faUser=faUser;
+  faEnvelope=faEnvelope;
 
   // We need to access groups using the API
   groups = ['Admin', 'Standard User'];

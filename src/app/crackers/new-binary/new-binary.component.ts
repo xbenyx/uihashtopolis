@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-new-binary',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-binary.component.scss']
 })
 export class NewBinaryComponent implements OnInit {
+  faTrash=faTrash;
+  faHome=faHomeAlt;
+  faPlus=faPlus;
 
   constructor() { }
 

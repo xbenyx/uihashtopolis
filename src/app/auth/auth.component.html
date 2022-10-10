@@ -23,7 +23,7 @@
                                   <label for="inputUsername">User Name</label>
                                   <div class="input-group">
                                       <span class="input-group-text" >
-                                        <fa-icon [icon]="faVoicemail" aria-hidden="true"></fa-icon>
+                                        <fa-icon [icon]="faUser" aria-hidden="true"></fa-icon>
                                       </span>
                                       <input type="text" class="form-control" id="inputUsername" placeholder="User Name" ngModel name="username" autocomplete="on" autofocus required>
                                   </div>
@@ -32,7 +32,7 @@
                               <div class="form-group">
                                   <!-- Form -->
                                   <div class="form-group mb-0">
-                                      <label for="password">Your Password</label>
+                                      <label for="password">Password</label>
                                       <div class="input-group">
                                           <span class="input-group-text">
                                             <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
@@ -43,7 +43,7 @@
                                   <!-- End of Form -->
                                   <!-- Form -->
                                   <div class="form-group mb-0">
-                                      <label for="inputOTP">Yubikey OTP (if enabled</label>
+                                      <label for="inputOTP">Yubikey OTP (if enabled)</label>
                                       <div class="input-group">
                                             <span class="input-group-text">
                                               <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
@@ -58,7 +58,7 @@
                                   </div>
                               </div>
                               <div class="d-grid">
-                                  <button type="submit" class="btn btn-gray-800" [disabled]="!authForm.valid">Sign in</button>
+                                  <button type="submit" class="btn btn-gray-800">Sign in</button>
                               </div>
                           </form>
                           <div class='alert alert-info row justify-content-center closesys'>

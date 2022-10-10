@@ -5,3 +5,56 @@
 	border-color: #CCCCCC;
 	padding-top: 10px;
 }
+
+.btn-gray-800 {
+  color: #ffffff;
+  background-color: #343d49;
+  border-color: #1F2937;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(17, 24, 39, 0.075);
+}
+
+.btn-gray-800:hover {
+  color: #ffffff;
+  background-color: #1a232f;
+  border-color: #19212c;
+}
+
+.mt-0 {
+  margin-top: 1.5rem !important;
+}
+
+.mb-0 {
+  margin-bottom: 1.5rem !important;
+}
+
+.p-0 {
+  padding: 1.5rem !important;
+}
+
+.p-lg-0 {
+  padding: 3rem !important;
+}
+
+.fmxw-500 {
+  max-width: 500px !important;
+}
+
+.btn-secondary {
+  color: #1F2937;
+  background-color: #f0bc74;
+  border-color: #f0bc74;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(17, 24, 39, 0.075);
+}
+
+.btn-secondary:hover {
+  color: #1F2937;
+  background-color: #f2c689;
+  border-color: #f2c382;
+}
+
+.btn-check:focus + .btn-secondary, .btn-secondary:focus {
+  color: #1F2937;
+  background-color: #f2c689;
+  border-color: #f2c382;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(17, 24, 39, 0.075), 0 0 0 0.18rem rgba(209, 166, 107, 0.5);
+}

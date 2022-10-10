@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faSun, faMoon, faUserCircle, faInbox, faQuestionCircle, faBell } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 
@@ -22,9 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.collapsed = !this.collapsed;
   }
 
-  faSignOutAlt=faSignOutAlt;
+  faPowerOff=faPowerOff;
+  faBell=faBell;
   faSun=faSun;
   faMoon=faMoon;
+  faUserCircle=faUserCircle;
+  faInbox=faInbox;
+  faQuestionCircle=faQuestionCircle;
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {

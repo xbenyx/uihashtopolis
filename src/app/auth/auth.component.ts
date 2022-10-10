@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService, AuthResponseData } from './auth.service';
-import { faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-auth',
@@ -12,7 +12,7 @@ import { faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 })
 export class AuthComponent implements OnInit {
   faLock=faLock;
-  faVoicemail=faEnvelope;
+  faUser=faUser;
   isLoading = false;
   errorRes: string | null;
 
