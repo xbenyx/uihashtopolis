@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-files',
-  templateUrl: './wordlist.component.html',
-  styleUrls: ['./files.component.scss']
+  selector: 'app-other',
+  templateUrl: './other.component.html',
+  styleUrls: ['../files.component.scss']
 })
-
-export class FilesComponent implements OnInit {
+export class OtherComponent implements OnInit {
   faTrash=faTrash;
   faHome=faHomeAlt;
   faPlus=faPlus;

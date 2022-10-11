@@ -21,7 +21,9 @@ import { SuperhashlistComponent } from './lists/superhashlist/superhashlist.comp
 import { NewSuperhashlistComponent } from './lists/new-superhashlist/new-superhashlist.component';
 import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
-import { FilesComponent } from './files/files.component';
+import { WordlistComponent } from './files/wordlist/wordlist.component';
+import { RulesComponent } from './files/rules/rules.component';
+import { OtherComponent } from './files/other/other.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
 import { CrackersComponent } from './crackers/crackers.component';
 import { BinariesComponent } from './crackers/binaries/binaries.component';
@@ -69,7 +71,9 @@ const appRoutes: Routes = [
     {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
     {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
     {path: 'lists/show-cracks', component: ShowCracksComponent ,canActivate: [AuthGuard] },
-    {path: 'files', component: FilesComponent ,canActivate: [AuthGuard] },
+    {path: 'files/wordlist', component: WordlistComponent ,canActivate: [AuthGuard] },
+    {path: 'files/rules', component: RulesComponent ,canActivate: [AuthGuard] },
+    {path: 'files/other', component: OtherComponent ,canActivate: [AuthGuard] },
     {path: 'chunk-activity', component: ChunkActivityComponent ,canActivate: [AuthGuard] },
     {path: 'crackers', component: CrackersComponent ,canActivate: [AuthGuard] },
     {path: 'crackers/binaries', component: BinariesComponent ,canActivate: [AuthGuard] },

@@ -32,7 +32,6 @@ import { SuperhashlistComponent } from './lists/superhashlist/superhashlist.comp
 import { NewSuperhashlistComponent } from './lists/new-superhashlist/new-superhashlist.component';
 import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
-import { FilesComponent } from './files/files.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
 import { CrackersComponent } from './crackers/crackers.component';
 import { BinariesComponent } from './crackers/binaries/binaries.component';
@@ -58,6 +57,12 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { ForgotComponent } from './auth/forgot/forgot.component';
+import { WordlistComponent } from './files/wordlist/wordlist.component';
+import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
+import { RulesComponent } from './files/rules/rules.component';
+import { RulesEditComponent } from './files/rules-edit/rules-edit.component';
+import { OtherComponent } from './files/other/other.component';
+import { OtherEditComponent } from './files/other-edit/other-edit.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +88,12 @@ import { ForgotComponent } from './auth/forgot/forgot.component';
     NewSuperhashlistComponent,
     SearchHashComponent,
     ShowCracksComponent,
-    FilesComponent,
+    WordlistComponent,
+    WordlistEditComponent,
+    RulesComponent,
+    RulesEditComponent,
+    OtherComponent,
+    OtherEditComponent,
     ChunkActivityComponent,
     CrackersComponent,
     BinariesComponent,
