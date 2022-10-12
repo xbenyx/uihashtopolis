@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BinaryService } from '../../service/shared/binary.service';
 import { faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-binaries',

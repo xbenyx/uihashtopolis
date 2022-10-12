@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import * as Utils from './shared/utils/util';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
