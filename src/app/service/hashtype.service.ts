@@ -11,7 +11,7 @@ import { Hashtype } from '../model/hashtype';
 })
 export class HashtypeService {
 
-  private endpoint = Configuration.BASE_URL + '/hashtypes';
+  private endpoint = Configuration.BASE_URL + '/hashtype';
 
   constructor(private http: HttpClient) { }
 
@@ -19,3 +19,4 @@ export class HashtypeService {
     return this.http.get<Hashtype[]>(this.endpoint);
   }
 }
+
