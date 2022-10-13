@@ -25,11 +25,11 @@
 
 // Section tab for import files
 
-html, body, div, h1, h2, h3, p, pre {
-	margin: 0;
-	padding: 0;
-	color: #333;
-}
+// html, body, div, h1, h2, h3, p, pre {
+// 	margin: 0;
+// 	padding: 0;
+// 	color: #333;
+// }
 html, body {
 	background: #bdcbe5;
 	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -331,7 +331,7 @@ a:hover {
 }
 .files > ul,
 .files > ul > li {
-	height: 200px;
+	height: 300px;
 }
 
 // SEction inside File Tabs
@@ -376,4 +376,40 @@ a:hover {
   border-color: #19212c;
 }
 
+// Table Section
+.table .thead-light th {
+  background-color: #F2F4F6;
+  color: #1F2937;
+}
 
+.table .thead-light th a {
+  color: #1F2937;
+}
+
+.rounded-start {
+  border-bottom-left-radius: 0.5rem !important;
+  border-top-left-radius: 0.5rem !important;
+}
+
+.border-0 {
+  border: 0 !important;
+}
+
+.rounded-end {
+  border-top-right-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+}
+
+.fw-bold {
+  font-weight: 500 !important;
+}
+
+.text-success {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-success-rgb), var(--bs-text-opacity)) !important;
+}
+
+.text-warning {
+  --bs-text-opacity: 1;
+  color: rgba(var(--bs-warning-rgb), var(--bs-text-opacity)) !important;
+}

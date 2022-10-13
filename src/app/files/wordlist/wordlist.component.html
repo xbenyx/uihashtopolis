@@ -17,7 +17,7 @@
         <button type="button" routerLink="../rules" class="btn btn-sm btn-outline-gray-600">Rules</button>
         <button type="button" routerLink="../other" class="btn btn-sm btn-outline-gray-600">Other</button>
     </div>
-</div>
+  </div>
 </div>
 <!-- Body -->
 <!-- Import Files tabs -->
@@ -42,7 +42,6 @@ Add Files
                 <input type="radio" name="files" id="tab3" class="tab-content-3">
                 <label for="tab3"><fa-icon [icon]="faDownload" aria-hidden="true"></fa-icon> Download URL</label>
                 <ul>
-
                   <li class="tab-content tab-content-first" >
                     <div class="row" >
                       <form>
@@ -57,21 +56,15 @@ Add Files
                         </div>
                       </div>
                       <div class="col-sm">
-                        <div class="file-field">
-                          <div class="d-flex justify-content-xl-center ms-xl-3">
-                              <div class="d-flex">
-                                <fa-icon [icon]="faPaperclip" aria-hidden="true"></fa-icon>
-                                  <input type="file" name='fileuploadfiles'>
-                                  <div class="d-md-block text-left">
-                                      <div class="fw-normal text-dark">Choose File</div>
-                                      <div class="text-gray small">CSV, TXT or ZIP. Max size of 4GB</div>
-                                  </div>
-                              </div>
+                          <div class="mb-3">
+                              <fa-icon [icon]="faPaperclip" aria-hidden="true"></fa-icon>
+                              <label for="formFile" class="form-label">Max size of 4 GB (bigger file use Import Files)</label>
+                              <input class="form-control fileuploadspan" type="file" id="formFile" (change)="handleFileInput($event)">
+                              <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
                           </div>
                       </div>
-                      </div>
                       <div class="col-sm">
-                            <button type="submit" class="btn btn-gray-800">Save</button>
+                            <button type="submit" class="btn btn-gray-800" (click)="onuploadFile('1')">Save</button>
                       </div>
                     </form>
                     </div>
@@ -91,10 +84,12 @@ Add Files
                         </div>
                       </div>
                       <div class="col-sm">
-
+                        <div class="mb-3">
+                               <p>Here is the section for the folder</p>
+                        </div>
                       </div>
                       <div class="col-sm">
-                        <button type="submit" class="btn btn-gray-800">Save</button>
+                        <button type="submit" class="btn btn-gray-800" (click)="onuploadFile('1')">Save</button>
                       </div>
                     </form>
                     </div>
@@ -114,16 +109,18 @@ Add Files
                         </div>
                       </div>
                       <div class="col-sm">
-                        <label for="secret">Download URL</label>
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <fa-icon [icon]="faLink" aria-hidden="true"></fa-icon>
-                          </span>
-                        <input type="text" name='urlimport' title="urlimport" class='form-control' id="urlimport"/>
+                        <div class="mb-3">
+                            <label for="secret">Download URL</label>
+                              <div class="input-group">
+                                <span class="input-group-text">
+                                  <fa-icon [icon]="faLink" aria-hidden="true"></fa-icon>
+                                </span>
+                                <input type="text" name='urlimport' title="urlimport" class='form-control' id="urlimport"/>
+                              </div>
                         </div>
                       </div>
                       <div class="col-sm">
-                        <button type="submit" class="btn btn-gray-800">Save</button>
+                        <button type="submit" class="btn btn-gray-800" (click)="onuploadFile('1')">Save</button>
                       </div>
                     </form>
                     </div>
@@ -131,8 +128,8 @@ Add Files
 
                 </ul>
               </div>
-          </div>
-      </div>
+            </div>
+        </div>
     </div>
   </div>
 </div>  <!-- Collapse End -->
@@ -140,8 +137,8 @@ Add Files
 <!-- Import Files tabs End -->
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
-        <!-- <h2>All users ({{allusers.length}})</h2> -->
         <div class="table-responsive">
+          &nbsp;
             <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
               <thead class="thead-light">
                 <tr>
@@ -164,15 +161,16 @@ Add Files
                     <td>{{ f.lineCount }}</td>
                     <td>{{f.accessGroupId }}</td>
                     <td>
-                        <a class='btn btn-primary float-right' [routerLink]="['/edit',f.fileId,'edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'wordlist-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
                             <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a>
+                          <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
                         </a>
                     </td>
                 </tr>
-                </tbody>
+              </tbody>
             </table>
         </div>
     </div>
 </div>
-
-

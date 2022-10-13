@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 export class FilesService {
 
   private endpoint = Configuration.BASE_URL + '/files';
+  private endpoint_file = Configuration.BASE_URL + '/file';  // its for testing can be deleted after
   private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
@@ -21,6 +22,16 @@ export class FilesService {
     );
   }
 
+  getFileu(id: number):Observable<any> {
+    // return this.http.get(`${this.endpoint_user}/${id}`)  // We need this for the API
+    return this.http.get(this.endpoint_file)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+
   private handleError ( err : HttpErrorResponse ) {
     if (err.error instanceof ErrorEvent){
       console.log('Client Side Error: ', err.error.message);
@@ -31,3 +42,5 @@ export class FilesService {
   }
 
 }
+
+

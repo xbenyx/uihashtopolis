@@ -1,1 +1,54 @@
-<p>wordlist-edit works!</p>
+  <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center form-bg-image">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                <h2 class="h5 mb-4">Update File</h2><br>
+                  <form (ngSubmit)="onUpdateFile()">
+                    <tr *ngFor="let f of file">
+                    <div class="row">
+                        <div class="form-group">
+                          <div class="form-outline">
+                                <label class="form-label" for="getfileid" >File ID</label>
+                                <input  [(ngModel)]="f.fileId" type='text' name='fileid' title="Fileid" class='form-control' id="fileid" disabled="disabled" readonly>
+                          </div>
+                        </div>
+                        <div class="form-outline">
+                            <label class="form-label" for="getfilename">File Name</label>
+                              <div class="input-group">
+                                <span class="input-group-text">
+                                  <fa-icon [icon]="faFileArchive" aria-hidden="true"></fa-icon>
+                                </span>
+                                <input [(ngModel)]="f.filename" type='text' name='filename' title="filename" class='form-control' id="filename" />
+                              </div>
+                        </div>
+                        <div class="form-outline">
+                          <label class="form-label" for="getfiletype">File Type</label>
+                            <div class="input-group">
+                              <span class="input-group-text">
+                                <fa-icon [icon]="faFileContract" aria-hidden="true"></fa-icon>
+                              </span>
+                              <input [(ngModel)]="f.fileType" type='text' name='filetype' title="filetype" class='form-control' id="filetype" />
+                            </div>
+                        </div>
+                        <div class="form-outline">
+                          <label class="form-label" for="getfilename">Associated Access Group</label>
+                            <div class="input-group">
+                              <span class="input-group-text">
+                                <fa-icon [icon]="faPeopleGroup" aria-hidden="true"></fa-icon>
+                              </span>
+                              <input [(ngModel)]="f.accessGroupId" type='text' name='filetype' title="filetype" class='form-control' id="filetype" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="f.isSecret" name='isSecret' title="isSecret">
+                        <label *ngIf="f.isSecret === 0" class="form-label" for="isSecret">Secret Disabled</label>
+                        <label *ngIf="f.isSecret === 1" class="form-label" for="isSecret">Secret Enabled</label>
+                    </div>
+                    <button  class="btn btn-gray-800" type="submit">Update</button>
+                  </tr>
+              </form>
+      </div>
+    </div>
+

@@ -22,6 +22,7 @@ import { NewSuperhashlistComponent } from './lists/new-superhashlist/new-superha
 import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
 import { WordlistComponent } from './files/wordlist/wordlist.component';
+import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
 import { RulesComponent } from './files/rules/rules.component';
 import { OtherComponent } from './files/other/other.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
     {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
     {path: 'lists/show-cracks', component: ShowCracksComponent ,canActivate: [AuthGuard] },
     {path: 'files/wordlist', component: WordlistComponent ,canActivate: [AuthGuard] },
+    {path: 'files/:id/wordlist-edit', component: WordlistEditComponent ,canActivate: [AuthGuard] },
     {path: 'files/rules', component: RulesComponent ,canActivate: [AuthGuard] },
     {path: 'files/other', component: OtherComponent ,canActivate: [AuthGuard] },
     {path: 'chunk-activity', component: ChunkActivityComponent ,canActivate: [AuthGuard] },

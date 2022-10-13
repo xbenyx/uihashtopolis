@@ -79,9 +79,9 @@
                         <label *ngIf="u.isValid === 0" class="form-label" for="isvalid">User Disabled</label>
                         <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label>
                     </div>
-                    <button  class="btn btn-gray-800" type="submit" (ngSubmit)="onUpdateUser(1)">Update</button>
+                    <button  class="btn btn-gray-800" type="submit" (ngSubmit)="onUpdateUser(u.userId)">Update</button>
                     &nbsp;
-                    <button  class="btn btn-danger" type="submit" (ngSubmit)="deleteUser(1)" onsubmit="if(!confirm('Do you really want to delete this user? This cannot be undone!')){return false;}">Delete User</button>
+                    <button  class="btn btn-danger" type="submit" (ngSubmit)="deleteUser(u.userId)" onsubmit="if(!confirm('Do you really want to delete this user? This cannot be undone!')){return false;}">Delete User</button>
                   </tr>
               </form>
       </div>

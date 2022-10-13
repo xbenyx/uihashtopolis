@@ -31,22 +31,6 @@ export function fileSizeValue(size: number): number | string {
 }
 
 /**
- * Converts file value to a more readable format
- *
- *
- * @param size - Value you want formatted
- * @returns Value in MB, GB, etc.. i.e 133.4 MB
- * ```
- * @public
- */
-
-
-// export function isFileMoreThanLimit(fileSize: number, fromUnit: string, toUnit: string , limit: number) {
-//   return fileSizeConverter(fileSize, fromUnit, toUnit) > limit;
-// }
-
-
-/**
  * Validate the file extension
  * Notes: This function is not in place but it could be usefule in the section of files
  *
