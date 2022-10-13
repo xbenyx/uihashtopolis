@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from '../../service/config/config.service';
+import { ConfigService } from '../../../service/config/config.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-server',
-  templateUrl: './server.component.html',
-  styleUrls: ['../config.component.scss']
+  selector: 'app-cracking',
+  templateUrl: './cracking.component.html',
+  styleUrls: ['../../config.component.scss']
 })
-export class ServerComponent implements OnInit {
+export class CrackingComponent implements OnInit {
+
   faHome=faHomeAlt;
 
   constructor(private configService: ConfigService) { }
@@ -23,4 +24,5 @@ export class ServerComponent implements OnInit {
     });
 
   }
+
 }

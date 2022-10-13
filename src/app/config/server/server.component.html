@@ -1,1 +1,114 @@
-<p>server works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
+              </li>
+              <li class="breadcrumb-item">Config</li>
+              <li class="breadcrumb-item active" aria-current="page">Server</li>
+          </ol>
+      </nav>
+      <h2 class="h4">Server</h2>
+      <p class="mb-0">Custom section</p>
+  </div>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group ms-2 ms-lg-3">
+        <button type="button" routerLink="./cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
+        <button type="button" routerLink="./yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
+        <button type="button" routerLink="./finetunning" class="btn btn-sm btn-outline-gray-600">Finetunning</button>
+        <button type="button" routerLink="./ui" class="btn btn-sm btn-outline-gray-600">UI</button>
+        <button type="button" routerLink="./multicast" class="btn btn-sm btn-outline-gray-600">Multicast</button>
+        <button type="button" routerLink="./notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
+    </div>
+  </div>
+</div>
+<!-- Breadcrum end -->
+<!-- Body -->
+<section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+  <div class="container">
+      <div class="row justify-content-center form-bg-image">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+              <!-- <h2 class="h5 mb-4">Cracking/Tasks</h2><br> -->
+                <form>
+                  <div class="row">
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="email_sender">Email address used as sender on notification emails.</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.emailSender" type='text' name='emailSender' title="emailSender" class='form-control' id="emailSender"> -->
+                              <input type='text' name='emailSender' title="emailSender" class='form-control' id="emailSender">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="email_sender_name">Sender's name on emails sent from Hashtopolis.</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.emailSenderName" type='text' name='emailSenderName' title="emailSenderName" class='form-control' id="emailSenderName"> -->
+                              <input type='text' name='emailSenderName' title="emailSenderName" class='form-control' id="emailSemailSenderNamender">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="base_host">Base hostname/port/protocol to use. Only fill this in to override the auto-determined value.</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.baseHost" type='text' name='baseHost' title="baseHost" class='form-control' id="baseHost"> -->
+                              <input type='text' name='baseHost' title="baseHost" class='form-control' id="baseHost">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="contact_email">Admin email address that will be displayed on the webpage footer. (Leave empty to hide).</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.contactEmail" type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail"> -->
+                              <input type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="contact_email">Admin email address that will be displayed on the webpage footer. (Leave empty to hide).</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.contactEmail" type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail"> -->
+                              <input type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="voucher_deletion">Vouchers can be used multiple times and will not be deleted automatically.</label>
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" type="checkbox" id="voucherDeletion"  name='voucherDeletion' title="voucherDeletion">
+                                  <!-- <input class="form-check-input" type="checkbox" id="voucherDeletion"  [ngModel]="c.voucherDeletion" name='voucherDeletion' title="voucherDeletion"> -->
+                                  <label class="form-label" for="voucherDeletion"></label>
+                                  <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="server_log_level">Server level to be logged on the server to file.</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.serverLogLevel" type='text' name='serverLogLevel' title="serverLogLevel" class='form-control' id="serverLogLevel"> -->
+                              <input type='text' name='serverLogLevel' title="serverLogLevel" class='form-control' id="serverLogLevel">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="base_url">Base url for the webpage (this does not include hostname and is normally determined automatically on the installation).</label>
+                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.baseUrl" type='text' name='baseUrl' title="baseUrl" class='form-control' id="baseUrl"> -->
+                              <input type='text' name='baseUrl' title="baseUrl" class='form-control' id="baseUrl">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label class="form-label" for="allow_deregister">Allow clients to deregister themselves automatically from the server.</label>
+                              <div class="form-check form-switch">
+                                  <input class="form-check-input" type="checkbox" id="allowDeregister"  name='allowDeregister' title="allowDeregister">
+                                  <!-- <input class="form-check-input" type="checkbox" id="allowDeregister"  [ngModel]="c.allowDeregister" name='allowDeregister' title="allowDeregister"> -->
+                                  <label class="form-label" for="allowDeregister"></label>
+                                  <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                              </div>
+                            </div>
+                          </div>
+                  </div>
+                  <button  class="btn btn-gray-800" type="submit">Update</button>
+            </form>
+    </div>
+  </div>
+</div>
+
+

@@ -34,6 +34,12 @@ import { SettingsComponent } from './account/settings/settings.component';
 import { NotificationsComponent } from './account/notifications/notifications.component';
 import { ConfigComponent } from './config/config.component';
 import { ServerComponent } from './config/server/server.component';
+import { CrackingComponent } from './config/server/cracking/cracking.component';
+import { YubikeyComponent } from './config/server/yubikey/yubikey.component';
+import { FinetunningComponent } from './config/server/finetunning/finetunning.component';
+import { UiComponent } from './config/server/ui/ui.component';
+import { MulticastComponent } from './config/server/multicast/multicast.component';
+import { NotificationsConfigComponent } from './config/server/notifications/notifications.component';
 import { HashtypesComponent } from './config/hashtypes/hashtypes.component';
 import { AgentBinariesComponent } from './config/agent-binaries/agent-binaries.component';
 import { LogComponent } from './config/log/log.component';
@@ -85,6 +91,12 @@ const appRoutes: Routes = [
     {path: 'account/notifications', component: NotificationsComponent ,canActivate: [AuthGuard] },
     {path: 'config', component: ConfigComponent ,canActivate: [AuthGuard] },
     {path: 'config/server', component: ServerComponent ,canActivate: [AuthGuard] },
+    {path: 'config/server/cracking', component: CrackingComponent ,canActivate: [AuthGuard] },
+    {path: 'config/server/yubikey', component: YubikeyComponent ,canActivate: [AuthGuard] },
+    {path: 'config/server/finetunning', component: FinetunningComponent ,canActivate: [AuthGuard] },
+    {path: 'config/server/ui', component: UiComponent ,canActivate: [AuthGuard] },
+    {path: 'config/server/multicast', component: MulticastComponent ,canActivate: [AuthGuard] },
+    {path: 'config/server/notifications', component: NotificationsConfigComponent ,canActivate: [AuthGuard] },
     {path: 'config/hashtypes', component: HashtypesComponent ,canActivate: [AuthGuard] },
     {path: 'config/agent-binaries', component: AgentBinariesComponent ,canActivate: [AuthGuard] },
     {path: 'config/log', component: LogComponent ,canActivate: [AuthGuard] },
