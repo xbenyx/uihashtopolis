@@ -1,59 +1,80 @@
-<div class="container">
-    <div class="card m-5 p-3">
-        <h2>Hashlists ({{allhashlists.length}})</h2>
-        <div class="card-body">
-            <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                <thead>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
+              </li>
+              <li class="breadcrumb-item">Lists</li>
+              <li class="breadcrumb-item active" aria-current="page">Hashlist</li>
+          </ol>
+      </nav>
+      <h2 class="h4">Hashlist</h2>
+      <p class="mb-0">Section to manage and create hashtypes.</p>
+  </div>
+  <div class="btn-toolbar mb-2 mb-md-0">
+      <a routerLink="/lists/new-hashlist" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+          New Hashlist
+      </a>
+  </div>
+</div>
+<!-- Body -->
+<div class="card border-0 shadow mb-4">
+  <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+              <thead class="thead-light">
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Hash type</th>
-                    <th>Format</th>
-                    <th>Cracked</th>
-                    <th>Pre-cracked</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let list of allhashlists">
-                    <td>
-                        <a href="hashlists.php?id=[[entry.getVal('hashlist').getId()]]">{{ list.hashlistId }}</a>
-                    </td>
-                    <td>
-                        <a href="hashlists.php?id=[[entry.getVal('hashlist').getId()]]">{{ list.hashlistName }}</a>
-                        <span *ngIf="list.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
-                    </td>
-                    <td>{{ list.hashTypeId }}</td>
-                    <td>{{ list.format}}</td>
-                    <td>
-                        (<a href="hashes.php?hashlist=[[entry.getVal('hashlist').getId()]]&filter=cracked">{{ list.cracked }}</a>
-                        /
-                        <a href="hashes.php?hashlist=[[entry.getVal('hashlist').getId()]]">{{ list.hashCount }}</a>)
-                    </td>
-                    <td>
-                        <form class="float-right mx-1" action="hashlists.php" method="POST">
-                            <input type="hidden" name="action" value="[[$DHashlistAction::EXPORT_HASHLIST]]">
-                            <input type="hidden" name="hashlist" value="[[entry.getVal('hashlist').getId()]]">
-                            <input type="hidden" name="csrf" value="[[csrf]]">
-                        <button type="submit" class='btn btn-light' data-toggle="tooltip" data-placement="top" title="Export"><fa-icon [icon]="faFileExport" aria-hidden="true"></fa-icon></button>
-                        </form>
-                        <form class="float-right mx-1" action="hashlists.php" method="POST">
-                            <input type="hidden" name="action" value="[[$DHashlistAction::ZAP_HASHLIST]]">
-                            <input type="hidden" name="hashlist" value="[[entry.getVal('hashlist').getId()]]">
-                            <input type="hidden" name="csrf" value="[[csrf]]">
-                        <button type="submit" class='btn btn-light' data-toggle="tooltip" data-placement="top" title="Import"><fa-icon [icon]="faFileImport" aria-hidden="true"></fa-icon></button>
-                        </form>
-                    </td>
-                    <td>
-                        <form class="float-right" action="hashlists.php" method="POST">
-                            <input type="hidden" name="action" value="[[$DHashlistAction::DELETE_HASHLIST]]">
-                            <input type="hidden" name="hashlist" value="[[entry.getVal('hashlist').getId()]]">
-                            <input type="hidden" name="csrf" value="[[csrf]]">
-                        <button type="submit" class='btn btn-danger' data-toggle="tooltip" data-placement="top" title="Delete"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Hash type</th>
+                  <th>Format</th>
+                  <th>Cracked</th>
+                  <th>Pre-cracked</th>
+                  <th>Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let list of allhashlists">
+                  <td>
+                      <a href="hashlists.php?id=[[entry.getVal('hashlist').getId()]]">{{ list.hashlistId }}</a>
+                  </td>
+                  <td>
+                      <a href="hashlists.php?id=[[entry.getVal('hashlist').getId()]]">{{ list.hashlistName }}</a>
+                      <span *ngIf="list.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+                  </td>
+                  <td>{{ list.hashTypeId }}</td>
+                  <td>{{ list.format}}</td>
+                  <td>
+                      (<a href="hashes.php?hashlist=[[entry.getVal('hashlist').getId()]]&filter=cracked">{{ list.cracked }}</a>
+                      /
+                      <a href="hashes.php?hashlist=[[entry.getVal('hashlist').getId()]]">{{ list.hashCount }}</a>)
+                  </td>
+                  <td>
+                      <form class="float-right mx-1" action="hashlists.php" method="POST">
+                          <input type="hidden" name="action" value="[[$DHashlistAction::EXPORT_HASHLIST]]">
+                          <input type="hidden" name="hashlist" value="[[entry.getVal('hashlist').getId()]]">
+                          <input type="hidden" name="csrf" value="[[csrf]]">
+                      <button type="submit" class='btn btn-light' data-toggle="tooltip" data-placement="top" title="Export"><fa-icon [icon]="faFileExport" aria-hidden="true"></fa-icon></button>
+                      </form>
+                      <form class="float-right mx-1" action="hashlists.php" method="POST">
+                          <input type="hidden" name="action" value="[[$DHashlistAction::ZAP_HASHLIST]]">
+                          <input type="hidden" name="hashlist" value="[[entry.getVal('hashlist').getId()]]">
+                          <input type="hidden" name="csrf" value="[[csrf]]">
+                      <button type="submit" class='btn btn-light' data-toggle="tooltip" data-placement="top" title="Import"><fa-icon [icon]="faFileImport" aria-hidden="true"></fa-icon></button>
+                      </form>
+                  </td>
+                  <td>
+                      <form class="float-right" action="hashlists.php" method="POST">
+                          <input type="hidden" name="action" value="[[$DHashlistAction::DELETE_HASHLIST]]">
+                          <input type="hidden" name="hashlist" value="[[entry.getVal('hashlist').getId()]]">
+                          <input type="hidden" name="csrf" value="[[csrf]]">
+                      <button type="submit" class='btn btn-danger' data-toggle="tooltip" data-placement="top" title="Delete"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
+                      </form>
+                  </td>
+              </tr>
+              </tbody>
             </table>
         </div>
     </div>

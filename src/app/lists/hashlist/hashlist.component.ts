@@ -1,18 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListsService } from '../../service/lists/hashlist.service';
-import { faEdit, faTrash, faLock, faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-hashlist',
   templateUrl: './hashlist.component.html',
-  styleUrls: ['./hashlist.component.scss']
+  styleUrls: ['../lists.component.scss']
 })
 export class HashlistComponent implements OnInit, OnDestroy {
   faTrash=faTrash;
   faLock=faLock;
   faFileImport=faFileImport;
   faFileExport=faFileExport;
+  faPlus=faPlus;
+  faHome=faHomeAlt;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
