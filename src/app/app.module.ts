@@ -70,6 +70,7 @@ import { RulesComponent } from './files/rules/rules.component';
 import { RulesEditComponent } from './files/rules-edit/rules-edit.component';
 import { OtherComponent } from './files/other/other.component';
 import { OtherEditComponent } from './files/other-edit/other-edit.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 
 @NgModule({
@@ -131,7 +132,8 @@ import { OtherEditComponent } from './files/other-edit/other-edit.component';
     AuthComponent,
     LoadingSpinnerComponent,
     AlertComponent,
-    ForgotComponent
+    ForgotComponent,
+    ProjectsComponent
   ],
   imports: [
     BrowserModule,

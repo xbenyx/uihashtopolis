@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-new-supertasks',
   templateUrl: './new-supertasks.component.html',
-  styleUrls: ['./new-supertasks.component.scss']
+  styleUrls: ['../tasks.component.scss']
 })
 export class NewSupertasksComponent implements OnInit {
 

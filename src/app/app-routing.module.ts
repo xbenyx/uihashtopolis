@@ -6,6 +6,7 @@ import { AgentsComponent } from './agents/agents.component';
 import { ShowAgentsComponent } from './agents/show-agents/show-agents.component';
 import { NewAgentComponent } from './agents/new-agent/new-agent.component';
 import { AgentStatusComponent } from './agents/agent-status/agent-status.component';
+import { ProjectsComponent } from './projects/projects.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { ShowTasksComponent } from './tasks/show-tasks/show-tasks.component';
 import { NewTasksComponent } from './tasks/new-tasks/new-tasks.component';
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     {path: 'agents/agent-status', component: AgentStatusComponent ,canActivate: [AuthGuard] },
     {path: 'agents/new-agent', component: NewAgentComponent ,canActivate: [AuthGuard] },
     {path: 'agents/show-agents', component: ShowAgentsComponent ,canActivate: [AuthGuard] },
+    {path: 'projects/', component: ProjectsComponent ,canActivate: [AuthGuard] },
     {path: 'tasks', component: TasksComponent ,canActivate: [AuthGuard] },
     {path: 'tasks/show-tasks', component: ShowTasksComponent ,canActivate: [AuthGuard] },
     {path: 'tasks/new-tasks', component: NewTasksComponent ,canActivate: [AuthGuard] },

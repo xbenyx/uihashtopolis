@@ -46,6 +46,12 @@
                         <label *ngIf="f.isSecret === 0" class="form-label" for="isSecret">Secret Disabled</label>
                         <label *ngIf="f.isSecret === 1" class="form-label" for="isSecret">Secret Enabled</label>
                     </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                            <label class="form-label" for="getfileid" >Binary type to run task</label>
+                            <input  [(ngModel)]="f.fileId" type='text' name='fileid' title="Fileid" class='form-control' id="fileid" disabled="disabled" readonly>
+                      </div>
+                    </div>
                     <button  class="btn btn-gray-800" type="submit">Update</button>
                   </tr>
               </form>

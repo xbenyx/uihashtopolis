@@ -28,7 +28,7 @@ export class LogComponent implements OnInit {
       });
       this.dtOptions = {
         dom: 'Bfrtip',
-        pageLength: 100,
+        pageLength: 10,
         stateSave: true,
         select: true,
         buttons: ['copy', 'excel', 'csv']

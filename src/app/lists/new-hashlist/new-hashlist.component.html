@@ -1,1 +1,68 @@
-<p>new-hashlist works!</p>
+  <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center form-bg-image">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                  <h2 class="h5 mb-4">Create Hashlist</h2><br>
+                  <form>
+                    <!-- <tr *ngFor="let u of user"> -->
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getname" >Name</label>
+                                <input  type='text' name='Hashlistname' title="Hashlistname" class='form-control' id="Hashlistname">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label" for="gethashtype">Hashtype</label>
+                              <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label" for="gethashlistformat">Hashlist format</label>
+                              <td>
+                                <select class='form-control' id='hashlistFormat' name="format" onChange="formatChange(this.value);" title="Hashlist Format">
+                                  <option value="0">Text file</option>
+                                  <option value="1">HCCAPX file / PMKID hash</option>
+                                  <option value="2">Binary file (single hash)</option>
+                                </select>
+                                <span class="textopt">
+                                  <br>
+                                  <input type="checkbox" name="salted" id="salted" value="1" title="Is Salted"> Salted hashes, separator
+                                  <input type="text" class='form-control' name="separator" value=";" size="1" title="Separator">
+                                </span>
+                                <span class="textopt">
+                                  <br>
+                                  <input type="checkbox" name="hexsalted" value="1" title="Salt in HEX"> Salt is in hex (only when salted hashes)
+                                </span>
+                              </td>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label" for="gethashsource">Hash source<br>
+                                <i>(make sure it's sorted!)</i></label>
+                                <td>
+                                  <input type="radio" name="source" onChange="sourceChange(this.value);" value="paste" title="Pasting"> Paste<br>
+                                  <input type="radio" name="source" onChange="sourceChange(this.value);" value="upload" checked title="Upload"> Upload<br>
+                                  <input type="radio" name="source" onChange="sourceChange(this.value);" value="import" title="Import"> Import<br>
+                                  <input type="radio" name="source" onChange="sourceChange(this.value);" value="url" title="Download"> URL download
+                                </td>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label" for="getaccessgroup">Access group (where the task belongs to)</label>
+                              <input  type='text' name='accessgroup' title="Accessgroup" class='form-control' id="Accessgroup">
+                          </div>
+                        </div>
+                    </div>
+                    <button  class="btn btn-gray-800" type="submit" >Update</button>
+                  <!-- </tr> -->
+              </form>
+      </div>
+    </div>
+  </div>
+</div>
