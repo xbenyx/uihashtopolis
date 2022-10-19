@@ -1,1 +1,53 @@
-<p>projects works!</p>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
+              </li>
+              <li class="breadcrumb-item">Config</li>
+              <li class="breadcrumb-item active" aria-current="page">Projects</li>
+          </ol>
+      </nav>
+      <h2 class="h4">Projects</h2>
+      <p class="mb-0">Section to manage and create custom projects.</p>
+  </div>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <!-- To add a button on the right side, in case that we need it -->
+      <!-- <a  class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+          New Preprocessor
+      </a> -->
+  </div>
+</div>
+<!-- body -->
+<div class="card border-0 shadow mb-4">
+  <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+              <thead class="thead-light">
+                <tr>
+                    <th class="border-0 rounded-start">Preprocessor ID</th>
+                    <th class="border-0">Name</th>
+                    <th class="border-0 rounded-end">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let p of projects">
+                    <td class="text-align:center">fdgfdg</td>
+                    <td>gfdg</td>
+                    <td>
+                      <!-- <a class='btn-outline-gray-600' [routerLink]="['/files',p.preprocessorId,'wordlist-edit']" [queryParams]="{allowEdit: +p.preprocessorId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                      </a> -->
+                      <!-- <a>
+                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(p.preprocessorId)"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
+                      </a> -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- body End -->
