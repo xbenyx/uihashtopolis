@@ -11,7 +11,7 @@ import { Configuration } from '../configuration';
 export class ProjectService {
 
   private endpoint = Configuration.BASE_URL + '/projects';
-  private endpoint_user = Configuration.BASE_URL + '/project';  // its for testing using nested json array
+  private endpoint_project = Configuration.BASE_URL + '/projects';  // its for testing using nested json array
   private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
@@ -35,7 +35,7 @@ export class ProjectService {
 
   getProject(id: number):Observable<any> {
     // return this.http.get(`${this.endpoint_user}/${id}`)  // We need this for the API
-    return this.http.get(this.endpoint_user)
+    return this.http.get(this.endpoint_project)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

@@ -5,7 +5,6 @@
               <li class="breadcrumb-item">
                     <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
               </li>
-              <li class="breadcrumb-item">Config</li>
               <li class="breadcrumb-item active" aria-current="page">Projects</li>
           </ol>
       </nav>
@@ -27,22 +26,27 @@
             <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
               <thead class="thead-light">
                 <tr>
-                    <th class="border-0 rounded-start">Preprocessor ID</th>
+                    <th class="border-0 rounded-start">Project ID</th>
                     <th class="border-0">Name</th>
+                    <th class="border-0">Created By</th>
+                    <th class="border-0">Expiry Date</th>
+                    <th class="border-0">Status</th>
+                    <th class="border-0">Priority</th>
                     <th class="border-0 rounded-end">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let p of projects">
-                    <td class="text-align:center">fdgfdg</td>
-                    <td>gfdg</td>
+                    <td class="text-align:center">{{p.project_id}}</td>
+                    <td>{{p.project_reference}}</td>
+                    <td>{{p.project_created_by}}</td>
+                    <td>{{p.project_expiry_date}}</td>
+                    <td>{{getStatus(p.document_status)}}</td>
+                    <td>{{p.project_priority}}</td>
                     <td>
-                      <!-- <a class='btn-outline-gray-600' [routerLink]="['/files',p.preprocessorId,'wordlist-edit']" [queryParams]="{allowEdit: +p.preprocessorId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
-                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                      </a> -->
-                      <!-- <a>
-                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(p.preprocessorId)"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
-                      </a> -->
+                      <a>
+                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="renderPDF(p.project_id)">PDF</button>
+                      </a>
                     </td>
                 </tr>
                 </tbody>
