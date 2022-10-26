@@ -7,8 +7,7 @@ import { User } from '../user.model';
 
 @Component({
   selector: 'app-edit-users',
-  templateUrl: './edit-users.component.html',
-  styleUrls: ['../users.component.scss']
+  templateUrl: './edit-users.component.html'
 })
 export class EditUsersComponent implements OnInit {
   faCalendar=faCalendar;

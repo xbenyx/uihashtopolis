@@ -4,8 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-config',
-  templateUrl: './config.component.html',
-  styleUrls: ['./config.component.scss']
+  templateUrl: './config.component.html'
 })
 export class ConfigComponent  {
 

@@ -8,8 +8,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-users',
-  templateUrl: './all-users.component.html',
-  styleUrls: ['./all-users.component.scss']
+  templateUrl: './all-users.component.html'
 })
 export class AllUsersComponent  implements OnInit, OnDestroy {
   faEdit=faEdit;

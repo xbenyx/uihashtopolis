@@ -3,8 +3,7 @@ import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-finetunning',
-  templateUrl: './finetunning.component.html',
-  styleUrls: ['../../config.component.scss']
+  templateUrl: './finetunning.component.html'
 })
 export class FinetunningComponent implements OnInit {
   faHome=faHomeAlt;

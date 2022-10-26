@@ -8,8 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-preprocessors',
-  templateUrl: './preprocessors.component.html',
-  styleUrls: ['../config.component.scss']
+  templateUrl: './preprocessors.component.html'
 })
 export class PreprocessorsComponent implements OnInit {
   public isCollapsed = true;

@@ -3,8 +3,7 @@ import { faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-files',
-  templateUrl: './wordlist.component.html',
-  styleUrls: ['./files.component.scss']
+  templateUrl: './files.component.html'
 })
 
 export class FilesComponent implements OnInit {

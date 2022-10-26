@@ -8,8 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-hashtypes',
-  templateUrl: './hashtypes.component.html',
-  styleUrls: ['../config.component.scss']
+  templateUrl: './hashtypes.component.html'
 })
 export class HashtypesComponent implements OnInit {
   public isCollapsed = true;

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-supertasks',
-  templateUrl: './supertasks.component.html',
-  styleUrls: ['../tasks.component.scss']
+  templateUrl: './supertasks.component.html'
 })
 export class SupertasksComponent implements OnInit {
 

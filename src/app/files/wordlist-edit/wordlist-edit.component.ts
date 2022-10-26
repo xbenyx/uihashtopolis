@@ -8,8 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-wordlist-edit',
-  templateUrl: './wordlist-edit.component.html',
-  styleUrls: ['../files.component.scss']
+  templateUrl: './wordlist-edit.component.html'
 })
 export class WordlistEditComponent implements OnInit {
   faFileArchive=faFileArchive;

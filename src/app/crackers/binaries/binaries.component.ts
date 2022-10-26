@@ -5,8 +5,7 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-binaries',
-  templateUrl: './binaries.component.html',
-  styleUrls: ['./binaries.component.scss']
+  templateUrl: './binaries.component.html'
 })
 export class BinariesComponent implements OnInit, OnDestroy {
   faTrash=faTrash;

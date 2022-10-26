@@ -5,8 +5,7 @@ import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-cracking',
-  templateUrl: './cracking.component.html',
-  styleUrls: ['../../config.component.scss']
+  templateUrl: './cracking.component.html'
 })
 export class CrackingComponent implements OnInit {
 

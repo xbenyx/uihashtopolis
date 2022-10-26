@@ -5,8 +5,7 @@ import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-server',
-  templateUrl: './server.component.html',
-  styleUrls: ['../config.component.scss']
+  templateUrl: './server.component.html'
 })
 export class ServerComponent implements OnInit {
   faHome=faHomeAlt;

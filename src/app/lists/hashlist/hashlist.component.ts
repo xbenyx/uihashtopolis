@@ -5,8 +5,7 @@ import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-hashlist',
-  templateUrl: './hashlist.component.html',
-  styleUrls: ['../lists.component.scss']
+  templateUrl: './hashlist.component.html'
 })
 export class HashlistComponent implements OnInit, OnDestroy {
   faTrash=faTrash;

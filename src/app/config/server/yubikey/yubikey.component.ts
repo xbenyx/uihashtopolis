@@ -3,8 +3,7 @@ import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-yubikey',
-  templateUrl: './yubikey.component.html',
-  styleUrls: ['../../config.component.scss']
+  templateUrl: './yubikey.component.html'
 })
 export class YubikeyComponent implements OnInit {
   faHome=faHomeAlt;

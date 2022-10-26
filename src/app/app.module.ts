@@ -73,7 +73,6 @@ import { OtherEditComponent } from './files/other-edit/other-edit.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { EditProjectComponent } from './projects/edit-project/edit-project.component';
-import { ReportProjectComponent } from './projects/report-project/report-project.component';
 
 
 @NgModule({
@@ -138,8 +137,7 @@ import { ReportProjectComponent } from './projects/report-project/report-project
     ForgotComponent,
     ProjectsComponent,
     NewProjectComponent,
-    EditProjectComponent,
-    ReportProjectComponent
+    EditProjectComponent
   ],
   imports: [
     BrowserModule,

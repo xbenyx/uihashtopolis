@@ -52,6 +52,43 @@ export function validateFileExt(filename: string): boolean {
   return false;
 }
 
+/**
+ * Converts any URL path, local or http to base64 image.
+ * Notes: Only tested with png
+ *
+ * @param url - url patch i.e ../../assets/img/backgroung.png
+ * @returns data:image/png;base64,(encode picture)
+ * ```
+ * @beta
+ */
+
+
+export function getBase64ImageFromURL(url: string) {
+  return new Promise((resolve, reject) => {
+    var img = new Image();
+    img.setAttribute("crossOrigin", "anonymous");
+
+    img.onload = () => {
+      var canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      var ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+
+      var dataURL = canvas.toDataURL("image/png");
+
+      resolve(dataURL);
+    };
+
+    img.onerror = error => {
+      reject(error);
+    };
+
+    img.src = url;
+
+  });}
+
 
 
 

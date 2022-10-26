@@ -8,8 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-agent-binaries',
-  templateUrl: './agent-binaries.component.html',
-  styleUrls: ['../config.component.scss']
+  templateUrl: './agent-binaries.component.html'
 })
 export class AgentBinariesComponent implements OnInit {
   public isCollapsed = true;

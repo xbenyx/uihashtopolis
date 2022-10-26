@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-rules-edit',
-  templateUrl: './rules-edit.component.html',
-  styleUrls: ['./rules-edit.component.scss']
+  templateUrl: './rules-edit.component.html'
 })
 export class RulesEditComponent implements OnInit {
 

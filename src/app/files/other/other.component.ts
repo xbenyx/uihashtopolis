@@ -3,8 +3,7 @@ import { faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-other',
-  templateUrl: './other.component.html',
-  styleUrls: ['../files.component.scss']
+  templateUrl: './other.component.html'
 })
 export class OtherComponent implements OnInit {
   faTrash=faTrash;

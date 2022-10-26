@@ -20,8 +20,7 @@ export interface UserInfo {
 
 @Component({
   selector: 'app-new-project',
-  templateUrl: './new-project.component.html',
-  styleUrls: ['../projects.component.scss']
+  templateUrl: './new-project.component.html'
 })
 
 export class NewProjectComponent implements OnInit {

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-new-hashlist',
-  templateUrl: './new-hashlist.component.html',
-  styleUrls: ['../lists.component.scss']
+  templateUrl: './new-hashlist.component.html'
 })
 export class NewHashlistComponent implements OnInit {
 

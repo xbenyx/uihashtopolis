@@ -9,8 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-new-tasks',
-  templateUrl: './new-tasks.component.html',
-  styleUrls: ['../tasks.component.scss']
+  templateUrl: './new-tasks.component.html'
 })
 export class NewTasksComponent implements OnInit {
   public isCollapsed = true;

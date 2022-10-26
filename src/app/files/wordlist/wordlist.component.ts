@@ -9,8 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-wordlist',
-  templateUrl: './wordlist.component.html',
-  styleUrls: ['../files.component.scss']
+  templateUrl: './wordlist.component.html'
 })
 export class WordlistComponent implements OnInit {
   public isCollapsed = true;

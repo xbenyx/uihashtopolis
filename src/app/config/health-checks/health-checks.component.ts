@@ -9,8 +9,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-health-checks',
-  templateUrl: './health-checks.component.html',
-  styleUrls: ['../config.component.scss']
+  templateUrl: './health-checks.component.html'
 })
 export class HealthChecksComponent implements OnInit {
   public isCollapsed = true;
