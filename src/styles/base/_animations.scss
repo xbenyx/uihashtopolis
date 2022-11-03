@@ -9,7 +9,7 @@
 $AgentMAIN-mainCol: #cecaca ;
 $AgentMAIN-mainBoxShadow: rgba(0,0,0,.2);
 $AgentMAIN-width: 13.5vmin ;
-$AgentMAIN-height: 5vmin;
+$AgentMAIN-height: 2.5vw;
 $AgentMAINblackbottom: 1.8vmin;
 $AgentMAINblackbottom-bottom: 2vmin;
 $AgentMAINblackbottom-left: 10vmin;
@@ -21,15 +21,16 @@ $AgentMAINinfobox-height: 4vmin;
 
 .box-agent {
   display: block;
-  float: right;
-  margin-right: 30px;
+  // float: right;
+  margin-right: 2%;
+  padding-top: 0.5%;
 }
 
 // AGENT ―――――――――――――――――――――――――
 
 .agent {
   content: "";
-  padding-left:7px;
+  padding-left:5px;
   align-items: center;
   text-align: left;
   display: flex;

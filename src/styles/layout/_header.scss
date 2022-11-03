@@ -11,8 +11,8 @@
   border: 15px solid green;
 }
 .active span {
-    color: #28A745;
-    border: 15px solid green;
+  color: #28A745;
+  border: 15px solid green;
 }
 
 .dropdown-menu-end {
@@ -26,23 +26,6 @@
 
 .dropdown-menu-end:before {
   right: 20px;   left: auto;
-}
-
-.mt-0 {
-  margin-top: 0.5rem !important;
-}
-
-.py-1 {
-  padding-top: 0.25rem !important;
-  padding-bottom: 0.25rem !important;
-}
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
-
-.ms-lg-3 {
-  margin-left: 1rem !important;
 }
 
 .dropdown-item {
@@ -75,14 +58,6 @@
   background-color: transparent;
 }
 
-.d-flex {
-  display: flex !important;
-}
-
-.align-items-center {
-  align-items: center !important;
-}
-
 .dropdown-menu .dropdown-header .dropdown-icon,
 .dropdown-menu .dropdown-item .dropdown-icon {
     height: 1.25rem;
@@ -103,9 +78,9 @@
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding-top: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 0rem;
   padding-bottom: 0.5rem;
-  padding-right: 1rem;
+  // padding-right: 1rem;
 }
 
 .navbar > .container,
@@ -389,6 +364,51 @@
 	color: #151fa9;
 }
 
+// Logo SVG animation
+svg {
+  position: center;
+  height: 60px;
+  margin: 0px 5px 0px 5px;
+}
+
+.square {
+  stroke-dasharray: 650;
+  stroke-dashoffset: -650;
+  animation: draw-square 3s ;
+  // animation-fill-mode: forwards; //leave square after animation
+  transform-origin: 50% 50%;
+}
+
+@keyframes draw-square {
+  from {
+    stroke-dashoffset: -650;
+    transform: rotate(0deg);
+  }
+  to{
+    stroke-dashoffset: 0;
+    transform: rotate(720deg);
+  }
+}
+
+.hexa {
+  stroke-dasharray: 450;
+  stroke-dashoffset: -450;
+  animation: draw-hexa 3s;
+  animation-delay: 1s;
+  transform-origin: 50% 50%;
+}
+
+@keyframes draw-hexa {
+  from {
+    stroke-dashoffset: -450;
+    transform: rotate(0deg);
+  }
+  to{
+    stroke-dashoffset: 0;
+    transform: rotate(360deg);
+  }
+}
+
 /*
   01- End
 */
@@ -396,35 +416,6 @@
 /*
   02- Breadcrum
 */
-
-.d-flex {
-  display: flex !important;
-}
-
-.flex-wrap {
-  flex-wrap: wrap !important;
-}
-
-.flex-md-nowrap {
-  flex-wrap: nowrap !important;
-}
-
-.py-4 {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-}
-
-.d-block {
-  display: block !important;
-}
-
-.mb-4 {
-  margin-bottom: 1.5rem !important;
-}
-
-.mb-md-0 {
-  margin-bottom: 0 !important;
-}
 
 @media (min-width: 768px) {
 .d-md-inline-block {
@@ -470,4 +461,79 @@
 
 /*
   02- End
+*/
+
+/*
+  03- Notifications Navbar
+*/
+.notif-bell-scroll {
+  overflow-y: auto;
+  height:300px;
+}
+
+.notif-bell.unread::before {
+  position: absolute;
+  content: "";
+  background-color: #E11D48;
+  right: 12px;
+  top: 7px;
+  height: 0.75rem;
+  width: 0.75rem;
+  border-radius: 50%;
+  border: 2px solid #F2F4F6;
+}
+
+@media (max-width: 575.98px) {
+  .notif-bell.unread::before {
+    background-color: #ffffff;
+  }
+}
+
+.icon {
+  height: 2rem;
+}
+
+.icon.icon-sm {
+  height: 1.4rem;
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: 0.5rem;
+}
+
+.list-group-numbered {
+  list-style-type: none;
+  counter-reset: section;
+}
+
+.list-group-numbered > li::before {
+  content: counters(section, ".") ". ";
+  counter-increment: section;
+}
+
+.list-group-item-action {
+  width: 100%;
+  color: #374151;
+  text-align: inherit;
+}
+
+.list-group-item-action:hover, .list-group-item-action:focus {
+  z-index: 1;
+  color: #374151;
+  text-decoration: none;
+  background-color: #F2F4F6;
+}
+
+.list-group-item-action:active {
+  color: #374151;
+  background-color: #E5E7EB;
+}
+
+
+/*
+  03- End
 */

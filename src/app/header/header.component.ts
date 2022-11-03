@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faPowerOff, faSun, faMoon, faUserCircle, faInbox, faQuestionCircle, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff, faSun, faMoon, faUserCircle, faInbox, faQuestionCircle, faBell, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { NotificationsBellService } from '../service/shared/notifbell.service';
 
 @Component({
   selector: 'app-header',
@@ -13,13 +14,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
   storedToggletheme:string = localStorage.getItem('toggledarkmode');
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private notificationbService: NotificationsBellService) { }
 
   collapsed = true;
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
   }
+  // Icons Notifications Menu
+  faEye=faEye;
 
+  // Icons User Menu
   faPowerOff=faPowerOff;
   faBell=faBell;
   faSun=faSun;
@@ -28,9 +32,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faInbox=faInbox;
   faQuestionCircle=faQuestionCircle;
 
+  public notifbell: {title: string, description: string, datetime: string}[] = [];
+
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthentificated = !!user;
+    });
+
+    this.notificationbService.getNoficationsBell().subscribe((nb: any) => {
+      this.notifbell = nb;
     });
 
   }

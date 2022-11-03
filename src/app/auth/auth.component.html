@@ -17,7 +17,7 @@
                           <div *ngIf="isLoading" style="text-align: center;">
                               <app-loading-spinner></app-loading-spinner>
                           </div>
-                          <form  #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" class="mt-0">
+                          <form  #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" class="mt-5">
                               <!-- Form -->
                               <div class="form-group mb-0">
                                   <label for="inputUsername">User Name</label>
