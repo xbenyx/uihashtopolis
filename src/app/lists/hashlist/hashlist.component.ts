@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListsService } from '../../service/lists/hashlist.service';
-import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -26,10 +26,11 @@ export class HashlistComponent implements OnInit, OnDestroy {
   constructor(private listsService: ListsService) { }
 
   ngOnInit(): void {
-    this.listsService.getHashList().subscribe((list: any) => {
+    this.listsService.getAllhashlists().subscribe((list: any) => {
       this.allhashlists = list;
       this.dtTrigger.next(void 0);
     });
+
     this.dtOptions = {
       dom: 'Bfrtip',
       stateSave: true,
@@ -45,4 +46,5 @@ export class HashlistComponent implements OnInit, OnDestroy {
     ]
     };
   }
+
 }

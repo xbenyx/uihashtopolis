@@ -1,31 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { map, Observable } from 'rxjs';
-
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { map, Observable, tap, catchError, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
-import { CreateHashlist, Hashlist } from '../../model/hashlist';
+import { CreateHashlist, Hashlist} from '../../models/hashlist';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListsService {
 
-  private endpoint = Configuration.BASE_URL + '/hashlist';
-  private accessKey = Configuration.ACCESS_KEY;
+  private endpoint_v1 = Configuration.BASE_URL_APIV1 + '/ui/hashlists';
 
   constructor(private http: HttpClient) { }
 
-  createHashlist(hashlist: CreateHashlist): Observable<number> {
-    return this.http.post<number>(this.endpoint, hashlist, {
-        params: {
-            api_key: this.accessKey
-        }
-    });
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
+    }
+    return throwError(() => err);
   }
 
-  getHashList():Observable<any> {
-    return this.http.get(this.endpoint);
+  getAllhashlists():Observable<any> {
+    return this.http.get(this.endpoint_v1)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
   }
 
 }

@@ -24,6 +24,8 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
 
   public allusers: {userId: number, username: string, registeredSince: number, lastLoginDate: number, email: string, isValid: number, sessionLifetime:number, rightGroupId: string}[] = [];
 
+  public test:any  = [];
+
   constructor(private usersService: UsersService,
     private route:ActivatedRoute,private router:Router) { }
 
@@ -32,6 +34,7 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
       this.allusers = users;
       this.dtTrigger.next(void 0);
     });
+
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,
@@ -44,5 +47,7 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
   editButtonClick(){
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
+
+
 }
 

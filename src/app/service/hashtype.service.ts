@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Configuration } from './configuration';
-import { Hashtype } from '../model/hashtype';
+import { Hashtype } from '../models/hashtype';
 
 @Injectable({
   providedIn: 'root'

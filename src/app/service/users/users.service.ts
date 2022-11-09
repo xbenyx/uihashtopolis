@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
@@ -8,8 +8,10 @@ import { Configuration } from '../configuration';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UsersService {
 
+  // private endpoint_apiv1 = Configuration.BASE_URL_APIV1 ;
   private endpoint = Configuration.BASE_URL + '/users';
   private endpoint_user = Configuration.BASE_URL + '/user';  // its for testing using nested json array
   private accessKey = Configuration.ACCESS_KEY;

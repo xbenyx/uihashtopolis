@@ -44,6 +44,10 @@ export class AuthComponent implements OnInit {
       this.isLoading = false;
     });
 
+
+    // this.authService.logIn(username,password);
+
+
     form.reset();
   }
 

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
 import { map, Observable } from 'rxjs';
-
 import { Configuration } from './configuration';
-import { NormalTask } from '../model/task';
+import { NormalTask } from '../models/task';
 
 @Injectable({
     providedIn: 'root'

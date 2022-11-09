@@ -1,14 +1,9 @@
 export interface BaseHashlist {
+    hashlistId: number;
+    hashtypeId: number;
     name: string;
     format: number;
-    hashtypeId: number;
-    saltSeparator: string;
-    isSecret: boolean;
-    isHexSalted: boolean;
-    isSalted: boolean;
-    accessGroupId: number;
-    useBrain: boolean;
-    brainFeatures: number;
+    hashCount: number;
 }
 
 export interface CreateHashlist extends BaseHashlist {

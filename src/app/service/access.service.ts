@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { AccessGroup } from '../model/access-group';
+import { AccessGroup } from '../models/access-group';
 import { Configuration } from './configuration';
 
 @Injectable({
