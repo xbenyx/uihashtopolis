@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../service/projects/projects.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash, faEdit, faCode, faCalendar, faFileText, faBook, faBullhorn} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faEdit, faCode, faCalendar, faFileText, faBook, faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -33,11 +33,13 @@ export class NewProjectComponent implements OnInit {
   faCalendar=faCalendar;
   faFileText=faFileText;
   faBook=faBook;
-  faBullhorn=faBullhorn;
+  faFilePdf=faFilePdf;
 
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+
+  randomstring:any = Math.random().toString(36).slice(-9);
 
   // public projects: {preprocessorId: number}[] = [];
   public projects: [] = [];
@@ -54,10 +56,7 @@ export class NewProjectComponent implements OnInit {
 
   customer = false;
 
-
-
   customerInformation = [];
-
 
   fruite = ['apple','orange'];
 

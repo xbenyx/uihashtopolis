@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../service/projects/projects.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faEdit, faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -24,6 +24,7 @@ export class ProjectsComponent implements OnInit {
   faPlus=faPlus;
   faTrash=faTrash;
   faEdit=faEdit;
+  faFilePdf=faFilePdf;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};

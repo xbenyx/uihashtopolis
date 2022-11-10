@@ -44,7 +44,7 @@
                     <td>{{p.project_priority}}</td>
                     <td>
                       <a>
-                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="renderPDF(p.project_id)">PDF</button>
+                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Generate PDF" (click)="renderPDF(p.project_id)"><fa-icon [icon]="faFilePdf" aria-hidden="true"></fa-icon></button>
                       </a>
                     </td>
                 </tr>
