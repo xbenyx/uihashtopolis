@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+              <li class="breadcrumb-item">
+                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
+              </li>
+              <li class="breadcrumb-item">Engine</li>
+              <li class="breadcrumb-item active" aria-current="page">Crackers</li>
+          </ol>
+      </nav>
+      <h2 class="h4">Crackers</h2>
+      <p class="mb-0">Section to add and modify crackers..</p>
+  </div>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+      <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+        New Cracker
+    </a>
+  </div>
+</div>
+<!-- New Cracker -->
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center form-bg-image">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                <h2 class="h5 mb-4">Create Binary</h2><br>
+                  <form (ngSubmit)="onSubmit()">
+                      <div class="form-group">
+                        <div class="form-outline">
+                          <label class="form-label" for="getuserid">Cracker Type Name</label>
+                          <select name="name" title="Name" class="form-control">
+                            <option value="hashcat">Hashcat</option>
+                            <option value="generic">Generic Cracker</option>
+                          </select>
+                        </div>
+                  </div>
+              <button  class="btn btn-gray-800 align-items-center" type="submit" >Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  &nbsp;&nbsp;
+</div>
+<!-- New Cracker End-->
+<!-- Body -->
+<div class="card border-0 shadow mb-4">
+  <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+              <thead class="thead-light">
+                <tr>
+                    <th class="border-0 rounded-start">Cracker ID</th>
+                    <th class="border-0">Name</th>
+                    <th class="border-0">Available Versions</th>
+                    <th class="border-0 rounded-end">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cracker of crackerbinary">
+                    <td>{{cracker.crackerBinaryId}}</td>
+                    <td>{{cracker.binaryName}}</td>
+                    <td>{{cracker.version}}</td>
+                    <td>
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/cracker',cracker.crackerBinaryId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                     </a>
+                     <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(cracker.crackerBinaryId)">
+                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                     </a>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

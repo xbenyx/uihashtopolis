@@ -34,9 +34,7 @@ import { NewSuperhashlistComponent } from './lists/new-superhashlist/new-superha
 import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
-import { CrackersComponent } from './crackers/crackers.component';
-import { BinariesComponent } from './crackers/binaries/binaries.component';
-import { NewBinaryComponent } from './crackers/new-binary/new-binary.component';
+import { CrackersComponent } from './engine/crackers/crackers.component';
 import { AccountComponent } from './account/account.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { NotificationsComponent } from './account/notifications/notifications.component';
@@ -49,10 +47,10 @@ import { NotificationsConfigComponent } from './config/server/notifications/noti
 import { UiComponent } from './config/server/ui/ui.component';
 import { MulticastComponent } from './config/server/multicast/multicast.component';
 import { HashtypesComponent } from './config/hashtypes/hashtypes.component';
-import { AgentBinariesComponent } from './config/agent-binaries/agent-binaries.component';
+import { AgentBinariesComponent } from './engine/agent-binaries/agent-binaries.component';
 import { LogComponent } from './config/log/log.component';
 import { HealthChecksComponent } from './config/health-checks/health-checks.component';
-import { PreprocessorsComponent } from './config/preprocessors/preprocessors.component';
+import { PreprocessorsComponent } from './engine/preprocessors/preprocessors.component';
 import { UsersComponent } from './users/users.component';
 import { EditUsersComponent } from './users/edit-users/edit-users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
@@ -108,8 +106,6 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     OtherEditComponent,
     ChunkActivityComponent,
     CrackersComponent,
-    BinariesComponent,
-    NewBinaryComponent,
     AccountComponent,
     SettingsComponent,
     NotificationsComponent,

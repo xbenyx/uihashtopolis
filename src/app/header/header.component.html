@@ -62,10 +62,11 @@
           <a class="nav-link" routerLink="chunk-activity">Chunk activity</a>
         </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
-          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownCrackers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Crackers</a>
-          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownCrackers">
-          <a class="dropdown-item" routerLink="crackers/binaries">Binaries</a>
-          <a class="dropdown-item" routerLink="crackers/new-binary">New Binary</a>
+          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownEngine" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Engine</a>
+          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownEngine">
+          <a class="dropdown-item" routerLink="engine/crackers">Crackers</a>
+          <a class="dropdown-item" routerLink="engine/preprocessors">Preprocessors</a>
+          <a class="dropdown-item" routerLink="engine/agent-binaries">Agent Binaries</a>
           </div>
         </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
@@ -73,10 +74,8 @@
           <div ngbDropdownMenu class="dropdown-menu" aaria-labelledby="dropdownConfig">
           <a class="dropdown-item" routerLink="config/server">Server</a>
           <a class="dropdown-item" routerLink="config/hashtypes">Hashtypes</a>
-          <a class="dropdown-item" routerLink="config/agent-binaries">Agent Binaries</a>
           <a class="dropdown-item" routerLink="config/log">Log</a>
           <a class="dropdown-item" routerLink="config/health-checks">Health Checks</a>
-          <a class="dropdown-item" routerLink="config/preprocessors">Preprocessors</a>
           </div>
         </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
