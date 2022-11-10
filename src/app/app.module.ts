@@ -41,7 +41,7 @@ import { NotificationsComponent } from './account/notifications/notifications.co
 import { ConfigComponent } from './config/config.component';
 import { ServerComponent } from './config/server/server.component';
 import { CrackingComponent } from './config/server/cracking/cracking.component';
-import { YubikeyComponent } from './config/server/yubikey/yubikey.component';
+import { YubikeyComponent } from './users/yubikey/yubikey.component';
 import { FinetunningComponent } from './config/server/finetunning/finetunning.component';
 import { NotificationsConfigComponent } from './config/server/notifications/notifications.component';
 import { UiComponent } from './config/server/ui/ui.component';

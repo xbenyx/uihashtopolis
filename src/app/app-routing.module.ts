@@ -36,7 +36,7 @@ import { NotificationsComponent } from './account/notifications/notifications.co
 import { ConfigComponent } from './config/config.component';
 import { ServerComponent } from './config/server/server.component';
 import { CrackingComponent } from './config/server/cracking/cracking.component';
-import { YubikeyComponent } from './config/server/yubikey/yubikey.component';
+import { YubikeyComponent } from './users/yubikey/yubikey.component';
 import { FinetunningComponent } from './config/server/finetunning/finetunning.component';
 import { UiComponent } from './config/server/ui/ui.component';
 import { MulticastComponent } from './config/server/multicast/multicast.component';
@@ -96,7 +96,6 @@ const appRoutes: Routes = [
     {path: 'config', component: ConfigComponent ,canActivate: [AuthGuard] },
     {path: 'config/server', component: ServerComponent ,canActivate: [AuthGuard] },
     {path: 'config/server/cracking', component: CrackingComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server/yubikey', component: YubikeyComponent ,canActivate: [AuthGuard] },
     {path: 'config/server/finetunning', component: FinetunningComponent ,canActivate: [AuthGuard] },
     {path: 'config/server/ui', component: UiComponent ,canActivate: [AuthGuard] },
     {path: 'config/server/multicast', component: MulticastComponent ,canActivate: [AuthGuard] },
@@ -107,6 +106,7 @@ const appRoutes: Routes = [
     {path: 'users', component: UsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/:id/edit', component: EditUsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/all-users', component: AllUsersComponent ,canActivate: [AuthGuard] },
+    {path: 'users/yubikey', component: YubikeyComponent ,canActivate: [AuthGuard] },
     {path: 'error', component: ErrorPageComponent, data:{message: 'Page Not Found!'} ,canActivate: [AuthGuard] },
     {path: 'not-found', component: PageNotFoundComponent ,canActivate: [AuthGuard] },
     {path: '**', redirectTo: 'not-found'}  // Needs to be always the last route
