@@ -1,13 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ListsService } from '../../service/lists/hashlist.service';
-import { faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-hashlist',
   templateUrl: './hashlist.component.html'
 })
 export class HashlistComponent implements OnInit, OnDestroy {
+  faEdit=faEdit;
   faTrash=faTrash;
   faLock=faLock;
   faFileImport=faFileImport;
@@ -45,6 +47,30 @@ export class HashlistComponent implements OnInit, OnDestroy {
         'copy', 'excel', 'csv', 'edit'
     ]
     };
+  }
+
+  deleteFile(id: number){
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+      showCancelButton: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        this.listsService.deleteHashlist(id).subscribe(() => {
+          Swal.fire(
+            "File has been deleted!",
+            {
+            icon: "success",
+          });
+        });
+      } else {
+        Swal.fire("Your imaginary file is safe!")
+      }
+    });
   }
 
 }

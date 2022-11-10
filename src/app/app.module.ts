@@ -73,6 +73,7 @@ import { OtherEditComponent } from './files/other-edit/other-edit.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { EditProjectComponent } from './projects/edit-project/edit-project.component';
+import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.component';
 
 
 @NgModule({
@@ -137,7 +138,8 @@ import { EditProjectComponent } from './projects/edit-project/edit-project.compo
     ForgotComponent,
     ProjectsComponent,
     NewProjectComponent,
-    EditProjectComponent
+    EditProjectComponent,
+    EditHashlistComponent
   ],
   imports: [
     BrowserModule,

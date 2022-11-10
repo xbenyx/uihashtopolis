@@ -35,7 +35,7 @@ export class AuthComponent implements OnInit {
 
     authObs.subscribe(
       resData =>{
-      console.log(resData);
+      console.log(resData); // Delete for production
       this.isLoading = false;
       this.router.navigate(['/']);
     }, errorMessage => {
@@ -43,10 +43,6 @@ export class AuthComponent implements OnInit {
       this.errorRes = errorMessage;
       this.isLoading = false;
     });
-
-
-    // this.authService.logIn(username,password);
-
 
     form.reset();
   }

@@ -14,7 +14,6 @@ export class UsersService {
   // private endpoint_apiv1 = Configuration.BASE_URL_APIV1 ;
   private endpoint = Configuration.BASE_URL + '/users';
   private endpoint_user = Configuration.BASE_URL + '/user';  // its for testing using nested json array
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

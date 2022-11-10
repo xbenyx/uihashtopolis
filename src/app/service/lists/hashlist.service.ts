@@ -30,4 +30,11 @@ export class ListsService {
     );
   }
 
+  deleteHashlist(id:number):Observable<any> {
+    return this.http.delete(this.endpoint_v1 +'/'+ id)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
 }
