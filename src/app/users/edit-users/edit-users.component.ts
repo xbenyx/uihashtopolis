@@ -14,6 +14,7 @@ export class EditUsersComponent implements OnInit {
   faLock=faLock;
   faUser=faUser;
   faEnvelope=faEnvelope;
+  isLoading = false;
 
   // We need to access groups using the API
   groups = ['Admin', 'Standard User'];
@@ -33,16 +34,18 @@ export class EditUsersComponent implements OnInit {
     // console.log(this.route.snapshot.queryParams); // We can use this for authentification
     // this.route.queryParams.subscribe();
 
-    this.route.queryParams
-      .subscribe(
-        (queryParams: Params) => {
-          this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
-        }
-      )
+    // this.route.queryParams
+    //   .subscribe(
+    //     // (queryParams: Params) => {
+    //     //   this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
+    //     // }
+    //   )
+    this.isLoading = true;
 
     const id = +this.route.snapshot.params['id'];
     this.usersService.getUser(id).subscribe((user: any) => {
       this.user = user;
+      this.isLoading = false;
       console.log(this.user);
     });
 

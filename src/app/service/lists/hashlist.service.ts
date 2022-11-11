@@ -9,7 +9,7 @@ import { CreateHashlist, Hashlist} from '../../models/hashlist';
 })
 export class ListsService {
 
-  private endpoint_v1 = Configuration.BASE_URL_APIV1 + '/ui/hashlists';
+  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/hashlists';
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class ListsService {
   }
 
   getAllhashlists():Observable<any> {
-    return this.http.get(this.endpoint_v1)
+    return this.http.get(this.endpoint)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -31,7 +31,7 @@ export class ListsService {
   }
 
   deleteHashlist(id:number):Observable<any> {
-    return this.http.delete(this.endpoint_v1 +'/'+ id)
+    return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)
     );

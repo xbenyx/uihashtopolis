@@ -1,28 +1,30 @@
-<h2 *ngIf="!allowEdit">You are not allowed to edit! Talk with your administrator.</h2>
-<div *ngIf="allowEdit">
+<div *ngIf="isLoading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<!-- <h2 *ngIf="!allowEdit">You are not allowed to edit! Talk with your administrator.</h2>
+<div *ngIf="allowEdit"> -->
   <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
     <div class="container">
         <div class="row justify-content-center form-bg-image">
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <tr *ngFor="let u of user"><h2 class="h5 mb-4">User Profile</h2></tr><br>
+                <h2 class="h5 mb-4">User Profile</h2><br>
                   <form>
-                    <tr *ngFor="let u of user">
                     <div class="row">
-                            <div class="form-group">
-                              <div class="form-outline">
-                                <label class="form-label" for="getuserid" >User ID</label>
-                                <input  [(ngModel)]="u.userId" type='text' name='userid' title="Userid" class='form-control' id="userid" disabled="disabled" readonly>
-                              </div>
-                        </div>
+                        <div class="form-group">
                             <div class="form-outline">
-                                <label class="form-label" for="getusername">User Name</label>
-                                <div class="input-group">
-                                  <span class="input-group-text">
+                              <label class="form-label" for="getuserid" >User ID</label>
+                              <input  [(ngModel)]="user['userId']" type='text' name='userid' title="Userid" class='form-control' id="userid" disabled="disabled" readonly>
+                            </div>
+                        </div>
+                        <div class="form-outline">
+                            <label class="form-label" for="getusername">User Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
                                     <fa-icon [icon]="faUser" aria-hidden="true"></fa-icon>
                                   </span>
-                                <input [(ngModel)]="u.username" type='text' name='username' title="Username" class='form-control' id="username" disabled="disabled" readonly/>
-                              </div>
+                                <input [(ngModel)]="user['username']" type='text' name='username' title="Username" class='form-control' id="username" disabled="disabled" readonly/>
+                        </div>
                         </div>
                         <div class="form-outline">
                           <label class="form-label" for="getemail">Email</label>
@@ -30,7 +32,7 @@
                                   <span class="input-group-text">
                                     <fa-icon [icon]="faEnvelope" aria-hidden="true"></fa-icon>
                                   </span>
-                                <input [(ngModel)]="u.email" type='text' name='email' title="Email" class='form-control' id="email" disabled="disabled" readonly/>
+                                <input [(ngModel)]="user['email']" type='text' name='email' title="Email" class='form-control' id="email" disabled="disabled" readonly/>
                             </div>
                         </div>
                         <div class="form-outline">
@@ -39,7 +41,7 @@
                             <span class="input-group-text">
                               <fa-icon [icon]="faCalendar" aria-hidden="true"></fa-icon>
                             </span>
-                          <input [ngModel]="u.registeredSince*1000 | date: 'd/MM/yyyy h:mm:ss'" type="text" name='registeredsince' title="Registeredsince" class='form-control' id="registeredsince" disabled="disabled" readonly/>
+                          <input [ngModel]="user['registered']*1000 | date: 'd/MM/yyyy h:mm:ss'" type="text" name='registered' title="registered" class='form-control' id="registered" disabled="disabled" readonly/>
                           </div>
                         </div>
                         <div class="form-outline">
@@ -48,20 +50,20 @@
                             <span class="input-group-text">
                               <fa-icon [icon]="faCalendar" aria-hidden="true"></fa-icon>
                             </span>
-                          <input [ngModel]="u.lastLoginDate*1000 | date: 'd/MM/yyyy h:mm:ss'" type="text" name='lastlogindate' title="Lastlogindate" class='form-control' id="lastlogindate" disabled="disabled" readonly/>
+                          <input [ngModel]="user['lastLogin']*1000 | date: 'd/MM/yyyy h:mm:ss'" type="text" name='lastLogin' title="lastLogin" class='form-control' id="lastLogin" disabled="disabled" readonly/>
                         </div>
                         </div>
                         <h2 class="h5 my-4">Update Settings</h2>
                         <div class="form-outline">
                           <label class="form-label" for="updatemembergroup">Member of groups</label>
-                          <input [ngModel]="u.isValid" type='text' name='isvalid' title="isvalid" class='form-control' id="isvalid"/>
+                          <input [ngModel]="user['isValid']" type='text' name='isvalid' title="isvalid" class='form-control' id="isvalid"/>
                         </div>
                         <div class="form-outline">
                           <label class="form-label" for="updaterightgroup">Set users right group</label>
                           <select  name='group' class='form-control' title="Group" id="group" formControlName="group" >
-                            <option *ngFor="let group of groups" [ngModel]="u.rightGroupId">
+                            <!-- <option *ngFor="let group of groups" [ngModel]="u.rightGroupId">
                                 {{group}}
-                            </option>
+                            </option> -->
                           </select>
                         </div>
                     </div>
@@ -75,19 +77,18 @@
                     </div>
                   </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="u.isValid" name='isvalid' title="isvalid">
-                        <label *ngIf="u.isValid === 0" class="form-label" for="isvalid">User Disabled</label>
-                        <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label>
+                        <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="user['isValid']" name='isvalid' title="isvalid">
+                        <label *ngIf="user['isValid'] === 0" class="form-label" for="isvalid">User Disabled</label>
+                        <label *ngIf="user['isValid'] === 1" class="form-label" for="isvalid">User Enabled</label>
                     </div>
-                    <button  class="btn btn-gray-800" type="submit" (ngSubmit)="onUpdateUser(u.userId)">Update</button>
+                    <button  class="btn btn-gray-800" type="submit" (ngSubmit)="onUpdateUser(user['userId'])">Update</button>
                     &nbsp;
-                    <button  class="btn btn-danger" type="submit" (ngSubmit)="deleteUser(u.userId)" onsubmit="if(!confirm('Do you really want to delete this user? This cannot be undone!')){return false;}">Delete User</button>
-                  </tr>
+                    <button  class="btn btn-danger" type="submit" (ngSubmit)="deleteUser(user['userId'])" onsubmit="if(!confirm('Do you really want to delete this user? This cannot be undone!')){return false;}">Delete User</button>
               </form>
       </div>
     </div>
   </div>
-</div>
+<!-- </div> -->
 
 
 

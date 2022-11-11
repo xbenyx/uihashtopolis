@@ -11,8 +11,7 @@ import { Configuration } from '../configuration';
 
 export class UsersService {
 
-  // private endpoint_apiv1 = Configuration.BASE_URL_APIV1 ;
-  private endpoint = Configuration.BASE_URL + '/users';
+  private endpoint = Configuration.BASE_URL_APIV1;
   private endpoint_user = Configuration.BASE_URL + '/user';  // its for testing using nested json array
 
   constructor(private http: HttpClient) { }
@@ -26,8 +25,8 @@ export class UsersService {
     return throwError(() => err);
   }
 
-  users():Observable<any> {
-    return this.http.get(this.endpoint)
+  getAllusers():Observable<any> {
+    return this.http.get(this.endpoint +  '/ui/users')
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -35,8 +34,7 @@ export class UsersService {
   }
 
   getUser(id: number):Observable<any> {
-    // return this.http.get(`${this.endpoint_user}/${id}`)  // We need this for the API
-    return this.http.get(this.endpoint_user)
+    return this.http.get(`${this.endpoint + '/ui/users'}/${id}`)  // We need this for the API
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

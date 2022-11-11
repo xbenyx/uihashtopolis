@@ -22,7 +22,7 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  public allusers: {userId: number, username: string, registeredSince: number, lastLoginDate: number, email: string, isValid: number, sessionLifetime:number, rightGroupId: string}[] = [];
+  public allusers: {userId: number, username: string, registered: number, lastLogin: number, email: string, isValid: number, sessionLifetime:number, rightGroupId: string}[] = [];
 
   public test:any  = [];
 
@@ -30,7 +30,7 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
     private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
-    this.usersService.users().subscribe((users: any) => {
+    this.usersService.getAllusers().subscribe((users: any) => {
       this.allusers = users;
       this.dtTrigger.next(void 0);
     });
