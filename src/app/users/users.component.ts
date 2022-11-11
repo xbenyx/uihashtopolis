@@ -8,7 +8,7 @@ import { UsersService } from '../service/users/users.service';
   templateUrl: './users.component.html'
 })
 export class UsersComponent implements OnInit {
-
+  isLoading = false;
   // We need to access groups using the API
   groups = ['Admin', 'Standard User'];
   signupForm: FormGroup;
@@ -21,9 +21,10 @@ export class UsersComponent implements OnInit {
     this.signupForm = new FormGroup({
       'userData': new FormGroup({
       'username': new FormControl(null, [Validators.required, this.checkUserNameExist.bind(this)]),
-      'email': new FormControl(null, [Validators.required, Validators.email])
+      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'group': new FormControl(null),
+      'isAdmin': new FormControl(1),
        }),
-      'group': new FormControl(null, [Validators.required])
     });
 
 
@@ -32,8 +33,17 @@ export class UsersComponent implements OnInit {
   onSubmit(): void{
     if (this.signupForm.valid) {
     console.log(this.signupForm);
+
+
+    this.isLoading = true;
+
+    this.usersService.createUser(this.signupForm.value).subscribe((user: any) => {
+      this.isLoading = false;
+      console.log(user);
+    });
+
     this.signupForm.reset();
-  }
+    }
   }
 
   checkUserNameExist(control: FormControl): {[s: string]: boolean}{

@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
-
+import { CreateUser } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,6 @@ import { Configuration } from '../configuration';
 export class UsersService {
 
   private endpoint = Configuration.BASE_URL_APIV1;
-  private endpoint_user = Configuration.BASE_URL + '/user';  // its for testing using nested json array
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +33,15 @@ export class UsersService {
   }
 
   getUser(id: number):Observable<any> {
-    return this.http.get(`${this.endpoint + '/ui/users'}/${id}`)  // We need this for the API
+    return this.http.get(`${this.endpoint + '/ui/users'}/${id}`)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  createUser(user: CreateUser): Observable<any> {
+    return this.http.post<any>(this.endpoint + '/ui/users', user)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
