@@ -19,21 +19,18 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-      'userData': new FormGroup({
-      'username': new FormControl(null, [Validators.required, this.checkUserNameExist.bind(this)]),
+      // 'username': new FormControl(null, [Validators.required, this.checkUserNameExist.bind(this)]),
+      'username': new FormControl(null),
       'email': new FormControl(null, [Validators.required, Validators.email]),
-      'group': new FormControl(null),
+      'rightGroupId': new FormControl(1),
       'isAdmin': new FormControl(1),
-       }),
     });
-
 
   }
 
   onSubmit(): void{
     if (this.signupForm.valid) {
     console.log(this.signupForm);
-
 
     this.isLoading = true;
 
@@ -42,7 +39,7 @@ export class UsersComponent implements OnInit {
       console.log(user);
     });
 
-    this.signupForm.reset();
+    // this.signupForm.reset();
     }
   }
 

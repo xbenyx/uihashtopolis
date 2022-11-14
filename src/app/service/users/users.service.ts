@@ -11,7 +11,7 @@ import { CreateUser } from '../../models/user.model';
 
 export class UsersService {
 
-  private endpoint = Configuration.BASE_URL_APIV1;
+  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/users';
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class UsersService {
   }
 
   getAllusers():Observable<any> {
-    return this.http.get(this.endpoint +  '/ui/users')
+    return this.http.get(this.endpoint)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -33,15 +33,15 @@ export class UsersService {
   }
 
   getUser(id: number):Observable<any> {
-    return this.http.get(`${this.endpoint + '/ui/users'}/${id}`)
+    return this.http.get(`${this.endpoint}/${id}`)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
-  createUser(user: CreateUser): Observable<any> {
-    return this.http.post<any>(this.endpoint + '/ui/users', user)
+  createUser(user: any): Observable<any> {
+    return this.http.post<any>(this.endpoint, {username: user.username, email: user.email, rightGroupId: user.rightGroupId}) //Test {username: 'name', email: 'ssd@gmail.com', rightGroupId: 1}
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
