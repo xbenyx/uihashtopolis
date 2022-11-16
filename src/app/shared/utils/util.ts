@@ -6,7 +6,6 @@
  */
 
 
-
 /**
  * Converts file value to a more readable format
  *

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
 import { CreateHashlist, Hashlist} from '../../models/hashlist';
@@ -23,7 +23,7 @@ export class ListsService {
   }
 
   getAllhashlists():Observable<any> {
-    return this.http.get(this.endpoint)
+    return this.http.get(this.endpoint ,{params: new HttpParams().set('maxResults', 100)})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -33,6 +33,14 @@ export class ListsService {
   deleteHashlist(id:number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  createHashlist(user: any): Observable<any> {
+    return this.http.post<any>(this.endpoint, user)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }

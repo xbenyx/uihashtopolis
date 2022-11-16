@@ -10,6 +10,11 @@ input.ng-invalid.ng-touched {
 	border: 1.5px solid red;
 }
 
+.requiredak:before {
+  content:" *";
+  color: red;
+}
+
 /*
   01- End
 */
@@ -176,6 +181,10 @@ input.ng-invalid.ng-touched {
 	border: 1.5px solid red;
 }
 
+.form-control-mini {
+  display: inline-block;
+  width: 35px !important;
+}
 
 /*
   02- End

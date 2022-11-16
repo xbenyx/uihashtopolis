@@ -36,10 +36,10 @@ export class UsersComponent implements OnInit {
 
     this.usersService.createUser(this.signupForm.value).subscribe((user: any) => {
       this.isLoading = false;
-      console.log(user);
+      // console.log(user);
     });
 
-    // this.signupForm.reset();
+    this.signupForm.reset();
     }
   }
 

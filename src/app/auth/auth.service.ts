@@ -72,7 +72,7 @@ export class AuthService {
         const expirationDate = new Date(expires * 1000); // expires, its epoch time in seconds and returns milliseconds sin Jan 1, 1970. We need to multiple by 1000
         const user = new User(token, expirationDate);
         this.user.next(user);
-        this.autologOut(expires * 1000) // Epoch time
+        this.autologOut(expires) // Epoch time
         localStorage.setItem('userData', JSON.stringify(user));
       }
 
