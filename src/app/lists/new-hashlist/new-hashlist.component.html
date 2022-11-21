@@ -13,58 +13,35 @@
                                 <input  type='text' name='hashlistname' title="Hashlistname" class='form-control' id="hashlistname" formControlName="hashlistName" >
                             </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashtype">Hashtype</label>
-                              <select name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId">
+                              <select class='form-select' name='hashtype' title="Hashtype"  id="hashtype" formControlName="hashTypeId">
                                 <option value=""></option>
                               </select>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="form-outline">
-                              <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
-                              <td>
-                                <select class='form-control' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format">
-                                  <option value="0" [defaultSelected]=true>Text file</option>
-                                  <option value="1">HCCAPX file / PMKID hash</option>
-                                  <option value="2">Binary file (single hash)</option>
-                                </select>
-                                <span class="textopt">
-                                  <br>
-                                  <input type="checkbox" name="isSalted" id="isSalted" title="Is Salted" formControlName="isSalted"> Salted hashes, separator:
-                                  <input type="text" name="saltseparator" class='form-control form-control-mini' value=";" title="Salt Separator" formControlName="saltSeparator">
-                                </span>
-                                <span class="textopt">
-                                  <br>
-                                  <input type="checkbox" name="hexsalted" title="Salt in HEX" formControlName="hexSalt"> Salt is in hex (only when salted hashes)
-                                </span>
-                              </td>
                           </div>
                         </div>
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label" for="gethashlistformat">Hashcat Brain</label>
-                            <td>
-                            <select #usebrain  class='form-control' id='hashcatbrain' name="hashcatbrain" title="Hashcat-brain" formControlName="brainId">
-                              <option value="false" [defaultSelected]=true>No</option>
-                              <option value="true">Yes</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="form-outline" *ngIf="usebrain.selectedIndex === usebrain.options.length - 1">
-                            <label class="form-label requiredak" for="getbrainfeatures">Hashlist format</label>
-                            <td>
-                              <select class='form-control' id='brainfeatures' name="brainfeatures" title="Brain features" formControlName="brainFeatures">
-                                <option value="1">Send hashed passwords</option>
-                                <option value="2">Send attack positions</option>
-                                <option value="3" [defaultSelected]=true>Send hashed passwords and attack positions</option>
-                              </select>
-                              <div class='alert alert-info row justify-content-center closesys'>
-                                Note: When brain is enabled it'll create a network server. If it is used wrongly it could cause bottlenecks or collapse the network server.
-                             </div>
+                              <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
+                              <td>
+                                <select class='form-select' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format">
+                                  <option value="0" [defaultSelected]=true>Text file</option>
+                                  <option value="1">HCCAPX file / PMKID hash</option>
+                                  <option value="2">Binary file (single hash)</option>
+                                </select>
+                                <span class="position-relative top-50 start-50">
+                                  <br>
+                                  <input type="checkbox" name="isSalted" id="isSalted" title="Is Salted" formControlName="isSalted"> Salted hashes, separator:
+                                  <input type="text" name="saltseparator" class='form-control form-control-mini' value=";" title="Salt Separator" formControlName="saltSeparator">
+                                </span>
+                                <span class="position-relative top-50 start-50">
+                                  <br>
+                                  <input type="checkbox" name="hexsalted" title="Salt in HEX" formControlName="hexSalt"> Salt is in hex (only when salted hashes)
+                                </span>
+                              </td>
                           </div>
                         </div>
                         &nbsp;
@@ -75,6 +52,31 @@
                           </div>
                         </div>
                         &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
+                            <label for="gethashlistformat">Hashcat Brain</label>
+                            <td>
+                            <select #usebrain  class='form-select' id='hashcatbrain' name="hashcatbrain" title="Hashcat-brain" formControlName="brainId">
+                              <option value="false" [defaultSelected]=true>No</option>
+                              <option value="true">Yes</option>
+                            </select>
+                          </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline" *ngIf="usebrain.selectedIndex === usebrain.options.length - 1">
+                            <label class="form-label requiredak" for="getbrainfeatures">Hashlist format</label>
+                            <td>
+                              <select class='form-select' id='brainfeatures' name="brainfeatures" title="Brain features" formControlName="brainFeatures">
+                                <option value="1">Send hashed passwords</option>
+                                <option value="2">Send attack positions</option>
+                                <option value="3" [defaultSelected]=true>Send hashed passwords and attack positions</option>
+                              </select>
+                              <div class='alert alert-info row justify-content-center closesys'>
+                                Note: When brain is enabled it'll create a network server. If it is used wrongly it could cause bottlenecks or collapse the network server.
+                             </div>
+                          </div>
+                        </div>
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashsource">Hash source

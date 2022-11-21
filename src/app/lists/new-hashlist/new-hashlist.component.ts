@@ -66,8 +66,8 @@ export class NewHashlistComponent implements OnInit {
       labelField: "description",
       searchField: ["description"],
       loadingClass: 'Loading..',
-      highlight: false,
-      // create: false, // true, we an additional function we could create new hashtypes on the go
+      highlight: true,
+      // create: true, // We could create new hashtypes on the go
       onChange: function (value) {
         console.log(value);
       },
