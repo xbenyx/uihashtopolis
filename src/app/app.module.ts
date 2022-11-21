@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SelectizeDirective } from './directives/selectize.directive';
 import * as Utils from './shared/utils/util';
 
 import { AppComponent } from './app.component';
@@ -135,7 +136,8 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     ProjectsComponent,
     NewProjectComponent,
     EditProjectComponent,
-    EditHashlistComponent
+    EditHashlistComponent,
+    SelectizeDirective
   ],
   imports: [
     BrowserModule,

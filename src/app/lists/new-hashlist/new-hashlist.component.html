@@ -16,7 +16,9 @@
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashtype">Hashtype</label>
-                              <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId">
+                              <select name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId">
+                                <option value=""></option>
+                              </select>
                           </div>
                         </div>
                         <div class="form-group">
@@ -30,7 +32,7 @@
                                 </select>
                                 <span class="textopt">
                                   <br>
-                                  <input type="checkbox" name="salted" id="salted" title="Is Salted" formControlName="salted"> Salted hashes, separator:
+                                  <input type="checkbox" name="isSalted" id="isSalted" title="Is Salted" formControlName="isSalted"> Salted hashes, separator:
                                   <input type="text" name="saltseparator" class='form-control form-control-mini' value=";" title="Salt Separator" formControlName="saltSeparator">
                                 </span>
                                 <span class="textopt">
@@ -122,3 +124,7 @@
     </div>
   </div>
 </div>
+
+
+
+

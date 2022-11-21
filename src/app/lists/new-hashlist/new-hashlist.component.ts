@@ -55,6 +55,62 @@ export class NewHashlistComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.cus_selectize('hashtype');
+}
+
+  cus_selectize(s_id) {
+    ($("#" + s_id) as any).selectize({
+      valueField: "hashTypeId",
+      placeholder: "Select a hashtype...",
+      labelField: "description",
+      searchField: ["description"],
+      loadingClass: 'Loading..',
+      highlight: false,
+      // create: false, // true, we an additional function we could create new hashtypes on the go
+      onChange: function (value) {
+        console.log(value);
+      },
+      render: {
+        option: function (item, escape) {
+          return '<div  class="hashtype_selectize">' + escape(item.hashTypeId) + ' -  ' + escape(item.description) + '</div>';
+        },
+      },
+      load: function (query, callback) {
+        if (!query.length) return callback();
+        this.clearCache();
+        $.ajax({
+          url: 'http://localhost:3000/hashtype',
+          type: "GET",
+          data: {
+            name: query,
+          },
+          error: function () {
+            callback();
+            console.log("Error");
+          },
+          success: function (res) {
+            if (res) {
+              var this_result = res;
+              callback(this_result);
+            }
+          },
+        });
+      },
+      onInitialize: function(){
+        var selectize = this;
+        $.get("http://localhost:3000/hashtype", function( data ) {
+            selectize.addOption(data); // This is will add to option
+            var selected_items = [];
+            $.each(data, function( i, obj) {
+                selected_items.push(obj.id);
+            });
+            selectize.setValue(selected_items); //this will set option values as default
+        });
+    }
+    });
+  }
+
   onSubmit(): void{
     if (this.signupForm.valid) {
     console.log(this.signupForm.value);

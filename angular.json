@@ -32,7 +32,9 @@
               "node_modules/sweetalert2/src/sweetalert2.scss",
               "src/styles/styles.scss",
               "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
-              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "node_modules/selectize/dist/css/selectize.css",
+              "node_modules/selectize/dist/css/selectize.bootstrap3.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -46,7 +48,8 @@
               "node_modules/datatables.net-buttons/js/buttons.flash.js",
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
               "node_modules/datatables.net-buttons/js/buttons.print.js",
-              "node_modules/datatables.net-select/js/dataTables.select.js"
+              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/selectize/dist/js/standalone/selectize.js"
             ]
           },
           "configurations": {
@@ -123,6 +126,7 @@
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js",
               "node_modules/datatables.net/js/jquery.dataTables.min.js",
               "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
               "node_modules/jszip/dist/jszip.js",
@@ -131,7 +135,8 @@
               "node_modules/datatables.net-buttons/js/buttons.flash.js",
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
               "node_modules/datatables.net-buttons/js/buttons.print.js",
-              "node_modules/datatables.net-select/js/dataTables.select.js"
+              "node_modules/datatables.net-select/js/dataTables.select.js",
+              "node_modules/selectize/dist/js/standalone/selectize.js"
             ]
           }
         }
