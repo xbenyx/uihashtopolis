@@ -177,6 +177,14 @@ input.ng-invalid.ng-touched {
   padding-left:10px;
 }
 
+/*
+  02- End
+*/
+
+/*
+  03- Selectize custom attributes
+*/
+
 input.ng-invalid.ng-touched {
 	border: 1.5px solid red;
 }
@@ -210,6 +218,10 @@ input.ng-invalid.ng-touched {
   border: 2px solid rgb(0, 23, 128);
 }
 
+.selectize-input::after {
+  visibility:hidden;
+}
+
 /*
-  02- End
+  03- End
 */

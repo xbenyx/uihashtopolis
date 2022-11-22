@@ -149,7 +149,8 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     FontAwesomeModule,
     DataTablesModule,
     CommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   bootstrap: [AppComponent]

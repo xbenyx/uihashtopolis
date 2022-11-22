@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../service/lists/hashlist.service';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
   selector: 'app-new-hashlist',
-  templateUrl: './new-hashlist.component.html'
+  templateUrl: './new-hashlist.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewHashlistComponent implements OnInit {
   isLoading = false;
+  faMagnifyingGlass=faMagnifyingGlass;
 
   // Form custom settings
   signupForm: FormGroup;
@@ -37,12 +40,12 @@ export class NewHashlistComponent implements OnInit {
     $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
   }
 
-  constructor(private hlService: ListsService) { }
+  constructor(private hlService: ListsService, private _changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       'hashlistName': new FormControl(null),
-      'hashTypeId': new FormControl(null),
+      'hashTypeId': new FormControl(null , [Validators.required]),
       'format': new FormControl(null || '3'),
       'saltSeparator': new FormControl(null || ';'),
       'isSalted': new FormControl(false),
@@ -53,23 +56,49 @@ export class NewHashlistComponent implements OnInit {
       'brainId': new FormControl(false),
       'brainFeatures': new FormControl(null || '3'),
     });
+
   }
 
   ngAfterViewInit() {
     this.cus_selectize('hashtype');
-}
+ }
+
+//  private selectize: any;
+
+//  private onChangeCallback: (_: any) => {};
+
+ OnChangeValue(value){
+  this.signupForm.patchValue({
+    hashTypeId: value
+  });
+  this._changeDetectorRef.detectChanges();
+ }
+
+//  private selectize: any;
+
+//  private onChangeCallback: (_: any) => {};
+
+// 	onSelectizeValueChange($event: any): void {
+// 		// In some cases this gets called before registerOnChange.
+// 		if (this.onChangeCallback) {
+// 			this.onChangeCallback(this.selectize.getValue());
+// 		}
+// 	}
 
   cus_selectize(s_id) {
+    const thisApp = this;
     ($("#" + s_id) as any).selectize({
+      plugins: ['remove_button'],
       valueField: "hashTypeId",
-      placeholder: "Select a hashtype...",
+      placeholder: "Search hashtype...",
       labelField: "description",
       searchField: ["description"],
       loadingClass: 'Loading..',
       highlight: true,
       // create: true, // We could create new hashtypes on the go
       onChange: function (value) {
-        console.log(value);
+          thisApp.OnChangeValue(value);
+          console.log(value);
       },
       render: {
         option: function (item, escape) {
@@ -82,15 +111,13 @@ export class NewHashlistComponent implements OnInit {
         $.ajax({
           url: 'http://localhost:3000/hashtype',
           type: "GET",
-          data: {
-            name: query,
-          },
           error: function () {
             callback();
             console.log("Error");
           },
           success: function (res) {
             if (res) {
+              // var this_result = JSON.parse(res); // If its not returning json
               var this_result = res;
               callback(this_result);
             }
@@ -112,7 +139,7 @@ export class NewHashlistComponent implements OnInit {
   }
 
   onSubmit(): void{
-    if (this.signupForm.valid) {
+    // if (this.signupForm.valid) {
     console.log(this.signupForm.value);
 
     this.isLoading = true;
@@ -124,7 +151,7 @@ export class NewHashlistComponent implements OnInit {
 
     this.signupForm.reset();
     }
-  }
+  // }
 
 
 
