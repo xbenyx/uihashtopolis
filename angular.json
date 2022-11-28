@@ -59,7 +59,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "4.5mb",
                   "maximumError": "5mb"
                 },
                 {
@@ -91,7 +91,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "hashtopolis:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.json",
+            "host":"0.0.0.0"
           },
           "configurations": {
             "production": {

@@ -1,5 +1,5 @@
 # Hastopolis UI
-This project is for the developers working in Hashtopolis UI. Front End is developed using Angular.JS
+This project is currently not ready. Front End is developed using Angular.JS
 
 ![Hashtopolis - Animated gif demo](demo/intro1.gif)
 
@@ -10,21 +10,17 @@ This project is for the developers working in Hashtopolis UI. Front End is devel
 3) Go to the root folder project and run docker: docker-compose up / docker build .  (Note this step is to build and image, for easy use we'll use a built image)
 4) We need to use the image. CMD  docker pull hashtopolisui (IMAGE_NAME)
 
-# Linting and Testing
-
-
 # Steps Create a project
 
 1) Create project, note the dot is important otherwise will create the directory in the wrong path cmd:  docker-compose run --rm app sh -c "hashtopolis-ui startproject app ."
 2) Now we start services in docker using the command cmd: docker-compose up
 
-# Setting up automation using Github actions
+# Deploy project in Ubutu Server
 
-This is similar than other tools such as Jenkins or Travis-CI (Free version but goog version cost approx €800 yearly). These tools have some usefuls features such as; app deployment, code linting or unit tests. Apps that help deployment AWS, Terraform or own VPS server. We will be setting up a Trigger to push to Github and run unit tests.
+1) Use ng build
+2) Paste the files in /var/www/html
 
-1) Create a folder in root and called it .github then a folder inside called workflows and inally a file checks.yml ( doesnt matter the name only as soon as it is inside the directory)
-2) checks.yml, start with --- that means that is a yaml file
-https://github.com/marketplace/actions/docker-login
-https://github.com/marketplace?type=actions
+Note: If the app loads but you are getting an error 404. Go to the src/app/app-routing.module.ts and in NgModule imports add {useHash: true}
+
 
 ### Common Errors
