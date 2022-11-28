@@ -20,8 +20,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   toggleCollapsed(): void {
     this.collapsed = !this.collapsed;
   }
-  // Icons Notifications Menu
-  faEye=faEye;
+
+  user = ['Administrator']  // Can be deleted as soon as user API is connected
+
 
   // Icons User Menu
   faPowerOff=faPowerOff;
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faUserCircle=faUserCircle;
   faInbox=faInbox;
   faQuestionCircle=faQuestionCircle;
+  faEye=faEye;
 
   public notifbell: {title: string, description: string, datetime: string}[] = [];
 

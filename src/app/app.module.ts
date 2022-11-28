@@ -1,3 +1,4 @@
+// App Modules
 import { NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,9 +9,18 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SelectizeDirective } from './directives/selectize.directive';
-import * as Utils from './shared/utils/util';
 
+// App Directives
+import { SelectizeDirective } from './directives/selectize.directive';
+import { FileSelectDirective } from './directives/file-select.directive';
+import { FileDropDirective } from './directives/file-drop.directive';
+
+// App Pipes
+import { FileSizePipe } from './pipes/file-size.pipe';
+import { WarningColorPipe } from './pipes/warning-color.pipe';
+import { ShortenStringPipe } from './pipes/shorten-string.pipe';
+
+// App Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -137,7 +147,12 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     NewProjectComponent,
     EditProjectComponent,
     EditHashlistComponent,
-    SelectizeDirective
+    SelectizeDirective,
+    FileSelectDirective,
+    FileDropDirective,
+    FileSizePipe,
+    WarningColorPipe,
+    ShortenStringPipe
   ],
   imports: [
     BrowserModule,

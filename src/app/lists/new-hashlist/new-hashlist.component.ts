@@ -4,7 +4,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../service/lists/hashlist.service';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -21,24 +22,6 @@ export class NewHashlistComponent implements OnInit {
   ShowHideTypeFile = ShowHideTypeFile;
   radio=true;
   hashcatbrain: string;
-
-  // Check Filesize
-
-  fileSizeValue = fileSizeValue;
-
-  validateFileExt = validateFileExt;
-
-  fileGroup: number;
-  fileToUpload: File | null = null;
-  fileSize: any;
-  fileName: any;
-
-  handleFileInput(event: any) {
-    this.fileToUpload = event.target.files[0];
-    this.fileSize = this.fileToUpload.size;
-    this.fileName = this.fileToUpload.name;
-    $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
-  }
 
   constructor(private hlService: ListsService, private _changeDetectorRef: ChangeDetectorRef) { }
 
@@ -63,30 +46,15 @@ export class NewHashlistComponent implements OnInit {
     this.cus_selectize('hashtype');
  }
 
-//  private selectize: any;
-
-//  private onChangeCallback: (_: any) => {};
-
- OnChangeValue(value){
-  this.signupForm.patchValue({
-    hashTypeId: value
-  });
-  this._changeDetectorRef.detectChanges();
- }
-
-//  private selectize: any;
-
-//  private onChangeCallback: (_: any) => {};
-
-// 	onSelectizeValueChange($event: any): void {
-// 		// In some cases this gets called before registerOnChange.
-// 		if (this.onChangeCallback) {
-// 			this.onChangeCallback(this.selectize.getValue());
-// 		}
-// 	}
+  OnChangeValue(value){
+    this.signupForm.patchValue({
+      hashTypeId: value
+    });
+    this._changeDetectorRef.detectChanges();
+  }
 
   cus_selectize(s_id) {
-    const thisApp = this;
+    var self = this;
     ($("#" + s_id) as any).selectize({
       plugins: ['remove_button'],
       valueField: "hashTypeId",
@@ -97,7 +65,7 @@ export class NewHashlistComponent implements OnInit {
       highlight: true,
       // create: true, // We could create new hashtypes on the go
       onChange: function (value) {
-          thisApp.OnChangeValue(value);
+          self.OnChangeValue(value); // We need to overide DOM event
           console.log(value);
       },
       render: {
@@ -137,6 +105,58 @@ export class NewHashlistComponent implements OnInit {
     }
     });
   }
+
+  // New File Upload
+  task: any;
+  isHovering: boolean;
+  faUpload=faUpload;
+
+  percent$: Observable<number>;
+  url$: Observable<string>;
+
+  state$: Observable<string>;
+  bytes$: Observable<number[]> ;
+
+  startUpload(event: FileList): any {
+    console.log(event)
+    const file = event.item(0)
+    const loc = `/test/${new Date().getTime()}_${file.name}`;
+
+    // this.task = this.storage.upload(loc, file)
+
+    this.state$ = this.task.snapshotChanges().map(task => task.bytesTransferred === task.totalBytes ? 'success' : task.state)
+    this.bytes$ = this.task.snapshotChanges().map(task => [task.bytesTransferred, task.totalBytes])
+
+    this.percent$ = this.task.percentageChanges()
+
+  }
+
+  toggleHover(event) {
+    this.isHovering = event;
+    console.log(event)
+  }
+
+  cancel() {
+    this.task.cancel()
+  }
+
+  // Old File Upload
+
+  fileSizeValue = fileSizeValue;
+
+  validateFileExt = validateFileExt;
+
+  fileGroup: number;
+  fileToUpload: File | null = null;
+  fileSize: any;
+  fileName: any;
+
+    handleFileInput(event: any) {
+      this.fileToUpload = event.target.files[0];
+      this.fileSize = this.fileToUpload.size;
+      this.fileName = this.fileToUpload.name;
+      $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
+    }
 
   onSubmit(): void{
     // if (this.signupForm.valid) {

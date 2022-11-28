@@ -34,19 +34,6 @@ export class LogComponent implements OnInit {
       };
     }
 
-    getLogColor(level: string): string{
-      if(level == 'information')
-        return '#397b39';
-      else if (level == 'warning')
-        return '#b16a06';
-      else if (level == 'error')
-        return '#8b0010';
-      else if (level == 'fatal error')
-        return '#750404';
-      else
-        return 'white';
-    }
-
 }
 
 

@@ -29,12 +29,12 @@
                 </thead>
                 <tbody>
                   <ng-container>
-                    <tr *ngFor="let l of logs" [ngStyle]="{'background-color':getLogColor(l.level)}">
+                    <tr *ngFor="let l of logs" [ngStyle]="{'background-color':l.level | warningColor}">
                         <td class="text-align:center">{{ l.logEntryId }}</td>
                         <td>{{ l.time*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}</td>
                         <td>{{ l.level }}</td>
                         <td>{{ l.issuer }}-ID-{{ l.issuerId }}</td>
-                        <td>{{ l.message }} {{getLogColor("information")}}</td>
+                        <td>{{ l.message }}</td>
                     </tr>
                   </ng-container>
                 </tbody>

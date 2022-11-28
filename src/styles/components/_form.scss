@@ -225,3 +225,77 @@ input.ng-invalid.ng-touched {
 /*
   03- End
 */
+
+/*
+  04- File Zone Area
+*/
+.filedrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-weight: 200;
+  height: 300px;
+  width: 420px;
+  border: 2px dashed #8c9199;
+  border-radius: 5px;
+  background: white;
+  margin: 0px 0;
+}
+.filedrop.active{
+  border: 2px solid #fff;
+}
+.filedrop.hovering {
+  border: 2px solid rgb(62, 63, 66);
+  color: #dadada !important;
+}
+.filedrop .file-label {
+  font-size: 1.2em;
+}
+.filedrop header {
+  font-size: 25px;
+  font-weight: 500;
+}
+.filedrop span {
+  font-size: 20px;
+  font-weight: 500;
+}
+.filedrop p {
+  font-size: 12px;
+  font-weight: 500;
+  color:rgb(143, 138, 138);
+  margin: 10px 0;
+}
+.filedrop button {
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: 350;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background: #4681f4;
+  color:#fff;
+  cursor: pointer;
+}
+.filedrop.hovering button {
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: 350;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background: #969595;
+  color:#fff;
+}
+.filedrop .icon {
+  font-size: 45px;
+  font-weight: 500;
+  margin: 50px 0;
+}
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
+
+/*
+  04- End
+*/

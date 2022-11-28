@@ -157,7 +157,7 @@ Add Files
                     <td *ngIf="f.isSecret == 1">{{ f.filename }} <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></td>
                     <td *ngIf="f.isSecret == 0">{{ f.filename }}</td>
                     <td></td>
-                    <td>{{ fileSizeValue(f.size) }}</td>
+                    <td>{{ f.size | fileSize:false }}</td>
                     <td>{{ f.lineCount }}</td>
                     <td>{{f.accessGroupId }}</td>
                     <td>
