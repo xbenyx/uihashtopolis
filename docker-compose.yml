@@ -1,10 +1,19 @@
 version: "3.7"
+
 services:
-  dashboard:
-    build: .
+  hastopolis-client:
+    build:
+      context: .
+      dockerfile: ./.docker/development.dockerfile
+    command: npm start
+    container_name: hashtopolis-client-start
+    image: hashtopolis-client
     ports:
       - "4200:4200"
-      - "49153:49153"
     volumes:
       - "/app/node_modules"
-      - ".:/app"
+      - ".:/home/app/"
+
+networks:
+  default:
+    name: hashtopolis_bridge

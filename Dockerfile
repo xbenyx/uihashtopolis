@@ -1,29 +1,31 @@
 ### Stage 1 - Based in Nodejs image, build and compile ###
 FROM node:16.17-alpine AS build-stage
 
-ENV HOME=/home/app
-WORKDIR $HOME
+# User to run locally
+RUN addgroup -S appgroup && adduser -S appuser -u 1001 -G appgroup
 
-ENV APP_NAME=hashtopolis-client
+COPY package.json package-lock.json ./
 
-RUN npm install
-# Copy All files except .dockerignore and set permissions
-COPY . $HOME/$APP_NAME/
-RUN chown -R app:app $HOME/*
+## Storing node modules on a separate layer will prevent unnecessary npm installs at each build
+RUN npm i && mkdir /app && mv ./node_modules ./app
 
-ARG configuration=production
-RUN npm run build -- --output-path=./dist/out --configuration
+WORKDIR /app
+
+COPY . .
+
+## Build the angular app in production mode and store the artifacts in dist folder
+RUN $(npm bin)/ng build --output-path=dist
 
 ### Stage 2 - Move files and config Nginx ###
 FROM nginx:1.23.2-alpine
 
 # Copy our nginx configuration
-COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx/default.conf /etc/nginx/conf.d/
 
 # Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 
 # From builder
-COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 CMD ["nginx", "-g", "daemon off;"]

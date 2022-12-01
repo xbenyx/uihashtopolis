@@ -3,28 +3,26 @@ This project is currently not ready. Front End is developed using Angular.JS
 
 <!-- ![Hashtopolis - Animated gif demo](demo/intro1.gif) -->
 
-# Installation and set up
+# Installation and set up, using Docker (Recommended)
 1) Clone the project (i.e cd /root/)
 
-      git clone https://github.com/xbenyx/uihashtopolis.git
+      git clone {{ Project }}
 
+(Note: If you dont want to use Docker, just run npm install and ng build. Its not recommended)
+2) Run the multistage dockerfile
 
-2)
-(If you want to make some change in to the code and build a new image or container go to step 3, otherwise go to step 4)
-3) Go to the root folder project and run docker: docker-compose up / docker build .  (Note this step is to build and image, for easy use we'll use a built image)
-4) We need to use the image. CMD  docker pull hashtopolisui (IMAGE_NAME)
+      docker build -t hashtopolis-client .
+3) docker run -p 80:80 hashtopolis-client
 
-docker build -t hashtopolis-client .
-
-# Steps Create a project
+# Deploy project using
 
 1) Create project, note the dot is important otherwise will create the directory in the wrong path cmd:  docker-compose run --rm app sh -c "hashtopolis-ui startproject app ."
 2) Now we start services in docker using the command cmd: docker-compose up
 
-# Deploy project in Ubuntu Server
+# Installation and set up, only with Angular
 
-1) Use ng build
-2) Paste the files in /var/www/html
+1) cd /var/www/html and clone project
+2) Npm install and Npm build
 
 Note: If the app loads but you are getting an error 404. Go to the src/app/app-routing.module.ts and in NgModule imports add {useHash: true}
 
