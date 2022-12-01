@@ -46,27 +46,23 @@
                       <a>{{ task.taskName }}</a>
                       <span *ngIf="task.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
                   </td>
-                  <td>{{ task.hashTypeId }}</td>
-                  <td>{{ task.format}}</td>
+                  <td>missing</td>
+                  <td>{{ task.keyspace }}/ {{ task.keyspaceProgress }} </td>
+                  <td>missing </td>
+                  <td>missing </td>
+                  <td>missing </td>
+                  <td>missing </td>
                   <td>
-                      <a>{{ task.hashCount }}</a>)
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/task',task.hashtaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                      </a>
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/task',task.hashtaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                      </a>
+                      <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteTask(task.hashtaskId)">
+                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                      </a>
                   </td>
-                  <td>
-                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/task',task.hashtaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                      <fa-icon [icon]="faFileExport" aria-hidden="true"></fa-icon>
-                   </a>
-                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete">
-                      <fa-icon [icon]="faFileImport" aria-hidden="true"></fa-icon>
-                   </a>
-                  </td>
-                  <td>
-                   <a class='btn-outline-gray-600 float-right' [routerLink]="['/task',task.hashtaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                      <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                   </a>
-                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteTask(task.hashtaskId)">
-                        <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                   </a>
-                </td>
               </tr>
               </tbody>
             </table>

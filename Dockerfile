@@ -1,18 +1,29 @@
-FROM node:16.17-alpine
+### Stage 1 - Based in Nodejs image, build and compile ###
+FROM node:16.17-alpine AS build-stage
 
-WORKDIR /app
+ENV HOME=/home/app
+WORKDIR $HOME
 
-COPY package.json package-lock.json ./
+ENV APP_NAME=hashtopolis-client
 
 RUN npm install
+# Copy All files except .dockerignore and set permissions
+COPY . $HOME/$APP_NAME/
+RUN chown -R app:app $HOME/*
 
-COPY . .
+ARG configuration=production
+RUN npm run build -- --output-path=./dist/out --configuration
 
-EXPOSE 4200 49153
+### Stage 2 - Move files and config Nginx ###
+FROM nginx:1.23.2-alpine
 
-# That is the folder where we will be able to save files, we need to rethink what folder for hashlist, wordlist, etc..
-# Using the method below will create an anonymous volume but we can change that naming the volume = docker run -d -p 4200:4200 --rm --name hashtopolis-app -v volume_persist:/app/volume_persist volume_persist-no:volumes
-# docker run -d -p 4200:4200 --rm --name hashtopolis-app -v volume_persist:/app/volume_persist -v "%cd%":/app volume_persist-no:volumes
-# VOLUME ["/app/src/permant_folder"]
+# Copy our nginx configuration
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD npm run start
+# Remove default nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
+# From builder
+COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]

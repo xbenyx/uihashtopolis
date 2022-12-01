@@ -114,8 +114,8 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        // RouterModule.forRoot(appRoutes, {useHash: true})  // Old browsers could have issues but can be fix with hash
-        RouterModule.forRoot(appRoutes)
+        RouterModule.forRoot(appRoutes, {useHash: true})  // Old browsers could have issues but can be fix with hash
+        // RouterModule.forRoot(appRoutes)
     ],
     exports:[
         RouterModule

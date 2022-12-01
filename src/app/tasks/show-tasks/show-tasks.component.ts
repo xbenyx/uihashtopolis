@@ -37,10 +37,10 @@ export class ShowTasksComponent implements OnInit {
       stateSave: true,
       select: true,
       pageLength: 50,
-      "order": [ [0, 'asc'] ],
+      "order": [ [6, 'desc'], [0, 'asc'] ],
       "columnDefs": [
-        { "orderable": false, "targets": [5, 6] },
-        { "orderable": true, "targets": [0, 1, 2, 3, 4] }
+        { "orderable": false, "targets": [3, 8] },
+        { "orderable": true, "targets": [0, 1, 2, 4, 5, 6, 7] }
       ],
       buttons: [
         'copy', 'excel', 'csv', 'edit'
