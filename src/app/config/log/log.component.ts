@@ -15,9 +15,7 @@ export class LogComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  logs: any = [];
-
-  // public logs: {logEntryId: number, issuer: string, issuerId: number, level: string, message: string, time: number}[] = [];
+  public logs: {logEntryId: number, issuer: string, issuerId: number, level: string, message: string, time: number}[] = [];
 
   constructor(private logentryService: LogentryService,
     private route:ActivatedRoute, private router:Router) { }
@@ -26,7 +24,6 @@ export class LogComponent implements OnInit {
       this.logentryService.getLogs().subscribe((log: any) => {
         this.logs = log;
         this.dtTrigger.next(void 0);
-        console.log(this.logs);
       });
       this.dtOptions = {
         dom: 'Bfrtip',
