@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
@@ -9,13 +9,13 @@ import { Configuration } from '../configuration';
 })
 export class LogentryService {
 
-  private endpoint = Configuration.BASE_URL_APIV1 + '/logentries';
+  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/logentries';
   private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 
   getLogs():Observable<any> {
-    return this.http.get(this.endpoint)
+    return this.http.get(this.endpoint ,{params: new HttpParams().set('maxResults', 10000)})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

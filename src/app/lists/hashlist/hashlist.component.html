@@ -36,7 +36,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let list of allhashlists['values']">
+              <tr *ngFor="let list of allhashlists | keyvalue">
                   <td>
                       <a>{{ list.hashlistId }}</a>
                   </td>

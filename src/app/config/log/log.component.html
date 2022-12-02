@@ -29,7 +29,8 @@
                 </thead>
                 <tbody>
                   <ng-container>
-                    <tr *ngFor="let l of logs" [ngStyle]="{'background-color':l.level | warningColor}">
+                    <tr *ngFor="let l of logs.values"  [ngStyle]="{'background-color':l.level | warningColor}">
+                    <!-- <tr *ngFor="let l of logs" [ngStyle]="{'background-color':l.level | warningColor}"> -->
                         <td class="text-align:center">{{ l.logEntryId }}</td>
                         <td>{{ l.time*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}</td>
                         <td>{{ l.level }}</td>
