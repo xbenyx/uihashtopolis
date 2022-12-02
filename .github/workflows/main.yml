@@ -1,4 +1,4 @@
-name: Angular CI
+name: CI
 on:
   push:
     branches: [ main ]
@@ -9,9 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -20,7 +20,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: npm install and npm run CI commands
+      - name: npm install and npm run CI tests commands
         run: |
           npm i
           npm run test:ci
