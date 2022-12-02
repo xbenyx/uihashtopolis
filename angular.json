@@ -119,9 +119,9 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles/styles.scss",
-              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"
+              "src/node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"
             ],
             "styles": [
               "src/styles/styles.scss"
