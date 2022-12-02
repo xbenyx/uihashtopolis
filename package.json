@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^15.0.2",
     "@angular/platform-browser-dynamic": "^15.0.2",
     "@angular/router": "^15.0.2",
+<<<<<<< HEAD
     "@fortawesome/angular-fontawesome": "~0.11.1",
 =======
     "@angular/animations": "^14.2.0",
@@ -35,6 +36,9 @@
     "@angular/router": "^14.2.0",
     "@fortawesome/angular-fontawesome": "^0.11.1",
 >>>>>>> parent of 71e836a (Upgraded Angular Version 15)
+=======
+    "@fortawesome/angular-fontawesome": "^0.11.1",
+>>>>>>> parent of 223ffef (removing package affecting build)
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
