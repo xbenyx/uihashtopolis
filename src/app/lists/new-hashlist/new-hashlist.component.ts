@@ -6,7 +6,7 @@ import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../service/lists/hashlist.service';
 import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
-
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-new-hashlist',
