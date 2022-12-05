@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { Configuration } from './configuration';
 import { Hashtype } from '../models/hashtype';
@@ -11,12 +11,41 @@ import { Hashtype } from '../models/hashtype';
 })
 export class HashtypeService {
 
-  private endpoint = Configuration.BASE_URL + '/hashtype';
+  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/hashtypes';
 
   constructor(private http: HttpClient) { }
 
-  getHashTypes(): Observable<Hashtype[]> {
-    return this.http.get<Hashtype[]>(this.endpoint);
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
+    }
+    return throwError(() => err);
   }
+
+  getHashTypes(): Observable<Hashtype[]> {
+    return this.http.get<Hashtype[]>(this.endpoint,{params: new HttpParams().set('maxResults', 3000)})
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  deleteHashType(id:number):Observable<any> {
+    return this.http.delete(this.endpoint +'/'+ id)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  createHashType(hash: any): Observable<Hashtype[]> {
+    return this.http.post<any>(this.endpoint, hash) //Test {hashTypeId: 696969, description: 'isSalted: false, 'isSlowHash': false}
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
 }
 

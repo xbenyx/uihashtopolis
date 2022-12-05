@@ -41,27 +41,31 @@
                       <a>{{ list.hashlistId }}</a>
                   </td>
                   <td>
-                      <a>{{ list.hashlistName }}</a>
+                      <a>{{ list.name }}</a>
                       <span *ngIf="list.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
                   </td>
-                  <td>{{ list.hashTypeId }}</td>
-                  <td>{{ list.format}}</td>
+                  <td>{{ list.hashType.description }}</td>
+                  <td>{{ list.format | staticArray:'formats' }}</td>
                   <td>
-                      (<a href="hashes.php?hashlist=[[entry.getVal('hashlist').getId()]]&filter=cracked">{{ list.cracked }}</a>
+                      {{ list.cracked/list.hashCount | percent }}
+                      (<a href="path_to_cracked_view">{{ list.cracked }}</a>
                       /
                       <a>{{ list.hashCount }}</a>)
                   </td>
                   <td>
-                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Import Hashlist">
                       <fa-icon [icon]="faFileExport" aria-hidden="true"></fa-icon>
                    </a>
-                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete">
+                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Export Hashlist">
                       <fa-icon [icon]="faFileImport" aria-hidden="true"></fa-icon>
                    </a>
                   </td>
                   <td>
                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
                       <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                   </a>
+                   <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Archive">
+                    <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
                    </a>
                    <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(list.hashlistId)">
                         <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>

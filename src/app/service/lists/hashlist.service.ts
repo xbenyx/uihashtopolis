@@ -23,7 +23,10 @@ export class ListsService {
   }
 
   getAllhashlists():Observable<any> {
-    return this.http.get(this.endpoint ,{params: new HttpParams().set('maxResults', 100)})
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('maxResults',100);
+    searchParams = searchParams.append('expand','hashType,accessGroup');
+    return this.http.get(this.endpoint ,{params: searchParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

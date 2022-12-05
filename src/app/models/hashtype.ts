@@ -1,5 +1,5 @@
 export interface Hashtype {
-    id: number;
+    hashTypeId: number;
     description: string;
     isSalted: boolean;
     isSlowHash: boolean;

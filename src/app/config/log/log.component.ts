@@ -15,16 +15,14 @@ export class LogComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  // public logs: {logEntryId: number, issuer: string, issuerId: number, level: string, message: string, time: number}[] = [];
-
-  public logs = [];
+  public logs: {logEntryId: number, issuer: string, issuerId: number, level: string, message: string, time: number}[] = [];
 
   constructor(private logentryService: LogentryService,
     private route:ActivatedRoute, private router:Router) { }
 
     ngOnInit(): void {
       this.logentryService.getLogs().subscribe((log: any) => {
-        this.logs = log;
+        this.logs = log.values;
         this.dtTrigger.next(void 0);
       });
       this.dtOptions = {

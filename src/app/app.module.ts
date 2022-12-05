@@ -19,6 +19,7 @@ import { FileDropDirective } from './directives/file-drop.directive';
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { WarningColorPipe } from './pipes/warning-color.pipe';
 import { ShortenStringPipe } from './pipes/shorten-string.pipe';
+import { StaticArrayPipe } from './pipes/static-array.pipe';
 
 // App Components
 import { AppComponent } from './app.component';
@@ -152,7 +153,8 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     FileDropDirective,
     FileSizePipe,
     WarningColorPipe,
-    ShortenStringPipe
+    ShortenStringPipe,
+    StaticArrayPipe
   ],
   imports: [
     BrowserModule,

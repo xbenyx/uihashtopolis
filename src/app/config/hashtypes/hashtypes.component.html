@@ -27,45 +27,52 @@
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
                 <h2 class="h5 mb-4">Create Hashtype</h2><br>
-                  <form (ngSubmit)="onSubmit()">
+                  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label" for="sethashtype">Hashtype (Hashcat -m)</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype" >
+                            <label class="form-label requiredak" for="sethashtype">Hashtype (Hashcat -m)</label>
+                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId">
                           </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label" for="setdescription">Description</label>
-                            <input  type='text' name='description' title="Description" class='form-control' id="description" >
+                            <label class="form-label requiredak" for="setdescription">Description</label>
+                            <input  type='text' name='description' title="Description" class='form-control' id="description" formControlName="description">
                           </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label" for="setsalted">Salted (only if there is a separate salt value)</label>
-                            <select name="isSalted" class="form-control" title="Is Salted">
-                              <option value="0">No</option>
-                              <option value="1">Yes</option>
+                            <label for="setsalted">Salted (only if there is a separate salt value)</label>
+                            <td>
+                            <select  class='form-select' name="isSalted"  title="Is Salted" formControlName="isSalted">
+                              <option value="true" [defaultSelected]=true>No</option>
+                              <option value="false">Yes</option>
                             </select>
                           </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label" for="setsalted">Slow Hash</label>
-                            <select name="isSlowHash" class="form-control" title="Is Slow Hash">
-                              <option value="0">No</option>
-                              <option value="1">Yes</option>
+                            <td>
+                            <select  class='form-select' name="isSlowHash" title="Is Slow Hash" formControlName="isSlowHash">
+                              <option value="true" [defaultSelected]=true>No</option>
+                              <option value="false">Yes</option>
                             </select>
                           </div>
                         </div>
+                        &nbsp;
+                        <button class="btn btn-gray-800" type="submit">Create</button>
                       </div>
-                    <button  class="btn btn-gray-800" type="submit">Update</button>
-              </form>
+                </form>
+                {{ signupForm.value | json }}
+           </div>
         </div>
       </div>
     </div>
-  </div>
   </section>
   &nbsp;&nbsp;
 </div>
@@ -73,7 +80,6 @@
 <!-- Body -->
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
-        <!-- <h2>All users ({{allusers.length}})</h2> -->
         <div class="table-responsive">
             <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
               <thead class="thead-light">
