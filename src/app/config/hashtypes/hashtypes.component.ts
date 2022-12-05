@@ -38,7 +38,7 @@ export class HashtypesComponent implements OnInit {
   ngOnInit(): void {
 
     this.signupForm = new FormGroup({
-      'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), Validators.minLength(6)]),
+      'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), Validators.minLength(1)]),
       'description': new FormControl(null),
       'isSalted': new FormControl(false),
       'isSlowHash': new FormControl(false)
@@ -82,9 +82,11 @@ export class HashtypesComponent implements OnInit {
       Swal.fire({
         title: "Good job!",
         text: "New Hashtype created!",
-        icon: "success",
-        button: "Close",
+        icon: "success"
       });
+      this.ngOnInit();
+      this.rerender();  // rerender datatables
+      this.isCollapsed = true; //Close button new hashtype
     });
 
     this.signupForm.reset();
@@ -112,7 +114,7 @@ export class HashtypesComponent implements OnInit {
       if (result.isConfirmed) {
         this.hashtypeService.deleteHashType(id).subscribe(() => {
           Swal.fire(
-            "File has been deleted!",
+            "Hashtype has been deleted!",
             {
             icon: "success",
           });
