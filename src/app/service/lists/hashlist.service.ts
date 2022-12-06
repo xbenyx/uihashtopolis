@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
-import { CreateHashlist, Hashlist} from '../../models/hashlist';
+import { BaseHashlist} from '../../models/hashlist';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,7 @@ export class ListsService {
     );
   }
 
-  createHashlist(user: any): Observable<any> {
+  createHashlist(user: any): Observable<BaseHashlist> {
     return this.http.post<any>(this.endpoint, user)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),

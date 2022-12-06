@@ -4,13 +4,12 @@
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
                   <h2 class="h5 mb-4">Create Hashlist</h2><br>
-                  <form [formGroup]="signupForm" >
-                    <!-- <tr *ngFor="let u of user"> -->
+                  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="form-group">
                             <div class="form-outline">
                                 <label class="form-label requiredak" for="getname" >Name</label>
-                                <input  type='text' name='hashlistname' title="Hashlistname" class='form-control' id="hashlistname" formControlName="hashlistName" >
+                                <input  type='text' name='name' title="Hashlistname" class='form-control' id="name" formControlName="name" >
                             </div>
                         </div>
                         &nbsp;
@@ -32,19 +31,19 @@
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
                               <td>
-                                <select class='form-select' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format">
+                                <select type='number' class='form-select' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format" convert-to-number>
                                   <option value="0" [defaultSelected]=true>Text file</option>
                                   <option value="1">HCCAPX file / PMKID hash</option>
                                   <option value="2">Binary file (single hash)</option>
                                 </select>
                                 <span class="position-relative top-50 start-50">
                                   <br>
-                                  <input type="checkbox" name="isSalted" id="isSalted" title="Is Salted" formControlName="isSalted"> Salted hashes, separator:
-                                  <input type="text" name="saltseparator" class='form-control form-control-mini' value=";" title="Salt Separator" formControlName="saltSeparator">
+                                  <input type="checkbox" name="separator" id="separator" title="separator" formControlName="isSalted"> Salted hashes, separator:
+                                  <input type="text" name="separator" class='form-control form-control-mini' value=";" title="separator" formControlName="separator">
                                 </span>
                                 <span class="position-relative top-50 start-50">
                                   <br>
-                                  <input type="checkbox" name="hexsalted" title="Salt in HEX" formControlName="hexSalt"> Salt is in hex (only when salted hashes)
+                                  <input type="checkbox" name="isHexSalt" title="HEX Salt" formControlName="isHexSalt"> Salt is in hex (only when salted hashes)
                                 </span>
                               </td>
                           </div>
@@ -53,7 +52,7 @@
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="getaccessgroup">Access group</label>
-                              <input  type='text' name='accessgroup' title="Accessgroup" class='form-control' id="accessgroup" formControlName="accessGroupId">
+                              <input type="number" name='accessgroup' title="Accessgroup" class='form-control' id="accessgroup" formControlName="accessGroupId">
                           </div>
                         </div>
                         &nbsp;
@@ -61,7 +60,7 @@
                           <div class="form-outline">
                             <label for="gethashlistformat">Hashcat Brain</label>
                             <td>
-                            <select #usebrain  class='form-select' id='hashcatbrain' name="hashcatbrain" title="Hashcat-brain" formControlName="brainId">
+                            <select #usebrain  class='form-select' id='hashcatbrain' name="hashcatbrain" title="Hashcat-brain" formControlName="useBrain">
                               <option value="false" [defaultSelected]=true>No</option>
                               <option value="true">Yes</option>
                             </select>
@@ -84,6 +83,13 @@
                         </div>
                         <div class="form-group">
                           <div class="form-outline">
+                              <label class="form-label" for="notes">Notes</label>
+                              <input  type='text' name='notes' title="Notes" class='form-control' id="notes" formControlName="notes">
+                          </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
                               <label class="form-label requiredak" for="gethashsource">Hash source</label>
                                 <td>
                                   <input class="form-check-input" type="radio" name="source" (change)='ShowHideTypeFile("paste")' value="paste" title="Pasting"> Paste<br>
@@ -94,7 +100,7 @@
                                 &nbsp;
                                 <tr id="pasteLine" style="display: none;">
                                   <td>
-                                    <textarea class='form-control' name="hashfield" cols="60" rows="10" title="Hashes" formControlName="data"></textarea>
+                                    <textarea class='form-control' name="hashfield" cols="60" rows="10" title="Hashes" formControlName="sourceData"></textarea>
                                   </td>
                                 </tr>
                                 <tr id="uploadLine">
@@ -151,7 +157,7 @@
                                 </tr>
                                 <tr id="downloadLine" style="display: none;">
                                   <td>
-                                    <input type="text" class='form-control' name="url" size="35" title="Download URL" formControlName="data">
+                                    <input type="text" class='form-control' name="url" size="35" title="Download URL" formControlName="sourceData">
                                   </td>
                                 </tr>
                               </div>

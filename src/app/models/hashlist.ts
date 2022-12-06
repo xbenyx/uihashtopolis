@@ -1,24 +1,29 @@
 export interface BaseHashlist {
-    name: string;
-    format: number;
-    hashtypeId: number;
-    saltSeparator: string;
-    isSecret: boolean;
-    isHexSalted: boolean;
-    isSalted: boolean;
-    accessGroupId: number;
-    useBrain: boolean;
-    brainFeatures: number;
+  accessGroupId: number,
+  brainFeatures: string,
+  format: string,
+  name: string,
+  hashTypeId: number,
+  isHexSalt: boolean,
+  isSecret: boolean,
+  isSalted: boolean,
+  separator: string,
+  useBrain: boolean,
+  hashCount: number,
+  cracked: number,
+  notes: string,
+  isArchived: boolean,
+  sourceType: string,
+  sourceData: string
 }
 
 export interface CreateHashlist extends BaseHashlist {
-    dataSourceType: string;
-    dataSource: string;
+
 }
 
-export interface Hashlist extends BaseHashlist {
-    id: number;
-    hashCount: number;
-    crackedCount: number;
-    notes: string;
-}
+// export interface Hashlist extends BaseHashlist {
+//     id: number;
+//     hashCount: number;
+//     crackedCount: number;
+//     notes: string;
+// }

@@ -6,7 +6,9 @@ import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../service/lists/hashlist.service';
 import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
-import * as $ from "jquery";
+import { HashtypeService } from 'src/app/service/hashtype.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
+// import * as $ from "jquery"; //Fixes Test error but affects
 
 @Component({
   selector: 'app-new-hashlist',
@@ -23,21 +25,28 @@ export class NewHashlistComponent implements OnInit {
   radio=true;
   hashcatbrain: string;
 
-  constructor(private hlService: ListsService, private _changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private hlService: ListsService,
+     private _changeDetectorRef: ChangeDetectorRef,
+     private hashtypeService: HashtypeService) { }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-      'hashlistName': new FormControl(null),
+      'name': new FormControl('', [Validators.required]),
       'hashTypeId': new FormControl(null , [Validators.required]),
-      'format': new FormControl(null || '3'),
-      'saltSeparator': new FormControl(null || ';'),
+      'format': new FormControl(parseInt(null) || 0),
+      'separator': new FormControl(null || ';'),
       'isSalted': new FormControl(false),
-      'hexSalt': new FormControl(false),
-      'accessGroupId': new FormControl(null || 1),
-      'data': new FormControl(null),
-      'isSecret': new FormControl(true),
-      'brainId': new FormControl(false),
+      'isHexSalt': new FormControl(false),
+      'accessGroupId': new FormControl('', [Validators.required]),
+      'useBrain': new FormControl(false),
       'brainFeatures': new FormControl(null || '3'),
+      'notes': new FormControl(''),
+      "sourceType": new FormControl('paste'),
+      "sourceData": new FormControl(''),
+      'hashCount': new FormControl(0),
+      'cracked': new FormControl(0),
+      'isArchived': new FormControl(false),
+      'isSecret': new FormControl(true),
     });
 
   }
@@ -52,6 +61,8 @@ export class NewHashlistComponent implements OnInit {
     });
     this._changeDetectorRef.detectChanges();
   }
+
+  public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
 
   cus_selectize(s_id) {
     var self = this;
@@ -76,6 +87,11 @@ export class NewHashlistComponent implements OnInit {
       load: function (query, callback) {
         if (!query.length) return callback();
         this.clearCache();
+        // this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
+        //   this.htypes = hasht.values;
+        //   console.log(this.htypes);
+        //   callback(this.htypes);
+        // });
         $.ajax({
           url: 'http://localhost:3000/hashtype',
           type: "GET",
@@ -94,6 +110,9 @@ export class NewHashlistComponent implements OnInit {
       },
       onInitialize: function(){
         var selectize = this;
+        // this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
+        //   console.log(hasht);
+        // });
         $.get("http://localhost:3000/hashtype", function( data ) {
             selectize.addOption(data); // This is will add to option
             var selected_items = [];
@@ -158,21 +177,36 @@ export class NewHashlistComponent implements OnInit {
       $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
     }
 
+  // Create HashList
+
   onSubmit(): void{
-    // if (this.signupForm.valid) {
-    console.log(this.signupForm.value);
+      if (this.signupForm.valid) {
+      console.log(this.signupForm.value);
 
-    this.isLoading = true;
+      this.isLoading = true;
 
-    this.hlService.createHashlist(this.signupForm.value).subscribe((hl: any) => {
-      this.isLoading = false;
-      // console.log(user);
-    });
-
-    this.signupForm.reset();
+      this.hlService.createHashlist(this.signupForm.value).subscribe((hl: any) => {
+        this.isLoading = false;
+        Swal.fire({
+          title: "Good job!",
+          text: "New HashList created!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      },
+      errorMessage => {
+        // check error status code is 500, if so, do some action
+        Swal.fire({
+          title: "Error!",
+          text: "HashList was not created, please try again!",
+          icon: "warning",
+          showConfirmButton: true
+        });
+        this.ngOnInit();
+      }
+    );
+    this.signupForm.reset(); // success, we reset form
     }
-  // }
-
-
-
+  }
 }

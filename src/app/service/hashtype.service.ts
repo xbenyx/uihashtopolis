@@ -41,7 +41,7 @@ export class HashtypeService {
   }
 
   createHashType(hash: any): Observable<Hashtype[]> {
-    return this.http.post<any>(this.endpoint, {hashTypeId: +hash.hashTypeId, description: hash.description, isSalted: hash.isSalted, isSlowHash: hash.isSlowHash}) //HashtypeId only supports integer
+    return this.http.post<any>(this.endpoint, hash) //HashtypeId only supports integer
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

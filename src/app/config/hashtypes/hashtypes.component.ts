@@ -6,7 +6,7 @@ import { HashtypeService } from '../../service/hashtype.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 
 @Component({
   selector: 'app-hashtypes',
@@ -47,8 +47,8 @@ export class HashtypesComponent implements OnInit {
       'isSlowHash': new FormControl(false)
     });
 
-    this.hashtypeService.getHashTypes().subscribe((types: any) => {
-      this.htypes = types.values;
+    this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
+      this.htypes = hasht.values;
       this.dtTrigger.next(void 0);
     });
     this.dtOptions = {
@@ -88,8 +88,8 @@ export class HashtypesComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.hashtypeService.createHashType(this.signupForm.value).subscribe((user: any) => {
-      const response = user;
+    this.hashtypeService.createHashType(this.signupForm.value).subscribe((hasht: any) => {
+      const response = hasht;
       console.log(response);
       this.isLoading = false;
         Swal.fire({
@@ -115,7 +115,7 @@ export class HashtypesComponent implements OnInit {
         this.rerender();  // rerender datatables
       }
     );
-    this.signupForm.reset(); // Success, we reset form
+    this.signupForm.reset(); // success, we reset form
     }
   }
 
@@ -127,7 +127,7 @@ export class HashtypesComponent implements OnInit {
   }
 
   onSave(item: any){
-    this.hashtypeService.updateHashType(item).subscribe((user: any) => {
+    this.hashtypeService.updateHashType(item).subscribe((hasht: any) => {
       this.isLoading = false;
       Swal.fire({
         title: "Updated!",
