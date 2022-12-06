@@ -40,8 +40,26 @@ export class ListsService {
     );
   }
 
-  createHashlist(user: any): Observable<BaseHashlist> {
-    return this.http.post<any>(this.endpoint, user)
+  // ToFix, hashtypeid and format only accept integer
+  createHashlist(hash: any): Observable<BaseHashlist> {
+    return this.http.post<any>(this.endpoint, {
+      name: hash.name,
+      hashTypeId: +hash.hashTypeId,
+      format: +hash.format,
+      separator: hash.separator,
+      isSalted: hash.isSalted,
+      isHexSalt: hash.isHexSalt,
+      accessGroupId: hash.accessGroupId,
+      useBrain: hash.useBrain,
+      brainFeatures: hash.brainFeatures,
+      notes: hash.notes,
+      sourceType: hash.sourceType,
+      sourceData: hash.sourceData,
+      hashCount: hash.hashCount,
+      cracked: hash.cracked,
+      isArchived: hash.isArchived,
+      isSecret: hash.isSecret
+     })
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

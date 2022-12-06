@@ -32,7 +32,7 @@
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label requiredak" for="sethashtype">Hashtype (Hashcat -m)</label>
-                            <input type='number' name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId">
+                            <input type='number' name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId" validateInputNumber>
                             <span *ngIf="!signupForm.errors?.['hashTypeId'].valid && signupForm.errors?.['hashTypeId'].touched" class="help-block" >
                               <span *ngIf="signupForm.errors?.['hashtypeIsUsed']" >This name is already in use!</span>
                               <span *ngIf="signupForm.errors?.['required']" >This field is required!</span>

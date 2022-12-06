@@ -31,7 +31,7 @@
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
                               <td>
-                                <select type='number' class='form-select' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format" convert-to-number>
+                                <select type='number' class='form-select' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format" string-number>
                                   <option value="0" [defaultSelected]=true>Text file</option>
                                   <option value="1">HCCAPX file / PMKID hash</option>
                                   <option value="2">Binary file (single hash)</option>
@@ -52,7 +52,7 @@
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="getaccessgroup">Access group</label>
-                              <input type="number" name='accessgroup' title="Accessgroup" class='form-control' id="accessgroup" formControlName="accessGroupId">
+                              <input type="number" name='accessgroup' title="Accessgroup" class='form-control' id="accessgroup" formControlName="accessGroupId" validateInputNumber>
                           </div>
                         </div>
                         &nbsp;

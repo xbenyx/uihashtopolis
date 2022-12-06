@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { HashtypeService } from 'src/app/service/hashtype.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 // import * as $ from "jquery"; //Fixes Test error but affects
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-hashlist',
@@ -27,13 +28,14 @@ export class NewHashlistComponent implements OnInit {
 
   constructor(private hlService: ListsService,
      private _changeDetectorRef: ChangeDetectorRef,
-     private hashtypeService: HashtypeService) { }
+     private hashtypeService: HashtypeService,
+     private router: Router) { }
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       'name': new FormControl('', [Validators.required]),
-      'hashTypeId': new FormControl(null , [Validators.required]),
-      'format': new FormControl(parseInt(null) || 0),
+      'hashTypeId': new FormControl('', [Validators.required]),
+      'format': new FormControl(null),
       'separator': new FormControl(null || ';'),
       'isSalted': new FormControl(false),
       'isHexSalt': new FormControl(false),
@@ -49,80 +51,49 @@ export class NewHashlistComponent implements OnInit {
       'isSecret': new FormControl(true),
     });
 
+
   }
 
   ngAfterViewInit() {
-    this.cus_selectize('hashtype');
- }
+
+    this.hashtypeService.getHashTypes().subscribe((htypes: any) => {
+      var self = this;
+      var response = htypes.values;
+      ($("#hashtype") as any).selectize({
+        plugins: ['remove_button'],
+        valueField: "hashTypeId",
+        placeholder: "Search hashtype...",
+        labelField: "description",
+        searchField: ["description"],
+        loadingClass: 'Loading..',
+        highlight: true,
+        onChange: function (value) {
+            self.OnChangeValue(value); // We need to overide DOM event, Angular vs Jquery
+        },
+        render: {
+          option: function (item, escape) {
+            return '<div  class="hashtype_selectize">' + escape(item.hashTypeId) + ' -  ' + escape(item.description) + '</div>';
+          },
+        },
+        onInitialize: function(){
+          var selectize = this;
+            selectize.addOption(response); // This is will add to option
+            var selected_items = [];
+            $.each(response, function( i, obj) {
+                selected_items.push(obj.id);
+            });
+            selectize.setValue(selected_items); //this will set option values as default
+          }
+          });
+        });
+
+    }
 
   OnChangeValue(value){
     this.signupForm.patchValue({
       hashTypeId: value
     });
     this._changeDetectorRef.detectChanges();
-  }
-
-  public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
-
-  cus_selectize(s_id) {
-    var self = this;
-    ($("#" + s_id) as any).selectize({
-      plugins: ['remove_button'],
-      valueField: "hashTypeId",
-      placeholder: "Search hashtype...",
-      labelField: "description",
-      searchField: ["description"],
-      loadingClass: 'Loading..',
-      highlight: true,
-      // create: true, // We could create new hashtypes on the go
-      onChange: function (value) {
-          self.OnChangeValue(value); // We need to overide DOM event
-          console.log(value);
-      },
-      render: {
-        option: function (item, escape) {
-          return '<div  class="hashtype_selectize">' + escape(item.hashTypeId) + ' -  ' + escape(item.description) + '</div>';
-        },
-      },
-      load: function (query, callback) {
-        if (!query.length) return callback();
-        this.clearCache();
-        // this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
-        //   this.htypes = hasht.values;
-        //   console.log(this.htypes);
-        //   callback(this.htypes);
-        // });
-        $.ajax({
-          url: 'http://localhost:3000/hashtype',
-          type: "GET",
-          error: function () {
-            callback();
-            console.log("Error");
-          },
-          success: function (res) {
-            if (res) {
-              // var this_result = JSON.parse(res); // If its not returning json
-              var this_result = res;
-              callback(this_result);
-            }
-          },
-        });
-      },
-      onInitialize: function(){
-        var selectize = this;
-        // this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
-        //   console.log(hasht);
-        // });
-        $.get("http://localhost:3000/hashtype", function( data ) {
-            selectize.addOption(data); // This is will add to option
-            var selected_items = [];
-            $.each(data, function( i, obj) {
-                selected_items.push(obj.id);
-            });
-            selectize.setValue(selected_items); //this will set option values as default
-        });
-    }
-    });
   }
 
   // New File Upload
@@ -194,6 +165,7 @@ export class NewHashlistComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
+        this.router.navigate(['/lists/hashlist']);
       },
       errorMessage => {
         // check error status code is 500, if so, do some action
