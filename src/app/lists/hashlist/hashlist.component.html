@@ -47,7 +47,7 @@
                   <td>{{ list.hashType.description }}</td>
                   <td>{{ list.format | staticArray:'formats' }}</td>
                   <td>
-                      {{ list.cracked/list.hashCount | percent }}
+                      {{ list.cracked / list.hashCount | percent }}
                       (<a href="path_to_cracked_view">{{ list.cracked }}</a>
                       /
                       <a>{{ list.hashCount }}</a>)
@@ -67,7 +67,7 @@
                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Archive">
                     <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
                    </a>
-                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(list.hashlistId)">
+                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(list.hashlistId)">
                         <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                    </a>
                 </td>

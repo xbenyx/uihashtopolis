@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ListsService } from '../../service/lists/hashlist.service';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
@@ -18,12 +19,11 @@ export class HashlistComponent implements OnInit, OnDestroy {
   faHome=faHomeAlt;
   faArchive=faArchive;
 
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
-
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
 
   // allhashlists: any = [];
   public allhashlists: {
@@ -69,29 +69,59 @@ export class HashlistComponent implements OnInit, OnDestroy {
     ]
     };
   }
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
 
-  deleteFile(id: number){
+  onDelete(id: number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
     Swal.fire({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this file!",
+      text: "If your Hashtype is being in a Hashlist/Task that could lead to issues!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
     })
-    .then((willDelete) => {
-      if (willDelete) {
+    .then((result) => {
+      if (result.isConfirmed) {
         this.listsService.deleteHashlist(id).subscribe(() => {
           Swal.fire(
-            "File has been deleted!",
+            "Hashtype has been deleted!",
             {
             icon: "success",
+            showConfirmButton: false,
+            timer: 1500
           });
+          this.ngOnInit();
+          this.rerender();  // rerender datatables
         });
       } else {
-        Swal.fire("Your imaginary file is safe!")
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'No worries, your Hashtype is safe!',
+          'error'
+        )
       }
     });
+  }
+  // Add unsubscribe to detect changes
+  ngOnDestroy(){
+    this.dtTrigger.unsubscribe();
   }
 
 }
