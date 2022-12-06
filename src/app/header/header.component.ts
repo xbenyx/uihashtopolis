@@ -14,6 +14,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSub: Subscription;
   storedToggletheme:string = localStorage.getItem('toggledarkmode');
 
+    // Icons User Menu
+    faPowerOff=faPowerOff;
+    faBell=faBell;
+    faSun=faSun;
+    faMoon=faMoon;
+    faUserCircle=faUserCircle;
+    faInbox=faInbox;
+    faQuestionCircle=faQuestionCircle;
+    faEye=faEye;
+
+  public notifbell: {title: string, description: string, datetime: string}[] = [];
+
+
   constructor(private authService: AuthService, private notificationbService: NotificationsBellService) { }
 
   collapsed = true;
@@ -21,20 +34,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.collapsed = !this.collapsed;
   }
 
-  user = ['Administrator']  // Can be deleted as soon as user API is connected
-
-
-  // Icons User Menu
-  faPowerOff=faPowerOff;
-  faBell=faBell;
-  faSun=faSun;
-  faMoon=faMoon;
-  faUserCircle=faUserCircle;
-  faInbox=faInbox;
-  faQuestionCircle=faQuestionCircle;
-  faEye=faEye;
-
-  public notifbell: {title: string, description: string, datetime: string}[] = [];
+  getUser(){
+    const userData: { _username: string} = JSON.parse(localStorage.getItem('userData'));
+    return userData._username;
+  }
 
   ngOnInit(): void {
     this.userSub = this.authService.user.subscribe(user => {

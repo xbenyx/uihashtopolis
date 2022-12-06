@@ -131,7 +131,7 @@
 
       <!-- User Menu  -->
       <li class="nav-item dropdown ms-3" *ngIf="isAuthentificated" ngbDropdown>
-        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownUsers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user | shortenString:5 }}</a>
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownUsers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{getUser() | shortenString:5 | lowercase | titlecase }}</a>
         <div ngbDropdownMenu class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-0 py-1">
           <a class="dropdown-item align-items-center" routerLink="account/settings">
             <fa-icon class="dropdown-icon" [icon]="faUserCircle" aria-hidden="true"></fa-icon>

@@ -24,7 +24,7 @@ export class AuthService {
 
     user = new BehaviorSubject<User>(null);
     private tokenExpiration: any;
-    private endpoint = Configuration.BASE_URL_APIV1 + '/auth/token';
+    private endpoint = Configuration.BASE_URL_APIV1 + '/auth';
 
     constructor(private http: HttpClient, private router: Router){
 
@@ -36,26 +36,38 @@ export class AuthService {
             return;
         }
 
-        const loadedUser = new User(userData._token, new Date(userData._expires));
+        const loadedUser = new User(userData._token, new Date(userData._expires), '-');
 
         if(loadedUser.token){
             this.user.next(loadedUser);
             const tokenExpiration = new Date(userData._expires).getTime() - new Date().getTime();
-            this.autologOut(tokenExpiration);
+            // this.autologOut(tokenExpiration);
+            this.getRefreshToken(tokenExpiration);
         }
     }
 
     logIn(username: string, password: string){
-        return this.http.post<AuthResponseData>(this.endpoint, {username: username, password: password}, {headers: new HttpHeaders({ 'Authorization': 'Basic '+window.btoa(username+':'+password) })}
+        return this.http.post<AuthResponseData>(this.endpoint + '/token', {username: username, password: password}, {headers: new HttpHeaders({ 'Authorization': 'Basic '+window.btoa(username+':'+password) })}
         ).pipe(catchError(this.handleError), tap(resData => {
-            this.handleAuthentication(resData.token, +resData.expires);
+            this.handleAuthentication(resData.token, +resData.expires, username);
         }));
     }
 
+    // With autologOut we use only the expiration date of the bearer token, approx. 2 hours
     autologOut(expirationDuration: number){
         this.tokenExpiration = setTimeout(() => {
             this.logOut();
         }, expirationDuration);
+    }
+
+    getRefreshToken(expirationDuration: number){
+        this.tokenExpiration = setTimeout(() => {
+          const userData: {_token: string, _expires: string, _username: string} = JSON.parse(localStorage.getItem('userData'));
+          return this.http.post<AuthResponseData>(this.endpoint + '/refresh', {headers: new HttpHeaders({ Authorization: `Bearer ${userData._token}` })})
+          .pipe(catchError(this.handleError), tap(resData => {
+            this.handleAuthentication(resData.token, +resData.expires, userData._username);
+        }));
+      }, expirationDuration);
     }
 
     logOut(){
@@ -68,9 +80,9 @@ export class AuthService {
         this.tokenExpiration = null;
     }
 
-    private handleAuthentication(token: string, expires: number) {
+    private handleAuthentication(token: string, expires: number, username: string) {
         const expirationDate = new Date(expires * 1000); // expires, its epoch time in seconds and returns milliseconds sin Jan 1, 1970. We need to multiple by 1000
-        const user = new User(token, expirationDate);
+        const user = new User(token, expirationDate, username);
         this.user.next(user);
         this.autologOut(expires) // Epoch time
         localStorage.setItem('userData', JSON.stringify(user));
