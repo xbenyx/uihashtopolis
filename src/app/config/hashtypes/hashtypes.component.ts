@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild  } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -41,7 +41,7 @@ export class HashtypesComponent implements OnInit {
   ngOnInit(): void {
 
     this.signupForm = new FormGroup({
-      'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), Validators.minLength(1)]),
+      'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), this.checkHashtypeExist.bind(this), Validators.minLength(1)]),
       'description': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'isSalted': new FormControl(false),
       'isSlowHash': new FormControl(false)
@@ -89,20 +89,33 @@ export class HashtypesComponent implements OnInit {
     this.isLoading = true;
 
     this.hashtypeService.createHashType(this.signupForm.value).subscribe((user: any) => {
+      const response = user;
+      console.log(response);
       this.isLoading = false;
-      Swal.fire({
-        title: "Good job!",
-        text: "New Hashtype created!",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.ngOnInit();
-      this.rerender();  // rerender datatables
-      this.isCollapsed = true; //Close button new hashtype
-    });
-
-    this.signupForm.reset();
+        Swal.fire({
+          title: "Good job!",
+          text: "New Hashtype created!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.ngOnInit();
+        this.rerender();  // rerender datatables
+        this.isCollapsed = true; //Close button new hashtype
+      },
+      errorMessage => {
+        // check error status code is 500, if so, do some action
+        Swal.fire({
+          title: "Error!",
+          text: "Hastype was not created, please try again!",
+          icon: "warning",
+          showConfirmButton: true
+        });
+        this.ngOnInit();
+        this.rerender();  // rerender datatables
+      }
+    );
+    this.signupForm.reset(); // Success, we reset form
     }
   }
 
