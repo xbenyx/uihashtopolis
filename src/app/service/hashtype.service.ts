@@ -33,7 +33,7 @@ export class HashtypeService {
     );
   }
 
-  deleteHashType(id:number):Observable<any> {
+  deleteHashType(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)
@@ -42,6 +42,14 @@ export class HashtypeService {
 
   createHashType(hash: any): Observable<Hashtype[]> {
     return this.http.post<any>(this.endpoint, {hashTypeId: +hash.hashTypeId, description: hash.description, isSalted: hash.isSalted, isSlowHash: hash.isSlowHash}) //HashtypeId only supports integer
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  updateHashType(hash: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + hash.hashTypeId, {description: hash.description})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

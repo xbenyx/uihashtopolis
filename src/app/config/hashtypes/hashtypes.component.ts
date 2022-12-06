@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HashtypeService } from '../../service/hashtype.service';
 import { Router } from '@angular/router';
@@ -20,6 +20,9 @@ export class HashtypesComponent implements OnInit {
   faHome=faHomeAlt;
   faPlus=faPlus;
   faTrash=faTrash;
+  faEdit=faEdit;
+  faSave=faSave;
+  faCancel=faCancel;
 
   // Create Hashtype
   signupForm: FormGroup;
@@ -33,13 +36,13 @@ export class HashtypesComponent implements OnInit {
   constructor(private hashtypeService: HashtypeService,
     private route:ActivatedRoute, private router:Router) { }
 
-  public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number}[] = [];
+  public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
 
   ngOnInit(): void {
 
     this.signupForm = new FormGroup({
       'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), Validators.minLength(1)]),
-      'description': new FormControl(null),
+      'description': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'isSalted': new FormControl(false),
       'isSlowHash': new FormControl(false)
     });
@@ -71,6 +74,14 @@ export class HashtypesComponent implements OnInit {
     });
   }
 
+  // Not implemented - ToDo
+  checkHashtypeExist(control: FormControl): {[s: string]: boolean}{
+    if(this.htypes.indexOf(control.value) !== -1){
+      return {'hashtypeIsUsed': true};
+    }
+    return null as any;
+  }
+
   onSubmit(): void{
     if (this.signupForm.valid) {
     console.log(this.signupForm);
@@ -82,7 +93,9 @@ export class HashtypesComponent implements OnInit {
       Swal.fire({
         title: "Good job!",
         text: "New Hashtype created!",
-        icon: "success"
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
       });
       this.ngOnInit();
       this.rerender();  // rerender datatables
@@ -91,6 +104,33 @@ export class HashtypesComponent implements OnInit {
 
     this.signupForm.reset();
     }
+  }
+
+  onEdit(item: any){
+    this.htypes.forEach(element => {
+      element.isEdit = false;
+    });
+    item.isEdit = true;
+  }
+
+  onSave(item: any){
+    this.hashtypeService.updateHashType(item).subscribe((user: any) => {
+      this.isLoading = false;
+      Swal.fire({
+        title: "Updated!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    });
+    this.ngOnInit();  // reload ngOnInit
+    this.rerender();  // Destroy and rerender table
+    item.isEdit = false; //Change Edit status to false
+  }
+
+  onCancel(item: any){
+    item.isEdit = false;
+
   }
 
   onDelete(id: number){
@@ -103,7 +143,7 @@ export class HashtypesComponent implements OnInit {
     })
     Swal.fire({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this Hashtype!",
+      text: "If your Hashtype is being in a Hashlist/Task that could lead to issues!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -117,6 +157,8 @@ export class HashtypesComponent implements OnInit {
             "Hashtype has been deleted!",
             {
             icon: "success",
+            showConfirmButton: false,
+            timer: 1500
           });
           this.ngOnInit();
           this.rerender();  // rerender datatables
@@ -129,6 +171,10 @@ export class HashtypesComponent implements OnInit {
         )
       }
     });
+  }
+  // Add unsubscribe to detect changes
+  ngOnDestroy(){
+    this.dtTrigger.unsubscribe();
   }
 
 }
