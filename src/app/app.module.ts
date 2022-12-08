@@ -1,5 +1,6 @@
 // App Modules
 import { NgModule } from '@angular/core';
+import { NgDynamicBreadcrumbModule } from "ng-dynamic-breadcrumb";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +21,8 @@ import { FileSizePipe } from './pipes/file-size.pipe';
 import { WarningColorPipe } from './pipes/warning-color.pipe';
 import { ShortenStringPipe } from './pipes/shorten-string.pipe';
 import { StaticArrayPipe } from './pipes/static-array.pipe';
+import { SearchPipe } from './pipes/filter-search.pipe';
+import { ArraySortPipe } from './pipes/orderby-item.pipe';
 
 // App Components
 import { AppComponent } from './app.component';
@@ -53,7 +56,6 @@ import { NotificationsComponent } from './account/notifications/notifications.co
 import { ConfigComponent } from './config/config.component';
 import { ServerComponent } from './config/server/server.component';
 import { CrackingComponent } from './config/server/cracking/cracking.component';
-import { YubikeyComponent } from './users/yubikey/yubikey.component';
 import { FinetunningComponent } from './config/server/finetunning/finetunning.component';
 import { NotificationsConfigComponent } from './config/server/notifications/notifications.component';
 import { UiComponent } from './config/server/ui/ui.component';
@@ -66,6 +68,8 @@ import { PreprocessorsComponent } from './engine/preprocessors/preprocessors.com
 import { UsersComponent } from './users/users.component';
 import { EditUsersComponent } from './users/edit-users/edit-users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
+import { YubikeyComponent } from './users/yubikey/yubikey.component';
+import { GroupsComponent } from './users/groups/groups.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -84,6 +88,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { EditProjectComponent } from './projects/edit-project/edit-project.component';
 import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.component';
+
 
 
 @NgModule({
@@ -137,6 +142,7 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     UsersComponent,
     EditUsersComponent,
     AllUsersComponent,
+    GroupsComponent,
     HomeComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
@@ -154,11 +160,14 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     FileSizePipe,
     WarningColorPipe,
     ShortenStringPipe,
-    StaticArrayPipe
+    StaticArrayPipe,
+    SearchPipe,
+    ArraySortPipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    NgDynamicBreadcrumbModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

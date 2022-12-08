@@ -1,5 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+/*
+ * Shortest any text usinng a limit parameter, if its greater than the max returns the limit plus 3 consecutive dots
+ * Usage:
+ *   value | shortenString:limit
+ * Example:
+ *   {{ Benito | fileSize:3 }}
+ *   formats to: Ben
+*/
 @Pipe({
   name: 'shortenString'
 })

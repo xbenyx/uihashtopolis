@@ -6,6 +6,15 @@ import {
   EventEmitter
 } from '@angular/core';
 
+/*
+ * Cetects when a file is hovered or dropped
+ * Usage:
+ *   value | fileDrop
+ * Example:
+ *     fileDrop >
+ *   console: detects when a file is hovered or dropped
+*/
+
 @Directive({
   selector: '[fileDrop]'
 })

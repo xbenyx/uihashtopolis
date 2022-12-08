@@ -52,7 +52,9 @@
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="getaccessgroup">Access group</label>
-                              <input type="number" name='accessgroup' title="Accessgroup" class='form-control' id="accessgroup" formControlName="accessGroupId" validateInputNumber>
+                              <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
+                                <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
+                              </select>
                           </div>
                         </div>
                         &nbsp;

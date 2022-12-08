@@ -1,4 +1,4 @@
 export interface AccessGroup {
-    id: number;
-    name: string;
+  accessGroupId: number;
+  groupName: string;
 }

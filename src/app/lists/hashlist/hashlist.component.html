@@ -19,6 +19,16 @@
       </a>
   </div>
 </div>
+<!-- Search -->
+<div *ngIf="filterType === 'true'">
+<button [(ngModel)]="filterType" (click)="onFilterArchive()" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Current</button>
+</div>
+<div *ngIf="filterType === 'false'">
+  <button [(ngModel)]="filterType" (click)="onFilterLive()" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button>
+</div>
+<!-- <button [routerLink]="['/lists/hashlist','archived']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button> -->
+
+<!-- End Search -->
 <!-- Body -->
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
@@ -36,7 +46,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let list of allhashlists">
+              <tr *ngFor="let list of allhashlists | search:filterType:'isArchived'">
                   <td>
                       <a>{{ list.hashlistId }}</a>
                   </td>
@@ -64,11 +74,11 @@
                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
                       <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
                    </a>
-                   <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Archive">
-                    <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
+                   <a class='btn-outline-gray-600 float-right' (click)="onArchive(list.hashlistId)" data-toggle="tooltip" data-placement="top" title="Archive">
+                      <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
                    </a>
-                   <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(list.hashlistId)">
-                        <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                   <a class='btn-outline-gray-600 float-right' (click)="onDelete(list.hashlistId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                    </a>
                 </td>
               </tr>
@@ -77,3 +87,4 @@
         </div>
     </div>
 </div>
+

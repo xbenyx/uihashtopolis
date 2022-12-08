@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ListsService } from '../../service/lists/hashlist.service';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -9,6 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
   selector: 'app-hashlist',
   templateUrl: './hashlist.component.html'
 })
+
 export class HashlistComponent implements OnInit, OnDestroy {
   faEdit=faEdit;
   faTrash=faTrash;
@@ -46,7 +47,20 @@ export class HashlistComponent implements OnInit, OnDestroy {
     hashType: {description: string, hashTypeId: number, isSalted: string, isSlowHash: string}
   }[] = [];
 
-  constructor(private listsService: ListsService) { }
+  constructor(private listsService: ListsService,
+    // private searchPipe: SearchPipe
+    ) { }
+
+  // Search by
+  public filterType:any = 'false';
+
+  onFilterArchive(){
+    this.filterType = 'false';
+  }
+
+  onFilterLive(){
+    this.filterType = 'true';
+  }
 
   ngOnInit(): void {
     this.listsService.getAllhashlists().subscribe((list: any) => {
@@ -69,6 +83,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
     ]
     };
   }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -77,6 +92,20 @@ export class HashlistComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.dtTrigger['new'].next();
       });
+    });
+  }
+
+  onArchive(id: number){
+    this.listsService.archiveHashlist(id).subscribe((list: any) => {
+      Swal.fire({
+        title: "Good job!",
+        text: "New Hashtype created!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.ngOnInit();
+      this.rerender();  // rerender datatables
     });
   }
 
@@ -90,7 +119,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
     })
     Swal.fire({
       title: "Are you sure?",
-      text: "If your Hashtype is being in a Hashlist/Task that could lead to issues!",
+      text: "Once deleted, it can not be recovered!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -101,7 +130,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         this.listsService.deleteHashlist(id).subscribe(() => {
           Swal.fire(
-            "Hashtype has been deleted!",
+            "HashList has been deleted!",
             {
             icon: "success",
             showConfirmButton: false,
@@ -113,7 +142,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
       } else {
         swalWithBootstrapButtons.fire(
           'Cancelled',
-          'No worries, your Hashtype is safe!',
+          'No worries, your HashList is safe!',
           'error'
         )
       }

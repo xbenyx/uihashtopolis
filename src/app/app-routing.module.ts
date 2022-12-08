@@ -49,6 +49,8 @@ import { PreprocessorsComponent } from './engine/preprocessors/preprocessors.com
 import { UsersComponent } from './users/users.component';
 import { EditUsersComponent } from './users/edit-users/edit-users.component';
 import { AllUsersComponent } from './users/all-users/all-users.component';
+import { GroupsComponent } from './users/groups/groups.component';
+
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -75,8 +77,19 @@ const appRoutes: Routes = [
     {path: 'tasks/supertasks', component: SupertasksComponent ,canActivate: [AuthGuard] },
     {path: 'tasks/new-supertasks', component: NewSupertasksComponent ,canActivate: [AuthGuard] },
     {path: 'tasks/import-supertasks', component: ImportSupertasksComponent ,canActivate: [AuthGuard] },
-    {path: 'lists', component: ListsComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/hashlist', component: HashlistComponent ,canActivate: [AuthGuard] },
+    {path: 'lists', component: ListsComponent ,canActivate: [AuthGuard]},
+    {path: 'lists/hashlist', component: HashlistComponent ,canActivate: [AuthGuard]},
+    {path: 'lists/hashlist/archived', component: HashlistComponent ,canActivate: [AuthGuard] },
+    // data: {
+    //   title: 'page1',
+    //   breadcrumb: [
+    //     {
+    //       label: 'Page1',
+    //       url: ''
+    //       }
+    //     ]
+    //   },
+    // },
     {path: 'lists/new-hashlist', component: NewHashlistComponent ,canActivate: [AuthGuard] },
     {path: 'lists/superhashlist', component: SuperhashlistComponent ,canActivate: [AuthGuard] },
     {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
@@ -107,6 +120,7 @@ const appRoutes: Routes = [
     {path: 'users/:id/edit', component: EditUsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/all-users', component: AllUsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/yubikey', component: YubikeyComponent ,canActivate: [AuthGuard] },
+    {path: 'users/groups', component: GroupsComponent ,canActivate: [AuthGuard] },
     {path: 'error', component: ErrorPageComponent, data:{message: 'Page Not Found!'} ,canActivate: [AuthGuard] },
     {path: 'not-found', component: PageNotFoundComponent ,canActivate: [AuthGuard] },
     {path: '**', redirectTo: 'not-found'}  // Needs to be always the last route

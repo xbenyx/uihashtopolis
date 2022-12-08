@@ -1,11 +1,17 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+/*
+ * Static Array, with some static configurations
+ * Usage:
+ *   value | staticArray:search
+ * Example:
+ *   {{ 0 | staticArray:formats }}
+ *   returns to: Text
+ *
+ * FIXME: This should be part of the config table in the database
+*/
 @Pipe({
   name: 'staticArray'
 })
-// //
-//  Note FIXME: This should be part a table in the database
-// //
 export class StaticArrayPipe implements PipeTransform {
 
   transform(id: any, search: any) {

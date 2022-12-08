@@ -6,6 +6,15 @@ import {
   EventEmitter,
 } from '@angular/core';
 
+/*
+ * Detects a change of event when a file is selected
+ * Usage:
+ *   value | fileSelect
+ * Example:
+ *     fileSelect >
+ *   console: detects a change of event when a file is selected
+*/
+
 @Directive({
   selector: '[fileSelect]',
 })

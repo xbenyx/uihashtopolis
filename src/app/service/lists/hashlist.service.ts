@@ -33,14 +33,14 @@ export class ListsService {
     );
   }
 
-  deleteHashlist(id:number):Observable<any> {
+  deleteHashlist(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)
     );
   }
 
-  // ToFix, hashtypeid and format only accept integer
+  // ToFix, hashtypeid and format only accept integer, otherwise array only needs to be called hash
   createHashlist(hash: any): Observable<BaseHashlist> {
     return this.http.post<any>(this.endpoint, {
       name: hash.name,
@@ -60,6 +60,22 @@ export class ListsService {
       isArchived: hash.isArchived,
       isSecret: hash.isSecret
      })
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  updateHashlist(hash: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + hash.hashTypeId, {description: hash.description})
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  archiveHashlist(id: number): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + id, {isArchived: true})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

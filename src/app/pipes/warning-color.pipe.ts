@@ -1,5 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+/*
+ * Reusable pipe to transform label information in hex colors
+ * Usage:
+ *   value | warningColor
+ * Example:
+ *   {{ warning | warningColor }}
+ *   formats to: #b16a06
+*/
 @Pipe({
   name: 'warningColor'
 })

@@ -127,6 +127,7 @@ export class HashtypesComponent implements OnInit {
   }
 
   onSave(item: any){
+    console.log(item);
     this.hashtypeService.updateHashType(item).subscribe((hasht: any) => {
       this.isLoading = false;
       Swal.fire({

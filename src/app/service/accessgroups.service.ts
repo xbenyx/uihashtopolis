@@ -3,16 +3,16 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
+import { AccessGroup } from '../models/access-group';
 import { Configuration } from './configuration';
-import { Hashtype } from '../models/hashtype';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class HashtypeService {
+export class AccessGroupsService {
 
-  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/hashtypes';
+  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/accessgroups';
 
   constructor(private http: HttpClient) { }
 
@@ -25,32 +25,31 @@ export class HashtypeService {
     return throwError(() => err);
   }
 
-  getHashTypes(): Observable<Hashtype[]> {
-    return this.http.get<Hashtype[]>(this.endpoint,{params: new HttpParams().set('maxResults', 3000)})
+  getAccessGroups(): Observable<AccessGroup[]> {
+    return this.http.get<AccessGroup[]>(this.endpoint,{params: new HttpParams().set('maxResults', 3000)})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
-  deleteHashType(id: number):Observable<any> {
+  deleteAccessGroups(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)
     );
   }
 
-  createHashType(hash: any): Observable<Hashtype[]> {
-    return this.http.post<any>(this.endpoint, hash) //HashtypeId only supports integer
+  createAccessGroups(item: any): Observable<AccessGroup[]> {
+    return this.http.post<any>(this.endpoint, item)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
 
-  updateHashType(hash: any): Observable<any> {
-    console.log(hash);
-    return this.http.patch<number>(this.endpoint + '/' + hash.hashTypeId, {description: hash.description, isSalted:hash.isSalted, isSlowHash: hash.isSlowHash})
+  updateAccessGroups(item: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + item.accessGroupId, item)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

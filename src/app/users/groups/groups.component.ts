@@ -1,0 +1,149 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel} from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
+
+import { DataTableDirective } from 'angular-datatables';
+
+import { AccessGroupsService } from '../../service/accessgroups.service';
+
+@Component({
+  selector: 'app-groups',
+  templateUrl: './groups.component.html'
+})
+export class GroupsComponent implements OnInit {
+    // Loader
+    isLoading = false;
+    // Form attributtes
+    signupForm: FormGroup;
+    public isCollapsed = true;
+    faHome=faHomeAlt;
+    faPlus=faPlus;
+    faEdit=faEdit;
+    faTrash=faTrash;
+
+    // Datatable
+    @ViewChild(DataTableDirective, {static: false})
+    dtElement: DataTableDirective;
+
+    dtTrigger: Subject<any> = new Subject<any>();
+    dtOptions: any = {};
+
+    public agroups: {accessGroupId: number, groupName: string }[] = [];
+
+    constructor(private accessgroupService: AccessGroupsService,
+      private router: Router) { }
+
+    ngOnInit(): void {
+      this.signupForm = new FormGroup({
+        'groupName': new FormControl('', [Validators.required, Validators.minLength(1)]),
+      });
+
+      this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+        this.agroups = agroups.values;
+        this.dtTrigger.next(void 0);
+      });
+      this.dtOptions = {
+        dom: 'Bfrtip',
+        pageLength: 10,
+        select: true,
+        processing: true,  // Error loading
+        deferRender: true,
+        destroy:true,
+        buttons: ['copy', 'excel', 'csv', 'edit']
+      };
+
+    }
+
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        setTimeout(() => {
+          this.dtTrigger['new'].next();
+        });
+      });
+    }
+
+    onSubmit(): void{
+      if (this.signupForm.valid) {
+      console.log(this.signupForm.value);
+
+      this.isLoading = true;
+
+      this.accessgroupService.createAccessGroups(this.signupForm.value).subscribe((agroup: any) => {
+        this.isLoading = false;
+        Swal.fire({
+          title: "Good job!",
+          text: "New HashList created!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.ngOnInit();
+        this.rerender();  // rerender datatables
+        this.isCollapsed = true; //Close button
+      },
+      errorMessage => {
+        // check error status code is 500, if so, do some action
+        Swal.fire({
+          title: "Oppss! Error",
+          text: "Access Group was not created, please try again!",
+          icon: "warning",
+          showConfirmButton: true
+        });
+        this.ngOnInit();
+      }
+    );
+    this.signupForm.reset(); // success, we reset form
+    }
+  }
+
+  onDelete(id: number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    Swal.fire({
+      title: "Are you sure?",
+      text: "If your Hashtype is being in a Hashlist/Task that could lead to issues!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        this.accessgroupService.deleteAccessGroups(id).subscribe(() => {
+          Swal.fire(
+            "Access Group has been deleted!",
+            {
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.ngOnInit();
+          this.rerender();  // rerender datatables
+        });
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'No worries, your Access Group is safe!',
+          'error'
+        )
+      }
+    });
+  }
+  // Add unsubscribe to detect changes
+  ngOnDestroy(){
+    this.dtTrigger.unsubscribe();
+  }
+
+}

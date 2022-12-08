@@ -1,15 +1,21 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ShowHideTypeFile } from '../../shared/utils/forms';
-import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
-import { ListsService } from '../../service/lists/hashlist.service';
-import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
-import { HashtypeService } from 'src/app/service/hashtype.service';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 // import * as $ from "jquery"; //Fixes Test error but affects
-import { Router } from '@angular/router';
+
+import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
+
+import { ShowHideTypeFile } from '../../shared/utils/forms';
+import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
+
+import { ListsService } from '../../service/lists/hashlist.service';
+import { HashtypeService } from 'src/app/service/hashtype.service';
+import { AccessGroupsService } from '../../service/accessgroups.service';
+
+import { AccessGroup } from '../../models/access-group';
+
 
 @Component({
   selector: 'app-new-hashlist',
@@ -26,12 +32,21 @@ export class NewHashlistComponent implements OnInit {
   radio=true;
   hashcatbrain: string;
 
+  // accessgroup: AccessGroup; //Use models when data is reliable
+  accessgroup: any[]
+
   constructor(private hlService: ListsService,
      private _changeDetectorRef: ChangeDetectorRef,
      private hashtypeService: HashtypeService,
+     private accessgroupService: AccessGroupsService,
      private router: Router) { }
 
   ngOnInit(): void {
+
+    this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+      this.accessgroup = agroups.values;
+    });
+
     this.signupForm = new FormGroup({
       'name': new FormControl('', [Validators.required]),
       'hashTypeId': new FormControl('', [Validators.required]),
@@ -39,7 +54,7 @@ export class NewHashlistComponent implements OnInit {
       'separator': new FormControl(null || ';'),
       'isSalted': new FormControl(false),
       'isHexSalt': new FormControl(false),
-      'accessGroupId': new FormControl('', [Validators.required]),
+      'accessGroupId': new FormControl(null, [Validators.required]),
       'useBrain': new FormControl(false),
       'brainFeatures': new FormControl(null || '3'),
       'notes': new FormControl(''),
@@ -50,7 +65,6 @@ export class NewHashlistComponent implements OnInit {
       'isArchived': new FormControl(false),
       'isSecret': new FormControl(true),
     });
-
 
   }
 
@@ -86,6 +100,7 @@ export class NewHashlistComponent implements OnInit {
           }
           });
         });
+
 
     }
 
@@ -170,7 +185,7 @@ export class NewHashlistComponent implements OnInit {
       errorMessage => {
         // check error status code is 500, if so, do some action
         Swal.fire({
-          title: "Error!",
+          title: "Oppss! Error",
           text: "HashList was not created, please try again!",
           icon: "warning",
           showConfirmButton: true

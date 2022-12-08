@@ -6,6 +6,15 @@ import {
   Validator,
   AbstractControl } from '@angular/forms';
 
+/*
+ * Validate Input Number only allows to type a number, it is important for validation
+ * Usage:
+ *   value | validateInputNumber
+ * Example:
+ *     validateInputNumber >
+ *   output is: dont let you type any number
+*/
+
 @Directive({
   selector: '[validateInputNumber]',
   providers: [{provide: NG_VALIDATORS, useExisting: InputNumberValidator, multi: true}]
