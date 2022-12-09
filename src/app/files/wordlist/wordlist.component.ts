@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
 import { faEdit, faTrash, faHomeAlt, faPlus, faUpload, faFileImport, faDownload, faPaperclip, faLink, faLock} from '@fortawesome/free-solid-svg-icons';
-import { FilesService } from '../../service/files/files.service';
-import { Subject } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
-import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+
+import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
+
+import { FilesService } from '../../service/files/files.service';
+import { AccessGroupsService } from '../../service/accessgroups.service';
+
+import { AccessGroup } from '../../models/access-group';
 
 @Component({
   selector: 'app-wordlist',
@@ -26,12 +32,43 @@ export class WordlistComponent implements OnInit {
 
   public allfiles: {fileId: number, filename: string, size: number, isSecret: number, fileType: number, accessGroupId: number, lineCount:number}[] = [];
 
-  constructor(private filesService: FilesService, private http: HttpClient) { }
+  constructor(
+    private filesService: FilesService,
+    private http: HttpClient,
+    private accessgroupService:AccessGroupsService) { }
 
-  groups: any[];
+// accessgroup: AccessGroup; //Use models when data structure is reliable
+  accessgroup: any[]
+
+// Render Table with Datatables directive
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+
+  ngOnInit(): void {
+    const maxResults = 3000; //Maximum number of results
+
+    this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+      this.accessgroup = agroups.values;
+    });
+
+    let params = {'maxResults': maxResults, 'expand': 'accessGroup', 'filter': 'fileType=0'}
+    this.filesService.getFiles(params).subscribe((files: any) => {
+      this.allfiles = files.values;
+      this.dtTrigger.next(void 0);
+    });
+
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      pageLength: 10,
+      stateSave: true,
+      select: true,
+      buttons: ['copy', 'excel', 'csv', 'edit']
+    };
+
+  }
 
   fileSizeValue = fileSizeValue;
 
@@ -87,21 +124,10 @@ export class WordlistComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.groups = ['Admin', 'Standard User'];
+  // Add unsubscribe to detect changes
+   ngOnDestroy(){
+      this.dtTrigger.unsubscribe();
+    }
 
-    this.filesService.getFiles().subscribe((files: any) => {
-      this.allfiles = files;
-      this.dtTrigger.next(void 0);
-    });
-    this.dtOptions = {
-      dom: 'Bfrtip',
-      pageLength: 10,
-      stateSave: true,
-      select: true,
-      buttons: ['copy', 'excel', 'csv', 'edit']
-    };
-
-  }
 
 }

@@ -35,7 +35,7 @@ export class WordlistEditComponent implements OnInit {
     )
 
     const id = +this.route.snapshot.params['id'];
-    this.filesService.getFileu(id).subscribe((file: any) => {
+    this.filesService.getFile(id).subscribe((file: any) => {
       this.file = file;
       console.log(this.file);
     });

@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel} from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HashtypeService } from '../../service/hashtype.service';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
+
+import { HashtypeService } from '../../service/hashtype.service';
+
 
 @Component({
   selector: 'app-hashtypes',

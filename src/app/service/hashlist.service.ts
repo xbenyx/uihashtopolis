@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Configuration } from './configuration';
-import { CreateHashlist, Hashlist } from '../models/hashlist';
+import { CreateHashlist } from '../models/hashlist';
 
 @Injectable({
     providedIn: 'root'

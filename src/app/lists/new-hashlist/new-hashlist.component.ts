@@ -32,7 +32,7 @@ export class NewHashlistComponent implements OnInit {
   radio=true;
   hashcatbrain: string;
 
-  // accessgroup: AccessGroup; //Use models when data is reliable
+  // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
 
   constructor(private hlService: ListsService,
