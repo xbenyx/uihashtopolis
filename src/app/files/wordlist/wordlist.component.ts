@@ -1,6 +1,7 @@
 import { faEdit, faTrash, faHomeAlt, faPlus, faUpload, faFileImport, faDownload, faPaperclip, faLink, faLock} from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 import { Subject } from 'rxjs';
@@ -12,6 +13,7 @@ import { FilesService } from '../../service/files/files.service';
 import { AccessGroupsService } from '../../service/accessgroups.service';
 
 import { AccessGroup } from '../../models/access-group';
+import { Filetype } from '../../models/files';
 
 @Component({
   selector: 'app-wordlist',
@@ -30,12 +32,25 @@ export class WordlistComponent implements OnInit {
   faLock=faLock;
   faEdit=faEdit;
 
-  public allfiles: {fileId: number, filename: string, size: number, isSecret: number, fileType: number, accessGroupId: number, lineCount:number}[] = [];
+  public allfiles: {
+    fileId: number,
+    filename: string,
+    size: number,
+    isSecret: number,
+    fileType: number,
+    accessGroupId: number,
+    lineCount:number
+    accessGroup: {
+      accessGroupId: number,
+      groupName: string
+    }
+  }[] = [];
 
   constructor(
     private filesService: FilesService,
     private http: HttpClient,
-    private accessgroupService:AccessGroupsService) { }
+    private accessgroupService:AccessGroupsService,
+    private route:ActivatedRoute) { }
 
 // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
@@ -47,27 +62,69 @@ export class WordlistComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
+
+
   ngOnInit(): void {
-    const maxResults = 3000; //Maximum number of results
 
-    this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
-      this.accessgroup = agroups.values;
+    let maxResults: number = 3000; //Maximum number of results
+    let filterType: number
+
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'wordlist':
+          filterType = 0
+        break;
+
+        case 'rules':
+          filterType = 1
+        break;
+
+        case 'other':
+          filterType = 2
+        break;
+
+      }
+      let params = {'maxResults': maxResults, 'expand': 'accessGroup', 'filter': 'fileType='+filterType+''}
+
+      this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+        this.accessgroup = agroups.values;
+      });
+
+      this.filesService.getFiles(params).subscribe((files: any) => {
+        this.allfiles = files.values;
+        this.dtTrigger.next(void 0);
+      });
+
+      this.dtOptions = {
+        dom: 'Bfrtip',
+        pageLength: 10,
+        stateSave: true,
+        select: true,
+        buttons: ['copy', 'excel', 'csv', 'edit']
+      };
+
     });
 
-    let params = {'maxResults': maxResults, 'expand': 'accessGroup', 'filter': 'fileType=0'}
-    this.filesService.getFiles(params).subscribe((files: any) => {
-      this.allfiles = files.values;
-      this.dtTrigger.next(void 0);
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
     });
+  }
 
-    this.dtOptions = {
-      dom: 'Bfrtip',
-      pageLength: 10,
-      stateSave: true,
-      select: true,
-      buttons: ['copy', 'excel', 'csv', 'edit']
-    };
+  // Uploading file
+  isHovering: boolean;
 
+  toggleHover(event) {
+    this.isHovering = event;
+    console.log(event)
   }
 
   fileSizeValue = fileSizeValue;

@@ -95,10 +95,18 @@ const appRoutes: Routes = [
     {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
     {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
     {path: 'lists/show-cracks', component: ShowCracksComponent ,canActivate: [AuthGuard] },
-    {path: 'files/wordlist', component: WordlistComponent ,canActivate: [AuthGuard] },
+    // {path: 'files/wordlist', component: WordlistComponent ,canActivate: [AuthGuard] },
     {path: 'files/:id/wordlist-edit', component: WordlistEditComponent ,canActivate: [AuthGuard] },
-    {path: 'files/rules', component: RulesComponent ,canActivate: [AuthGuard] },
-    {path: 'files/other', component: OtherComponent ,canActivate: [AuthGuard] },
+    {
+        path: 'files',
+        children: [
+          { path: 'wordlist', component: WordlistComponent, data: { kind: 'wordlist' } },
+          { path: 'rules', component: WordlistComponent, data: { kind: 'rules' } },
+          { path: 'other', component: WordlistComponent, data: { kind: 'other' } }
+        ]
+    },
+    // {path: 'files/rules', component: RulesComponent ,canActivate: [AuthGuard] },
+    // {path: 'files/other', component: OtherComponent ,canActivate: [AuthGuard] },
     {path: 'chunk-activity', component: ChunkActivityComponent ,canActivate: [AuthGuard] },
     {path: 'engine/crackers', component: CrackersComponent ,canActivate: [AuthGuard] },
     {path: 'engine/preprocessors', component: PreprocessorsComponent ,canActivate: [AuthGuard] },

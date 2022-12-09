@@ -14,7 +14,9 @@
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group ms-2 ms-3">
-        <button type="button" routerLink="../rules" class="btn btn-sm btn-outline-gray-600">Rules</button>
+        <button type="button"
+
+        class="btn btn-sm btn-outline-gray-600">Rules</button>
         <button type="button" routerLink="../other" class="btn btn-sm btn-outline-gray-600">Other</button>
     </div>
   </div>
@@ -28,11 +30,11 @@ Add Files
 &nbsp;&nbsp;
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <div class="container">
-    <div class="row justify-content-center form-bg-image">
+    <div class="row justify-content-center">
         <div class="col-12 d-flex align-items-center justify-content-center">
-            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-600">
 
-              <div class="files files-effect-scale files-theme">
+              <div class="files files-effect-scale files-theme boxtest">
                 <input type="radio" name="files" checked  id="tab1" class="tab-content-first">
                 <label for="tab1"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon> Upload Files</label>
 
@@ -50,14 +52,28 @@ Add Files
                           </select>
                         </div>
                       </div>
+                      &nbsp;
                       <div class="col-sm">
-                        <div class="mb-3">
+                          <div class="filedrop"
+                            fileDrop
+                            [class.hovering]="isHovering"
+                            (hovered)="toggleHover($event)">
+                            <div class="icon"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon></div>
+                            <header>Drag & Drop here</header>
+                            <span>OR</span>
+                            <button (click)="file.click()">Browse for File</button>
+                            <input class="file-input" type="file" fileSelect  webkitdirectory directory multiple hidden #file>
+                            <p>Supported formats: .zip and .dmp</p>
+                           </div>
+                            <button class="button is-danger">Cancel</button>
+                        <!-- <div class="mb-3">
                             <fa-icon [icon]="faPaperclip" aria-hidden="true"></fa-icon>
                             <label for="formFile" class="form-label">Max size of 4 GB (bigger file use Import Files)</label>
                             <input class="form-control fileuploadspan" type="file" id="formFile" (change)="handleFileInput($event)">
                             <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
-                        </div>
+                        </div> -->
                       </div>
+                      &nbsp;
                       <div class="col-sm">
                             <button type="submit" class="btn btn-gray-800" (click)="onuploadFile('1')">Upload</button>
                       </div>
@@ -76,6 +92,7 @@ Add Files
                           </select>
                         </div>
                       </div>
+                      &nbsp;
                       <div class="col-sm">
                         <div class="mb-3">
                             <label for="secret">Download URL</label>
@@ -102,7 +119,7 @@ Add Files
   </div>
 </div>  <!-- Collapse End -->
 &nbsp;&nbsp;
-<!-- Import Files tabs End -->
+<!-- WordList Table -->
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
         <div class="table-responsive">
@@ -127,7 +144,7 @@ Add Files
                     <!-- <td></td> -->
                     <td>{{ f.size | fileSize:false }}</td>
                     <td>{{ f.lineCount }}</td>
-                    <td>{{ f.accessGroupId }}</td>
+                    <td>{{ f.accessGroup.groupName }}</td>
                     <td>
                         <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'wordlist-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
                           <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
@@ -142,3 +159,4 @@ Add Files
         </div>
     </div>
 </div>
+<!-- End WordList Table -->
