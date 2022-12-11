@@ -78,11 +78,9 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { ForgotComponent } from './auth/forgot/forgot.component';
-import { WordlistComponent } from './files/wordlist/wordlist.component';
+import { FilesComponent } from './files/files.component';
 import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
-import { RulesComponent } from './files/rules/rules.component';
 import { RulesEditComponent } from './files/rules-edit/rules-edit.component';
-import { OtherComponent } from './files/other/other.component';
 import { OtherEditComponent } from './files/other-edit/other-edit.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
@@ -115,11 +113,9 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     NewSuperhashlistComponent,
     SearchHashComponent,
     ShowCracksComponent,
-    WordlistComponent,
+    FilesComponent,
     WordlistEditComponent,
-    RulesComponent,
     RulesEditComponent,
-    OtherComponent,
     OtherEditComponent,
     ChunkActivityComponent,
     CrackersComponent,

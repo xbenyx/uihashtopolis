@@ -24,10 +24,8 @@ import { SuperhashlistComponent } from './lists/superhashlist/superhashlist.comp
 import { NewSuperhashlistComponent } from './lists/new-superhashlist/new-superhashlist.component';
 import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
-import { WordlistComponent } from './files/wordlist/wordlist.component';
+import { FilesComponent } from './files/files.component';
 import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
-import { RulesComponent } from './files/rules/rules.component';
-import { OtherComponent } from './files/other/other.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
 import { CrackersComponent } from './engine/crackers/crackers.component';
 import { AccountComponent } from './account/account.component';
@@ -80,6 +78,20 @@ const appRoutes: Routes = [
     {path: 'lists', component: ListsComponent ,canActivate: [AuthGuard]},
     {path: 'lists/hashlist', component: HashlistComponent ,canActivate: [AuthGuard]},
     {path: 'lists/hashlist/archived', component: HashlistComponent ,canActivate: [AuthGuard] },
+    {path: 'lists/new-hashlist', component: NewHashlistComponent ,canActivate: [AuthGuard] },
+    {path: 'lists/superhashlist', component: SuperhashlistComponent ,canActivate: [AuthGuard] },
+    {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
+    {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
+    {path: 'lists/show-cracks', component: ShowCracksComponent ,canActivate: [AuthGuard] },
+    {
+        path: 'files',
+        children: [
+          { path: 'wordlist', component: FilesComponent, data: { kind: 'wordlist' },canActivate: [AuthGuard]},
+          { path: 'rules', component: FilesComponent, data: { kind: 'rules' },canActivate: [AuthGuard]},
+          { path: 'other', component: FilesComponent, data: { kind: 'other' },canActivate: [AuthGuard]}
+        ]
+    },
+    // Delete Breadcrum library
     // data: {
     //   title: 'page1',
     //   breadcrumb: [
@@ -90,23 +102,7 @@ const appRoutes: Routes = [
     //     ]
     //   },
     // },
-    {path: 'lists/new-hashlist', component: NewHashlistComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/superhashlist', component: SuperhashlistComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/show-cracks', component: ShowCracksComponent ,canActivate: [AuthGuard] },
-    // {path: 'files/wordlist', component: WordlistComponent ,canActivate: [AuthGuard] },
     {path: 'files/:id/wordlist-edit', component: WordlistEditComponent ,canActivate: [AuthGuard] },
-    {
-        path: 'files',
-        children: [
-          { path: 'wordlist', component: WordlistComponent, data: { kind: 'wordlist' } },
-          { path: 'rules', component: WordlistComponent, data: { kind: 'rules' } },
-          { path: 'other', component: WordlistComponent, data: { kind: 'other' } }
-        ]
-    },
-    // {path: 'files/rules', component: RulesComponent ,canActivate: [AuthGuard] },
-    // {path: 'files/other', component: OtherComponent ,canActivate: [AuthGuard] },
     {path: 'chunk-activity', component: ChunkActivityComponent ,canActivate: [AuthGuard] },
     {path: 'engine/crackers', component: CrackersComponent ,canActivate: [AuthGuard] },
     {path: 'engine/preprocessors', component: PreprocessorsComponent ,canActivate: [AuthGuard] },

@@ -15,7 +15,8 @@ export class UsersComponent implements OnInit {
   // We need an array uf user names, so we do not create a duplicate name.
   usedUserNames = ['Admin', 'Guest'];
 
-  constructor( private route:ActivatedRoute, private usersService: UsersService){}
+  constructor( private route:ActivatedRoute,
+     private usersService: UsersService){}
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
