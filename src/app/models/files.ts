@@ -1,10 +1,4 @@
 export interface Filetype {
-  _expandable: string,
-  startAt: number,
-  maxResults: number,
-  total: number,
-  isLast: boolean,
-  values:{
     fileId: number,
     filename: string,
     size: number,
@@ -16,5 +10,11 @@ export interface Filetype {
       accessGroupId: number,
       groupName: string
     }
-  }
+}
+
+export interface UpdateFileType {
+  fileId: number,
+  filename: string,
+  fileType: number,
+  accessGroupId: number,
 }

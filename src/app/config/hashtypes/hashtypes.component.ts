@@ -40,7 +40,11 @@ export class HashtypesComponent implements OnInit {
 
   public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
 
+  booleanopt: any;
+
   ngOnInit(): void {
+
+    this.booleanopt = [{'value': 'true'},{'value': 'false'}];
 
     this.signupForm = new FormGroup({
       'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), this.checkHashtypeExist.bind(this), Validators.minLength(1)]),

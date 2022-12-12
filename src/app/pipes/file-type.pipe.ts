@@ -17,15 +17,15 @@ import {
     transform(value: any) {
         switch(value) {
 
-            case 0:
+            case "0":
               'Wordlist';
             break;
 
-            case 1:
+            case "1":
               'Rules';
             break;
 
-            case 2:
+            case "2":
               'Other';
             break;
           }

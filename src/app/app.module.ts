@@ -82,9 +82,6 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { ForgotComponent } from './auth/forgot/forgot.component';
 import { FilesComponent } from './files/files.component';
 import { FilesEditComponent } from './files/files-edit/files-edit.component';
-import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
-import { RulesEditComponent } from './files/rules-edit/rules-edit.component';
-import { OtherEditComponent } from './files/other-edit/other-edit.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { EditProjectComponent } from './projects/edit-project/edit-project.component';
@@ -119,9 +116,6 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     ShowCracksComponent,
     FilesComponent,
     FilesEditComponent,
-    WordlistEditComponent,
-    RulesEditComponent,
-    OtherEditComponent,
     ChunkActivityComponent,
     CrackersComponent,
     AccountComponent,

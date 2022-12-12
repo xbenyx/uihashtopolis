@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { Configuration } from '../configuration';
-import { Filetype } from '../../models/files';
+import { Filetype, UpdateFileType } from '../../models/files';
 
 // import { environment } from '@env'; // Add environtment
 
@@ -53,8 +53,8 @@ export class FilesService {
     );
   }
 
-  updateFile(arr: any): Observable<any> {
-    return this.http.patch<any>(this.endpoint + '/' + arr.fileId, arr)
+  updateFile(arr: any): Observable<UpdateFileType> {
+    return this.http.patch<any>(this.endpoint + '/' + arr.fileId, {filename: arr.filename, fileType: +arr.fileType, accessGroupId: +arr.accessGroupId })
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

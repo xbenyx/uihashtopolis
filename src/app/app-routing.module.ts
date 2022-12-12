@@ -25,7 +25,6 @@ import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
 import { FilesComponent } from './files/files.component';
 import { FilesEditComponent } from './files/files-edit/files-edit.component';
-import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
 import { CrackersComponent } from './engine/crackers/crackers.component';
 import { AccountComponent } from './account/account.component';
