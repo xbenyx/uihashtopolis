@@ -11,6 +11,7 @@ import { fileSizeValue, validateFileExt } from '../shared/utils/util';
 
 import { FilesService } from '../service/files/files.service';
 import { AccessGroupsService } from '../service/accessgroups.service';
+import { Configuration } from '../service/configuration';
 
 import { AccessGroup } from '../models/access-group';
 import { Filetype } from '../models/files';
@@ -67,9 +68,9 @@ export class FilesComponent implements OnInit {
   filterType: number
   whichView: string;
 
-  ngOnInit(): void {
+  private maxResults = Configuration.MAX_RESULTS
 
-    let maxResults: number = 3000; //Maximum number of results
+  ngOnInit(): void {
 
     this.route.data.subscribe(data => {
       switch (data['kind']) {
@@ -90,7 +91,7 @@ export class FilesComponent implements OnInit {
         break;
 
       }
-      let params = {'maxResults': maxResults, 'expand': 'accessGroup', 'filter': 'fileType='+this.filterType+''}
+      let params = {'maxResults': this.maxResults, 'expand': 'accessGroup', 'filter': 'fileType='+this.filterType+''}
 
       this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
         this.accessgroup = agroups.values;

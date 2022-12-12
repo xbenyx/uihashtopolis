@@ -12,7 +12,6 @@ export class HealthcheckService {
 
   private endpoint = Configuration.BASE_URL + '/healthcheck';
   private endpoint_h = Configuration.BASE_URL + '/hashtype';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

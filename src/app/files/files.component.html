@@ -1,14 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
     <div class="d-block mb-4 mb-md-0">
-        <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                <li class="breadcrumb-item">
-                      <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
-                </li>
-                <li class="breadcrumb-item">Files</li>
-                <li class="breadcrumb-item active" aria-current="page">WordList</li>
-            </ol>
-        </nav>
         <div [ngSwitch]="whichView">
           <div *ngSwitchCase="'wordlist'">
             <h2 class="h4">WordLists</h2>
@@ -174,13 +165,33 @@
                       <td>{{ f.lineCount }}</td>
                       <td>{{ f.accessGroup.groupName }}</td>
                       <td>
-                        <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'wordlist-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
-                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                        </a>
-                        <a>
-                          <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
-                        </a>
-                      </td>
+                        <div [ngSwitch]="whichView">
+                          <div *ngSwitchCase="'wordlist'">
+                            <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'wordlist-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
+                              <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                            </a>
+                            <a class='btn-outline-gray-600 float-right'(click)="deleteFile(f.fileId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                              <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                            </a>
+                          </div>
+                          <div *ngSwitchCase="'rules'">
+                            <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'rules-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
+                              <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                            </a>
+                            <a class='btn-outline-gray-600 float-right'(click)="deleteFile(f.fileId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                              <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                            </a>
+                          </div>
+                          <div *ngSwitchCase="'other'">
+                            <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'other-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
+                              <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                            </a>
+                            <a class='btn-outline-gray-600 float-right'(click)="deleteFile(f.fileId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                              <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                            </a>
+                          </div>
+                        </div>
+                     </td>
                   </tr>
                 </tbody>
               </table>
@@ -188,4 +199,8 @@
       </div>
   </div>
   <!-- End WordList || Rules || Other Table -->
+
+
+
+
 

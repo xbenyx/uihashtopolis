@@ -10,7 +10,6 @@ import { Configuration } from '../configuration';
 export class AgentBinService {
 
   private endpoint = Configuration.BASE_URL + '/agentbinary';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

@@ -31,7 +31,6 @@ export class FilesService {
       if (routerParams) {
           queryParams = this.setParameter(routerParams);
       }
-    console.log(queryParams);
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),

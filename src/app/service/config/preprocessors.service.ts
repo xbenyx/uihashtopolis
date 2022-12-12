@@ -10,7 +10,6 @@ import { Configuration } from '../configuration';
 export class PreprocessorService {
 
   private endpoint = Configuration.BASE_URL + '/preprocessor';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

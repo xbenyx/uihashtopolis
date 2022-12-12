@@ -12,15 +12,10 @@ import { CreateHashlist } from '../models/hashlist';
 export class HashlistService {
 
     private endpoint = Configuration.BASE_URL + '/hashlists';
-    private accessKey = Configuration.ACCESS_KEY;
 
     constructor(private http: HttpClient) { }
 
     createHashlist(hashlist: CreateHashlist): Observable<number> {
-        return this.http.post<number>(this.endpoint, hashlist, {
-            params: {
-                api_key: this.accessKey
-            }
-        });
+        return this.http.post<number>(this.endpoint, hashlist);
     }
 };

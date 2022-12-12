@@ -10,7 +10,6 @@ import { Configuration } from '../configuration';
 export class LogentryService {
 
   private endpoint = Configuration.BASE_URL_APIV1 + '/ui/logentries';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

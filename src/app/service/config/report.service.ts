@@ -10,7 +10,6 @@ import { Configuration } from '../configuration';
 export class ReportService {
 
   private endpoint = Configuration.BASE_URL + '/configreport';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

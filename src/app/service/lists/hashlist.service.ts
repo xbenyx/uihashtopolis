@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 import { Configuration } from '../configuration';
 import { BaseHashlist} from '../../models/hashlist';
@@ -22,11 +23,12 @@ export class ListsService {
     return throwError(() => err);
   }
 
-  getAllhashlists():Observable<any> {
-    let searchParams = new HttpParams();
-    searchParams = searchParams.append('maxResults',100);
-    searchParams = searchParams.append('expand','hashType,accessGroup');
-    return this.http.get(this.endpoint ,{params: searchParams})
+  getAllhashlists(routerParams?: Params):Observable<any> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = this.setParameter(routerParams);
+    }
+    return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -80,6 +82,16 @@ export class ListsService {
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+
+  private setParameter(routerParams: Params): HttpParams {
+    let queryParams = new HttpParams();
+    for (const key in routerParams) {
+        if (routerParams.hasOwnProperty(key)) {
+            queryParams = queryParams.set(key, routerParams[key]);
+        }
+    }
+    return queryParams;
   }
 
 }

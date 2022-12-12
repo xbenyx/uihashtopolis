@@ -11,7 +11,6 @@ import { Configuration } from '../configuration';
 export class AgentsService {
 
   private endpoint = Configuration.BASE_URL + '/agent';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

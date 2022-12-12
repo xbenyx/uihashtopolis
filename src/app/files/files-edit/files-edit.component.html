@@ -1,0 +1,55 @@
+<div *ngIf="isLoading" style="text-align: center;">
+    <app-loading-spinner></app-loading-spinner>
+</div>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                  <h2 class="h5 mb-4">Edit</h2><br>
+                    <form>
+                      <div class="row">
+                          <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="getfileid">File ID</label>
+                                <input  [(ngModel)]="allfiles['fileId']" type='text' name='fileid' title="File ID" class='form-control' id="fileid" disabled="disabled" readonly>
+                              </div>
+                          </div>
+                          &nbsp;
+                          <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="getfilename">Name</label>
+                                <input  [(ngModel)]="allfiles['filename']" type='text' name='filename' title="File Name" class='form-control' id="filename">
+                              </div>
+                          </div>
+                          &nbsp;
+                          <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="getfiletype">File Type</label>
+                                <input  [(ngModel)]="allfiles['fileType']" type='text' name='filetype' title="File Type" class='form-control' id="filetype">
+                                <select [(ngModel)]="allfiles['fileType']" class='form-select' id='filetype' name="filetype" title="File Type">
+                                    <option >{{ allfiles['fileType'] | fileType }}</option>
+                                </select>
+                              </div>
+                          </div>
+                          &nbsp;
+                          <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="getaccessgroup">Access group</label>
+                                <select [(ngModel)]="allfiles['accessGroupId']"  class='form-select' id='accessgroup' name="accessgroup" title="Access Group">
+                                  <option *ngFor="let a of accessgroup"  [value]="a.accessGroupId">{{ a.groupName }}</option>
+                                </select>
+                              </div>
+                          </div>
+                          &nbsp;
+                        <button class="btn btn-gray-800" type="submit">Save</button>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- (ngSubmit)="deleteUser(user['userId'])" -->

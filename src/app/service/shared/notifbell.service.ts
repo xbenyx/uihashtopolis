@@ -11,7 +11,6 @@ import { Configuration } from '../configuration';
 export class NotificationsBellService {
 
   private endpoint = Configuration.BASE_URL + '/notifbell';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

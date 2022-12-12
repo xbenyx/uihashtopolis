@@ -12,7 +12,6 @@ export class ProjectService {
 
   private endpoint = Configuration.BASE_URL + '/projects';
   private endpoint_project = Configuration.BASE_URL + '/projects';  // its for testing using nested json array
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

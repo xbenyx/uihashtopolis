@@ -1,14 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
-      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-              <li class="breadcrumb-item">
-                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
-              </li>
-              <li class="breadcrumb-item">Lists</li>
-              <li class="breadcrumb-item active" aria-current="page">Hashlist</li>
-          </ol>
-      </nav>
       <h2 class="h4">Hashlist</h2>
       <p class="mb-0">Section to manage and create hashtypes.</p>
   </div>
@@ -19,17 +10,15 @@
       </a>
   </div>
 </div>
-<!-- Search -->
-<div *ngIf="filterType === 'true'">
-<button [(ngModel)]="filterType" (click)="onFilterArchive()" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Current</button>
-</div>
-<div *ngIf="filterType === 'false'">
-  <button [(ngModel)]="filterType" (click)="onFilterLive()" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button>
-</div>
-<!-- <button [routerLink]="['/lists/hashlist','archived']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button> -->
-
-<!-- End Search -->
 <!-- Body -->
+<div [ngSwitch]="whichView">
+  <div *ngSwitchCase="'live'">
+    <button [routerLink]="['../','archived']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button>
+  </div>
+  <div *ngSwitchCase="'archived'">
+    <button [routerLink]="['../','hashlist']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Live</button>
+  </div>
+</div>
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
         <div class="table-responsive">
@@ -46,7 +35,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let list of allhashlists | search:filterType:'isArchived'">
+              <tr *ngFor="let list of allhashlists">
                   <td>
                       <a>{{ list.hashlistId }}</a>
                   </td>

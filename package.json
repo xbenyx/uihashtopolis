@@ -46,7 +46,6 @@
     "jspdf": "^2.5.1",
     "jszip": "^3.10.1",
     "lightstep-tracer": "^0.34.0-no-protobuf",
-    "ng-dynamic-breadcrumb": "^8.0.0",
     "opentracing": "^0.14.7",
     "pdfmake": "^0.2.6",
     "popper.js": "^1.16.1",

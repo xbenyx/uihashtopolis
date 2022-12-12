@@ -1,6 +1,5 @@
-// App Modules
+// App Main Modules
 import { NgModule } from '@angular/core';
-import { NgDynamicBreadcrumbModule } from "ng-dynamic-breadcrumb";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,23 +9,26 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// Todo PrimeNG
 
-// App Directives
+// App Custom Directives
 import { SelectizeDirective } from './directives/selectize.directive';
 import { FileSelectDirective } from './directives/file-select.directive';
 import { FileDropDirective } from './directives/file-drop.directive';
 
-// App Pipes
+// App Custom Pipes
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { WarningColorPipe } from './pipes/warning-color.pipe';
 import { ShortenStringPipe } from './pipes/shorten-string.pipe';
 import { StaticArrayPipe } from './pipes/static-array.pipe';
 import { SearchPipe } from './pipes/filter-search.pipe';
 import { ArraySortPipe } from './pipes/orderby-item.pipe';
+import { FileTypePipe } from './pipes/file-type.pipe';
 
-// App Components
+// App Pages Components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AgentsComponent } from './agents/agents.component';
@@ -79,6 +81,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { ForgotComponent } from './auth/forgot/forgot.component';
 import { FilesComponent } from './files/files.component';
+import { FilesEditComponent } from './files/files-edit/files-edit.component';
 import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
 import { RulesEditComponent } from './files/rules-edit/rules-edit.component';
 import { OtherEditComponent } from './files/other-edit/other-edit.component';
@@ -88,11 +91,12 @@ import { EditProjectComponent } from './projects/edit-project/edit-project.compo
 import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.component';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    BreadcrumbComponent,
+    BreadcrumbComponent,
     FooterComponent,
     AgentsComponent,
     ShowAgentsComponent,
@@ -114,6 +118,7 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     SearchHashComponent,
     ShowCracksComponent,
     FilesComponent,
+    FilesEditComponent,
     WordlistEditComponent,
     RulesEditComponent,
     OtherEditComponent,
@@ -158,12 +163,12 @@ import { EditHashlistComponent } from './lists/edit-hashlist/edit-hashlist.compo
     ShortenStringPipe,
     StaticArrayPipe,
     SearchPipe,
-    ArraySortPipe
+    ArraySortPipe,
+    FileTypePipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgDynamicBreadcrumbModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

@@ -12,7 +12,6 @@ export class CrackerService {
 
   private endpoint_v1 = Configuration.BASE_URL_APIV1 + '/ui/hashlists';
   private endpoint = Configuration.BASE_URL + '/crackerbinary';
-  private accessKey = Configuration.ACCESS_KEY;
 
   constructor(private http: HttpClient) { }
 

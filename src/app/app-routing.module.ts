@@ -17,7 +17,6 @@ import { NewPreconfiguredTasksComponent } from './tasks/new-preconfigured-tasks/
 import { SupertasksComponent } from './tasks/supertasks/supertasks.component';
 import { NewSupertasksComponent } from './tasks/new-supertasks/new-supertasks.component';
 import { ImportSupertasksComponent } from './tasks/import-supertasks/import-supertasks.component';
-import { ListsComponent } from './lists/lists.component';
 import { HashlistComponent } from './lists/hashlist/hashlist.component';
 import { NewHashlistComponent } from './lists/new-hashlist/new-hashlist.component';
 import { SuperhashlistComponent } from './lists/superhashlist/superhashlist.component';
@@ -25,6 +24,7 @@ import { NewSuperhashlistComponent } from './lists/new-superhashlist/new-superha
 import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
 import { FilesComponent } from './files/files.component';
+import { FilesEditComponent } from './files/files-edit/files-edit.component';
 import { WordlistEditComponent } from './files/wordlist-edit/wordlist-edit.component';
 import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
 import { CrackersComponent } from './engine/crackers/crackers.component';
@@ -57,14 +57,30 @@ import { AuthGuard } from './auth/auth.guard';
 import { ForgotComponent } from './auth/forgot/forgot.component';
 
 const appRoutes: Routes = [
-    {path: 'auth', component: AuthComponent },
-    {path: 'auth/forgot', component: ForgotComponent },
-    {path: '', component: HomeComponent ,canActivate: [AuthGuard] },
+    {path: 'auth', component: AuthComponent,
+    data: {
+        breadcrumb: 'false'
+    },
+    },
+    {path: 'auth/forgot', component: ForgotComponent,
+    data: {
+        breadcrumb: 'false'
+    },
+    },
+    {path: '', component: HomeComponent ,
+    data: {
+        breadcrumb: 'Home'
+    },
+    canActivate: [AuthGuard] },
     {path: 'agents', component: AgentsComponent ,canActivate: [AuthGuard] },
     {path: 'agents/agent-status', component: AgentStatusComponent ,canActivate: [AuthGuard] },
     {path: 'agents/new-agent', component: NewAgentComponent ,canActivate: [AuthGuard] },
     {path: 'agents/show-agents', component: ShowAgentsComponent ,canActivate: [AuthGuard] },
-    {path: 'projects', component: ProjectsComponent ,canActivate: [AuthGuard] },
+    {path: 'projects', component: ProjectsComponent ,
+    data: {
+        breadcrumb: 'Projects'
+    },
+    canActivate: [AuthGuard] },
     {path: 'projects/new-project', component: NewProjectComponent ,canActivate: [AuthGuard] },
     {path: 'projects/:id/edit-project', component: EditProjectComponent ,canActivate: [AuthGuard] },
     {path: 'tasks', component: TasksComponent ,canActivate: [AuthGuard] },
@@ -75,10 +91,39 @@ const appRoutes: Routes = [
     {path: 'tasks/supertasks', component: SupertasksComponent ,canActivate: [AuthGuard] },
     {path: 'tasks/new-supertasks', component: NewSupertasksComponent ,canActivate: [AuthGuard] },
     {path: 'tasks/import-supertasks', component: ImportSupertasksComponent ,canActivate: [AuthGuard] },
-    {path: 'lists', component: ListsComponent ,canActivate: [AuthGuard]},
-    {path: 'lists/hashlist', component: HashlistComponent ,canActivate: [AuthGuard]},
-    {path: 'lists/hashlist/archived', component: HashlistComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/new-hashlist', component: NewHashlistComponent ,canActivate: [AuthGuard] },
+    {
+        path: 'lists',
+        children: [
+          {
+            path: 'hashlist', component: HashlistComponent,
+            data: {
+                kind: 'hashlist',
+                breadcrumb: 'Hashlist'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'archived', component: HashlistComponent,
+            data: {
+                kind: 'archived',
+                breadcrumb: 'Hashlist Archived'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'new-hashlist', component: NewHashlistComponent,
+            data: {
+                kind: 'new-hashlist',
+                breadcrumb: 'New Hashlist'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'superhashlist', component: SuperhashlistComponent,
+            data: {
+                kind: 'super-hashlist',
+                breadcrumb: 'Super Hashlist'
+            },
+            canActivate: [AuthGuard]},
+        ]
+    },
     {path: 'lists/superhashlist', component: SuperhashlistComponent ,canActivate: [AuthGuard] },
     {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
     {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
@@ -86,23 +131,50 @@ const appRoutes: Routes = [
     {
         path: 'files',
         children: [
-          { path: 'wordlist', component: FilesComponent, data: { kind: 'wordlist' },canActivate: [AuthGuard]},
-          { path: 'rules', component: FilesComponent, data: { kind: 'rules' },canActivate: [AuthGuard]},
-          { path: 'other', component: FilesComponent, data: { kind: 'other' },canActivate: [AuthGuard]}
+          {
+            path: 'wordlist',  component: FilesComponent,
+            data: {
+                kind: 'wordlist',
+                breadcrumb: 'Wordlist'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: ':id/wordlist-edit',  component: FilesEditComponent,
+            data: {
+                kind: 'wordlist-edit',
+                breadcrumb: 'Wordlist Edit'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'rules', component: FilesComponent,
+            data: {
+                kind: 'rules',
+                breadcrumb: 'Rules'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: ':id/rules-edit',  component: FilesEditComponent,
+            data: {
+                kind: 'rules-edit',
+                breadcrumb: 'Rules Edit'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'other', component: FilesComponent,
+            data: {
+                kind: 'other',
+                breadcrumb: 'Other'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: ':id/other-edit',  component: FilesEditComponent,
+            data: {
+                kind: 'other-edit',
+                breadcrumb: 'Other Edit'
+            },
+            canActivate: [AuthGuard]},
         ]
     },
-    // Delete Breadcrum library
-    // data: {
-    //   title: 'page1',
-    //   breadcrumb: [
-    //     {
-    //       label: 'Page1',
-    //       url: ''
-    //       }
-    //     ]
-    //   },
-    // },
-    {path: 'files/:id/wordlist-edit', component: WordlistEditComponent ,canActivate: [AuthGuard] },
     {path: 'chunk-activity', component: ChunkActivityComponent ,canActivate: [AuthGuard] },
     {path: 'engine/crackers', component: CrackersComponent ,canActivate: [AuthGuard] },
     {path: 'engine/preprocessors', component: PreprocessorsComponent ,canActivate: [AuthGuard] },
@@ -117,14 +189,22 @@ const appRoutes: Routes = [
     {path: 'config/server/ui', component: UiComponent ,canActivate: [AuthGuard] },
     {path: 'config/server/multicast', component: MulticastComponent ,canActivate: [AuthGuard] },
     {path: 'config/server/notifications', component: NotificationsConfigComponent ,canActivate: [AuthGuard] },
-    {path: 'config/hashtypes', component: HashtypesComponent ,canActivate: [AuthGuard] },
+    {path: 'config/hashtypes', component: HashtypesComponent ,
+    data: {
+        breadcrumb: 'Hashtypes'
+    },
+    canActivate: [AuthGuard] },
     {path: 'config/log', component: LogComponent ,canActivate: [AuthGuard] },
     {path: 'config/health-checks', component: HealthChecksComponent ,canActivate: [AuthGuard] },
     {path: 'users', component: UsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/:id/edit', component: EditUsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/all-users', component: AllUsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/yubikey', component: YubikeyComponent ,canActivate: [AuthGuard] },
-    {path: 'users/groups', component: GroupsComponent ,canActivate: [AuthGuard] },
+    {path: 'users/groups', component: GroupsComponent ,
+    data: {
+        breadcrumb: 'Access Group'
+    },
+    canActivate: [AuthGuard] },
     {path: 'error', component: ErrorPageComponent, data:{message: 'Page Not Found!'} ,canActivate: [AuthGuard] },
     {path: 'not-found', component: PageNotFoundComponent ,canActivate: [AuthGuard] },
     {path: '**', redirectTo: 'not-found'}  // Needs to be always the last route

@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ListsService } from '../../service/lists/hashlist.service';
+import { ActivatedRoute } from '@angular/router';
+import { Configuration } from '../../service/configuration';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
@@ -26,7 +28,6 @@ export class HashlistComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  // allhashlists: any = [];
   public allhashlists: {
     hashlistId: number,
     name: string,
@@ -45,25 +46,37 @@ export class HashlistComponent implements OnInit, OnDestroy {
     isArchived: string,
     accessGroup: {accessGroupId: number, groupName: string}
     hashType: {description: string, hashTypeId: number, isSalted: string, isSlowHash: string}
-  }[] = [];
+  }[] = []; // Should be in models, Todo when data structure is confirmed
 
   constructor(private listsService: ListsService,
-    // private searchPipe: SearchPipe
+    private route:ActivatedRoute
     ) { }
 
-  // Search by
-  public filterType:any = 'false';
+  isArchived: boolean;
+  whichView: string;
 
-  onFilterArchive(){
-    this.filterType = 'false';
-  }
-
-  onFilterLive(){
-    this.filterType = 'true';
-  }
+  private maxResults = Configuration.MAX_RESULTS
 
   ngOnInit(): void {
-    this.listsService.getAllhashlists().subscribe((list: any) => {
+
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'hashlist':
+          this.whichView = 'live';
+          this.isArchived = false;
+        break;
+
+        case 'archived':
+          this.whichView = 'archived';
+          this.isArchived = true;
+        break;
+
+      }
+
+    let params = {'maxResults': this.maxResults, 'expand': 'hashType,accessGroup', 'filter': 'isArchived='+this.isArchived+''}
+
+    this.listsService.getAllhashlists(params).subscribe((list: any) => {
       this.allhashlists = list.values;
       this.dtTrigger.next(void 0);
     });
@@ -82,7 +95,10 @@ export class HashlistComponent implements OnInit, OnDestroy {
         'copy', 'excel', 'csv', 'edit'
     ]
     };
-  }
+
+  });
+
+}
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
