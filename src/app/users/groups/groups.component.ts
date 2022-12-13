@@ -23,6 +23,8 @@ export class GroupsComponent implements OnInit {
     faPlus=faPlus;
     faEdit=faEdit;
     faTrash=faTrash;
+    faSave=faSave;
+    faCancel=faCancel;
 
     // Datatable
     @ViewChild(DataTableDirective, {static: false})
@@ -31,7 +33,7 @@ export class GroupsComponent implements OnInit {
     dtTrigger: Subject<any> = new Subject<any>();
     dtOptions: any = {};
 
-    public agroups: {accessGroupId: number, groupName: string }[] = [];
+    public agroups: {accessGroupId: number, groupName: string, isEdit: false }[] = [];
 
     constructor(private accessgroupService: AccessGroupsService,
       private router: Router) { }
@@ -54,6 +56,33 @@ export class GroupsComponent implements OnInit {
         destroy:true,
         buttons: ['copy', 'excel', 'csv', 'edit']
       };
+
+    }
+    onEdit(item: any){
+      this.agroups.forEach(element => {
+        element.isEdit = false;
+      });
+      item.isEdit = true;
+    }
+
+    onSave(item: any){
+      console.log(item);
+      this.accessgroupService.updateAccessGroups(item).subscribe((hasht: any) => {
+        this.isLoading = false;
+        this.ngOnInit();  // reload ngOnInit
+        Swal.fire({
+          title: "Updated!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+      this.rerender();  // Destroy and rerender table
+      item.isEdit = false; //Change Edit status to false
+    }
+
+    onCancel(item: any){
+      item.isEdit = false;
 
     }
 

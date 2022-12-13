@@ -49,7 +49,7 @@ export class AccessGroupsService {
   }
 
   updateAccessGroups(item: any): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + item.accessGroupId, item)
+    return this.http.patch<number>(this.endpoint + '/' + item.accessGroupId, {groupName: item.groupName})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
