@@ -14,9 +14,9 @@ export class WarningColorPipe implements PipeTransform {
 
   transform(value: any) {
     if(value == 'information')
-      return '#397b39';
+      return '#DAF7A6 ';
     else if (value == 'warning')
-      return '#b16a06';
+      return '#FFC300 ';
     else if (value == 'error')
       return '#8b0010';
     else if (value == 'fatal error')
