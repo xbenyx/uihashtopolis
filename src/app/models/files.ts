@@ -18,3 +18,10 @@ export interface UpdateFileType {
   fileType: number,
   accessGroupId: number,
 }
+
+export interface UploadFileTUS {
+  filename: string;
+  progress: number;
+  hash: string;
+  uuid: string;
+}

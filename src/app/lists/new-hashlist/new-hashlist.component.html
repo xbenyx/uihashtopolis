@@ -105,7 +105,7 @@
                                     <textarea class='form-control' name="hashfield" cols="60" rows="10" title="Hashes" formControlName="sourceData"></textarea>
                                   </td>
                                 </tr>
-                                <tr id="uploadLine">
+                                <!-- <tr id="uploadLine">
                                   <div class="filedrop"
                                     fileDrop
                                     [class.hovering]="isHovering"
@@ -132,9 +132,9 @@
                                     {{ bytes[0] | fileSize:false }} of {{ bytes[1] | fileSize:false }}
                                   </div>
 
-                                  <div *ngIf="(state$ | async) || 'idle' as state">
+                                  <div *ngIf="(state$ | async) || 'idle' as state"> -->
 
-                                    Upload State:
+                                    <!-- Upload State:
                                     <p class="tag"
                                           [ngClass]="{
                                             'is-success':  state === 'success',
@@ -147,13 +147,13 @@
 
                                     <button (click)="cancel()" class="button is-danger" [disabled]="state != 'running'">Cancel</button>
 
-                                    </div>
+                                    </div> -->
 
                                   <!-- <td>
                                     <input type="file" class='form-control' name="hashfile"  formControlName="data" (change)="handleFileInput($event)">
                                     <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
                                   </td> -->
-                                </tr>
+                                <!-- </tr> -->
                                 <tr id="importLine" style="display: none;">
 
                                 </tr>
@@ -175,5 +175,19 @@
       </div>
     </div>
   </div>
+</div>
+
+
+<input accept="/*" name="file" type="file" #file>
+<button mat-raised-button (click)="onuploadFile(file.files);">Upload</button>
+<div *ngFor="let fileStatus of uploadProgress | async">
+      <p>Uploading File: {{fileStatus.filename}}</p>
+      <progress color="primary" mode="determinate"
+                        [value]="fileStatus.progress"></progress>
+      <p>Progress: {{fileStatus.progress}}%</p>
+      <p>UUID: {{fileStatus.uuid}}</p>
+      <div *ngIf="fileStatus.progress == 100">
+        <a>Uploaded File</a>
+      </div>
 </div>
 

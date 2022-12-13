@@ -13,8 +13,10 @@ import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../service/lists/hashlist.service';
 import { HashtypeService } from 'src/app/service/hashtype.service';
 import { AccessGroupsService } from '../../service/accessgroups.service';
+import { UploadTUSService } from '../../service/files/files_tus.service';
 
 import { AccessGroup } from '../../models/access-group';
+import { UploadFileTUS } from '../../models/files';
 
 
 @Component({
@@ -39,7 +41,8 @@ export class NewHashlistComponent implements OnInit {
      private _changeDetectorRef: ChangeDetectorRef,
      private hashtypeService: HashtypeService,
      private accessgroupService: AccessGroupsService,
-     private router: Router) { }
+     private router: Router,
+     private uploadService:UploadTUSService) { }
 
   ngOnInit(): void {
 
@@ -69,6 +72,8 @@ export class NewHashlistComponent implements OnInit {
   }
 
   ngAfterViewInit() {
+
+    this.uploadProgress = this.uploadService.uploadProgress; // TUS upload progress
 
     this.hashtypeService.getHashTypes().subscribe((htypes: any) => {
       var self = this;
@@ -110,6 +115,18 @@ export class NewHashlistComponent implements OnInit {
     });
     this._changeDetectorRef.detectChanges();
   }
+  // TUS File Uload
+  uploadProgress: Observable<UploadFileTUS[]>;
+  filenames: string[] = [];
+
+  onuploadFile(event: FileList) {
+    // tslint:disable-next-line:prefer-for-of
+    const file = event.item(0)
+    const filename = `${new Date().getTime()}_${file.name}`;
+      console.log("echo")
+      console.log(`Uploading ${file.name} with size ${file.size} and type ${file.type}`);
+      this.uploadService.uploadFile(file, file.name);
+  }
 
   // New File Upload
   task: any;
@@ -122,19 +139,19 @@ export class NewHashlistComponent implements OnInit {
   state$: Observable<string>;
   bytes$: Observable<number[]> ;
 
-  startUpload(event: FileList): any {
-    console.log(event)
-    const file = event.item(0)
-    const loc = `/test/${new Date().getTime()}_${file.name}`;
+  // startUpload(event: FileList): any {
+  //   console.log(event)
+  //   const file = event.item(0)
+  //   const loc = `/test/${new Date().getTime()}_${file.name}`;
 
-    // this.task = this.storage.upload(loc, file)
+  //   // this.task = this.storage.upload(loc, file)
 
-    this.state$ = this.task.snapshotChanges().map(task => task.bytesTransferred === task.totalBytes ? 'success' : task.state)
-    this.bytes$ = this.task.snapshotChanges().map(task => [task.bytesTransferred, task.totalBytes])
+  //   this.state$ = this.task.snapshotChanges().map(task => task.bytesTransferred === task.totalBytes ? 'success' : task.state)
+  //   this.bytes$ = this.task.snapshotChanges().map(task => [task.bytesTransferred, task.totalBytes])
 
-    this.percent$ = this.task.percentageChanges()
+  //   this.percent$ = this.task.percentageChanges()
 
-  }
+  // }
 
   toggleHover(event) {
     this.isHovering = event;

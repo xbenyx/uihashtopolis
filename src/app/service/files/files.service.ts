@@ -12,7 +12,6 @@ import { Filetype, UpdateFileType } from '../../models/files';
 @Injectable({providedIn: 'root'})
 export class FilesService {
 
-
   private endpoint = Configuration.BASE_URL_APIV1 + '/ui/files';  // V1 API
 
   constructor(private http: HttpClient) { }

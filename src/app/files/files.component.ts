@@ -4,17 +4,19 @@ import { FormControl, FormGroup} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
 import { fileSizeValue, validateFileExt } from '../shared/utils/util';
 
 import { FilesService } from '../service/files/files.service';
+import { UploadTUSService } from '../service/files/files_tus.service';
 import { AccessGroupsService } from '../service/accessgroups.service';
 import { Configuration } from '../service/configuration';
 
 import { AccessGroup } from '../models/access-group';
 import { Filetype } from '../models/files';
+import { UploadFileTUS } from '../models/files';
 
 
 @Component({
@@ -53,7 +55,8 @@ export class FilesComponent implements OnInit {
     private filesService: FilesService,
     private http: HttpClient,
     private accessgroupService:AccessGroupsService,
-    private route:ActivatedRoute) { }
+    private route:ActivatedRoute,
+    private uploadService:UploadTUSService) { }
 
 // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
@@ -110,6 +113,8 @@ export class FilesComponent implements OnInit {
         buttons: ['copy', 'excel', 'csv', 'edit']
       };
 
+      this.uploadProgress = this.uploadService.uploadProgress; //Uploading File using tus protocol
+
     });
 
   }
@@ -126,6 +131,9 @@ export class FilesComponent implements OnInit {
   }
 
   // Uploading file
+  uploadProgress: Observable<UploadFileTUS[]>;
+  filenames: string[] = [];
+
   isHovering: boolean;
 
   toggleHover(event) {
@@ -149,20 +157,13 @@ export class FilesComponent implements OnInit {
     $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
   }
 
-  onuploadFile(fileType: string){
-    const formData = new FormData();
-    formData.set("filename", this.fileName)
-    formData.set("filename", this.fileSize)
-    formData.set("isSecret", "1")
-    formData.set("filetype", fileType)
-    console.log(formData)
-    // formData.reset();
-    Swal.fire({
-      title: "File Updated!",
-      text: "Check below!",
-      icon: "success",
-      button: "Aww yiss!",
-    });
+  onuploadFile(files: FileList) {
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < files.length; i++) {
+      this.filenames.push(files[i].name);
+      console.log(`Uploading ${files[i].name} with size ${files[i].size} and type ${files[i].type}`);
+      this.uploadService.uploadFile(files[i], files[i].name);
+    }
   }
 
   deleteFile(id: number){
