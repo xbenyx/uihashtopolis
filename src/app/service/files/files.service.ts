@@ -45,6 +45,14 @@ export class FilesService {
     );
   }
 
+  deleteFile(id: number):Observable<any> {
+    return this.http.delete(this.endpoint +'/'+ id)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
   createFile(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(

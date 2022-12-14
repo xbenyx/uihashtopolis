@@ -15,8 +15,6 @@ export class UploadTUSService {
     private chunked = Configuration.CHUNK_SIZE_TUS;  // V1 API
     private userData: {_token: string} = JSON.parse(localStorage.getItem('userData'));
 
-    // Authorization: `Bearer ${userData._token}`
-
     private uploadStatus = new Subject<UploadFileTUS[]>();
     uploadProgress = this.uploadStatus.asObservable();
 
@@ -25,23 +23,35 @@ export class UploadTUSService {
     uploadFile(file: File, filename: string) {
       const fileStatus: UploadFileTUS = {filename, progress: 0, hash: '', uuid: ''};
 
-      console.log(this.userData._token)
+      console.log(fileStatus)
 
       this.fileStatusArr.push(fileStatus);
 
       this.uploadStatus.next(this.fileStatusArr);
 
+
+
       const upload = new Upload(file, {
         endpoint: this.endpoint,
-        headers: { Authorization: `Bearer ${this.userData._token}`},
+        headers: {
+          Authorization: `Bearer ${this.userData._token}`,
+          'Tus-Resumable':'1.0.0'
+        },
         retryDelays: [0, 3000, 6000, 10000, 20000],
         chunkSize: this.chunked,
         metadata: {
-          filename,
+          // filename,
           filetype: file.type
         },
         onError: async (error) => {
-          console.log(error);
+          if (error) {
+            if (window.confirm(`Failed because: ${error}\nDo you want to retry?`)) {
+              upload.start()
+              return false;
+            }
+          } else {
+            window.alert(`Failed because: ${error}`)
+          }
           return false;
         },
         onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {

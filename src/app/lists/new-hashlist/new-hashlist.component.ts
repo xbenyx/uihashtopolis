@@ -123,9 +123,9 @@ export class NewHashlistComponent implements OnInit {
     // tslint:disable-next-line:prefer-for-of
     const file = event.item(0)
     const filename = `${new Date().getTime()}_${file.name}`;
-      console.log("echo")
+      console.log(filename)
       console.log(`Uploading ${file.name} with size ${file.size} and type ${file.type}`);
-      this.uploadService.uploadFile(file, file.name);
+      this.uploadService.uploadFile(file, filename);
   }
 
   // New File Upload

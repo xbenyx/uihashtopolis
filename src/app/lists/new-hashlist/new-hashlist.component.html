@@ -116,8 +116,8 @@
                                     <button (click)="file.click()">Browse for File</button>
                                     <input class="file-input" type="file" fileSelect  webkitdirectory directory multiple hidden #file>
                                     <p>Supported formats: .zip and .dmp</p>
-                                  </div>
-                                  <div *ngIf="percent$ | async as pct">
+                                  </div> -->
+                                  <!-- <div *ngIf="percent$ | async as pct">
 
                                     <progress class="progress is-info"
                                               [value]="pct"
@@ -130,9 +130,9 @@
 
                                   <div *ngIf="bytes$ | async as bytes">
                                     {{ bytes[0] | fileSize:false }} of {{ bytes[1] | fileSize:false }}
-                                  </div>
+                                  </div> -->
 
-                                  <div *ngIf="(state$ | async) || 'idle' as state"> -->
+                                  <!-- <div *ngIf="(state$ | async) || 'idle' as state"> --> -->
 
                                     <!-- Upload State:
                                     <p class="tag"
@@ -147,9 +147,9 @@
 
                                     <button (click)="cancel()" class="button is-danger" [disabled]="state != 'running'">Cancel</button>
 
-                                    </div> -->
+                                    </div>
 
-                                  <!-- <td>
+                                  <td>
                                     <input type="file" class='form-control' name="hashfile"  formControlName="data" (change)="handleFileInput($event)">
                                     <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
                                   </td> -->
@@ -177,8 +177,31 @@
   </div>
 </div>
 
+<div class="filedrop"
+    fileDrop
+    [class.hovering]="isHovering"
+    (hovered)="toggleHover($event)">
+    <div class="icon"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon></div>
+    <header>Drag & Drop here</header>
+    <span>OR</span>
+    <button (click)="file.click()">Browse for File</button>
+    <input accept="/*" name="file" type="file" fileSelect directory hidden #file>
+    <p>Supported formats: .zip and .dmp</p>
+  </div>
+  <button mat-raised-button (click)="onuploadFile(file.files);">Upload</button>
+  <div *ngFor="let fileStatus of uploadProgress | async">
+    <p>Uploading File: {{fileStatus.filename}}</p>
+    <progress color="primary" mode="determinate"
+                      [value]="fileStatus.progress"></progress>
+    <p>Progress: {{fileStatus.progress}}%</p>
+    <p>UUID: {{fileStatus.uuid}}</p>
+    <div *ngIf="fileStatus.progress == 100">
+      <a>Uploaded File</a>
+    </div>
+</div>
 
-<input accept="/*" name="file" type="file" #file>
+
+<!-- <input accept="/*" name="file" type="file" #file>
 <button mat-raised-button (click)="onuploadFile(file.files);">Upload</button>
 <div *ngFor="let fileStatus of uploadProgress | async">
       <p>Uploading File: {{fileStatus.filename}}</p>
@@ -189,5 +212,5 @@
       <div *ngIf="fileStatus.progress == 100">
         <a>Uploaded File</a>
       </div>
-</div>
+</div> -->
 

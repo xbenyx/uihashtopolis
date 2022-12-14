@@ -167,23 +167,41 @@ export class FilesComponent implements OnInit {
   }
 
   deleteFile(id: number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
     Swal.fire({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this file!",
+      text: "Once deleted, it can not be recovered!",
       icon: "warning",
-      buttons: true,
-      dangerMode: true,
       showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
     })
-    .then((willDelete) => {
-      if (willDelete) {
-        Swal.fire(
-          "File has been deleted!",
-          {
-          icon: "success",
+    .then((result) => {
+      if (result.isConfirmed) {
+        this.filesService.deleteFile(id).subscribe(() => {
+          Swal.fire(
+            "File has been deleted!",
+            {
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.ngOnInit();
+          this.rerender();  // rerender datatables
         });
       } else {
-        Swal.fire("Your imaginary file is safe!")
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'No worries, your File is safe!',
+          'error'
+        )
       }
     });
   }
