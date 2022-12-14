@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinetunningComponent } from './finetunning.component';
+import { PreprocessorsComponent } from './preprocessors.component';
 
-describe('FinetunningComponent', () => {
-  let component: FinetunningComponent;
-  let fixture: ComponentFixture<FinetunningComponent>;
+describe('PreprocessorsComponent', () => {
+  let component: PreprocessorsComponent;
+  let fixture: ComponentFixture<PreprocessorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FinetunningComponent ]
+      declarations: [ PreprocessorsComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(FinetunningComponent);
+    fixture = TestBed.createComponent(PreprocessorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

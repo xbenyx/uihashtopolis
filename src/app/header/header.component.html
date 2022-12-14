@@ -25,14 +25,14 @@
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownAgents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agents</a>
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownAgents">
-          <a class="dropdown-item" routerLink="agents/show-agents">Show Agents</a>
-          <a class="dropdown-item" routerLink="agents/new-agent">New Agent</a>
           <a class="dropdown-item" routerLink="agents/agent-status">Agent Status</a>
+          <a class="dropdown-item" routerLink="agents/new-agent">New Agent</a>
+          <a class="dropdown-item" routerLink="agents/show-agents">Show Agents</a>
           </div>
         </li>
-        <li class="nav-item" >
+        <!-- <li class="nav-item" >
           <a class="nav-link" routerLinkActive="active" routerLink="projects/" *ngIf="isAuthentificated">Projects</a>
-        </li>
+        </li> -->
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownTasks" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks</a>
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownTasks">
@@ -43,6 +43,7 @@
           <a class="dropdown-item" routerLink="tasks/supertasks">Supertasks</a>
           <a class="dropdown-item" routerLink="tasks/new-supertasks">New Supertask</a>
           <a class="dropdown-item" routerLink="tasks/import-supertasks">Import Supertask</a>
+          <a class="dropdown-item" routerLink="tasks/chunks">Chunk activity</a>
           </div>
         </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
@@ -59,24 +60,21 @@
         <li class="nav-item" >
           <a class="nav-link" routerLinkActive="active" routerLink="files/wordlist" *ngIf="isAuthentificated">Files</a>
         </li>
-        <li class="nav-item" routerLinkActive="active" *ngIf="isAuthentificated">
-          <a class="nav-link" routerLink="chunk-activity">Chunk activity</a>
-        </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownEngine" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Engine</a>
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownEngine">
-          <a class="dropdown-item" routerLink="engine/crackers">Crackers</a>
-          <a class="dropdown-item" routerLink="engine/preprocessors">Preprocessors</a>
-          <a class="dropdown-item" routerLink="engine/agent-binaries">Agent Binaries</a>
+          <a class="dropdown-item" routerLink="engine/crackers">Crackers(move to Config)</a>
+          <a class="dropdown-item" routerLink="engine/preprocessors">Preprocessors(move to Config)</a>
           </div>
         </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdownConfig" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Config</a>
           <div ngbDropdownMenu class="dropdown-menu" aaria-labelledby="dropdownConfig">
-          <a class="dropdown-item" routerLink="config/server">Server</a>
+          <a class="dropdown-item" routerLink="config/engine/agent-binaries">Engines</a>
           <a class="dropdown-item" routerLink="config/hashtypes">Hashtypes</a>
-          <a class="dropdown-item" routerLink="config/log">Log</a>
           <a class="dropdown-item" routerLink="config/health-checks">Health Checks</a>
+          <a class="dropdown-item" routerLink="config/log">Log</a>
+          <a class="dropdown-item" routerLink="config/server">Server</a>
           </div>
         </li>
         <li ngbDropdown class="nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">

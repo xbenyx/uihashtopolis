@@ -149,8 +149,8 @@ export class HashtypesComponent implements OnInit {
   }
 
   onCancel(item: any){
+    this.rerender();  // Destroy and rerender table
     item.isEdit = false;
-
   }
 
   onDelete(id: number){

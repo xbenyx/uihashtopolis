@@ -15,6 +15,22 @@
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
+                              <label class="form-label" for="notes">Notes</label>
+                              <input  type='text' name='notes' title="Notes" class='form-control' id="notes" formControlName="notes">
+                          </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label requiredak" for="getaccessgroup">Access group</label>
+                              <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
+                                <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
+                              </select>
+                          </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
                               <label class="form-label requiredak" for="gethashtype">Hashtype</label>
                               <div class="input-group">
                                 <span class="input-group-text" >
@@ -51,15 +67,6 @@
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
-                              <label class="form-label requiredak" for="getaccessgroup">Access group</label>
-                              <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
-                                <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
-                              </select>
-                          </div>
-                        </div>
-                        &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline">
                             <label for="gethashlistformat">Hashcat Brain</label>
                             <td>
                             <select #usebrain  class='form-select' id='hashcatbrain' name="hashcatbrain" title="Hashcat-brain" formControlName="useBrain">
@@ -83,12 +90,7 @@
                              </div>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <div class="form-outline">
-                              <label class="form-label" for="notes">Notes</label>
-                              <input  type='text' name='notes' title="Notes" class='form-control' id="notes" formControlName="notes">
-                          </div>
-                        </div>
+
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
@@ -96,7 +98,6 @@
                                 <td>
                                   <input class="form-check-input" type="radio" name="source" (change)='ShowHideTypeFile("paste")' value="paste" title="Pasting"> Paste<br>
                                   <input class="form-check-input" type="radio" name="source" (change)='ShowHideTypeFile("upload")' value="upload" checked="checked" title="Upload"> Upload<br>
-                                  <!-- <input class="form-check-input" type="radio" name="source" (change)='ShowHideTypeFile("import")' value="import" title="Import"> Import<br> -->
                                   <input class="form-check-input" type="radio" name="source" (change)='ShowHideTypeFile("url")' value="url" title="Import"> Url download<br>
                                 </td>
                                 &nbsp;
@@ -105,6 +106,45 @@
                                     <textarea class='form-control' name="hashfield" cols="60" rows="10" title="Hashes" formControlName="sourceData"></textarea>
                                   </td>
                                 </tr>
+                                <tr id="uploadLine">
+                                <div class="filedrop"
+                                    fileDrop
+                                    (filesChangeEmiter)="onFilesChange($event)"
+                                    (filesInvalidEmiter)="onFileInvalids($event)"
+                                    (click)="fil.click()"
+                                    #fils>
+                                    <div class="icon"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon></div>
+                                    <header>Drag & Drop here</header>
+                                    <span>OR</span>
+                                    <button (click)="fil.click()">Browse for File</button>
+                                    <input accept="/*" name="file" type="file" (change)="handleFileInput($event)" fileSelect directory hidden #fil>
+                                    <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
+                                </div>
+                                <div class="dropzone-list">
+                                  <ul class="valid">
+                                    <tr *ngFor="let file of fileList">
+                                      <li>{{ file.name }}</li>
+                                    </tr>
+                                  </ul>
+                                  <ul class="invalid">
+                                    <li *ngFor="let file of invalidFiles">
+                                      {{ file.name }}
+                                    </li>
+                                  </ul>
+                                </div>
+                                <button mat-raised-button (click)="onuploadFile(fil.files);">Upload</button>
+                                <div *ngFor="let fileStatus of uploadProgress | async">
+                                    <p>Uploading File: {{fileStatus.filename}}</p>
+                                    <progress color="primary" mode="determinate"
+                                                      [value]="fileStatus.progress"></progress>
+                                    <p>Progress: {{fileStatus.progress}}%</p>
+                                    <p>UUID: {{fileStatus.uuid}}</p>
+                                    <div *ngIf="fileStatus.progress == 100">
+                                      <a>File Uploaded</a>
+                                    </div>
+                                </div>
+
+                                </tr>  <!-- Hide -->
                                 <!-- <tr id="uploadLine">
                                   <div class="filedrop"
                                     fileDrop
@@ -132,7 +172,7 @@
                                     {{ bytes[0] | fileSize:false }} of {{ bytes[1] | fileSize:false }}
                                   </div> -->
 
-                                  <!-- <div *ngIf="(state$ | async) || 'idle' as state"> --> -->
+                                  <!-- <div *ngIf="(state$ | async) || 'idle' as state"> -->
 
                                     <!-- Upload State:
                                     <p class="tag"
@@ -177,40 +217,28 @@
   </div>
 </div>
 
-<div class="filedrop"
-    fileDrop
-    [class.hovering]="isHovering"
-    (hovered)="toggleHover($event)">
-    <div class="icon"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon></div>
-    <header>Drag & Drop here</header>
-    <span>OR</span>
-    <button (click)="file.click()">Browse for File</button>
-    <input accept="/*" name="file" type="file" fileSelect directory hidden #file>
-    <p>Supported formats: .zip and .dmp</p>
+
+<div class="dropzone"
+fileDrop
+(filesChangeEmiter)="onFilesChange($event)"
+(filesInvalidEmiter)="onFileInvalids($event)">
+  <div class="text-wrapper">
+    <div class="centered">Drop your file here!</div>
   </div>
-  <button mat-raised-button (click)="onuploadFile(file.files);">Upload</button>
-  <div *ngFor="let fileStatus of uploadProgress | async">
-    <p>Uploading File: {{fileStatus.filename}}</p>
-    <progress color="primary" mode="determinate"
-                      [value]="fileStatus.progress"></progress>
-    <p>Progress: {{fileStatus.progress}}%</p>
-    <p>UUID: {{fileStatus.uuid}}</p>
-    <div *ngIf="fileStatus.progress == 100">
-      <a>Uploaded File</a>
-    </div>
+</div>
+<div class="dropzone-list">
+  <ul class="valid">
+    <li *ngFor="let file of fileList">
+      {{ file.name }}
+    </li>
+  </ul>
+  <ul class="invalid">
+    <li *ngFor="let file of invalidFiles">
+      {{ file.name }}
+    </li>
+  </ul>
 </div>
 
 
-<!-- <input accept="/*" name="file" type="file" #file>
-<button mat-raised-button (click)="onuploadFile(file.files);">Upload</button>
-<div *ngFor="let fileStatus of uploadProgress | async">
-      <p>Uploading File: {{fileStatus.filename}}</p>
-      <progress color="primary" mode="determinate"
-                        [value]="fileStatus.progress"></progress>
-      <p>Progress: {{fileStatus.progress}}%</p>
-      <p>UUID: {{fileStatus.uuid}}</p>
-      <div *ngIf="fileStatus.progress == 100">
-        <a>Uploaded File</a>
-      </div>
-</div> -->
+
 

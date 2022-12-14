@@ -29,8 +29,6 @@ export class UploadTUSService {
 
       this.uploadStatus.next(this.fileStatusArr);
 
-
-
       const upload = new Upload(file, {
         endpoint: this.endpoint,
         headers: {
@@ -40,7 +38,7 @@ export class UploadTUSService {
         retryDelays: [0, 3000, 6000, 10000, 20000],
         chunkSize: this.chunked,
         metadata: {
-          // filename,
+          filename,
           filetype: file.type
         },
         onError: async (error) => {

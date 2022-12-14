@@ -9,7 +9,6 @@ import { AgentStatusComponent } from './agents/agent-status/agent-status.compone
 import { ProjectsComponent } from './projects/projects.component';
 import { NewProjectComponent } from './projects/new-project/new-project.component';
 import { EditProjectComponent } from './projects/edit-project/edit-project.component';
-import { TasksComponent } from './tasks/tasks.component';
 import { ShowTasksComponent } from './tasks/show-tasks/show-tasks.component';
 import { NewTasksComponent } from './tasks/new-tasks/new-tasks.component';
 import { PreconfiguredTasksComponent } from './tasks/preconfigured-tasks/preconfigured-tasks.component';
@@ -25,21 +24,15 @@ import { SearchHashComponent } from './lists/search-hash/search-hash.component';
 import { ShowCracksComponent } from './lists/show-cracks/show-cracks.component';
 import { FilesComponent } from './files/files.component';
 import { FilesEditComponent } from './files/files-edit/files-edit.component';
-import { ChunkActivityComponent } from './chunk-activity/chunk-activity.component';
+import { ChunksComponent } from './tasks/chunks/chunks.component';
 import { CrackersComponent } from './engine/crackers/crackers.component';
 import { AccountComponent } from './account/account.component';
 import { SettingsComponent } from './account/settings/settings.component';
 import { NotificationsComponent } from './account/notifications/notifications.component';
-import { ConfigComponent } from './config/config.component';
 import { ServerComponent } from './config/server/server.component';
-import { CrackingComponent } from './config/server/cracking/cracking.component';
 import { YubikeyComponent } from './users/yubikey/yubikey.component';
-import { FinetunningComponent } from './config/server/finetunning/finetunning.component';
-import { UiComponent } from './config/server/ui/ui.component';
-import { MulticastComponent } from './config/server/multicast/multicast.component';
-import { NotificationsConfigComponent } from './config/server/notifications/notifications.component';
 import { HashtypesComponent } from './config/hashtypes/hashtypes.component';
-import { AgentBinariesComponent } from './engine/agent-binaries/agent-binaries.component';
+import { AgentBinariesComponent } from './config/engine/agent-binaries/agent-binaries.component';
 import { LogComponent } from './config/log/log.component';
 import { HealthChecksComponent } from './config/health-checks/health-checks.component';
 import { PreprocessorsComponent } from './engine/preprocessors/preprocessors.component';
@@ -82,14 +75,74 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard] },
     {path: 'projects/new-project', component: NewProjectComponent ,canActivate: [AuthGuard] },
     {path: 'projects/:id/edit-project', component: EditProjectComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks', component: TasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/show-tasks', component: ShowTasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/new-tasks', component: NewTasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/preconfigured-tasks', component: PreconfiguredTasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/new-preconfigured-tasks', component: NewPreconfiguredTasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/supertasks', component: SupertasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/new-supertasks', component: NewSupertasksComponent ,canActivate: [AuthGuard] },
-    {path: 'tasks/import-supertasks', component: ImportSupertasksComponent ,canActivate: [AuthGuard] },
+    {
+        path: 'tasks',
+        children: [
+            {
+              path: 'show-tasks', component: ShowTasksComponent,
+              data: {
+                  kind: 'show-tasks',
+                  breadcrumb: 'Show tasks'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'new-tasks', component: NewTasksComponent,
+              data: {
+                  kind: 'new-tasks',
+                  breadcrumb: 'New tasks'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'preconfigured-tasks', component: PreconfiguredTasksComponent,
+              data: {
+                   kind: 'preconfigured-tasks',
+                   breadcrumb: 'Preconfigured tasks'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'new-preconfigured-tasks', component: NewPreconfiguredTasksComponent,
+              data: {
+                    kind: 'new-preconfigured-tasks',
+                    breadcrumb: 'New Preconfigured tasks'
+               },
+               canActivate: [AuthGuard]},
+            {
+              path: 'supertasks', component: SupertasksComponent,
+              data: {
+                     kind: 'supertasks',
+                     breadcrumb: 'Supertasks'
+               },
+               canActivate: [AuthGuard]},
+            {
+              path: 'supertasks', component: SupertasksComponent,
+              data: {
+                     kind: 'supertasks',
+                     breadcrumb: 'Supertasks'
+               },
+                canActivate: [AuthGuard]},
+            {
+               path: 'new-supertasks', component: NewSupertasksComponent,
+               data: {
+                     kind: 'new-supertasks',
+                     breadcrumb: 'New Supertasks'
+                },
+                 canActivate: [AuthGuard]},
+            {
+               path: 'import-supertasks', component: ImportSupertasksComponent,
+               data: {
+                      kind: 'import-supertasks',
+                      breadcrumb: 'Import Supertasks'
+                },
+                 canActivate: [AuthGuard]},
+            {
+                path: 'chunks', component: ChunksComponent,
+                data: {
+                       kind: 'chunks',
+                       breadcrumb: 'Chunks'
+                },
+                 canActivate: [AuthGuard]},
+        ]
+    },
     {
         path: 'lists',
         children: [
@@ -121,12 +174,29 @@ const appRoutes: Routes = [
                 breadcrumb: 'Super Hashlist'
             },
             canActivate: [AuthGuard]},
+          {
+            path: 'new-superhashlist', component: NewSuperhashlistComponent,
+            data: {
+                kind: 'new-superhashlist',
+                breadcrumb: 'New Super Hashlist'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'search-hash', component: SearchHashComponent,
+            data: {
+                kind: 'search-hash',
+                breadcrumb: 'Search-hash'
+            },
+            canActivate: [AuthGuard]},
+          {
+            path: 'show-cracks', component: ShowCracksComponent,
+            data: {
+                kind: 'show-cracks',
+                breadcrumb: 'Show Cracks'
+            },
+            canActivate: [AuthGuard]},
         ]
     },
-    {path: 'lists/superhashlist', component: SuperhashlistComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/new-superhashlist', component: NewSuperhashlistComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/search-hash', component: SearchHashComponent ,canActivate: [AuthGuard] },
-    {path: 'lists/show-cracks', component: ShowCracksComponent ,canActivate: [AuthGuard] },
     {
         path: 'files',
         children: [
@@ -174,27 +244,99 @@ const appRoutes: Routes = [
             canActivate: [AuthGuard]},
         ]
     },
-    {path: 'chunk-activity', component: ChunkActivityComponent ,canActivate: [AuthGuard] },
+    {path: 'tasks/chunks', component: ChunksComponent ,canActivate: [AuthGuard] },
     {path: 'engine/crackers', component: CrackersComponent ,canActivate: [AuthGuard] },
     {path: 'engine/preprocessors', component: PreprocessorsComponent ,canActivate: [AuthGuard] },
-    {path: 'engine/agent-binaries', component: AgentBinariesComponent ,canActivate: [AuthGuard] },
     {path: 'account', component: AccountComponent ,canActivate: [AuthGuard] },
     {path: 'account/settings', component: SettingsComponent ,canActivate: [AuthGuard] },
     {path: 'account/notifications', component: NotificationsComponent ,canActivate: [AuthGuard] },
-    {path: 'config', component: ConfigComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server', component: ServerComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server/cracking', component: CrackingComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server/finetunning', component: FinetunningComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server/ui', component: UiComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server/multicast', component: MulticastComponent ,canActivate: [AuthGuard] },
-    {path: 'config/server/notifications', component: NotificationsConfigComponent ,canActivate: [AuthGuard] },
+    {
+        path: 'config',
+        children: [
+            {
+              path: 'cracking',  component: ServerComponent,
+              data: {
+                  kind: 'cracking',
+                  breadcrumb: 'Cracking'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'finetunning',  component: ServerComponent,
+              data: {
+                  kind: 'finetunning',
+                  breadcrumb: 'Finetunning'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'ui',  component: ServerComponent,
+              data: {
+                  kind: 'ui',
+                  breadcrumb: 'UI'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'yubikey',  component: ServerComponent,
+              data: {
+                  kind: 'yubikey',
+                  breadcrumb: 'Yubikey'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'notifications',  component: ServerComponent,
+              data: {
+                  kind: 'notifications',
+                  breadcrumb: 'Notifications'
+              },
+              canActivate: [AuthGuard]},
+            {
+              path: 'server',  component: ServerComponent,
+              data: {
+                  kind: 'server',
+                  breadcrumb: 'Server'
+              },
+              canActivate: [AuthGuard]},
+        ]
+    },
     {path: 'config/hashtypes', component: HashtypesComponent ,
     data: {
         breadcrumb: 'Hashtypes'
     },
     canActivate: [AuthGuard] },
-    {path: 'config/log', component: LogComponent ,canActivate: [AuthGuard] },
-    {path: 'config/health-checks', component: HealthChecksComponent ,canActivate: [AuthGuard] },
+    {path: 'config/log', component: LogComponent ,
+    data: {
+        breadcrumb: 'Logs'
+    },
+    canActivate: [AuthGuard] },
+    {path: 'config/health-checks', component: HealthChecksComponent ,    data: {
+        breadcrumb: 'Health Checks'
+    },
+    canActivate: [AuthGuard] },
+    {
+      path: 'config/engine',
+      children: [
+        {
+          path: 'agent-binaries',  component: AgentBinariesComponent,
+          data: {
+              kind: 'agent-binaries',
+              breadcrumb: 'Agent Binaries'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'crackers',  component: CrackersComponent,
+          data: {
+              kind: 'crackers',
+              breadcrumb: 'Crackers'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'preprocessors',  component: PreprocessorsComponent,
+          data: {
+              kind: 'preprocessors',
+              breadcrumb: 'Preprocessors'
+          },
+          canActivate: [AuthGuard]},
+        ]
+    },
     {path: 'users', component: UsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/:id/edit', component: EditUsersComponent ,canActivate: [AuthGuard] },
     {path: 'users/all-users', component: AllUsersComponent ,canActivate: [AuthGuard] },

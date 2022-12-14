@@ -3,6 +3,7 @@ import {
   HostListener,
   HostBinding,
   Output,
+  Input,
   EventEmitter
 } from '@angular/core';
 
@@ -20,28 +21,31 @@ import {
 })
 export class FileDropDirective {
 
-  @Output() dropped =  new EventEmitter<FileList>();
-  @Output() hovered =  new EventEmitter<boolean>();
-
   constructor() { }
 
-  @HostListener('drop', ['$event'])
-  onDrop($event) {
-    $event.preventDefault();
-    this.dropped.emit($event.dataTransfer.files);
-    this.hovered.emit(false);
+  @Input() private allowed_extensions: Array<string> = [];
+  @Output() private filesChangeEmiter: EventEmitter<File[]> = new EventEmitter();
+  @Output() private filesInvalidEmiter: EventEmitter<File[]> = new EventEmitter();
+  @HostBinding('style.background') private background;
+
+  @HostListener('dragover', ['$event']) public onDragOver(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.background = '#999';
   }
 
-  @HostListener('dragover', ['$event'])
-  onDragOver($event) {
-    $event.preventDefault();
-    this.hovered.emit(true);
+  @HostListener('dragleave', ['$event']) public onDragLeave(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.background = '#eee'
   }
 
-  @HostListener('dragleave', ['$event'])
-  onDragLeave($event) {
-    this.hovered.emit(false);
+  @HostListener('drop', ['$event']) public onDrop(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    let files = evt.dataTransfer.files;
+    let valid_files : Array<File> = files;
+    console.log(valid_files)
+    this.filesChangeEmiter.emit(valid_files);
   }
-
-
 }

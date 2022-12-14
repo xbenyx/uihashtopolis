@@ -3,13 +3,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
-import { ChunkService } from '../service/chunks.service';
+import { ChunkService } from '../../service/chunks.service';
 
 @Component({
-  selector: 'app-chunk-activity',
-  templateUrl: './chunk-activity.component.html'
+  selector: 'app-chunks',
+  templateUrl: './chunks.component.html'
 })
-export class ChunkActivityComponent implements OnInit {
+export class ChunksComponent implements OnInit {
   faPlus=faPlus;
 
   constructor(

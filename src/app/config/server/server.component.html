@@ -1,114 +1,626 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
-      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-              <li class="breadcrumb-item">
-                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
-              </li>
-              <li class="breadcrumb-item">Config</li>
-              <li class="breadcrumb-item active" aria-current="page">Server</li>
-          </ol>
-      </nav>
-      <h2 class="h4">Server</h2>
-      <p class="mb-0">Custom section</p>
+      <div [ngSwitch]="whichView">
+        <div *ngSwitchCase="'cracking'">
+          <h2 class="h4">Cracking/Tasks</h2>
+          <p class="mb-0">Manage and customize cracking and task settings.</p>
+        </div>
+        <div *ngSwitchCase="'yubikey'">
+          <h2 class="h4">Yubikey</h2>
+          <p class="mb-0">Manage and customize Yubikey settings.</p>
+        </div>
+        <div *ngSwitchCase="'finetunning'">
+          <h2 class="h4">Finetunning</h2>
+          <p class="mb-0">Manage and customize finetunning.</p>
+        </div>
+        <div *ngSwitchCase="'ui'">
+          <h2 class="h4">UI</h2>
+          <p class="mb-0">Manage and customize UI settings.</p>
+        </div>
+        <div *ngSwitchCase="'notifications'">
+          <h2 class="h4">Notifications</h2>
+          <p class="mb-0">Manage and customize notifications.</p>
+        </div>
+        <div *ngSwitchCase="'server'">
+          <h2 class="h4">Server</h2>
+          <p class="mb-0">Manage and customize Server settings.</p>
+        </div>
+      </div>
   </div>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <div class="btn-group ms-2 ms-3">
-        <button type="button" routerLink="./cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
-        <button type="button" routerLink="./yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
-        <button type="button" routerLink="./finetunning" class="btn btn-sm btn-outline-gray-600">Finetunning</button>
-        <button type="button" routerLink="./ui" class="btn btn-sm btn-outline-gray-600">UI</button>
-        <button type="button" routerLink="./multicast" class="btn btn-sm btn-outline-gray-600">Multicast</button>
-        <button type="button" routerLink="./notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
-    </div>
-  </div>
+      <div [ngSwitch]="whichView">
+        <div *ngSwitchCase="'cracking'">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group ms-2 ms-3">
+              <button type="button" routerLink="../cracking" class="btn btn-sm btn-outline-gray-600-select">Cracking/Tasks</button>
+              <button type="button" routerLink="../yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
+              <button type="button" routerLink="../finetunning" class="btn btn-sm btn-outline-gray-600">Finetuning</button>
+              <button type="button" routerLink="../ui" class="btn btn-sm btn-outline-gray-600">UI</button>
+              <button type="button" routerLink="../server" class="btn btn-sm btn-outline-gray-600">Server</button>
+              <button type="button" routerLink="../notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'finetunning'">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group ms-2 ms-3">
+              <button type="button" routerLink="../cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
+              <button type="button" routerLink="../yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
+              <button type="button" routerLink="../finetunning" class="btn btn-sm btn-outline-gray-600-select">Finetuning</button>
+              <button type="button" routerLink="../ui" class="btn btn-sm btn-outline-gray-600">UI</button>
+              <button type="button" routerLink="../server" class="btn btn-sm btn-outline-gray-600">Server</button>
+              <button type="button" routerLink="../notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'ui'">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group ms-2 ms-3">
+              <button type="button" routerLink="../cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
+              <button type="button" routerLink="../yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
+              <button type="button" routerLink="../finetunning" class="btn btn-sm btn-outline-gray-600">Finetuning</button>
+              <button type="button" routerLink="../ui" class="btn btn-sm btn-outline-gray-600-select">UI</button>
+              <button type="button" routerLink="../server" class="btn btn-sm btn-outline-gray-600">Server</button>
+              <button type="button" routerLink="../notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'yubikey'">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group ms-2 ms-3">
+              <button type="button" routerLink="../cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
+              <button type="button" routerLink="../yubikey" class="btn btn-sm btn-outline-gray-600-select">Yubikey</button>
+              <button type="button" routerLink="../finetunning" class="btn btn-sm btn-outline-gray-600">Finetuning</button>
+              <button type="button" routerLink="../ui" class="btn btn-sm btn-outline-gray-600">UI</button>
+              <button type="button" routerLink="../server" class="btn btn-sm btn-outline-gray-600">Server</button>
+              <button type="button" routerLink="../notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'notifications'">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group ms-2 ms-3">
+              <button type="button" routerLink="../cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
+              <button type="button" routerLink="../yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
+              <button type="button" routerLink="../finetunning" class="btn btn-sm btn-outline-gray-600">Finetuning</button>
+              <button type="button" routerLink="../ui" class="btn btn-sm btn-outline-gray-600">UI</button>
+              <button type="button" routerLink="../server" class="btn btn-sm btn-outline-gray-600">Server</button>
+              <button type="button" routerLink="../notifications" class="btn btn-sm btn-outline-gray-600-select">Notifications</button>
+            </div>
+          </div>
+        </div>
+        <div *ngSwitchCase="'server'">
+          <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group ms-2 ms-3">
+              <button type="button" routerLink="../cracking" class="btn btn-sm btn-outline-gray-600">Cracking/Tasks</button>
+              <button type="button" routerLink="../yubikey" class="btn btn-sm btn-outline-gray-600">Yubikey</button>
+              <button type="button" routerLink="../finetunning" class="btn btn-sm btn-outline-gray-600">Finetuning</button>
+              <button type="button" routerLink="../ui" class="btn btn-sm btn-outline-gray-600">UI</button>
+              <button type="button" routerLink="../server" class="btn btn-sm btn-outline-gray-600-select">Server</button>
+              <button type="button" routerLink="../notifications" class="btn btn-sm btn-outline-gray-600">Notifications</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
-<!-- Breadcrum end -->
 <!-- Body -->
-<section>
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
-              <!-- <h2 class="h5 mb-4">Cracking/Tasks</h2><br> -->
-                <form>
-                  <div class="row">
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="email_sender">Email address used as sender on notification emails.</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.emailSender" type='text' name='emailSender' title="emailSender" class='form-control' id="emailSender"> -->
-                              <input type='text' name='emailSender' title="emailSender" class='form-control' id="emailSender">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="email_sender_name">Sender's name on emails sent from Hashtopolis.</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.emailSenderName" type='text' name='emailSenderName' title="emailSenderName" class='form-control' id="emailSenderName"> -->
-                              <input type='text' name='emailSenderName' title="emailSenderName" class='form-control' id="emailSemailSenderNamender">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="base_host">Base hostname/port/protocol to use. Only fill this in to override the auto-determined value.</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.baseHost" type='text' name='baseHost' title="baseHost" class='form-control' id="baseHost"> -->
-                              <input type='text' name='baseHost' title="baseHost" class='form-control' id="baseHost">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="contact_email">Admin email address that will be displayed on the webpage footer. (Leave empty to hide).</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.contactEmail" type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail"> -->
-                              <input type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="contact_email">Admin email address that will be displayed on the webpage footer. (Leave empty to hide).</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.contactEmail" type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail"> -->
-                              <input type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="voucher_deletion">Vouchers can be used multiple times and will not be deleted automatically.</label>
-                              <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" id="voucherDeletion"  name='voucherDeletion' title="voucherDeletion">
-                                  <!-- <input class="form-check-input" type="checkbox" id="voucherDeletion"  [ngModel]="c.voucherDeletion" name='voucherDeletion' title="voucherDeletion"> -->
-                                  <label class="form-label" for="voucherDeletion"></label>
-                                  <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="server_log_level">Server level to be logged on the server to file.</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.serverLogLevel" type='text' name='serverLogLevel' title="serverLogLevel" class='form-control' id="serverLogLevel"> -->
-                              <input type='text' name='serverLogLevel' title="serverLogLevel" class='form-control' id="serverLogLevel">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="base_url">Base url for the webpage (this does not include hostname and is normally determined automatically on the installation).</label>
-                              <!-- <input *ngFor="let c of config" [(ngModel)]="c.baseUrl" type='text' name='baseUrl' title="baseUrl" class='form-control' id="baseUrl"> -->
-                              <input type='text' name='baseUrl' title="baseUrl" class='form-control' id="baseUrl">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="allow_deregister">Allow clients to deregister themselves automatically from the server.</label>
-                              <div class="form-check form-switch">
-                                  <input class="form-check-input" type="checkbox" id="allowDeregister"  name='allowDeregister' title="allowDeregister">
-                                  <!-- <input class="form-check-input" type="checkbox" id="allowDeregister"  [ngModel]="c.allowDeregister" name='allowDeregister' title="allowDeregister"> -->
-                                  <label class="form-label" for="allowDeregister"></label>
-                                  <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
-                              </div>
-                            </div>
-                          </div>
+<div [ngSwitch]="whichView">
+  <div *ngSwitchCase="'cracking'">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+        <form>
+          <div class="row">
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="agent_timeout">Time in seconds the server will consider a client inactive or timed out.</label>
+                      <!-- <input *ngFor="let c of config" [(ngModel)]="c.value" type='text' name='agenttimeout' title="Agenttimeout" class='form-control' id="agenttimeout"> -->
+                      <input type='text' name='agenttimeout' title="Agenttimeout" class='form-control' id="agenttimeout">
+                    </div>
                   </div>
-                  <button  class="btn btn-gray-800" type="submit">Update</button>
-            </form>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="benchmark_time">Time in seconds an agent should benchmark a task.</label>
+                      <input type='text' name='benchtime' title="Benchtime" class='form-control' id="benchtime">
+                      <!-- <input  [(ngModel)]="c.benchtime" type='text' name='benchtime' title="Benchtime" class='form-control' id="benchtime"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="chunk_duration">Time in seconds a client should be working on a single chunk.</label>
+                      <input type='text' name='chunktime' title="Chunktime" class='form-control' id="chunktime">
+                      <!-- <input  [(ngModel)]="c.chunktime" type='text' name='chunktime' title="Chunktime" class='form-control' id="chunktime"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="chunck_timeout">Time in seconds the server will consider an issued chunk as inactive or timed out and will reallocate to another client.</label>
+                      <input type='text' name='chunktimeout' title="Chunktimeout" class='form-control' id="chunktimeout">
+                      <!-- <input  [(ngModel)]="c.chunktimeout" type='text' name='chunktimeout' title="Chunktimeout" class='form-control' id="chunktimeout"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="field_separator">The separator character used to separate hash and plain (or salt).</label>
+                      <input type='text' name='fieldseparator' title="Fieldseparator" class='form-control' id="fieldseparator">
+                      <!-- <input  [(ngModel)]="c.fieldseparator" type='text' name='fieldseparator' title="Fieldseparator" class='form-control' id="fieldseparator"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hashlist_alias">The string used as hashlist alias when creating a task.</label>
+                      <input type='text' name='hashlistAlias' title="HashlistAlias" class='form-control' id="hashlistAlias">
+                      <!-- <input  [(ngModel)]="c.hashlistAlias" type='text' name='hashlistAlias' title="HashlistAlias" class='form-control' id="hashlistAlias"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="status_timer">Default interval in seconds clients should report back to the server for a task. (cracks, status, and progress)</label>
+                      <input type='text' name='statustimer' title="Statustimer" class='form-control' id="statustimer">
+                      <!-- <input  [(ngModel)]="c.statustimer" type='text' name='statustimer' title="Statustimer" class='form-control' id="statustimer"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="blacklist_chars">Characters that are not allowed to be used in attack command inputs.</label>
+                      <input type='text' name='blacklistchars' title="blacklist_chars" class='form-control' id="blacklist_chars">
+                      <!-- <input  [(ngModel)]="c.blacklistChars" type='text' name='blacklistchars' title="blacklist_chars" class='form-control' id="blacklist_chars"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="disp_tolerance">Allowable deviation in the final chunk of a task in percent.<br>
+                        (avoids issuing small chunks when the remaining part of a task is slightly bigger than the normal chunk size).</label>
+                      <input type='text' name='disptolerance' title="Disptolerance" class='form-control' id="disptolerance">
+                      <!-- <input  [(ngModel)]="c.disptolerance" type='text' name='disptolerance' title="Disptolerance" class='form-control' id="disptolerance"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="default_bench">Use speed benchmark as default.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="defaultBenchmark"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.defaultBenchmark" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="rule_split_small_tasks">When rule splitting is applied for tasks, always make them a small task.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="ruleSplitSmallTasks"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.ruleSplitSmallTasks" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="rule_split_always">Even do rule splitting when there are not enough rules but just the benchmark is too high.
+                        Can result in subtasks with just one rule.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="ruleSplitAlways"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.ruleSplitAlways" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="rule_split_disable">Disable automatic task splitting with large rule files.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="ruleSplitDisable"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.ruleSplitDisable" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="agent_data_lifetime">Minimum time in seconds how long agent gpu/cpu utilisation and gpu temperature data is kept on the server.</label>
+                      <input type='text' name='agentDataLifetime' title="AgentDataLifetime" class='form-control' id="agentDataLifetime">
+                      <!-- <input  [(ngModel)]="c.agentDataLifetime" type='text' name='agentDataLifetime' title="AgentDataLifetime" class='form-control' id="agentDataLifetime"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="disable_trimming">Disable trimming of chunks and redo whole chunks.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="disableTrimming"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.disableTrimming" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="priority_0_start">Also automatically assign tasks with priority 0.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="priority0Start"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.priority0Start" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hashcat_brain_enable">Allow hashcat brain to be used for hashlists.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="hashcatBrainEnable"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="user-notification-1"  [ngModel]="c.hashcatBrainEnable" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hashcat_brain_host">Host to be used for hashcat brain (must be reachable by agents).</label>
+                      <input type='text' name='hashcatBrainHost' title="HashcatBrainHost" class='form-control' id="hashcatBrainHost">
+                      <!-- <input  [(ngModel)]="c.hashcatBrainHost" type='text' name='hashcatBrainHost' title="HashcatBrainHost" class='form-control' id="hashcatBrainHost"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hashcat_brain_port">Port for hashcat brain.</label>
+                      <input type='text' name='hashcatBrainPort' title="hashcatBrainPort" class='form-control' id="hashcatBrainPort">
+                      <!-- <input  [(ngModel)]="c.hashcatBrainPort" type='text' name='hashcatBrainPort' title="hashcatBrainPort" class='form-control' id="hashcatBrainPort"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hashcat_brain_pass">Password to be used to access hashcat brain server.</label>
+                      <input type='text' name='hashcatBrainPass' title="hashcatBrainPass" class='form-control' id="hashcatBrainPass">
+                      <!-- <input  [(ngModel)]="c.hashcatBrainPass" type='text' name='hashcatBrainPass' title="hashcatBrainPass" class='form-control' id="hashcatBrainPass"> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hashlist_import_check">Check all hashes of a hashlist on import in case they are already cracked in another list.</label>
+                      <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="hashlistImportCheck"  name='isvalid' title="isvalid">
+                          <!-- <input class="form-check-input" type="checkbox" id="hashlistImportCheck"  [ngModel]="c.hashlistImportCheck" name='isvalid' title="isvalid"> -->
+                          <label class="form-label" for="isvalid"></label>
+                          <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="form-outline">
+                      <label class="form-label" for="hc_error_ignore">Ignore error messages from crackers which contain given strings (multiple values separated by comma).</label>
+                      <input type='text' name='hcErrorIgnore' title="HcErrorIgnore" class='form-control' id="hcErrorIgnore">
+                      <!-- <input  [(ngModel)]="c.hcErrorIgnore" type='text' name='hcErrorIgnore' title="HcErrorIgnore" class='form-control' id="hcErrorIgnore"> -->
+                    </div>
+                  </div>
+                  &nbsp;&nbsp;
+             </div>
+          <button  class="btn btn-gray-800" type="submit">Update</button>
+       </form>
     </div>
   </div>
 </div>
+  <div *ngSwitchCase="'yubikey'">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+            <form>
+              <div class="row">
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Yubikey Client ID</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Yubikey Secret Key</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Yubikey API URL</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    &nbsp;&nbsp;
+              </div>
+              <button  class="btn btn-gray-800" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+  </div>
+  <div *ngSwitchCase="'finetunning'">
+
+        <div class="col-12 d-flex align-items-center justify-content-center">
+              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+                    <form>
+                      <div class="row">
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="numLogEntries">Number of log entries that should be saved. When this number is exceeded by 120%, the oldest will be overwritten.</label>
+                                <!-- <input *ngFor="let c of config" [(ngModel)]="c.numLogEntries" type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries"> -->
+                                <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="batchSize">Batch size of SQL query when hashlist is sent to the agent.</label>
+                                <!-- <input *ngFor="let c of config" [(ngModel)]="c.batchSize" type='text' name='batchSize' title="batchSize" class='form-control' id="batchSize"> -->
+                                <input type='text' name='batchSize' title="batchSize" class='form-control' id="batchSize">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="hashesPerPage">Number of hashes shown on each page of the hashes view.</label>
+                                <!-- <input *ngFor="let c of config" [(ngModel)]="c.hashesPerPage" type='text' name='hashesPerPage' title="hashesPerPage" class='form-control' id="hashesPerPage"> -->
+                                <input type='text' name='hashesPerPage' title="hashesPerPage" class='form-control' id="hashesPerPage">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="PlaintextMaxLength">Plain text Max.Length</label>
+                                <!-- <input *ngFor="let c of config" [(ngModel)]="c.PlaintextMaxLength" type='text' name='PlaintextMaxLength' title="PlaintextMaxLength" class='form-control' id="PlaintextMaxLength"> -->
+                                <input type='text' name='PlaintextMaxLength' title="PlaintextMaxLength" class='form-control' id="PlaintextMaxLength">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="PlaintextMaxLength">Max length of a hash. (WARNING: This change may take a long time depending on DB size!)</label>
+                                <!-- <input *ngFor="let c of config" [(ngModel)]="c.PlaintextMaxLength" type='text' name='PlaintextMaxLength' title="PlaintextMaxLength" class='form-control' id="PlaintextMaxLength"> -->
+                                <input type='text' name='PlaintextMaxLength' title="PlaintextMaxLength" class='form-control' id="PlaintextMaxLength">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="maxHashlistSize">Max size of a hashlist in lines. (Prevents uploading very large lists).</label>
+                                <!-- <input *ngFor="let c of config" [(ngModel)]="c.maxHashlistSize" type='text' name='maxHashlistSize' title="maxHashlistSize" class='form-control' id="maxHashlistSize"> -->
+                                <input type='text' name='maxHashlistSize' title="maxHashlistSize" class='form-control' id="maxHashlistSize">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label class="form-label" for="uApiSendTaskIsComplete">Also send 'isComplete' for each task on the User API when listing all tasks (might affect performance)</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="uApiSendTaskIsComplete"  name='isvalid' title="isvalid">
+                                    <!-- <input class="form-check-input" type="checkbox" id="uApiSendTaskIsComplete"  [ngModel]="c.uApiSendTaskIsComplete" name='uApiSendTaskIsComplete' title="uApiSendTaskIsComplete"> -->
+                                    <label class="form-label" for="isvalid"></label>
+                                    <!-- <label *ngIf="c.uApiSendTaskIsComplete === 1" class="form-label" for="uApiSendTaskIsComplete">User Enabled</label> -->
+                                </div>
+                              </div>
+                            </div>
+                            &nbsp;&nbsp;
+                      </div>
+                      <button  class="btn btn-gray-800" type="submit">Update</button>
+                </form>
+          </div>
+      </div>
+
+  </div><!-- End switch  -->
+  <div *ngSwitchCase="'ui'">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+            <form>
+              <div class="row">
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Set the time format. Use syntax for PHPs date() method</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Hide pre configured tasks that were imported through a mask import</label>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="disableTrimming"  name='isvalid' title="isvalid">
+                          <label class="form-label" for="isvalid"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Number of hashes per page on hashes view</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Hide agent's IP information</label>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="disableTrimming"  name='isvalid' title="isvalid">
+                          <label class="form-label" for="isvalid"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Show cracks/minute for tasks which are running</label>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="disableTrimming"  name='isvalid' title="isvalid">
+                          <label class="form-label" for="isvalid"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Maximal number of data points showing of agent gpu data</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Draw straigth lines in agent data graph instead of bezier curves</label>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="disableTrimming"  name='isvalid' title="isvalid">
+                          <label class="form-label" for="isvalid"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Max session length users can configure (in hours)</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Temperature threshold from which on an agent is shown in orange on the agent status page</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Util value where an agent is shown in orange on the agent status page, if below</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Util value where an agent is shown in red on the agent status page, if below</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    &nbsp;&nbsp;
+              </div>
+              <button  class="btn btn-gray-800" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+  </div> <!-- End switch  -->
+  <div *ngSwitchCase="'notifications'">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+            <form>
+              <div class="row">
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Telegram bot token used to send telegram notifications.</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Enable using a proxy for sending notifications</label>
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="defaultBenchmark"  name='isvalid' title="isvalid">
+                          <label class="form-label" for="isvalid"></label>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Server url of the proxy to use for notifications</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Set the port for the notifications proxy</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-outline">
+                        <label class="form-label" for="numLogEntries">Proxy type to use for notifications</label>
+                        <input type='text' name='numLogEntries' title="numLogEntries" class='form-control' id="numLogEntries">
+                      </div>
+                    </div>
+                    &nbsp;&nbsp;
+              </div>
+              <button  class="btn btn-gray-800" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+  </div> <!-- End switch  -->
+  <div *ngSwitchCase="'server'">
+
+              <div class="col-12 d-flex align-items-center justify-content-center">
+                  <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+                    <form>
+                      <div class="row">
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="email_sender">Email address used as sender on notification emails.</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.emailSender" type='text' name='emailSender' title="emailSender" class='form-control' id="emailSender"> -->
+                                  <input type='text' name='emailSender' title="emailSender" class='form-control' id="emailSender">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="email_sender_name">Sender's name on emails sent from Hashtopolis.</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.emailSenderName" type='text' name='emailSenderName' title="emailSenderName" class='form-control' id="emailSenderName"> -->
+                                  <input type='text' name='emailSenderName' title="emailSenderName" class='form-control' id="emailSemailSenderNamender">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="base_host">Base hostname/port/protocol to use. Only fill this in to override the auto-determined value.</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.baseHost" type='text' name='baseHost' title="baseHost" class='form-control' id="baseHost"> -->
+                                  <input type='text' name='baseHost' title="baseHost" class='form-control' id="baseHost">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="contact_email">Admin email address that will be displayed on the webpage footer. (Leave empty to hide).</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.contactEmail" type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail"> -->
+                                  <input type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="contact_email">Admin email address that will be displayed on the webpage footer. (Leave empty to hide).</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.contactEmail" type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail"> -->
+                                  <input type='text' name='contactEmail' title="contactEmail" class='form-control' id="contactEmail">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="voucher_deletion">Vouchers can be used multiple times and will not be deleted automatically.</label>
+                                  <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" id="voucherDeletion"  name='voucherDeletion' title="voucherDeletion">
+                                      <!-- <input class="form-check-input" type="checkbox" id="voucherDeletion"  [ngModel]="c.voucherDeletion" name='voucherDeletion' title="voucherDeletion"> -->
+                                      <label class="form-label" for="voucherDeletion"></label>
+                                      <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="server_log_level">Server level to be logged on the server to file.</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.serverLogLevel" type='text' name='serverLogLevel' title="serverLogLevel" class='form-control' id="serverLogLevel"> -->
+                                  <input type='text' name='serverLogLevel' title="serverLogLevel" class='form-control' id="serverLogLevel">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="base_url">Base url for the webpage (this does not include hostname and is normally determined automatically on the installation).</label>
+                                  <!-- <input *ngFor="let c of config" [(ngModel)]="c.baseUrl" type='text' name='baseUrl' title="baseUrl" class='form-control' id="baseUrl"> -->
+                                  <input type='text' name='baseUrl' title="baseUrl" class='form-control' id="baseUrl">
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="form-outline">
+                                  <label class="form-label" for="allow_deregister">Allow clients to deregister themselves automatically from the server.</label>
+                                  <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" id="allowDeregister"  name='allowDeregister' title="allowDeregister">
+                                      <!-- <input class="form-check-input" type="checkbox" id="allowDeregister"  [ngModel]="c.allowDeregister" name='allowDeregister' title="allowDeregister"> -->
+                                      <label class="form-label" for="allowDeregister"></label>
+                                      <!-- <label *ngIf="u.isValid === 1" class="form-label" for="isvalid">User Enabled</label> -->
+                                  </div>
+                                </div>
+                              </div>
+                              &nbsp;&nbsp;
+                      </div>
+                      <button  class="btn btn-gray-800" type="submit">Update</button>
+                </form>
+           </div>
+      </div>
+
+  </div> <!-- End Server settings  -->
+</div> <!-- End switch  -->
 
 

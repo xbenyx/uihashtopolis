@@ -25,10 +25,17 @@ import { UploadFileTUS } from '../../models/files';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewHashlistComponent implements OnInit {
+  /**
+   * Fa Icons
+   *
+  */
   isLoading = false;
   faMagnifyingGlass=faMagnifyingGlass;
 
-  // Form custom settings
+  /**
+   * Form Settings
+   *
+  */
   signupForm: FormGroup;
   ShowHideTypeFile = ShowHideTypeFile;
   radio=true;
@@ -115,17 +122,39 @@ export class NewHashlistComponent implements OnInit {
     });
     this._changeDetectorRef.detectChanges();
   }
-  // TUS File Uload
+
+  // FILE UPLOAD: TUS File Uload
   uploadProgress: Observable<UploadFileTUS[]>;
   filenames: string[] = [];
 
-  onuploadFile(event: FileList) {
+  onuploadFile(event: any) {
     // tslint:disable-next-line:prefer-for-of
+    console.log(event)
     const file = event.item(0)
+    console.log(file)
     const filename = `${new Date().getTime()}_${file.name}`;
       console.log(filename)
       console.log(`Uploading ${file.name} with size ${file.size} and type ${file.type}`);
       this.uploadService.uploadFile(file, filename);
+  }
+  public files: any[] = [];
+  onFileChange(pFileList: File[]){
+    this.files = Object.keys(pFileList).map(key => pFileList[key]);
+  }
+  deleteFile(f){
+    this.files = this.files.filter(function(w){ return w.name != f.name });
+  }
+
+
+  deleteFromArray(index) {
+    console.log(this.files);
+    this.files.splice(index, 1);
+  }
+
+  fileList1: string[];
+  setFileList(event: FileList) {
+    console.log(event);
+    this.fileList1 = Array.from(event).map(f => f.name);
   }
 
   // New File Upload
@@ -153,16 +182,26 @@ export class NewHashlistComponent implements OnInit {
 
   // }
 
-  toggleHover(event) {
-    this.isHovering = event;
-    console.log(event)
+  /**
+   * Drop Zone Area
+   *
+  */
+  fileList : any = [];
+  invalidFiles : any = [];
+
+  onFilesChange(fileList : Array<File> | DragEvent){
+    this.fileList = fileList;
   }
 
-  cancel() {
-    this.task.cancel()
+  onFileInvalids(fileList : Array<File> | DragEvent){
+    this.invalidFiles = fileList;
   }
 
-  // Old File Upload
+
+   /**
+   * Handle Input and return file size
+   * @param event
+   */
 
   fileSizeValue = fileSizeValue;
 
@@ -173,14 +212,23 @@ export class NewHashlistComponent implements OnInit {
   fileSize: any;
   fileName: any;
 
-    handleFileInput(event: any) {
-      this.fileToUpload = event.target.files[0];
-      this.fileSize = this.fileToUpload.size;
-      this.fileName = this.fileToUpload.name;
-      $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
-    }
+  handleFileInput(event: any) {
+    this.fileToUpload = event.target.files[0];
+    this.fileSize = this.fileToUpload.size;
+    this.fileName = this.fileToUpload.name;
+    $('.fileuploadspan').text('Size: '+fileSizeValue(this.fileToUpload.size));
+  }
 
-  // Create HashList
+  // FILE UPLOAD: Remove file
+
+  deleteAttachment(index: number) {
+    this.filenames.splice(index, 1);
+  }
+
+  /**
+   * Create Hashlist
+   *
+   */
 
   onSubmit(): void{
       if (this.signupForm.valid) {

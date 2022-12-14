@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChunkActivityComponent } from './chunk-activity.component';
+import { CrackersComponent } from './crackers.component';
 
-describe('ChunkActivityComponent', () => {
-  let component: ChunkActivityComponent;
-  let fixture: ComponentFixture<ChunkActivityComponent>;
+describe('CrackersComponent', () => {
+  let component: CrackersComponent;
+  let fixture: ComponentFixture<CrackersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ChunkActivityComponent ]
+      declarations: [ CrackersComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ChunkActivityComponent);
+    fixture = TestBed.createComponent(CrackersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
