@@ -74,3 +74,5 @@ export class UploadTUSService {
       upload.start();
     }
   }
+
+  // Look for check-sum, section extension
