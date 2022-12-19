@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowAgentsComponent } from './show-agents.component';
-import { AgentsService } from '../../service/agents/agents.service';
+import { AgentsService } from '../../core/_services/agents/agents.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('ShowAgentsComponent', () => {

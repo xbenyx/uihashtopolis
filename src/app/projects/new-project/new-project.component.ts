@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../../service/projects/projects.service';
+import { ProjectService } from '../../core/_services/projects/projects.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faEdit, faCode, faCalendar, faFileText, faBook, faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';

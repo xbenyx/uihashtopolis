@@ -7,7 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Mo
 
 import { DataTableDirective } from 'angular-datatables';
 
-import { AccessGroupsService } from '../../service/accessgroups.service';
+import { AccessGroupsService } from '../../core/_services/accessgroups.service';
 
 @Component({
   selector: 'app-groups',

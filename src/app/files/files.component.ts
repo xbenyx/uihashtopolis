@@ -9,14 +9,14 @@ import { DataTableDirective } from 'angular-datatables';
 
 import { fileSizeValue, validateFileExt } from '../shared/utils/util';
 
-import { FilesService } from '../service/files/files.service';
-import { UploadTUSService } from '../service/files/files_tus.service';
-import { AccessGroupsService } from '../service/accessgroups.service';
-import { Configuration } from '../service/configuration';
+import { FilesService } from '../core/_services/files/files.service';
+import { UploadTUSService } from '../core/_services/files/files_tus.service';
+import { AccessGroupsService } from '../core/_services/accessgroups.service';
+import { Configuration } from '../core/_services/configuration';
 
-import { AccessGroup } from '../models/access-group';
-import { Filetype } from '../models/files';
-import { UploadFileTUS } from '../models/files';
+import { AccessGroup } from '../core/_models/access-group';
+import { Filetype } from '../core/_models/files';
+import { UploadFileTUS } from '../core/_models/files';
 
 
 @Component({

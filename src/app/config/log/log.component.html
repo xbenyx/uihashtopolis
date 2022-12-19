@@ -1,14 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
-      <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
-          <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-              <li class="breadcrumb-item">
-                    <fa-icon [icon]="faHome" aria-hidden="true"></fa-icon>
-              </li>
-              <li class="breadcrumb-item">Config</li>
-              <li class="breadcrumb-item active" aria-current="page">Logs</li>
-          </ol>
-      </nav>
       <h2 class="h4">Logs</h2>
       <p class="mb-0"></p>
   </div>
@@ -29,7 +20,7 @@
                 </thead>
                 <tbody>
                   <ng-container>
-                    <tr *ngFor="let l of logs | sort:'asc':'logEntryId'" [ngStyle]="{'background-color':l.level | warningColor }">
+                    <tr *ngFor="let l of logs" [ngStyle]="{'background-color':l.level | warningColor }">
                         <td class="text-align:center">{{ l.logEntryId }}</td>
                         <td>{{ l.time*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}</td>
                         <td>{{ l.level }}</td>

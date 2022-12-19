@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
-import { ChunkService } from '../../service/chunks.service';
+import { ChunkService } from '../../core/_services/chunks.service';
 
 @Component({
   selector: 'app-chunks',

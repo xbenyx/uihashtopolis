@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { UsersService } from '../service/users/users.service';
+import { UsersService } from '../core/_services/users/users.service';
 
 @Component({
   selector: 'app-users',

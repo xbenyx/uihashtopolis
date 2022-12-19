@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TasksService } from '../../service/tasks/tasks.sevice';
+import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../service/users/users.service';
+import { UsersService } from '../../core/_services/users/users.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCalendar,faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';

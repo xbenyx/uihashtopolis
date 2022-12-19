@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { LogentryService } from '../../service/config/logentry.service';
+import { LogentryService } from '../../core/_services/config/logentry.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';

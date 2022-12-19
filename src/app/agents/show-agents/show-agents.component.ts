@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AgentsService } from '../../service/agents/agents.service';
-import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { AgentsService } from '../../core/_services/agents/agents.service';
+import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus, faFileText} from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -13,6 +13,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   faPauseCircle=faPauseCircle;
   faHome=faHomeAlt;
   faPlus=faPlus;
+  faFileText=faFileText;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};

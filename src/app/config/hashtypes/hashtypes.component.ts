@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 
-import { HashtypeService } from '../../service/hashtype.service';
+import { HashtypeService } from '../../core/_services/hashtype.service';
 
 
 @Component({

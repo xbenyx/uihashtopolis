@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService } from '../../service/config/config.service';
+import { ConfigService } from '../../core/_services/config/config.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 

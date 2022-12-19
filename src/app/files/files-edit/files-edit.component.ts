@@ -4,12 +4,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 
-import { FilesService } from '../../service/files/files.service';
-import { AccessGroupsService } from '../../service/accessgroups.service';
-import { Configuration } from '../../service/configuration';
+import { FilesService } from '../../core/_services/files/files.service';
+import { AccessGroupsService } from '../../core/_services/accessgroups.service';
+import { Configuration } from '../../core/_services/configuration';
 
-import { AccessGroup } from '../../models/access-group';
-import { Filetype } from '../../models/files';
+import { AccessGroup } from '../../core/_models/access-group';
+import { Filetype } from '../../core/_models/files';
 
 
 @Component({

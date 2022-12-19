@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import { AgentBinService } from '../../service/config/agentbinary.service';
+import { AgentBinService } from '../../core/_services/config/agentbinary.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';

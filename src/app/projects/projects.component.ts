@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ProjectService } from '../service/projects/projects.service';
+import { ProjectService } from '../core/_services/projects/projects.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faEdit, faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 // Report Import
-import { ReportService } from '../service/config/report.service';
+import { ReportService } from '../core/_services/config/report.service';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;

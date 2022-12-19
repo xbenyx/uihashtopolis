@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UsersService } from '../../service/users/users.service';
+import { UsersService } from '../../core/_services/users/users.service';
 import { faEdit,faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
