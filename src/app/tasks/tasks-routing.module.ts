@@ -13,7 +13,7 @@ import { ChunksComponent } from "./chunks/chunks.component";
 
 const routes: Routes = [
   {
-    path: 'tasks',
+    path: '',
     children: [
         {
           path: 'show-tasks', component: ShowTasksComponent,

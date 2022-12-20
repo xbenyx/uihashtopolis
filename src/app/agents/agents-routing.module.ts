@@ -8,7 +8,7 @@ import { ShowAgentsComponent } from "./show-agents/show-agents.component";
 
 const routes: Routes = [
   {
-    path: 'agents',
+    path: '',
     children: [
       {
         path: 'agent-status', component: AgentStatusComponent,

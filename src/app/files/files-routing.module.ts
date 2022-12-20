@@ -7,7 +7,7 @@ import { FilesEditComponent } from "./files-edit/files-edit.component";
 
 const routes: Routes = [
   {
-    path: 'files',
+    path: '',
     children: [
       {
         path: 'wordlist',  component: FilesComponent,

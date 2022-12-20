@@ -8,7 +8,7 @@ import { NotificationsComponent } from "./notifications/notifications.component"
 
 const routes: Routes = [
   {
-    path: 'account',
+    path: '',
     children: [
         {
           path: '', component: AccountComponent,

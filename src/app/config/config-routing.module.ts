@@ -12,7 +12,7 @@ import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 
 const routes: Routes = [
   {
-    path: 'config',
+    path: '',
     children: [
         {
           path: 'cracking',  component: ServerComponent,

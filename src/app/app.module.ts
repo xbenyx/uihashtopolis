@@ -3,6 +3,7 @@
  *
 */
 import { NgModule } from '@angular/core';
+import { AppPreloadingStrategy } from './core/app_preloading_strategy';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,16 +32,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
  * App Modules
  *
 */
-import { AgentsModule } from './agents/agent.module';
-import { ConfigModule } from './config/config.module';
 import { ComponentsModule } from './shared/components.module';
 import { AuthModule } from './auth/auth.module';
-import { FilesModule } from './files/files.module';
-import { ProjectsModule } from './projects/projects.module';
-import { HashlistModule } from './hashlists/hashlists.module';
-import { TasksModule } from './tasks/tasks.module';
-import { UsersModule } from './users/users.module';
-import { AccountModule } from './account/account.module';
 import { DirectivesModule } from './shared/directives.module';
 import { PipesModule } from './shared/pipes.module';
 
@@ -67,21 +60,13 @@ import { PipesModule } from './shared/pipes.module';
     DataTablesModule,
     CommonModule,
     AuthModule,
-    AccountModule,
-    AgentsModule,
-    ConfigModule,
-    FilesModule,
-    HashlistModule,
-    TasksModule,
-    ProjectsModule,
-    UsersModule,
     DirectivesModule,
     PipesModule,
     ComponentsModule,
     AppRoutingModule
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}, AppPreloadingStrategy],
   bootstrap: [AppComponent]
 })
 export class AppModule {

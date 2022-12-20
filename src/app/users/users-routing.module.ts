@@ -11,7 +11,7 @@ import { GroupsComponent } from "./groups/groups.component";
 
 const routes: Routes = [
   {
-    path: 'users',
+    path: '',
     children: [
         {
           path: '', component: UsersComponent,

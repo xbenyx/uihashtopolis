@@ -11,7 +11,7 @@ import { ShowCracksComponent } from "./show-cracks/show-cracks.component";
 
 const routes: Routes = [
   {
-    path: 'hashlists',
+    path: '',
     children: [
       {
         path: 'hashlist', component: HashlistComponent,
