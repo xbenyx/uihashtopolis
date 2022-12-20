@@ -4,15 +4,14 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { AccessGroup } from '../_models/access-group';
-import { Configuration } from './configuration';
-
+import { DEFAULT_CONFIG } from '../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccessGroupsService {
 
-  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/accessgroups';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/accessgroups';
 
   constructor(private http: HttpClient) { }
 

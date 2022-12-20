@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
-import { Configuration } from '../configuration';
+
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreprocessorService {
 
-  private endpoint = Configuration.BASE_URL + '/preprocessor';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/preprocessor';
 
   constructor(private http: HttpClient) { }
 

@@ -4,7 +4,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, Subject, throwError, map, Observable, Observer  } from 'rxjs';
 import { User } from './user.model';
 import { Data, Router } from "@angular/router";
-import { Configuration } from '../core/_services/configuration';
+
+import { DEFAULT_CONFIG } from '../../config/default/app/main';
 
 // export interface AuthResponseData {
 //     idToken: string,
@@ -24,7 +25,7 @@ export class AuthService {
 
     user = new BehaviorSubject<User>(null);
     private tokenExpiration: any;
-    private endpoint = Configuration.BASE_URL_APIV1 + '/auth';
+    private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/auth';
 
     constructor(private http: HttpClient, private router: Router){
 

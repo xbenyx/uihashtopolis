@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
-import { Configuration } from './configuration';
+import { DEFAULT_CONFIG } from '../../../config/default/app/main';
 import { Hashtype } from '../_models/hashtype';
 
 
@@ -12,7 +12,7 @@ import { Hashtype } from '../_models/hashtype';
 })
 export class HashtypeService {
 
-  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/hashtypes';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/hashtypes';
 
   constructor(private http: HttpClient) { }
 

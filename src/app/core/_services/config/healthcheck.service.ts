@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
-import { Configuration } from '../configuration';
+
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 import { HashtypeService } from '../../_services/hashtype.service';
 
 @Injectable({
@@ -10,8 +11,7 @@ import { HashtypeService } from '../../_services/hashtype.service';
 })
 export class HealthcheckService {
 
-  private endpoint = Configuration.BASE_URL + '/healthcheck';
-  private endpoint_h = Configuration.BASE_URL + '/hashtype';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/healthcheck';
 
   constructor(private http: HttpClient) { }
 

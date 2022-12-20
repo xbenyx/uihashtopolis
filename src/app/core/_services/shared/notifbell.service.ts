@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 
 import { map, Observable } from 'rxjs';
 
-import { Configuration } from '../configuration';
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsBellService {
 
-  private endpoint = Configuration.BASE_URL + '/notifbell';
+  private endpoint = DEFAULT_CONFIG.devApiEndpoint + '/notifbell';
 
   constructor(private http: HttpClient) { }
 

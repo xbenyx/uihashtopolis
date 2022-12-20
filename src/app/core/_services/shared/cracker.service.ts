@@ -3,15 +3,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { Observable, catchError, throwError  } from 'rxjs';
 
-import { Configuration } from '../configuration';
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrackerService {
 
-  private endpoint_v1 = Configuration.BASE_URL_APIV1 + '/ui/hashlists';
-  private endpoint = Configuration.BASE_URL + '/crackerbinary';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/crackerbinary';
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +28,7 @@ export class CrackerService {
   }
 
   deleteCracker(id:number):Observable<any> {
-    return this.http.delete(this.endpoint_v1 +'/'+ id)
+    return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)
     );

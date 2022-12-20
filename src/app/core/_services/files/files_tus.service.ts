@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import * as tus from 'tus-js-client';
 
 import { UploadFileTUS } from '../../_models/files';
-import { Configuration } from '../configuration';
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ import { Configuration } from '../configuration';
 
 export class UploadTUSService {
 
-    private endpoint = Configuration.BASE_URL_APIV1 + '/ui/files/import';  // V1 API
-    private chunked = Configuration.CHUNK_SIZE_TUS;  // V1 API
+    private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/files/import';  // V1 API
+    private chunked = DEFAULT_CONFIG.chunkSizeTUS;  // V1 API
     private userData: {_token: string} = JSON.parse(localStorage.getItem('userData'));
 
     private uploadStatus = new Subject<UploadFileTUS[]>();

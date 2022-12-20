@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
-import { Configuration } from '../configuration';
+
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
 
-  private endpoint = Configuration.BASE_URL + '/configreport';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/configreport';
 
   constructor(private http: HttpClient) { }
 

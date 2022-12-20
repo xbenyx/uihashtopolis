@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Observable, tap, catchError, throwError } from 'rxjs';
-import { Configuration } from '../configuration';
+
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TasksService {
 
-  // private endpoint = Configuration.BASE_URL_APIV1 + '/ui/tasks';
-  private endpoint = Configuration.BASE_URL + '/tasks';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/tasks';
 
   constructor(private http: HttpClient) { }
 

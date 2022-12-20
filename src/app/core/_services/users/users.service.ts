@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
-import { Configuration } from '../configuration';
+
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 import { CreateUser } from '../../_models/user.model';
 
 @Injectable({
@@ -11,7 +12,7 @@ import { CreateUser } from '../../_models/user.model';
 
 export class UsersService {
 
-  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/users';
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/users';
 
   constructor(private http: HttpClient) { }
 

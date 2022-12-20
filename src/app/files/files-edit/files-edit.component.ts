@@ -6,7 +6,6 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Mo
 
 import { FilesService } from '../../core/_services/files/files.service';
 import { AccessGroupsService } from '../../core/_services/accessgroups.service';
-import { Configuration } from '../../core/_services/configuration';
 
 import { AccessGroup } from '../../core/_models/access-group';
 import { Filetype } from '../../core/_models/files';

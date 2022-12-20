@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
-import { Configuration } from '../configuration';
+import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 import { Filetype, UpdateFileType } from '../../_models/files';
 
 // import { environment } from '@env'; // Add environtment
@@ -12,7 +12,7 @@ import { Filetype, UpdateFileType } from '../../_models/files';
 @Injectable({providedIn: 'root'})
 export class FilesService {
 
-  private endpoint = Configuration.BASE_URL_APIV1 + '/ui/files';  // V1 API
+  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/files';  // V1 API
 
   constructor(private http: HttpClient) { }
 
