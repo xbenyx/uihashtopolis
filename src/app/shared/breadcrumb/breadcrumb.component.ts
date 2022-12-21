@@ -11,13 +11,12 @@ import { Input } from "@angular/core";
 
 export class BreadcrumbComponent implements OnInit {
   faHomeAlt=faHomeAlt;
+  allowViewBreadcrum: boolean;
 
   @Input()
   public deliminator: string = ">";
 
   breadcrumbs: Array<{ label: string; url: string }>;
-
-  allowView: string;
 
   constructor(private router: Router,
      private activatedRoute: ActivatedRoute) {}
@@ -42,13 +41,11 @@ export class BreadcrumbComponent implements OnInit {
                 label: route.snapshot.data['breadcrumb'],
                 url: url
               });
-                switch (route.snapshot.data['breadcrumb']) {
-                  case 'false':
-                    this.allowView = 'false';
-                  break;
-                }
               currentRoute = route;
-            }
+            };
+            // if(route.snapshot.data['breadcrumb'].length > 1) {
+            //     this.allowViewBreadcrum = false;
+            // }
           });
         } while (currentRoute);
       });

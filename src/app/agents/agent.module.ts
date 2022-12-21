@@ -9,7 +9,8 @@ import { AgentStatusComponent } from "./agent-status/agent-status.component";
 import { NewAgentComponent } from "./new-agent/new-agent.component";
 import { ShowAgentsComponent } from "./show-agents/show-agents.component";
 import { AgentsRoutingModule } from "./agents-routing.module";
-
+import { PipesModule } from "../shared/pipes.module";
+import { ComponentsModule } from "../shared/components.module";
 
 @NgModule({
   declarations:[
@@ -23,7 +24,9 @@ import { AgentsRoutingModule } from "./agents-routing.module";
     DataTablesModule,
     FontAwesomeModule,
     NgbModule,
-    AgentsRoutingModule
+    AgentsRoutingModule,
+    PipesModule,
+    ComponentsModule
   ]
 })
 export class AgentsModule {}

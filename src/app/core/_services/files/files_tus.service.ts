@@ -1,9 +1,9 @@
 import { Injectable, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { environment } from './../../../../environments/environment';
 import { Subject } from 'rxjs';
 import * as tus from 'tus-js-client';
 
 import { UploadFileTUS } from '../../_models/files';
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 export class UploadTUSService {
 
-    private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/files/import';  // V1 API
-    private chunked = DEFAULT_CONFIG.chunkSizeTUS;  // V1 API
+    private endpoint = environment.config.prodApiEndpoint + '/ui/files/import';  // V1 API
+    private chunked = environment.config.chunkSizeTUS;  // V1 API
     private userData: {_token: string} = JSON.parse(localStorage.getItem('userData'));
 
     private uploadStatus = new Subject<UploadFileTUS[]>();

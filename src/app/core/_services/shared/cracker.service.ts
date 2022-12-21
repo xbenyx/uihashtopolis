@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
+import { environment } from './../../../../environments/environment';
 import { Observable, catchError, throwError  } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CrackerService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/crackerbinary';
+  private endpoint = environment.config.prodApiEndpoint + '/crackerbinary';
 
   constructor(private http: HttpClient) { }
 

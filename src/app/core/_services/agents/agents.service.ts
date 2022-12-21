@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from './../../../../environments/environment';
 import { map, Observable } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgentsService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/agent';
+  private endpoint = environment.config.prodApiEndpoint + '/agent';
 
   constructor(private http: HttpClient) { }
 

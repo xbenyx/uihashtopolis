@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
+import { environment } from './../../../../environments/environment';
 import { map, Observable, throwError } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConfigService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/config';
+  private endpoint = environment.config.prodApiEndpoint + '/config';
 
   constructor(private http: HttpClient) { }
 

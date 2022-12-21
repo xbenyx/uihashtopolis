@@ -9,10 +9,10 @@ import { DataTableDirective } from 'angular-datatables';
 
 import { fileSizeValue, validateFileExt } from '../shared/utils/util';
 
+import { environment } from './../../environments/environment';
 import { FilesService } from '../core/_services/files/files.service';
 import { UploadTUSService } from '../core/_services/files/files_tus.service';
 import { AccessGroupsService } from '../core/_services/accessgroups.service';
-import { DEFAULT_CONFIG } from '../../config/default/app/main';
 
 import { AccessGroup } from '../core/_models/access-group';
 import { Filetype } from '../core/_models/files';
@@ -71,7 +71,7 @@ export class FilesComponent implements OnInit {
   filterType: number
   whichView: string;
 
-  private maxResults = DEFAULT_CONFIG.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
 

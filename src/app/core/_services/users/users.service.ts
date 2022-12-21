@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
+import { environment } from './../../../../environments/environment';
 import { CreateUser } from '../../_models/user.model';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { CreateUser } from '../../_models/user.model';
 
 export class UsersService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/users';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/users';
 
   constructor(private http: HttpClient) { }
 

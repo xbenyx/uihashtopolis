@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../config/default/app/main';
+import { environment } from './../../../environments/environment';
 import { CreateHashlist } from '../_models/hashlist';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { CreateHashlist } from '../_models/hashlist';
 })
 export class HashlistService {
 
-    private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/hashlists';
+    private endpoint = environment.config.prodApiEndpoint + '/hashlists';
 
     constructor(private http: HttpClient) { }
 

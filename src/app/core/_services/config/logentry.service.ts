@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
+import { environment } from './../../../../environments/environment';
 import { map, Observable, throwError } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogentryService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/logentries';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/logentries';
 
   constructor(private http: HttpClient) { }
 

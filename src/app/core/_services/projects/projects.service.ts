@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
+import { environment } from './../../../../environments/environment';
 import { map, Observable, throwError } from 'rxjs';
-
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  private endpoint = DEFAULT_CONFIG.devApiEndpoint + '/projects';
-  private endpoint_project = DEFAULT_CONFIG.devApiEndpoint + '/projects';  // its for testing using nested json array
+  private endpoint = environment.config.devApiEndpoint + '/projects';
+  private endpoint_project = environment.config.devApiEndpoint + '/projects';  // its for testing using nested json array
 
   constructor(private http: HttpClient) { }
 

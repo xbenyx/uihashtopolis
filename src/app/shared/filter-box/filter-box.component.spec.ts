@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PreprocessorsComponent } from './preprocessors.component';
+import { FilterBoxComponent } from './filter-box.component';
 
-describe('PreprocessorsComponent', () => {
-  let component: PreprocessorsComponent;
-  let fixture: ComponentFixture<PreprocessorsComponent>;
+describe('FilterBoxComponent', () => {
+  let component: FilterBoxComponent;
+  let fixture: ComponentFixture<FilterBoxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PreprocessorsComponent ]
+      declarations: [ FilterBoxComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PreprocessorsComponent);
+    fixture = TestBed.createComponent(FilterBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faPowerOff, faSun, faMoon, faUserCircle, faInbox, faQuestionCircle, faBell, faEye } from '@fortawesome/free-solid-svg-icons';
+import { environment } from './../../../environments/environment';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { NotificationsBellService } from '../../core/_services/shared/notifbell.service';
@@ -10,11 +11,14 @@ import { NotificationsBellService } from '../../core/_services/shared/notifbell.
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
+  headerConfig = environment.config.header;
+
   isAuthentificated = false;
+  isMobile = false;
   private userSub: Subscription;
   storedToggletheme:string = localStorage.getItem('toggledarkmode');
 
-    // Icons User Menu
+  // Icons User Menu
     faPowerOff=faPowerOff;
     faBell=faBell;
     faSun=faSun;
@@ -25,7 +29,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     faEye=faEye;
 
   public notifbell: {title: string, description: string, datetime: string}[] = [];
-
 
   constructor(private authService: AuthService, private notificationbService: NotificationsBellService) { }
 

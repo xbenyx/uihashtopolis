@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from './../../../../environments/environment';
 import { map, Observable } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsBellService {
 
-  private endpoint = DEFAULT_CONFIG.devApiEndpoint + '/notifbell';
+  private endpoint = environment.config.devApiEndpoint + '/notifbell';
 
   constructor(private http: HttpClient) { }
 

@@ -2,11 +2,10 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
-import { DEFAULT_CONFIG } from '../../../config/default/app/main';
 
 @Component({
   selector: 'app-hashlist',
@@ -56,7 +55,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
   isArchived: boolean;
   whichView: string;
 
-  private maxResults = DEFAULT_CONFIG.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
 

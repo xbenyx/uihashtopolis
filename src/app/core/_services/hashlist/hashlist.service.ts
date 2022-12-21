@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Params } from '@angular/router';
+import { environment } from './../../../../environments/environment';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../../config/default/app/main';
 import { BaseHashlist} from '../../_models/hashlist';
 
 @Injectable({
@@ -11,7 +11,7 @@ import { BaseHashlist} from '../../_models/hashlist';
 })
 export class ListsService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/hashlists';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/hashlists';
 
   constructor(private http: HttpClient) { }
 

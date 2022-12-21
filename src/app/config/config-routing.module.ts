@@ -6,9 +6,10 @@ import { ServerComponent } from "./server/server.component";
 import { LogComponent } from "./log/log.component";
 import { HealthChecksComponent } from "./health-checks/health-checks.component";
 import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
-import { CrackersComponent } from "../engine/crackers/crackers.component";
-import { PreprocessorsComponent } from "../engine/preprocessors/preprocessors.component";
+import { CrackersComponent } from "./engine/crackers/crackers.component";
+import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
+
 
 const routes: Routes = [
   {

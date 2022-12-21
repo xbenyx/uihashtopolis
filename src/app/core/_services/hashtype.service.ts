@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-
+import { environment } from './../../../environments/environment';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../config/default/app/main';
 import { Hashtype } from '../_models/hashtype';
 
 
@@ -12,7 +11,7 @@ import { Hashtype } from '../_models/hashtype';
 })
 export class HashtypeService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/hashtypes';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/hashtypes';
 
   constructor(private http: HttpClient) { }
 

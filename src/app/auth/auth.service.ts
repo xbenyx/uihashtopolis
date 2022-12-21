@@ -1,19 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from './../../environments/environment';
 import { BehaviorSubject, Subject, throwError, map, Observable, Observer  } from 'rxjs';
 import { User } from './user.model';
 import { Data, Router } from "@angular/router";
-
-import { DEFAULT_CONFIG } from '../../config/default/app/main';
-
-// export interface AuthResponseData {
-//     idToken: string,
-//     email: string,
-//     refreshToken: string,
-//     expiresIn: string,
-//     localId: string
-// }
 
 export interface AuthResponseData {
   token: string,
@@ -25,7 +16,7 @@ export class AuthService {
 
     user = new BehaviorSubject<User>(null);
     private tokenExpiration: any;
-    private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/auth';
+    private endpoint = environment.config.prodApiEndpoint + '/auth';
 
     constructor(private http: HttpClient, private router: Router){
 

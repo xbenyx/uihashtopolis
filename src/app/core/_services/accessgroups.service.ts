@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-
+import { environment } from './../../../environments/environment';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { AccessGroup } from '../_models/access-group';
-import { DEFAULT_CONFIG } from '../../../config/default/app/main';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccessGroupsService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/accessgroups';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/accessgroups';
 
   constructor(private http: HttpClient) { }
 

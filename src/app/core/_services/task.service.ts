@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { environment } from './../../../environments/environment';
 
-import { DEFAULT_CONFIG } from '../../../config/default/app/main';
 import { NormalTask } from '../_models/task';
 
 @Injectable({
@@ -10,7 +10,7 @@ import { NormalTask } from '../_models/task';
 })
 export class TaskService {
 
-    private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/tasks';
+    private endpoint = environment.config.prodApiEndpoint + '/tasks';
 
     constructor(private http: HttpClient) { }
 

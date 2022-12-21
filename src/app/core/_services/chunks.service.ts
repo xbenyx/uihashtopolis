@@ -4,7 +4,7 @@ import { Params } from '@angular/router';
 
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
-import { DEFAULT_CONFIG } from '../../../config/default/app/main';
+import { environment } from './../../../environments/environment';
 import { BaseChunk } from '../_models/chunk.model';
 
 
@@ -13,7 +13,7 @@ import { BaseChunk } from '../_models/chunk.model';
 })
 export class ChunkService {
 
-  private endpoint = DEFAULT_CONFIG.prodApiEndpoint + '/ui/chunks';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/chunks';
 
   constructor(private http: HttpClient) { }
 
