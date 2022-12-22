@@ -17,6 +17,7 @@ import { LogComponent } from "./log/log.component";
 import { PipesModule } from "../shared/pipes.module";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NewPreprocessorComponent } from './engine/preprocessors/new-preprocessor/new-preprocessor.component';
 
 
 
@@ -28,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     AgentBinariesComponent,
     CrackersComponent,
     PreprocessorsComponent,
-    HashtypesComponent
+    HashtypesComponent,
+    NewPreprocessorComponent
   ],
   imports:[
     CommonModule,

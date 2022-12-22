@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { AgentsService } from '../../core/_services/agents/agents.service';
-import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus, faFileText} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus, faFileText, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-show-agents',
@@ -14,6 +16,10 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   faHome=faHomeAlt;
   faPlus=faPlus;
   faFileText=faFileText;
+  faTrash=faTrash;
+
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
@@ -26,8 +32,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   constructor(private agentsService: AgentsService) { }
 
   ngOnInit(): void {
-    this.agentsService.showAgents().subscribe((users: any) => {
-      this.showagents = users;
+    this.agentsService.getAgents().subscribe((agents: any) => {
+      this.showagents = agents.values;
       this.dtTrigger.next(void 0);
     });
     this.dtOptions = {
@@ -39,5 +45,56 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         'copy', 'excel', 'csv', 'edit'
     ]
     };
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
+  onDelete(id: number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once deleted, it cannot be recover.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        this.agentsService.deleteAgent(id).subscribe(() => {
+          Swal.fire(
+            "Agent has been deleted!",
+            {
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.ngOnInit();
+          this.rerender();  // rerender datatables
+        });
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'No worries, your Agent is safe!',
+          'error'
+        )
+      }
+    });
   }
 }

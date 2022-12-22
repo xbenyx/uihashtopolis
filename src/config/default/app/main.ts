@@ -9,7 +9,7 @@ export const DEFAULT_CONFIG = {
   header: {
     brand: {
       logo: 'assets/img/logo.png',
-      name: 'Hashtopolis',
+      name: 'Hashtopoli',
       height: '40',
       width: '44'
     },
@@ -30,7 +30,7 @@ export const DEFAULT_CONFIG = {
     }
   },
   // File settings
-  chunkSizeTUS: 20000000,
+  chunkSizeTUS: 5000,
 };
 
 

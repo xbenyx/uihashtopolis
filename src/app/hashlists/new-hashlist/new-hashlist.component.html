@@ -145,7 +145,7 @@
                                     >
                                     </progress>
                                     <p>Progress: {{fileStatus.progress}}%</p>
-                                    <button (click)="onuploadCancel(fileStatus.filename)" class="button is-danger">Cancel</button>
+                                    <!-- <button (click)="onuploadCancel(fileStatus.filename)" class="button is-danger">Cancel</button> -->
                                     <div *ngIf="fileStatus.progress == 100">
                                       <p>File Uploaded</p>
                                     </div>

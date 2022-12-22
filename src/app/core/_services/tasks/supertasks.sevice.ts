@@ -8,13 +8,13 @@ import { environment } from './../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class TasksService {
+export class SuperTasksService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/ui/tasks';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/supertasks';
 
   constructor(private http: HttpClient) { }
 
-  getAlltasks(routerParams?: Params):Observable<any> {
+  getAllsupertasks(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
         queryParams = this.setParameter(routerParams);
@@ -26,7 +26,7 @@ export class TasksService {
     );
   }
 
-  getTask(id:number):Observable<any> {
+  getSupertask(id:number):Observable<any> {
     return this.http.get(this.endpoint +'/'+ id)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
@@ -34,14 +34,14 @@ export class TasksService {
     );
   }
 
-  deleteTask(id:number):Observable<any> {
+  deleteSupertask(id:number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)
     );
   }
 
-  createTask(arr: any): Observable<any> {
+  createSupertask(arr: any): Observable<any> {
     return this.http.post<any>(this.endpoint, arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
@@ -49,16 +49,8 @@ export class TasksService {
     );
   }
 
-  updateTask(id: number, arr: any): Observable<any> {
+  updateSupertask(id: number, arr: any): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + id, arr)
-    .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }
-
-  archiveTask(id: number): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + id, {isArchived: true})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

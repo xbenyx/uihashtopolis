@@ -129,32 +129,32 @@
   </div>  <!-- Collapse End -->
   &nbsp;&nbsp;
 <!-- Body -->
-<!-- <app-filter-box class="navbar-right" style="margin-top: 5px;"></app-filter-box>
+<!-- <app-filter-box class="navbar-right" style="margin-top: 5px;"></app-filter-box> -->
 <br>
 <div class="container">
-  <div class="row card-container">
+  <div class="row card-container-ag">
       <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of agents">
-          <div class="card">
-              <div class="card-header">
+          <div class="card card-ag">
+              <div class="card-header-ag">
                 <a [routerLink]="['/agents',2,'edit']">
-                  <fa-icon [icon]="faEdit" aria-hidden="true" class="white"></fa-icon>
+                  <fa-icon [icon]="faEdit" aria-hidden="true" class="white-ico"></fa-icon>
                 </a>
-                  {{ a.rack | shortenString:15 | lowercase | titlecase}}
+                  {{ a.rack | shortenString:10 | lowercase | titlecase}}
               </div>
               <div class="card-body">
                   <div class="clearfix">
-                      <div class="pull-left card-body-left">
+                      <div class="pull-left card-body-left-ag">
                       </div>
-                      <div class="pull-left card-body-right">
-                          <div class="card-body-content">
+                      <div class="pull-left card-body-right-ag">
+                          <div class="card-body-content-ag">
                             <fa-icon [icon]="faDigitalTachograph" aria-hidden="true"></fa-icon>
                             Data...
                           </div>
-                          <div class="card-body-content">
+                          <div class="card-body-content-ag">
                             <fa-icon [icon]="faTemperature0" aria-hidden="true"></fa-icon>
                             Data...
                           </div>
-                          <div class="card-body-content">
+                          <div class="card-body-content-ag">
                             <fa-icon [icon]="faMicrochip" aria-hidden="true"></fa-icon>
                             Data...
                           </div>
@@ -167,4 +167,4 @@
           No Records Found
       </div>
   </div>
-</div> -->
+</div>

@@ -3,6 +3,8 @@ import { UsersService } from '../../core/_services/users/users.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCalendar,faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 import { User } from '../user.model';
 
 @Component({
@@ -40,6 +42,13 @@ export class EditUsersComponent implements OnInit {
     //     //   this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
     //     // }
     //   )
+
+    this.updateForm = new FormGroup({
+      'rightGroup': new FormControl(null),
+      'setPassword': new FormControl(null),
+      'isValid': new FormControl(true || null)
+    });
+
     this.isLoading = true;
 
     const id = +this.route.snapshot.params['id'];
@@ -66,8 +75,43 @@ export class EditUsersComponent implements OnInit {
   }
   }
 
-  deleteUser(index: number){
-      this.updateForm.reset();
+  onDelete(id: number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once deleted, it cannot be recover.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        this.usersService.deleteUser(id).subscribe(() => {
+          Swal.fire(
+            "Users has been deleted!",
+            {
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.ngOnInit();
+        });
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'No worries, your User is safe!',
+          'error'
+        )
+      }
+    });
   }
 
   checkUserNameExist(control: FormControl): {[s: string]: boolean}{

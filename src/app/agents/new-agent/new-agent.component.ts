@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CrackerService } from '../../core/_services/shared/cracker.service';
+import { CrackerService } from '../../core/_services/config/cracker.service';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
   constructor(private crackerService: CrackerService) { }
 
   ngOnInit(): void {
-    this.crackerService.crackerBinary().subscribe((binary: any) => {
+    this.crackerService.getCrackerBinary().subscribe((binary: any) => {
       this.crackerbinary = binary;
       this.dtTrigger.next(void 0);
     });

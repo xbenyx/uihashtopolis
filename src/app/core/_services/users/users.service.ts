@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
+import { Params } from '@angular/router';
 
 import { environment } from './../../../../environments/environment';
 import { CreateUser } from '../../_models/user.model';
@@ -25,8 +26,12 @@ export class UsersService {
     return throwError(() => err);
   }
 
-  getAllusers():Observable<any> {
-    return this.http.get(this.endpoint)
+  getAllusers(routerParams?: Params):Observable<any> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = this.setParameter(routerParams);
+    }
+    return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -49,5 +54,21 @@ export class UsersService {
     );
   }
 
+  deleteUser(id: number):Observable<any> {
+    return this.http.delete(this.endpoint +'/'+ id)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private setParameter(routerParams: Params): HttpParams {
+    let queryParams = new HttpParams();
+    for (const key in routerParams) {
+        if (routerParams.hasOwnProperty(key)) {
+            queryParams = queryParams.set(key, routerParams[key]);
+        }
+    }
+    return queryParams;
+  }
 
 }

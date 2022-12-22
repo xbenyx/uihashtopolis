@@ -8,6 +8,7 @@ import { PreconfiguredTasksComponent } from "./preconfigured-tasks/preconfigured
 import { NewPreconfiguredTasksComponent } from "./new-preconfigured-tasks/new-preconfigured-tasks.component";
 import { SupertasksComponent } from "./supertasks/supertasks.component";
 import { NewSupertasksComponent } from "./new-supertasks/new-supertasks.component";
+import { EditSupertasksComponent } from "./edit-supertasks/edit-supertasks.component";
 import { ImportSupertasksComponent } from "./import-supertasks/import-supertasks.component";
 import { ChunksComponent } from "./chunks/chunks.component";
 
@@ -20,6 +21,13 @@ const routes: Routes = [
           data: {
               kind: 'show-tasks',
               breadcrumb: 'Show tasks'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'show-tasks-archived', component: ShowTasksComponent,
+          data: {
+              kind: 'show-tasks-archived',
+              breadcrumb: 'Show Archived Tasks'
           },
           canActivate: [AuthGuard]},
         {
@@ -46,38 +54,38 @@ const routes: Routes = [
         {
           path: 'supertasks', component: SupertasksComponent,
           data: {
-              kind: 'supertasks',
-              breadcrumb: 'Supertasks'
+            kind: 'supertasks',
+            breadcrumb: 'Supertasks'
            },
            canActivate: [AuthGuard]},
         {
-          path: 'supertasks', component: SupertasksComponent,
+          path: 'new-supertasks', component: NewSupertasksComponent,
           data: {
-              kind: 'supertasks',
-              breadcrumb: 'Supertasks'
-           },
-            canActivate: [AuthGuard]},
+            kind: 'new-supertasks',
+            breadcrumb: 'New Supertasks'
+          },
+          canActivate: [AuthGuard]},
         {
-           path: 'new-supertasks', component: NewSupertasksComponent,
-           data: {
-              kind: 'new-supertasks',
-              breadcrumb: 'New Supertasks'
-            },
-             canActivate: [AuthGuard]},
+          path: ':id/edit', component: EditSupertasksComponent,
+          data: {
+            kind: 'edit-supertasks',
+            breadcrumb: 'Edit Supertasks'
+          },
+          canActivate: [AuthGuard]},
         {
-           path: 'import-supertasks', component: ImportSupertasksComponent,
-           data: {
-              kind: 'import-supertasks',
-              breadcrumb: 'Import Supertasks'
-            },
-             canActivate: [AuthGuard]},
+          path: 'import-supertasks', component: ImportSupertasksComponent,
+          data: {
+            kind: 'import-supertasks',
+            breadcrumb: 'Import Supertasks'
+          },
+          canActivate: [AuthGuard]},
         {
-            path: 'chunks', component: ChunksComponent,
-            data: {
-              kind: 'chunks',
-              breadcrumb: 'Chunks'
-            },
-             canActivate: [AuthGuard]},
+          path: 'chunks', component: ChunksComponent,
+          data: {
+            kind: 'chunks',
+            breadcrumb: 'Chunks'
+          },
+          canActivate: [AuthGuard]},
         ]
      }
   ]

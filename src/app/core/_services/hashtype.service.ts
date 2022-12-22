@@ -5,7 +5,6 @@ import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { Hashtype } from '../_models/hashtype';
 
-
 @Injectable({
   providedIn: 'root'
 })

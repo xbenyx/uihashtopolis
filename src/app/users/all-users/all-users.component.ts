@@ -4,6 +4,7 @@ import { faEdit,faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { environment } from './../../../environments/environment';
 
 
 @Component({
@@ -22,16 +23,32 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  public allusers: {userId: number, username: string, registered: number, lastLogin: number, email: string, isValid: number, sessionLifetime:number, rightGroupId: string}[] = [];
+  public allusers: {
+    userId: number,
+    username: string,
+    registeredSince: number,
+    lastLoginDate: number,
+    email: string,
+    isValid: number,
+    sessionLifetime:number,
+    rightGroupId: string,
+    rightGroup: {
+      groupName: string,
+      permissions: string
+    }
+  }[] = [];
 
   public test:any  = [];
 
   constructor(private usersService: UsersService,
     private route:ActivatedRoute,private router:Router) { }
 
+  private maxResults = environment.config.prodApiMaxResults
+
   ngOnInit(): void {
-    this.usersService.getAllusers().subscribe((users: any) => {
-      this.allusers = users;
+    let params = {'maxResults': this.maxResults, 'expand': 'rightGroup' }
+    this.usersService.getAllusers(params).subscribe((users: any) => {
+      this.allusers = users.values;
       this.dtTrigger.next(void 0);
     });
 

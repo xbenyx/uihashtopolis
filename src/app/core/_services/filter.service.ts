@@ -1,32 +1,32 @@
 import { Injectable } from '@angular/core';
 
-// import { PropertyResolver } from '../../core/_services/property-resolver';
+import { PropertyResolver } from '../../core/_services/property-resolver';
 
-// @Injectable()
-// export class FilterService {
+@Injectable()
+export class FilterService {
 
-//     constructor() { }
+    constructor() { }
 
-//     filter<T>(items: T[], data: string, props: string[]) {
-//         return items.filter((item: T) => {
-//             let match = false;
-//             for (const prop of props) {
-//                 if (prop.indexOf('.') > -1) {
-//                   //  const value = PropertyResolver.resolve(prop, item);
-//                    if (value && value.toUpperCase().indexOf(data) > -1) {
-//                       match = true;
-//                       break;
-//                    }
-//                    continue;
-//                 }
+    filter<T>(items: T[], data: string, props: string[]) {
+        return items.filter((item: T) => {
+            let match = false;
+            for (const prop of props) {
+                if (prop.indexOf('.') > -1) {
+                   const value = PropertyResolver.resolve(prop, item);
+                   if (value && value.toUpperCase().indexOf(data) > -1) {
+                      match = true;
+                      break;
+                   }
+                   continue;
+                }
 
-//                 if ((item as any)[prop].toString().toUpperCase().indexOf(data) > -1) {
-//                   match = true;
-//                   break;
-//                 }
-//             }
-//             return match;
-//         });
-//     }
+                if ((item as any)[prop].toString().toUpperCase().indexOf(data) > -1) {
+                  match = true;
+                  break;
+                }
+            }
+            return match;
+        });
+    }
 
-// }
+}

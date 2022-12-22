@@ -200,20 +200,23 @@ export class NewHashlistComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        this.router.navigate(['/lists/hashlist']);
+        this.router.navigate(['/hashlists/hashlist']);
       },
       errorMessage => {
         // check error status code is 500, if so, do some action
+        // const exception = errorMessage.error.message.exception[0].message;
+        // const exception2 = errorMessage.error.message.exception['0'].message;
+        // console.log(exception);
+        // console.log(exception2);
         Swal.fire({
           title: "Oppss! Error",
-          text: "HashList was not created, please try again!",
+          text: errorMessage.error.message,
           icon: "warning",
           showConfirmButton: true
         });
-        this.ngOnInit();
       }
     );
-    this.signupForm.reset(); // success, we reset form
+    // this.signupForm.reset(); // success, we reset form
     }
   }
 }

@@ -115,7 +115,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
     this.listsService.archiveHashlist(id).subscribe((list: any) => {
       Swal.fire({
         title: "Good job!",
-        text: "New Hashtype created!",
+        text: "Archive!",
         icon: "success",
         showConfirmButton: false,
         timer: 1500

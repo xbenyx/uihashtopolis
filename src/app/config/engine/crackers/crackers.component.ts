@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CrackerService } from '../../../core/_services/shared/cracker.service';
+import { CrackerService } from '../../../core/_services/config/cracker.service';
 import { faEdit, faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { environment } from './../../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -25,9 +26,13 @@ export class CrackersComponent implements OnInit, OnDestroy {
   crackerbinary: any = [];
   constructor(private crackerService: CrackerService) { }
 
+  private maxResults = environment.config.prodApiMaxResults
+
   ngOnInit(): void {
-    this.crackerService.crackerBinary().subscribe((binary: any) => {
-      this.crackerbinary = binary;
+    let params = {'maxResults': this.maxResults}
+
+    this.crackerService.getCrackerBinary(params).subscribe((binary: any) => {
+      this.crackerbinary = binary.values;
       this.dtTrigger.next(void 0);
     });
     this.dtOptions = {

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
 import { PreprocessorService } from '../../../core/_services/config/preprocessors.service';
 import { Router } from '@angular/router';
+import { environment } from './../../../../environments/environment';
 import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
@@ -17,6 +19,9 @@ export class PreprocessorsComponent implements OnInit {
   faTrash=faTrash;
   faEdit=faEdit;
 
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
@@ -25,9 +30,13 @@ export class PreprocessorsComponent implements OnInit {
   constructor(private preprocessorService: PreprocessorService,
     private route:ActivatedRoute, private router:Router) { }
 
+  private maxResults = environment.config.prodApiMaxResults
+
+
     ngOnInit(): void {
-      this.preprocessorService.getPreprocessor().subscribe((pre: any) => {
-        this.preproc = pre;
+      let params = {'maxResults': this.maxResults }
+      this.preprocessorService.getPreprocessors(params).subscribe((pre: any) => {
+        this.preproc = pre.values;
         this.dtTrigger.next(void 0);
       });
       this.dtOptions = {
@@ -40,33 +49,53 @@ export class PreprocessorsComponent implements OnInit {
 
     }
 
-    onSubmit(){
-      Swal.fire({
-        title: "Good job!",
-        text: "New Binary created!",
-        icon: "success",
-        button: "Close",
+    rerender(): void {
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        setTimeout(() => {
+          this.dtTrigger['new'].next();
+        });
       });
     }
 
     onDelete(id: number){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
       Swal.fire({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this file!",
+        text: "Once deleted, it cannot be recover.",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
         showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
       })
-      .then((willDelete) => {
-        if (willDelete) {
-          Swal.fire(
-            "File has been deleted!",
-            {
-            icon: "success",
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.preprocessorService.deletePreprocessor(id).subscribe(() => {
+            Swal.fire(
+              "Preprocessor has been deleted!",
+              {
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.ngOnInit();
+            this.rerender();  // rerender datatables
           });
         } else {
-          Swal.fire("Your imaginary file is safe!")
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'No worries, your Preprocessor is safe!',
+            'error'
+          )
         }
       });
     }

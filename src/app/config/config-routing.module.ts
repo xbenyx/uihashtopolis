@@ -9,6 +9,7 @@ import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.c
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
+import { NewPreprocessorComponent } from "./engine/preprocessors/new-preprocessor/new-preprocessor.component";
 
 
 const routes: Routes = [
@@ -97,6 +98,20 @@ const routes: Routes = [
           data: {
               kind: 'preprocessors',
               breadcrumb: 'Engine > Preprocessors'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'engine/preprocessors/new-preprocessor',  component: NewPreprocessorComponent,
+          data: {
+              kind: 'new-preprocessor',
+              breadcrumb: 'Engine > New Preprocessor'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'engine/preprocessors/:id/edit',  component: NewPreprocessorComponent,
+          data: {
+              kind: 'edit-preprocessor',
+              breadcrumb: 'Engine > Edit Preprocessor'
           },
           canActivate: [AuthGuard]},
     ]

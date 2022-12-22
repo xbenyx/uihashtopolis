@@ -1,7 +1,15 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
-      <h2 class="h4">Tasks</h2>
-      <p class="mb-0">Section to manage tasks.</p>
+    <div [ngSwitch]="whichView">
+      <div *ngSwitchCase="'live'">
+        <h2 class="h4">Tasks</h2>
+        <p class="mb-0">Section to manage live tasks.</p>
+      </div>
+      <div *ngSwitchCase="'archived'">
+        <h2 class="h4">Archived Tasks</h2>
+        <p class="mb-0">Section to manage archived tasks.</p>
+      </div>
+    </div>
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
       <a routerLink="/tasks/new-tasks" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
@@ -11,6 +19,14 @@
   </div>
 </div>
 <!-- Body -->
+<div [ngSwitch]="whichView">
+  <div *ngSwitchCase="'live'">
+    <button [routerLink]="['../','show-tasks-archived']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button>
+  </div>
+  <div *ngSwitchCase="'archived'">
+    <button [routerLink]="['../','show-tasks']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Live</button>
+  </div>
+</div>
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
         <div class="table-responsive">
@@ -37,23 +53,59 @@
                       <a>{{ task.taskName }}</a>
                       <span *ngIf="task.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
                   </td>
-                  <td>missing</td>
-                  <td>{{ task.keyspace }}/ {{ task.keyspaceProgress }} </td>
-                  <td>missing </td>
-                  <td>missing </td>
-                  <td>missing </td>
-                  <td>missing </td>
                   <td>
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/task',task.hashtaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                      </a>
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/task',task.hashtaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                      </a>
-                      <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteTask(task.hashtaskId)">
-                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                      </a>
+                    <a>{{ task.crackerBinary.binaryName }}</a>
                   </td>
+                  <td>{{ task.keyspace }}/ {{ task.keyspaceProgress }} </td>
+                  <td>
+                    <a>{{ task.taskId }}</a>
+                  </td>
+                  <td>
+                    <a>{{ task.maxAgents }}</a>
+                  </td>
+                  <td>
+                    <a>{{ task.priority }}</a>
+                  </td>
+                  <td>
+                    <a>{{ task.maxAgents }}</a>
+                  </td>
+                  <div [ngSwitch]="whichView">
+                    <div *ngSwitchCase="'live'">
+                      <td>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                           <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to task">
+                          <fa-icon [icon]="faCopy" aria-hidden="true"></fa-icon>
+                       </a>
+                       <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
+                        <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
+                       </a>
+                        <a class='btn-outline-gray-600 float-right' (click)="onArchive(task.taskId)" data-toggle="tooltip" data-placement="top" title="Archive">
+                           <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a class='btn-outline-gray-600 float-right' (click)="onDelete(task.taskId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                           <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                        </a>
+                      </td>
+                    </div>
+                    <div *ngSwitchCase="'archived'">
+                      <td>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                           <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to task">
+                          <fa-icon [icon]="faCopy" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
+                          <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a class='btn-outline-gray-600 float-right' (click)="onDelete(task.taskId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                           <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                        </a>
+                      </td>
+                    </div>
+                  </div>
               </tr>
               </tbody>
             </table>
