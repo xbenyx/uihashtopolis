@@ -1,5 +1,7 @@
+# Accounting software
+
+This application renders accounting tables, currently not working.
 <!-- # Hastopolis UI -->
-This project is currently not ready. Front End is developed using Angular.JS
 
 <!-- ![Hashtopolis - Animated gif demo](demo/intro1.gif) -->
 

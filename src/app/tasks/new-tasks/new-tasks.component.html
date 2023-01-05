@@ -12,42 +12,13 @@
 </div>
 <!-- New Task -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <section>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 d-flex align-items-center justify-content-center">
-                <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <button type="button" routerLink="../rules" class="btn btn-sm btn-outline-gray-600">Rules</button>
-                <button type="button" routerLink="../other" class="btn btn-sm btn-outline-gray-600">Other</button>
-
-                <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                  <thead class="thead-light">
-                    <tr>
-                        <th class="border-0 rounded-start">T</th>
-                        <th class="border-0">P</th>
-                        <th class="border-0">Filename</th>
-                        <th class="border-0 rounded-end">Size</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                          <input title="Add File" type="checkbox" name="adfile[]" >
-                        </td>
-                        <td>
-                          <input title="Add File" type="checkbox" name="adfile[]" >
-                        </td>
-                        <td>Hashtopolis.web</td>
-                        <td>9.16 MB</td>
-                    </tr>
-                  </tbody>
-                </table>
-        </div>
-      </div>
+  <div class="form-group">
+    <div class="form-outline">
+        <label class="form-label requiredak" for="getattackCmd">Command line</label>
+        <input  type='text' name='attackCmd' title="AttackCmd" class='form-control' id="attackCmd" formControlName="attackCmd">
     </div>
   </div>
-  </section>
-  &nbsp;&nbsp;
+  &nbsp;
 </div>
 <!-- New Task End-->
 <section>
@@ -55,79 +26,185 @@
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
               <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <!-- <h2 class="h5 mb-4">Create Hashlist</h2><br> -->
-                <form>
-                  <!-- <tr *ngFor="let u of user"> -->
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="form-group">
                           <div class="form-outline">
-                              <label class="form-label" for="getname" >Name</label>
-                              <input  type='text' name='Hashlistname' title="Hashlistname" class='form-control' id="Hashlistname">
+                              <label class="form-label requiredak" for="getname" >Name</label>
+                              <input  type='text' name='taskname' title="taskname" class='form-control' id="taskname" formControlName="taskName">
                           </div>
                       </div>
+                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Hashlist</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                            <label class="form-label" for="getTasknotes">Task notes</label>
+                            <input  type='text' name='tasknotes' title="tasknotes" class='form-control' id="tasknotes" formControlName="notes">
                         </div>
                       </div>
+                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Command line</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                            <label class="form-label requiredak" for="gethashtype">Hashlist</label>
+                            <select  class='form-select' id='hashlistname' name="hashlistname" title="Access Group" formControlName="hashlistname">
+                              <option *ngFor="let ah of allhashlists" [value]="ah.hashlistId">{{ ah.name }}</option>
+                            </select>
                         </div>
                       </div>
+                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Priority</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                            <label class="form-label requiredak" for="getattackCmd">Command line</label>
+                            <input  type='text' name='attackCmd' title="AttackCmd" class='form-control' id="attackCmd" formControlName="attackCmd">
                         </div>
                       </div>
+                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Max. number of agents</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                            <label class="form-label requiredak" for="getpriority">Priority</label>
+                            <input  type='number' name='priority' title="Priority" class='form-control' id="priority" formControlName="priority" validateInputNumber>
                         </div>
                       </div>
+                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Task notes</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                            <label class="form-label" for="getmaxAgents">Max. number of agents</label>
+                            <input  type='number' name='maxAgents' title="maxAgents" class='form-control' id="maxAgents" formControlName="maxAgents">
                         </div>
                       </div>
+                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Color</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
+                            <label class="form-label" for="getcolor">Pick or enter color(identify tasks)</label>
+                            <div class="form-group">
+                              <input type='text' class="form-control"
+                                  [(colorPicker)]="color" cpWidth='230px' cpHeight="100px"
+                                  [cpOKButton]="true"
+                                  [cpSaveClickOutside]="false"
+                                  [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                                  [style.background]="color" [value]="color" formControlName="color"/>
+                          </div>
                         </div>
                       </div>
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Chunk size</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="gethashtype">Status timer</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype">
-                        </div>
-                      </div>
+                      &nbsp;
+                      <ngb-accordion #acc="ngbAccordion" >
+                        <ngb-panel>
+                          <ng-template ngbPanelTitle>
+                            <span><b>Advanced Settings</b></span>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkTime">Chunk size (seconds)</label>
+                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime" formControlName="chunkTime">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getStatusTimer">Status timer (seconds)</label>
+                                  <input  type='number' name='statusTimer' title="statusTimer" class='form-control' id="statusTimer" formControlName="statusTimer">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getuseNewBench">Benchmark Type (Hashcat only)</label>
+                                  <input  type='text' name='useNewBench' title="useNewBench" class='form-control' id="useNewBench" formControlName="useNewBench">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label for="getisCpuTask">Task is CPU only (gets only CPU agents assigned)</label>
+                                <td>
+                                <select class='form-select' id='isCpuTask' name="isCpuTask" title="isCpuTask" formControlName="isCpuTask">
+                                  <option value="false" [defaultSelected]=true>No</option>
+                                  <option value="true">Yes</option>
+                                </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label for="getisSmall">Task is small (only one agent gets assigned to it)</label>
+                                <td>
+                                <select class='form-select' id='isSmall' name="isSmall" title="isSmall" formControlName="isSmall">
+                                  <option value="false" [defaultSelected]=true>No</option>
+                                  <option value="true">Yes</option>
+                                </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label for="getcrackerBinaryId">Binary type to run task</label>
+                                <td>
+                                <select class='form-select' id='crackerBinaryId' name="crackerBinaryId" title="crackerBinaryId" formControlName="crackerBinaryId">
+                                </select>
+                                <select class='form-select' id='crackerBinaryTypeId' name="crackerBinaryTypeId" title="crackerBinaryTypeId" formControlName="crackerBinaryTypeId">
+                                </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getusePreprocessor">Set as preprocessor task</label>
+                                  <select  class='form-select' id='usePreprocessor' name="usePreprocessor" title="usePreprocessor" formControlName="usePreprocessor">
+                                    <option *ngFor="let p of prep" [value]="p.preprocessorId">{{ p.name }}</option>
+                                  </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getPreprocessorCommand">Preprocessor command</label>
+                                  <input  type='text' name='preprocessorCommand' title="preprocessorCommand" class='form-control' id="preprocessorCommand" formControlName="preprocessorCommand">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getskipKeyspace">Skip a given keyspace at the beginning of the task</label>
+                                  <input  type='number' name='skipKeyspace' title="skipKeyspace" class='form-control' id="skipKeyspace" formControlName="skipKeyspace">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getStaticChunks">Use static chunking</label>
+                                  <td>
+                                  <select class='form-select' id='staticChunks' name="staticChunks" title="staticChunks" formControlName="staticChunks">
+                                    <option value="false" [defaultSelected]=true>No</option>
+                                    <option value="true">Yes</option>
+                                  </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkSize">if yes, chunk size:</label>
+                                  <input  type='number' name='chunkSize' title="chunkSize" class='form-control' id="chunkSize" formControlName="chunkSize">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getforcePipe">Enforce piping task (to apply rules before reject)</label>
+                                  <td>
+                                  <select class='form-select' id='forcePipe' name="forcePipe" title="forcePipe" formControlName="forcePipe">
+                                    <option value="false" [defaultSelected]=true>No</option>
+                                    <option value="true">Yes</option>
+                                  </select>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </ngb-panel>
+                      </ngb-accordion>
+                      &nbsp;
                     </div>
-
-                      <div class="form-check form-switch">
-                        <label class="form-label" for="isSecret">Task is CPU only (gets only CPU agents assigned)</label>
-                        <input class="form-check-input" type="checkbox" id="user-notification-1"  name='isSecret' title="isSecret">
-                      </div>
-                      <div class="form-check form-switch">
-                        <label class="form-label" for="isSecret">Task is small (only one agent gets assigned to it)</label>
-                        <input class="form-check-input" type="checkbox" id="user-notification-1"  name='isSecret' title="isSecret">
-                      </div>
-                      <div class="row">
-                </div>
-                  <button  class="btn btn-gray-800" type="submit" >Update</button>
-                <!-- </tr> -->
+                  <button class="btn btn-gray-800" type="submit">Create</button>
             </form>
+            {{ signupForm.value | json }}
     </div>
   </div>
 </div>

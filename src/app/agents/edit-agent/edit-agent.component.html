@@ -1,0 +1,141 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <h2 class="h4">Agent Details</h2>
+  </div>
+</div>
+<!-- Body -->
+<section>
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                      <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label requiredak" for="getagentid">Agent ID</label>
+                              <input  type='text' name='agentid' title="agentid" class='form-control' id="agentid" read>
+                          </div>
+                      </div>
+                      &nbsp;
+                      <div class="form-group">
+                        <div class="form-outline">
+                            <label class="form-label requiredak" for="getisActive">Agent ID</label>
+                            <input  type='text' name='isActive' title="isActive" class='form-control' id="isActive" formControlName="isActive">
+                        </div>
+                      </div>
+                      &nbsp;
+                      <div class="form-group">
+                        <div class="form-outline">
+                            <label class="form-label requiredak" for="getlastTime">Last activity</label>
+                            <input  type='text' name='lastTime' title="lastTime" class='form-control' id="lastTime" read>
+                        </div>
+                      </div>
+                      &nbsp;
+                      <ngb-accordion #acc="ngbAccordion" >
+                        <ngb-panel>
+                          <ng-template ngbPanelTitle>
+                            <span><b>Show/Hide details</b></span>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getuserId">Owner</label>
+                                  <input  type='number' name='userId' title="User Id" class='form-control' id="userId" formControlName="userId">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getagentName">Machine Name</label>
+                                  <input  type='number' name='agentName' title="agentName" class='form-control' id="agentName" formControlName="agentName">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkTime">Operating System</label>
+                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getOS">Access token</label>
+                                  <input  type='number' name='os' title="OS" class='form-control' id="os">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getagentId">Machine ID</label>
+                                  <input  type='number' name='agentId' title="Agent Id" class='form-control' id="agentId">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getcpuOnly">CPU only agent</label>
+                                  <input  type='number' name='cpuOnly' title="cpuOnly" class='form-control' id="cpuOnly" formControlName="cpuOnly">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getdevices">Graphic cards</label>
+                                  <input  type='number' name='devices' title="devices" class='form-control' id="devices">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkTime">Member of access groups</label>
+                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getcmdPars">Extra parameters</label>
+                                  <input  type='number' name='cmdPars' title="cmdPars" class='form-control' id="cmdPars" formControlName="cmdPars">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getignoreErrors">Cracker errors</label>
+                                  <input  type='number' name='ignoreErrors' title="ignoreErrors" class='form-control' id="ignoreErrors" formControlName="ignoreErrors">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getisTrusted">Trust</label>
+                                  <input  type='number' name='isTrusted' title="isTrusted" class='form-control' id="isTrusted" formControlName="isTrusted">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkTime">Assignment</label>
+                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime" formControlName="assignment">
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkTime">Time spent cracking</label>
+                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime">
+                              </div>
+                            </div>
+                          </ng-template>
+                        </ngb-panel>
+                      </ngb-accordion>
+                      &nbsp;
+                    </div>
+                  <button class="btn btn-gray-800" type="submit">Update</button>
+            </form>
+    </div>
+  </div>
+</div>
+</div>

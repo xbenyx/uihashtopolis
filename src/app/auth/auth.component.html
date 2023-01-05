@@ -18,7 +18,6 @@
                               <app-loading-spinner></app-loading-spinner>
                           </div>
                           <form  #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" class="mt-5">
-                              <!-- Form -->
                               <div class="form-group mb-0">
                                   <label for="inputUsername">User Name</label>
                                   <div class="input-group">
@@ -28,9 +27,8 @@
                                       <input type="text" class="form-control" id="inputUsername" placeholder="User Name" ngModel name="username" autocomplete="on" autofocus required>
                                   </div>
                               </div>
-                              <!-- End of Form -->
+                              &nbsp;
                               <div class="form-group">
-                                  <!-- Form -->
                                   <div class="form-group mb-0">
                                       <label for="password">Password</label>
                                       <div class="input-group">
@@ -40,8 +38,7 @@
                                           <input type="password" class="form-control" id="inputPassword" placeholder="Password" ngModel name="password" autocomplete="on" required>
                                       </div>
                                   </div>
-                                  <!-- End of Form -->
-                                  <!-- Form -->
+                                  &nbsp;
                                   <div class="form-group mb-0">
                                       <label for="inputOTP">Yubikey OTP (if enabled)</label>
                                       <div class="input-group">
@@ -51,7 +48,6 @@
                                             <input name='otp' type="password" class="form-control" id="inputOTP" placeholder="OTP">
                                       </div>
                                   </div>
-                                  <!-- End of Form -->
                                   <div class="d-flex justify-content-between align-items-top mb-0">
                                       <div></div>
                                       <div><a routerLink="forgot" class="small text-right">Forgot your password?</a></div>

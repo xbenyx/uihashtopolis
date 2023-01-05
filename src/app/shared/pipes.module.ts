@@ -8,6 +8,7 @@ import { StaticArrayPipe } from "../core/_pipes/static-array.pipe";
 import { SearchPipe } from "../core/_pipes/filter-search.pipe";
 import { ArraySortPipe } from "../core/_pipes/orderby-item.pipe";
 import { FileTypePipe } from "../core/_pipes/file-type.pipe";
+import { HealthCheckStatusPipe } from "../core/_pipes/healthcheck-status.pipe";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FileTypePipe } from "../core/_pipes/file-type.pipe";
     StaticArrayPipe,
     SearchPipe,
     ArraySortPipe,
-    FileTypePipe
+    FileTypePipe,
+    HealthCheckStatusPipe
   ],
   imports: [CommonModule],
   exports: [
@@ -27,7 +29,8 @@ import { FileTypePipe } from "../core/_pipes/file-type.pipe";
     StaticArrayPipe,
     SearchPipe,
     ArraySortPipe,
-    FileTypePipe
+    FileTypePipe,
+    HealthCheckStatusPipe
   ]
 })
 export class PipesModule {}

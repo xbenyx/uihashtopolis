@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import { AgentBinService } from '../../../core/_services/config/agentbinary.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { AgentBinService } from '../../../core/_services/config/agentbinary.service';
 
 @Component({
   selector: 'app-agent-binaries',
@@ -21,7 +22,8 @@ export class AgentBinariesComponent implements OnInit {
 
   public binaries: {agentBinaryId: number, type: string, version: string, operatingSystems: string, filename: string, updateTrack: string, updateAvailable: string}[] = [];
 
-  constructor(private agentBinService: AgentBinService,
+  constructor(
+    private agentBinService: AgentBinService,
     private route:ActivatedRoute, private router:Router) { }
 
     ngOnInit(): void {

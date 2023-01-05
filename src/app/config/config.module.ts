@@ -18,6 +18,7 @@ import { PipesModule } from "../shared/pipes.module";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NewPreprocessorComponent } from './engine/preprocessors/new-preprocessor/new-preprocessor.component';
+import { EditHealthChecksComponent } from './health-checks/edit-health-checks/edit-health-checks.component';
 
 
 
@@ -30,7 +31,8 @@ import { NewPreprocessorComponent } from './engine/preprocessors/new-preprocesso
     CrackersComponent,
     PreprocessorsComponent,
     HashtypesComponent,
-    NewPreprocessorComponent
+    NewPreprocessorComponent,
+    EditHealthChecksComponent
   ],
   imports:[
     CommonModule,

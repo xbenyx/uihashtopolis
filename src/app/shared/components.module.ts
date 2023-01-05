@@ -5,6 +5,7 @@ import { AlertComponent } from "./alert/alert.component";
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { FilterBoxComponent } from "./filter-box/filter-box.component";
 import { FormsModule } from "@angular/forms";
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
@@ -12,11 +13,16 @@ import { FormsModule } from "@angular/forms";
     LoadingSpinnerComponent,
     FilterBoxComponent
   ],
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ColorPickerModule
+  ],
   exports: [
     AlertComponent,
     LoadingSpinnerComponent,
-    FilterBoxComponent
+    FilterBoxComponent,
+    ColorPickerModule
   ]
 })
 export class ComponentsModule {}

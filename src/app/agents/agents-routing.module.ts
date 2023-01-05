@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AgentStatusComponent } from "./agent-status/agent-status.component";
 import { NewAgentComponent } from "./new-agent/new-agent.component";
 import { ShowAgentsComponent } from "./show-agents/show-agents.component";
+import { EditAgentComponent } from "./edit-agent/edit-agent.component";
 
 const routes: Routes = [
   {
@@ -29,6 +30,13 @@ const routes: Routes = [
         data: {
             kind: 'show-agents',
             breadcrumb: 'Show Agent'
+        },
+        canActivate: [AuthGuard]},
+      {
+        path: 'show-agents/:id/edit', component: EditAgentComponent,
+        data: {
+            kind: 'edit-agent',
+            breadcrumb: 'Edit Agent'
         },
         canActivate: [AuthGuard]},
       ]

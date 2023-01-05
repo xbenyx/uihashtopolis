@@ -11,18 +11,23 @@ import { ShowAgentsComponent } from "./show-agents/show-agents.component";
 import { AgentsRoutingModule } from "./agents-routing.module";
 import { PipesModule } from "../shared/pipes.module";
 import { ComponentsModule } from "../shared/components.module";
+import { EditAgentComponent } from './edit-agent/edit-agent.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations:[
     AgentStatusComponent,
     NewAgentComponent,
-    ShowAgentsComponent
+    ShowAgentsComponent,
+    EditAgentComponent
   ],
   imports:[
     CommonModule,
     RouterModule,
     DataTablesModule,
     FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
     NgbModule,
     AgentsRoutingModule,
     PipesModule,

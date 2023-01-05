@@ -10,7 +10,7 @@
       </a>
   </div>
 </div>
-<!-- New Hashtype -->
+<!-- New Health check -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <section>
     <div class="container">
@@ -18,41 +18,50 @@
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
                 <h2 class="h5 mb-4">Create Health Check</h2><br>
-                  <form (ngSubmit)="onSubmit()">
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label" for="sethashtype">Hashtype (Hashcat -m)</label>
-                            <input  type='text' name='hashtype' title="Hashtype" class='form-control' id="hashtype" >
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label" for="setdescription">Description</label>
-                            <input  type='text' name='description' title="Description" class='form-control' id="description" >
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label" for="setsalted">Salted (only if there is a separate salt value)</label>
-                            <select name="isSalted" class="form-control" title="Is Salted">
-                              <option value="0">No</option>
-                              <option value="1">Yes</option>
+                            <label class="form-label requiredak" for="setcheckType">Attack</label>
+                            <select name="checkType" class='form-control' title="checkType" formControlName="checkType">
+                              <option value="0" [defaultSelected]=true>Brute-Force</option>
                             </select>
                           </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label" for="setsalted">Slow Hash</label>
-                            <select name="isSlowHash" class="form-control" title="Is Slow Hash">
-                              <option value="0">No</option>
-                              <option value="1">Yes</option>
+                            <label class="form-label requiredak" for="sethashtypeId">Hashtype</label>
+                            <select name="hashtypeId" class='form-select' title="hashtypeId" formControlName="hashtypeId">
+                              <option value="0" [defaultSelected]=true>MD5</option>
+                              <option value="3200">BCRYPT</option>
                             </select>
                           </div>
                         </div>
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
+                            <label class="form-label requiredak" for="setcrackerBinaryType">Binary</label>
+                            <select type='number' name="crackerBinaryType" class='form-select' title="crackerBinaryType">
+                              <option *ngFor="let b of binaries" >{{ b.type }}</option>
+                            </select>
+                          </div>
+                        </div>
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
+                            <label class="form-label requiredak" for="setcrackerBinaryVersion">Binary Version</label>
+                            <select type='number' name="crackerBinaryId" class='form-select' title="crackerBinaryId" formControlName="crackerBinaryId">
+                              <option >0</option>
+                              <option >1</option>
+                            </select>
+                          </div>
+                        </div>
+                        &nbsp;
+                      <button class="btn btn-gray-800" type="submit">Create</button>
                       </div>
-                    <button  class="btn btn-gray-800" type="submit">Update</button>
               </form>
+              {{ signupForm.value | json }}
         </div>
       </div>
     </div>
@@ -60,11 +69,10 @@
   </section>
   &nbsp;&nbsp;
 </div>
-<!-- New Hashtype End-->
+<!-- New HHealth check -->
 <!-- Body -->
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
-        <!-- <h2>All users ({{allusers.length}})</h2> -->
         <div class="table-responsive">
             <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
               <thead class="thead-light">
@@ -77,15 +85,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let h of healthc">
+                <tr *ngFor="let h of mergedObjects">
                     <td class="text-align:center">{{ h.healthCheckId }}</td>
-                    <td>{{ h.time*1000 | date: 'dd/MM/yyyy hh:mm:ss '  }}</td>
-                    <td>{{ h.hashtypeId }}</td>
-                    <td>{{ h.status }}</td>
+                    <td>{{ h.time*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}</td>
+                    <td>Brute-Force ({{ h.description }})</td>
+                    <td>{{ h.status | HCstatus | lowercase | titlecase }}</td>
                     <td>
-                      <a>
-                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(h.healthCheckId)"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
-                      </a>
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="[h.healthCheckId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                     </a>
+                     <a class='btn-outline-gray-600 float-right' (click)="onDelete(h.healthCheckId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                     </a>
                     </td>
                 </tr>
                 </tbody>
@@ -93,6 +104,3 @@
         </div>
     </div>
 </div>
-
-
-<!-- {{mergedSubjects}} -->

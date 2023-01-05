@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { ListsService } from '../../core/_services/hashlist/hashlist.service';
+import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
 import { AgentBinService } from '../../core/_services/config/agentbinary.service';
 import { Router } from '@angular/router';
+import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,22 +20,62 @@ export class NewTasksComponent implements OnInit {
   faHome=faHomeAlt;
   faPlus=faPlus;
   faTrash=faTrash;
+  color: string = '#fff'
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  constructor() { }
+  allhashlists: any;
+  prep: any;
+  signupForm: FormGroup
+
+  constructor(
+    private listsService:ListsService,
+    private preprocessorService:PreprocessorService
+  ) { }
+
+  private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
+
+    let params = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
+    let params_prep = {'maxResults': this.maxResults }
+
+    this.listsService.getAllhashlists(params).subscribe((list: any) => {
+      this.allhashlists = list.values;
+    });
+
+    this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
+      this.prep = prep.values;
+    });
+
+    this.signupForm = new FormGroup({
+      'taskName': new FormControl('', [Validators.required]),
+      'attackCmd': new FormControl('', [Validators.required]),
+      'chunkTime': new FormControl(null || 600),
+      'statusTimer': new FormControl(null || 5),
+      'priority': new FormControl(null || 0,[Validators.required, Validators.pattern("^[0-9]*$")]),
+      'maxAgents': new FormControl(null || 0 ),
+      'color': new FormControl(''),
+      'isCpuTask': new FormControl(''),
+      'skipKeyspace': new FormControl(null || 0,[Validators.required, Validators.pattern("^[0-9]*$")]),
+      'crackerBinaryId': new FormControl(''),
+      "crackerBinaryTypeId": new FormControl(''),
+      "isArchived": new FormControl(''),
+      'notes': new FormControl(''),
+      'staticChunks': new FormControl(''),
+      'chunkSize': new FormControl(null || 600),
+      'forcePipe': new FormControl(''),
+      'usePreprocessor': new FormControl(''),
+      'preprocessorCommand': new FormControl(''),
+    });
+
   }
 
+
+
   onSubmit(){
-    Swal.fire({
-      title: "Good job!",
-      text: "New Binary created!",
-      icon: "success",
-      button: "Close",
-    });
+
   }
 
 
