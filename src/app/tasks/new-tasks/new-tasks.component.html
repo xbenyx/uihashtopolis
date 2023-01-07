@@ -26,7 +26,7 @@
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
               <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="form-group">
                           <div class="form-outline">
@@ -74,13 +74,14 @@
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="getcolor">Pick or enter color(identify tasks)</label>
-                            <div class="form-group">
+                            <label class="form-label" for="getcolor">Pick or enter color (identify tasks)</label>
+                            <div class="input-group-text w-50 mx-auto">
                               <input type='text' class="form-control"
                                   [(colorPicker)]="color" cpWidth='230px' cpHeight="100px"
                                   [cpOKButton]="true"
                                   [cpSaveClickOutside]="false"
                                   [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                                  (colorPickerChange)="OnChangeValue($event)"
                                   [style.background]="color" [value]="color" formControlName="color"/>
                           </div>
                         </div>
@@ -204,7 +205,7 @@
                     </div>
                   <button class="btn btn-gray-800" type="submit">Create</button>
             </form>
-            {{ signupForm.value | json }}
+            {{ createForm.value | json }}
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<h2>Add new agent</h2>
+<h2 class="h5 mb-4">Add new agent</h2>
 <div class='alert alert-info'>
 	To add new agents provide them with a valid voucher and download a client.<br><br>
 	Used vouchers are automatically deleted to prevent double spending.<br><br>
@@ -6,61 +6,82 @@
 	<code>Add ->[[apiUrl]]</code>
 </div>
 <h3>Clients</h3>
-<div class="card">
-  <!-- <div class="table-responsive"> -->
-    <table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+<!-- <div class="card">
+<table class="table table-bordered table-striped table-hover" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <tr>
         <th>ID</th>
-		<th>Version</th>
+		    <th>Version</th>
         <th>Type</th>
         <th>Operating Systems</th>
         <th>Filename</th>
         <th>&nbsp;</th>
       </tr>
-        <tr *ngFor="let binary of crackerbinary">
-          <td>{{binary.crackerBinaryId}}</td>
-		  <td>{{binary.version}}</td>
-          <td>{{binary.crackerBinaryTypeId}}</td>
-          <td>{{binary.crackerBinaryTypeId}}</td>
-          <td>{{binary.binaryName}}</td>
-          <td>
-            <form action="agents.php?new=true" method="POST">
-              <input type="hidden" name="action" value="{{binary.downloadUrl}}">
-              <input type="hidden" name="binary" value="{{binary.crackerBinaryId}}">
-			  <input type="hidden" name="csrf" value="[[csrf]]">
-              <input type="submit" class='btn btn-primary' value="Download">
-            </form><br>
+      <tr *ngFor="let binary of crackerbinary">
+        <td>{{binary['crackerBinaryId']}}</td>
+		    <td>{{binary['version']}}</td>
+        <td>{{binary['crackerBinaryTypeId']}}</td>
+        <td>{{binary['crackerBinaryTypeId']}}</td>
+        <td>{{binary['binaryName']}}</td>
+        <td>
 					  <code>[[agentUrl]][[binary.getId()]]</code>
-          </td>
+        </td>
         </tr>
+  </table>
+</div> -->
 
-	  </table>
-  </div>
-<!-- </div> -->
-
-  <!-- <h3>Vouchers</h3>
-	<div class="card">
-    <div class="table-responsive">
-      <table class="table table-bordered">
-
-				  <tr>
-					  <td><code>[[voucher.getVoucher()]]</code></td>
-          			  <td>[[date([[config.getVal(DConfig::TIME_FORMAT)]], [[voucher.getTime()]])]]</td>
-          			  <td>
-          				  <form action="agents.php?new=true" method="POST" onSubmit="if (!confirm('Really delete this voucher?')) return false;">
-          					  <input type="hidden" name="action" value="[[$DAgentAction::DELETE_VOUCHER]]">
-          					  <input type="hidden" name="voucher" value="[[voucher.getId()]]">
-										  <input type="hidden" name="csrf" value="[[csrf]]">
-          					  <input type="submit" class='btn btn-danger' value="Delete">
-          				  </form>
-          			  </td>
-          		  </tr>
-
-		  </table>
+<!-- Voucher Section -->
+<h3>Vouchers</h3>
+<!-- Create Voucher -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+              <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                      <div class="form-group">
+                        <div class="form-outline">
+                          <label class="form-label" for="setcheckType">New Voucher</label>
+                          <input type='text' [(ngModel)]="randomstring" name='voucher' title="Voucher" class='form-control' id="voucher" formControlName="voucher"/>
+                        </div>
+                      </div>
+                      &nbsp;
+                      <button class="btn btn-gray-800" type="submit">Create</button>
+                  </div>
+              </form>
+            </div>
+        </div>
     </div>
-	</div>
+</div>
+&nbsp;
+<!-- Voucer Table -->
+<div class="card border-0 shadow mb-4">
+  <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-centered table-nowrap mb-0 rounded" datatable>
+          <thead class="thead-light">
+            <tr>
+              <th>Key</th>
+              <th>Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let v of vouchers">
+              <td><code>{{ v.voucher }}</code></td>
+              <td>{{ v.time*1000 | date: 'dd/MM/yyyy h:mm:ss ' }}</td>
+              <td>
+                <a class='btn-outline-gray-600 float-right' (click)="onDelete(v.regVoucherId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                  <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+               </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
 
-<form action="agents.php?new=true" method="POST">
+<!-- <form action="agents.php?new=true" method="POST">
 	<input type="hidden" name="action" value="[[$DAgentAction::CREATE_VOUCHER]]">
 	<input type="hidden" name="csrf" value="[[csrf]]">
 	<div class="card">

@@ -9,6 +9,7 @@ import { SearchPipe } from "../core/_pipes/filter-search.pipe";
 import { ArraySortPipe } from "../core/_pipes/orderby-item.pipe";
 import { FileTypePipe } from "../core/_pipes/file-type.pipe";
 import { HealthCheckStatusPipe } from "../core/_pipes/healthcheck-status.pipe";
+import { ReplaceStringPipe } from "../core/_pipes/replace-string.pipe";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HealthCheckStatusPipe } from "../core/_pipes/healthcheck-status.pipe";
     SearchPipe,
     ArraySortPipe,
     FileTypePipe,
-    HealthCheckStatusPipe
+    HealthCheckStatusPipe,
+    ReplaceStringPipe
   ],
   imports: [CommonModule],
   exports: [
@@ -30,7 +32,8 @@ import { HealthCheckStatusPipe } from "../core/_pipes/healthcheck-status.pipe";
     SearchPipe,
     ArraySortPipe,
     FileTypePipe,
-    HealthCheckStatusPipe
+    HealthCheckStatusPipe,
+    ReplaceStringPipe
   ]
 })
 export class PipesModule {}

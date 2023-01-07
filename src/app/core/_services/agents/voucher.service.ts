@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { environment } from './../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Params } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root'
 })
-export class AgentsService {
+export class VoucherService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/ui/agents';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/vouchers';
 
   constructor(private http: HttpClient) { }
 
-  getAgents(routerParams?: Params):Observable<any> {
+  getVouchers(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
         queryParams = this.setParameter(routerParams);
@@ -26,25 +25,16 @@ export class AgentsService {
     );
   }
 
-  getAgent(id: number):Observable<any> {
-    return this.http.get(`${this.endpoint}/${id}`)
-    .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }
-
-  deleteAgent(id: number):Observable<any> {
-    return this.http.delete(this.endpoint +'/'+ id)
+  deleteVoucher(id: number):Observable<any> {
+    return this.http.delete(this.endpoint + '/' + id)
     .pipe(
       catchError(this.handleError)
     );
   }
 
-  updateAgent(id: number, arr: any): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + id, arr)
+  createVoucher(arr: string):Observable<any> {
+    return this.http.post(this.endpoint, arr)
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }

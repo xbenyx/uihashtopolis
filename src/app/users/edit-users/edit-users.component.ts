@@ -29,7 +29,8 @@ export class EditUsersComponent implements OnInit {
 
   allowEdit = false;
 
-  constructor(private usersService: UsersService,
+  constructor(
+    private usersService: UsersService,
     private route:ActivatedRoute) { }
 
   ngOnInit(): void {

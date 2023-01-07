@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { AgentsService } from '../../core/_services/agents/agents.service';
 import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus, faFileText, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {Subject} from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { AgentsService } from '../../core/_services/agents/agents.service';
 
 @Component({
   selector: 'app-show-agents',
@@ -28,8 +29,12 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
+  // ToDo add model
   showagents: any = [];
-  constructor(private agentsService: AgentsService) { }
+
+  constructor(
+    private agentsService: AgentsService
+  ) { }
 
   ngOnInit(): void {
     this.agentsService.getAgents().subscribe((agents: any) => {

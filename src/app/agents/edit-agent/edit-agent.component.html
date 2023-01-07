@@ -1,3 +1,8 @@
+<!-- Spinner Loading -->
+<div *ngIf="isLoading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<!-- Header -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Agent Details</h2>
@@ -9,26 +14,30 @@
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
               <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="form-group">
                           <div class="form-outline">
-                              <label class="form-label requiredak" for="getagentid">Agent ID</label>
-                              <input  type='text' name='agentid' title="agentid" class='form-control' id="agentid" read>
+                              <label class="form-label" for="getagentid">Agent ID</label>
+                              <div class="input-group">
+                                <span class="input-group-text">
+                                  <fa-icon [icon]="faAlignJustify" aria-hidden="true"></fa-icon>
+                                </span>
+                                <input [(ngModel)]="showagent['agentId']" type='number' name='agentid' title="agentid" class='form-control' id="agentid" formControlName="agentId" readonly>
+                              </div>
                           </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label requiredak" for="getisActive">Agent ID</label>
-                            <input  type='text' name='isActive' title="isActive" class='form-control' id="isActive" formControlName="isActive">
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label requiredak" for="getlastTime">Last activity</label>
-                            <input  type='text' name='lastTime' title="lastTime" class='form-control' id="lastTime" read>
+                            <label class="form-label" for="getlastTime">Last activity</label>
+                            <span class="input-group-text input-group-lg w-50 mx-auto">
+                              <td>
+                                Time: {{ showagent['lastTime']*1000 | date: 'dd/MM/yyyy h:mm:ss' }}<br>
+                                Action: {{ showagent['lastAct'] }}<br>
+                                IP: <code>{{ showagent['lastIp'] }}</code>
+                              </td>
+                            </span>
                         </div>
                       </div>
                       &nbsp;
@@ -41,49 +50,84 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getuserId">Owner</label>
-                                  <input  type='number' name='userId' title="User Id" class='form-control' id="userId" formControlName="userId">
+                                  <div class="input-group">
+                                    <span class="input-group-text">
+                                      <fa-icon [icon]="faIdBadge" aria-hidden="true"></fa-icon>
+                                    </span>
+                                    <select [(ngModel)]="showagent['userId']" type='text' name='userId' title="User Id" class='form-select' id="userId" formControlName="userId">
+                                      <option *ngFor="let u of users" [value]="u.userId">{{ u.username }}</option>
+                                    </select>
+                                  </div>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getagentName">Machine Name</label>
-                                  <input  type='number' name='agentName' title="agentName" class='form-control' id="agentName" formControlName="agentName">
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getchunkTime">Operating System</label>
-                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime">
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getOS">Access token</label>
-                                  <input  type='number' name='os' title="OS" class='form-control' id="os">
+                                  <div class="input-group">
+                                    <span class="input-group-text">
+                                      <fa-icon [icon]="faComputer" aria-hidden="true"></fa-icon>
+                                    </span>
+                                    <input  [(ngModel)]="showagent['agentName']" type='text' name='agentName' title="agentName" class='form-control' id="agentName" formControlName="agentName">
+                                  </div>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getagentId">Machine ID</label>
-                                  <input  type='number' name='agentId' title="Agent Id" class='form-control' id="agentId">
+                                  <input  [(ngModel)]="showagent['uid']" type='text' name='uid' title="uid" class='form-control' id="uid" formControlName="uid" readonly>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getcpuOnly">CPU only agent</label>
-                                  <input  type='number' name='cpuOnly' title="cpuOnly" class='form-control' id="cpuOnly" formControlName="cpuOnly">
+                                  <label class="form-label" for="getOS">Access token</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text">
+                                      <fa-icon [icon]="faKey" aria-hidden="true"></fa-icon>
+                                    </span>
+                                    <input  [(ngModel)]="showagent['token']" type='text' name='token' title="token" class='form-control' id="token" formControlName="token" readonly>
+                                  </div>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getchunkTime">Operating System</label>
+                                  <div class="input-group">
+                                    <span *ngIf="showagent['os'] == 0" class="input-group-text input-group-lg w-15 mx-auto">
+                                      <fa-icon [icon]="faLinux" aria-hidden="true"></fa-icon>Linux
+                                    </span>
+                                    <span *ngIf="showagent['os'] == 1" class="input-group-text input-group-lg w-15 mx-auto">
+                                      <fa-icon [icon]="faWindows" aria-hidden="true"></fa-icon>Windows
+                                    </span>
+                                    <span *ngIf="showagent['os'] == 2" class="input-group-text input-group-lg w-15 mx-auto">
+                                      <fa-icon [icon]="faApple" aria-hidden="true"></fa-icon>IOS
+                                    </span>
+                                  </div>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getdevices">Graphic cards</label>
-                                  <input  type='number' name='devices' title="devices" class='form-control' id="devices">
+                                  <span class="pre input-group-text input-group-lg w-70 mx-auto">
+                                    <td>
+                                      {{ showagent['devices'] }}
+                                    </td>
+                                  </span>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label" for="getcpuOnly">CPU only agent</label>
+                                  <td>
+                                  <select [(ngModel)]="showagent['cpuOnly']" class='form-select' name='cpuOnly' title="cpuOnly" id="cpuOnly" formControlName="cpuOnly">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                  </select>
                               </div>
                             </div>
                             &nbsp;
@@ -97,44 +141,64 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getcmdPars">Extra parameters</label>
-                                  <input  type='number' name='cmdPars' title="cmdPars" class='form-control' id="cmdPars" formControlName="cmdPars">
+                                  <input [(ngModel)]="showagent['cmdPars']" type='text' name='cmdPars' title="cmdPars" class='form-control' id="cmdPars" formControlName="cmdPars">
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getignoreErrors">Cracker errors</label>
-                                  <input  type='number' name='ignoreErrors' title="ignoreErrors" class='form-control' id="ignoreErrors" formControlName="ignoreErrors">
+                                  <select [(ngModel)]="showagent['ignoreErrors']" class='form-select' name='ignoreErrors' title="ignoreErrors" id="ignoreErrors" formControlName="ignoreErrors">
+                                    <option value="NO">Deactivate agent on error</option>
+                                    <option value="IGNORE_SAVE">Keep agent running, but save errors</option>
+                                    <option value="IGNORE_NOSAVE">Keep agent running and discard errors</option>
+                                  </select>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getisTrusted">Trust</label>
-                                  <input  type='number' name='isTrusted' title="isTrusted" class='form-control' id="isTrusted" formControlName="isTrusted">
+                                  <label class="form-label" for="getisTrusted">Trust agent with secret data</label>
+                                  <td>
+                                  <select [(ngModel)]="showagent['isTrusted']" class='form-select' name='isTrusted' title="isTrusted" id="isTrusted" formControlName="isTrusted">
+                                    <option value="NO">No</option>
+                                    <option value="true">Yes</option>
+                                  </select>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getchunkTime">Assignment</label>
-                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime" formControlName="assignment">
+                                  <select [(ngModel)]="showagent['assignment']" class='form-select' name='assignment' title="assignment" id="assignment" formControlName="assignment">
+                                    <option>Missing</option>
+                                  </select>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getchunkTime">Time spent cracking</label>
-                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime">
+                                  (Missing API)
                               </div>
                             </div>
                           </ng-template>
                         </ngb-panel>
                       </ngb-accordion>
                       &nbsp;
+                      <div class="form-group">
+                        <div class="form-outline">
+                          <label class="form-label" for="getisActive">Active</label>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" name='isActive' title="isActive" id="isActive" formControlName="isActive">
+                          </div>
+                        </div>
+                      </div>
+                      &nbsp;
                     </div>
                   <button class="btn btn-gray-800" type="submit">Update</button>
             </form>
+            <!-- {{ updateForm | json }} -->
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
@@ -13,7 +13,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-tasks',
-  templateUrl: './new-tasks.component.html'
+  templateUrl: './new-tasks.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewTasksComponent implements OnInit {
   public isCollapsed = true;
@@ -27,11 +28,12 @@ export class NewTasksComponent implements OnInit {
 
   allhashlists: any;
   prep: any;
-  signupForm: FormGroup
+  createForm: FormGroup
 
   constructor(
     private listsService:ListsService,
-    private preprocessorService:PreprocessorService
+    private preprocessorService:PreprocessorService,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults
@@ -49,7 +51,7 @@ export class NewTasksComponent implements OnInit {
       this.prep = prep.values;
     });
 
-    this.signupForm = new FormGroup({
+    this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
       'attackCmd': new FormControl('', [Validators.required]),
       'chunkTime': new FormControl(null || 600),
@@ -72,8 +74,12 @@ export class NewTasksComponent implements OnInit {
 
   }
 
-
-
+  OnChangeValue(value){
+    this.createForm.patchValue({
+      color: value
+    });
+    this._changeDetectorRef.detectChanges();
+  }
   onSubmit(){
 
   }
