@@ -33,16 +33,25 @@ export class NewAgentComponent implements OnInit, OnDestroy {
   crackerbinary: any = [];
   vouchers: any = [];
 
-  randomstring:any = Math.random().toString(36).slice(-9);
+  randomstring:any
 
   constructor(
     private crackerService: CrackerService,
     private voucherService: VoucherService
   ) { }
 
-  private maxResults = environment.config.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults;
+
+  pathURL = location.protocol + '//' + location.hostname + ':' + environment.config.prodApiPort;
+  public agentURL = this.pathURL + environment.config.agentURL;
+  public agentdownloadURL = this.pathURL + environment.config.agentdownloadURL;
 
   ngOnInit(): void {
+
+    // URL paths
+
+    // Generate Voucher
+    this.randomstring = Math.random().toString(36).slice(-8);
 
     this.createForm = new FormGroup({
       'voucher': new FormControl(''),
