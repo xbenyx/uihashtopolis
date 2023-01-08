@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -25,6 +25,7 @@ import { SettingsComponent } from "./settings/settings.component";
     FontAwesomeModule,
     FormsModule,
     RouterModule,
+    ReactiveFormsModule,
     DataTablesModule,
     NgbModule,
     ComponentsModule,

@@ -51,7 +51,7 @@
                       {{ healthca['agentId']  }}
                       <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',healthca['agentId'],'edit']" data-toggle="tooltip" data-placement="top" title="Edit Agent">
                         <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
-                     </a>
+                      </a>
                     </td>
                     <td>{{ healthca['status'] | HCstatus | lowercase | titlecase  }}</td>
                     <td>{{ healthca['start']  }}</td>
