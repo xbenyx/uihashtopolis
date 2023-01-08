@@ -1,6 +1,7 @@
 import { Component, OnInit, ComponentRef } from '@angular/core';
 import { faDigitalTachograph, faMicrochip, faHomeAlt, faPlus, faUserSecret,faEye, faTemperature0 } from '@fortawesome/free-solid-svg-icons';
-// import { FilterService } from '../../core/_services/filter.service';
+
+import { AgentsService } from '../../core/_services/agents/agents.service';
 
 @Component({
   selector: 'app-agent-status',
@@ -17,15 +18,21 @@ export class AgentStatusComponent implements OnInit {
   faEdit=faEye;
   faTemperature0=faTemperature0;
 
+  showagents: any = [];
   agents = [{rack: 'Rack AB jkhjkhjkh'},{rack: 'Rack CB'}, {rack: 'Rack AB'},{rack: 'Rack AB'},{rack: 'Rack CB'}, {rack: 'Rack AB'},{rack: 'Rack AB'},{rack: 'Rack CB'}, {rack: 'Rack AB'}];
   _filteredCustomers: any;
   mapComponentRef: ComponentRef<any> = {} as ComponentRef<any>;
 
   constructor(
-    // private filterService: FilterService,
+    private agentsService: AgentsService
   ) { }
 
   ngOnInit(): void {
+
+    this.agentsService.getAgents().subscribe((agents: any) => {
+      this.showagents = agents.values;
+    });
+
   }
 
   get filteredCustomers() {

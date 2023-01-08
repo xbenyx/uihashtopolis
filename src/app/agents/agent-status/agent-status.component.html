@@ -133,13 +133,13 @@
 <br>
 <div class="container">
   <div class="row card-container-ag">
-      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of agents">
+      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of showagents">
           <div class="card card-ag">
               <div class="card-header-ag">
-                <a [routerLink]="['/agents',2,'edit']">
+                <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
                   <fa-icon [icon]="faEdit" aria-hidden="true" class="white-ico"></fa-icon>
                 </a>
-                  {{ a.rack | shortenString:10 | lowercase | titlecase}}
+                  {{ a.agentName | shortenString:10 | lowercase | titlecase}}
               </div>
               <div class="card-body">
                   <div class="clearfix">
