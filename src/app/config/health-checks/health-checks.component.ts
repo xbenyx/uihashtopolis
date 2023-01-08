@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faEdit, faTrash, faEyeDropper} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -10,11 +10,12 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { HealthcheckService } from '../../core/_services/config/healthcheck.service';
 import { HashtypeService } from '../../core/_services/hashtype.service';
-import { AgentBinService } from '../../core/_services/config/agentbinary.service';
+import { CrackerService } from '../../core/_services/config/cracker.service';
 
 @Component({
   selector: 'app-health-checks',
-  templateUrl: './health-checks.component.html'
+  templateUrl: './health-checks.component.html',
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HealthChecksComponent implements OnInit {
   // Loader
@@ -39,19 +40,13 @@ export class HealthChecksComponent implements OnInit {
   constructor(
     private healthcheckService: HealthcheckService,
     private hashtypeService: HashtypeService,
-    private agentBinService: AgentBinService,
+    private crackerService: CrackerService,
+    // private _changeDetectorRef: ChangeDetectorRef,
     private route:ActivatedRoute,
     private router:Router) { }
 
-  public binaries: {
-    agentBinaryId: number,
-    type: string,
-    version: string,
-    operatingSystems: string,
-    filename: string,
-    updateTrack: string,
-    updateAvailable: string
-  }[] = [];
+  crackertype: any = [];
+  crackerversions: any = [];
 
   public healthc: {
     attackCmd: string,
@@ -84,8 +79,8 @@ export class HealthChecksComponent implements OnInit {
     'crackerBinaryId': new FormControl('', [Validators.required])
   });
 
-  this.agentBinService.getAgentBin().subscribe((bin: any) => {
-    this.binaries = bin;
+  this.crackerService.getCrackerType().subscribe((crackers: any) => {
+    this.crackertype = crackers.values;
   });
 
   let params = {'maxResults': this.maxResults};
@@ -108,6 +103,13 @@ export class HealthChecksComponent implements OnInit {
     buttons: ['copy', 'excel', 'csv', 'edit']
   };
 
+  }
+
+  onChangeBinary(id: string){
+    let params = {'filter': 'crackerBinaryTypeId='+id+''};
+    this.crackerService.getCrackerBinary(params).subscribe((crackers: any) => {
+      this.crackerversions = crackers.values;
+    });
   }
 
   rerender(): void {

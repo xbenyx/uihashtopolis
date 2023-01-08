@@ -140,9 +140,25 @@
                               <div class="form-outline">
                                 <label for="getcrackerBinaryId">Binary type to run task</label>
                                 <td>
-                                <select class='form-select' id='crackerBinaryId' name="crackerBinaryId" title="crackerBinaryId" formControlName="crackerBinaryId">
+                                <select class='form-select'
+                                        id='crackerBinaryId'
+                                        name="crackerBinaryId"
+                                        title="crackerBinaryId"
+                                        #myBinary
+                                        (change)="onChangeBinary(myBinary.value)"
+                                        formControlName="crackerBinaryId">
+                                  <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
                                 </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label for="getcrackerBinaryId">Binary type version</label>
+                                <td>
                                 <select class='form-select' id='crackerBinaryTypeId' name="crackerBinaryTypeId" title="crackerBinaryTypeId" formControlName="crackerBinaryTypeId">
+                                  <option value="" disabled="true">--<option>
+                                  <option *ngFor="let cv of crackerversions" [value]="cv.crackerBinaryId" type="number">{{ cv.version }}</option>
                                 </select>
                               </div>
                             </div>

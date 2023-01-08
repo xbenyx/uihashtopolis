@@ -1,15 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
-import { AgentBinService } from '../../core/_services/config/agentbinary.service';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { ListsService } from '../../core/_services/hashlist/hashlist.service';
+import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
+import { CrackerService } from '../../core/_services/config/cracker.service';
 
 @Component({
   selector: 'app-new-tasks',
@@ -28,11 +28,14 @@ export class NewTasksComponent implements OnInit {
 
   allhashlists: any;
   prep: any;
+  crackertype: any;
+  crackerversions: any = [];
   createForm: FormGroup
 
   constructor(
     private listsService:ListsService,
     private preprocessorService:PreprocessorService,
+    private crackerService: CrackerService,
     private _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
@@ -45,6 +48,10 @@ export class NewTasksComponent implements OnInit {
 
     this.listsService.getAllhashlists(params).subscribe((list: any) => {
       this.allhashlists = list.values;
+    });
+
+    this.crackerService.getCrackerType().subscribe((crackers: any) => {
+      this.crackertype = crackers.values;
     });
 
     this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
@@ -80,6 +87,14 @@ export class NewTasksComponent implements OnInit {
     });
     this._changeDetectorRef.detectChanges();
   }
+
+  onChangeBinary(id: string){
+    let params = {'filter': 'crackerBinaryTypeId='+id+''};
+    this.crackerService.getCrackerBinary(params).subscribe((crackers: any) => {
+      this.crackerversions = crackers.values;
+    });
+  }
+
   onSubmit(){
 
   }

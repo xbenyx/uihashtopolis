@@ -11,6 +11,7 @@ import { Observable, tap, catchError, throwError } from 'rxjs';
 export class CrackerService {
 
   private endpoint = environment.config.prodApiEndpoint + '/ui/crackers';
+  private endpoint_types = environment.config.prodApiEndpoint + '/ui/crackertypes';
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +30,18 @@ export class CrackerService {
         queryParams = this.setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  getCrackerType(routerParams?: Params):Observable<any> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = this.setParameter(routerParams);
+    }
+    return this.http.get(this.endpoint_types, {params: queryParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

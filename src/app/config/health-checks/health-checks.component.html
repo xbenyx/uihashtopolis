@@ -42,8 +42,14 @@
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label requiredak" for="setcrackerBinaryType">Binary</label>
-                            <select type='number' name="crackerBinaryType" class='form-select' title="crackerBinaryType">
-                              <option *ngFor="let b of binaries" >{{ b.type }}</option>
+                            <select type='number'
+                                    name="crackerBinaryType"
+                                    class='form-select'
+                                    title="crackerBinaryType"
+                                    #myBinary
+                                    (change)="onChangeBinary(myBinary.value)">
+                              <option hiddenvalue="" disabled="true" [defaultSelected]=true>Please select</option>
+                              <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId" type="number">{{ cb.typeName }}</option>
                             </select>
                           </div>
                         </div>
@@ -51,9 +57,15 @@
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label requiredak" for="setcrackerBinaryVersion">Binary Version</label>
-                            <select type='number' name="crackerBinaryId" class='form-select' title="crackerBinaryId" formControlName="crackerBinaryId">
-                              <option >0</option>
-                              <option >1</option>
+                            <select type='number'
+                                    name="crackerBinaryId"
+                                    class='form-select'
+                                    title="crackerBinaryId"
+                                    formControlName="crackerBinaryId"
+                                    #myVersion>
+                              <!-- <option hiddenvalue="" disabled="true" [defaultSelected]=true>Please select</option> -->
+                              <option value="" disabled="true">--<option>
+                              <option *ngFor="let cv of crackerversions" [value]="cv.crackerBinaryId" type="number">{{ cv.version }}</option>
                             </select>
                           </div>
                         </div>
