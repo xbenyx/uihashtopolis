@@ -23,7 +23,11 @@
                                 <span class="input-group-text">
                                   <fa-icon [icon]="faAlignJustify" aria-hidden="true"></fa-icon>
                                 </span>
-                                <input [(ngModel)]="showagent['agentId']" type='number' name='agentid' title="agentid" class='form-control' id="agentid" formControlName="agentId" readonly>
+                                <span class="pre input-group-text input-group-lg">
+                                  <td>
+                                    {{ showagent['agentId'] }}
+                                  </td>
+                                </span>
                               </div>
                           </div>
                       </div>
@@ -54,8 +58,13 @@
                                     <span class="input-group-text">
                                       <fa-icon [icon]="faIdBadge" aria-hidden="true"></fa-icon>
                                     </span>
-                                    <select [(ngModel)]="showagent['userId']" type='text' name='userId' title="User Id" class='form-select' id="userId" formControlName="userId">
-                                      <option *ngFor="let u of users" [value]="u.userId">{{ u.username }}</option>
+                                    <select
+                                           type='number'
+                                           id="userId"
+                                           class='form-select'
+                                           formControlName="userId"
+                                    >
+                                    <option *ngFor="let u of users" [ngValue]="u.userId">{{ u.username }}</option>
                                     </select>
                                   </div>
                               </div>
@@ -68,7 +77,12 @@
                                     <span class="input-group-text">
                                       <fa-icon [icon]="faComputer" aria-hidden="true"></fa-icon>
                                     </span>
-                                    <input  [(ngModel)]="showagent['agentName']" type='text' name='agentName' title="agentName" class='form-control' id="agentName" formControlName="agentName">
+                                    <input
+                                          type='text'
+                                          id="agentName"
+                                          class='form-control'
+                                          formControlName="agentName"
+                                    >
                                   </div>
                               </div>
                             </div>
@@ -76,25 +90,34 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getagentId">Machine ID</label>
-                                  <input  [(ngModel)]="showagent['uid']" type='text' name='uid' title="uid" class='form-control' id="uid" formControlName="uid" readonly>
+                                  <span class="pre input-group-text input-group-lg w-70 mx-auto">
+                                    <td>
+                                      {{ showagent['uid'] }}
+                                    </td>
+                                  </span>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getOS">Access token</label>
+                                  <label class="form-label" for="gettoken">Access token</label>
                                   <div class="input-group">
                                     <span class="input-group-text">
                                       <fa-icon [icon]="faKey" aria-hidden="true"></fa-icon>
                                     </span>
-                                    <input  [(ngModel)]="showagent['token']" type='text' name='token' title="token" class='form-control' id="token" formControlName="token" readonly>
+                                    <input
+                                          type='text'
+                                          id="token"
+                                          class='form-control'
+                                          formControlName="token"
+                                    >
                                   </div>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getchunkTime">Operating System</label>
+                                  <label class="form-label" for="getOS">Operating System</label>
                                   <div class="input-group">
                                     <span *ngIf="showagent['os'] == 0" class="input-group-text input-group-lg w-15 mx-auto">
                                       <fa-icon [icon]="faLinux" aria-hidden="true"></fa-icon>Linux
@@ -124,34 +147,52 @@
                               <div class="form-outline">
                                   <label class="form-label" for="getcpuOnly">CPU only agent</label>
                                   <td>
-                                  <select [(ngModel)]="showagent['cpuOnly']" class='form-select' name='cpuOnly' title="cpuOnly" id="cpuOnly" formControlName="cpuOnly">
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
+                                  <select
+                                         id="cpuOnly"
+                                         class='form-select'
+                                         formControlName="cpuOnly"
+                                    >
+                                    <option [ngValue]="false">No</option>
+                                    <option [ngValue]="true">Yes</option>
                                   </select>
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getchunkTime">Member of access groups</label>
-                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime">
+                                  <label class="form-label" for="getaccessgroups">Member of access groups</label>
+                                  <input
+                                        type='number'
+                                        id="accessgroups"
+                                        class='form-control'
+                                  >
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getcmdPars">Extra parameters</label>
-                                  <input [(ngModel)]="showagent['cmdPars']" type='text' name='cmdPars' title="cmdPars" class='form-control' id="cmdPars" formControlName="cmdPars">
+                                  <input
+                                        type='text'
+                                        id="cmdPars"
+                                        class='form-control'
+                                        formControlName="cmdPars"
+                                  >
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getignoreErrors">Cracker errors</label>
-                                  <select [(ngModel)]="showagent['ignoreErrors']" class='form-select' name='ignoreErrors' title="ignoreErrors" id="ignoreErrors" formControlName="ignoreErrors">
-                                    <option value="NO">Deactivate agent on error</option>
-                                    <option value="IGNORE_SAVE">Keep agent running, but save errors</option>
-                                    <option value="IGNORE_NOSAVE">Keep agent running and discard errors</option>
+                                  <select
+                                         type='text'
+                                         id="ignoreErrors"
+                                         class='form-select'
+                                         formControlName="ignoreErrors"
+                                      >
+                                      <option value="NO">Deactivate agent on error</option>
+                                      <option value="IGNORE_SAVE">Keep agent running, but save errors</option>
+                                      <option value="IGNORE_NOSAVE">Keep agent running and discard errors</option>
                                   </select>
                               </div>
                             </div>
@@ -160,9 +201,13 @@
                               <div class="form-outline">
                                   <label class="form-label" for="getisTrusted">Trust agent with secret data</label>
                                   <td>
-                                  <select [(ngModel)]="showagent['isTrusted']" class='form-select' name='isTrusted' title="isTrusted" id="isTrusted" formControlName="isTrusted">
-                                    <option value="NO">No</option>
-                                    <option value="true">Yes</option>
+                                  <select
+                                         id="isTrusted"
+                                         class='form-select'
+                                         formControlName="isTrusted"
+                                      >
+                                      <option [ngValue]="false">No</option>
+                                      <option [ngValue]="true">Yes</option>
                                   </select>
                               </div>
                             </div>
@@ -170,8 +215,13 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getchunkTime">Assignment</label>
-                                  <select [(ngModel)]="showagent['assignment']" class='form-select' name='assignment' title="assignment" id="assignment" formControlName="assignment">
-                                    <option>Missing</option>
+                                  <select
+                                         type='text'
+                                         id="assignment"
+                                         class='form-select'
+                                         formControlName="assignment"
+                                      >
+                                      <option>Missing</option>
                                   </select>
                               </div>
                             </div>
@@ -190,7 +240,13 @@
                         <div class="form-outline">
                           <label class="form-label" for="getisActive">Active</label>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" name='isActive' title="isActive" id="isActive" formControlName="isActive">
+                            <input
+                                  type="checkbox"
+                                  id="isActive"
+                                  class="form-check-input"
+                                  value=""
+                                  formControlName="isActive"
+                            >
                           </div>
                         </div>
                       </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faAlignJustify, faIdBadge, faComputer, faKey } from '@fortawesome/free-solid-svg-icons';
 import { faLinux, faWindows, faApple } from '@fortawesome/free-brands-svg-icons';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UsersService } from '../../core/_services/users/users.service';
@@ -12,6 +13,10 @@ import { UsersService } from '../../core/_services/users/users.service';
   templateUrl: './edit-agent.component.html'
 })
 export class EditAgentComponent implements OnInit {
+  editMode = false;
+  editedAgentIndex: number;
+  editedAgent: any // Change to Model
+
   isLoading = false;
   faAlignJustify=faAlignJustify;
   faIdBadge=faIdBadge;
@@ -23,6 +28,7 @@ export class EditAgentComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
+    private router: Router,
     private agentsService: AgentsService,
     private usersService: UsersService
   ) { }
@@ -33,18 +39,24 @@ export class EditAgentComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.editedAgentIndex = +params['id'];
+        this.editMode = params['id'] != null;
+        this.initForm();
+      }
+    );
+
     this.updateForm = new FormGroup({
-      'agentId': new FormControl(''),
       'isActive': new FormControl(''),
       'userId': new FormControl(''),
       'agentName': new FormControl(''),
-      'uid': new FormControl(''),
       'token': new FormControl(''),
       'cpuOnly': new FormControl(),
       'cmdPars': new FormControl(''),
       'ignoreErrors': new FormControl(''),
-      'isTrusted': new FormControl(''),
-      'assignment': new FormControl(''),
+      'isTrusted': new FormControl('')
     });
 
     this.isLoading = true;
@@ -63,7 +75,54 @@ export class EditAgentComponent implements OnInit {
   }
 
   onSubmit(){
+    if (this.updateForm.valid) {
 
+      this.isLoading = true;
+
+      this.agentsService.updateAgent(this.editedAgentIndex,this.updateForm.value).subscribe((agent: any) => {
+        const response = agent;
+        console.log(response);
+        this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "Agent updated!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.updateForm.reset(); // success, we reset form
+          this.router.navigate(['agents/show-agents']);
+        },
+        errorMessage => {
+          // check error status code is 500, if so, do some action
+          Swal.fire({
+            title: "Error!",
+            text: "Agent was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+        }
+      );
+    }
+  }
+
+  private initForm() {
+    this.isLoading = true;
+    if (this.editMode) {
+      this.agentsService.getAgent(this.editedAgentIndex).subscribe((result)=>{
+      this.updateForm = new FormGroup({
+        'isActive': new FormControl(result['isActive']),
+        'userId': new FormControl(result['userId']),
+        'agentName': new FormControl(result['agentName']),
+        'token': new FormControl(result['token']),
+        'cpuOnly': new FormControl(result['cpuOnly']),
+        'cmdPars': new FormControl(result['cmdPars']),
+        'ignoreErrors': new FormControl(result['ignoreErrors']),
+        'isTrusted': new FormControl(result['isTrusted'])
+      });
+      this.isLoading = false;
+    });
+   }
   }
 
 }

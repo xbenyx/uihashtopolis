@@ -101,7 +101,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
   }
 
   private initForm() {
-    // this.isLoading = true;
+    this.isLoading = true;
     if (this.editMode) {
     this.preTasksService.getPretask(this.editedPretaskIndex).subscribe((result)=>{
       this.pretask = result;
@@ -121,7 +121,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
         'isSmall': new FormControl(result['isSmall'], Validators.required),
         }),
       });
-      // this.isLoading = false;
+      this.isLoading = false;
     });
    }
   }
