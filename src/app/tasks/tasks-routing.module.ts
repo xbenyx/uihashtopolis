@@ -6,11 +6,13 @@ import { ShowTasksComponent } from "./show-tasks/show-tasks.component";
 import { NewTasksComponent } from "./new-tasks/new-tasks.component";
 import { PreconfiguredTasksComponent } from "./preconfigured-tasks/preconfigured-tasks.component";
 import { NewPreconfiguredTasksComponent } from "./new-preconfigured-tasks/new-preconfigured-tasks.component";
+import { EditPreconfiguredTasksComponent } from "./edit-preconfigured-tasks/edit-preconfigured-tasks.component";
 import { SupertasksComponent } from "./supertasks/supertasks.component";
 import { NewSupertasksComponent } from "./new-supertasks/new-supertasks.component";
 import { EditSupertasksComponent } from "./edit-supertasks/edit-supertasks.component";
 import { ImportSupertasksComponent } from "./import-supertasks/import-supertasks.component";
 import { ChunksComponent } from "./chunks/chunks.component";
+
 
 const routes: Routes = [
   {
@@ -49,8 +51,15 @@ const routes: Routes = [
           data: {
               kind: 'new-preconfigured-tasks',
               breadcrumb: 'New Preconfigured tasks'
-           },
-           canActivate: [AuthGuard]},
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'edit-preconfigured-tasks/:id/edit', component: EditPreconfiguredTasksComponent,
+          data: {
+              kind: 'edit-preconfigured-tasks',
+              breadcrumb: 'Edit Preconfigured tasks'
+          },
+          canActivate: [AuthGuard]},
         {
           path: 'supertasks', component: SupertasksComponent,
           data: {

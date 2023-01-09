@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { DataTableDirective } from 'angular-datatables';
+
+import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 
 @Component({
   selector: 'app-show-tasks',

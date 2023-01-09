@@ -14,7 +14,7 @@ import { CrackerService } from '../../core/_services/config/cracker.service';
 @Component({
   selector: 'app-new-tasks',
   templateUrl: './new-tasks.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class NewTasksComponent implements OnInit {
   public isCollapsed = true;
