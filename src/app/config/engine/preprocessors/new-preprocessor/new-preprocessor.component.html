@@ -11,26 +11,41 @@
                   <h2 class="h5 mb-4">Edit Preprocessor</h2><br>
                 </div>
               </div>
-              <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+              <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label requiredak" for="setname">Name</label>
-                          <input [(ngModel)]="prep['name']" type='text' name='name' title="name" class='form-control' id="name" formControlName="name">
+                          <input
+                                type='text'
+                                id="name"
+                                class='form-control'
+                                formControlName="name"
+                          >
                         </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label requiredak" for="setbinname">Binary Basename</label>
-                          <input [(ngModel)]="prep['binaryName']" type='text' name='Binname' title="binname" class='form-control' id="binname" formControlName="binaryName">
+                          <input
+                                type='text'
+                                id="binname"
+                                class='form-control'
+                                formControlName="binaryName"
+                          >
                         </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label requiredak" for="seturl">Download URL</label>
-                          <input [(ngModel)]="prep['url']" type='text' name='url' title="url" class='form-control' id="url" formControlName="url">
+                          <input
+                                type='text'
+                                id="url"
+                                class='form-control'
+                                formControlName="url"
+                          >
                         </div>
                       </div>
                       &nbsp;
@@ -38,13 +53,28 @@
                         <div class="form-outline">
                           <label class="form-label" for="seturl">Commands (set to empty if not available)</label>
                           <td>
-                            <input [(ngModel)]="prep['keyspaceCommand']" type="text" class="form-control" name="keyspaceCommand" formControlName="keyspaceCommand">
+                            <input
+                                  type="text"
+                                  id="keyspaceCommand"
+                                  class="form-control"
+                                  formControlName="keyspaceCommand"
+                            >
                           </td>
                           <td>
-                            <input [(ngModel)]="prep['skipCommand']" type="text" class="form-control" name="skipCommand" formControlName="skipCommand">
+                            <input
+                                  type="text"
+                                  id="skipCommand"
+                                  class="form-control"
+                                  formControlName="skipCommand"
+                            >
                           </td>
                           <td>
-                            <input [(ngModel)]="prep['limitCommand']" type="text" class="form-control" name="limitCommand" formControlName="limitCommand">
+                            <input
+                                  type="text"
+                                  id="limitCommand"
+                                  class="form-control"
+                                  formControlName="limitCommand"
+                            >
                           </td>
                         </div>
                       </div>

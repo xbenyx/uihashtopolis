@@ -8,17 +8,21 @@
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label" for="setname">Created</label>
-                          <div class='form-control'read>
-                            {{ healthc['time']*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}
-                          </div>
+                          <span class="pre input-group-text input-group-lg w-70 mx-auto">
+                            <td>
+                              {{ healthc['time']*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}
+                            </td>
+                          </span>
                         </div>
                       </div>
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label" for="setname">Status</label>
-                          <div class='form-control'read>
-                            {{ healthc['status'] | HCstatus | lowercase | titlecase }}
-                          </div>
+                          <span class="pre input-group-text input-group-lg w-70 mx-auto">
+                            <td>
+                              {{ healthc['status'] | HCstatus | lowercase | titlecase }}
+                            </td>
+                          </span>
                         </div>
                       </div>
                   </div>

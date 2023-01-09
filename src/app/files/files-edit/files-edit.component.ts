@@ -16,13 +16,18 @@ import { Filetype } from '../../core/_models/files';
   templateUrl: './files-edit.component.html'
 })
 export class FilesEditComponent implements OnInit {
+
+  editMode = false;
+  editedFileIndex: number;
+  editedFile: any // Change to Model
+
   isLoading = false;
 
   filterType: number
   whichView: string;
 
   // accessgroup: AccessGroup; //Use models when data structure is reliable
-  signupForm: FormGroup;
+  updateForm: FormGroup;
   accessgroup: any[]
   allfiles: any[]
   filetype: any[]
@@ -35,8 +40,17 @@ export class FilesEditComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.signupForm = new FormGroup({
-      'fileId': new FormControl(''),
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.editedFileIndex = +params['id'];
+        this.editMode = params['id'] != null;
+        this.initForm();
+      }
+    );
+
+    this.updateForm = new FormGroup({
+      'fileId': new FormControl({value: '', disabled: true}),
       'filename': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'fileType': new FormControl(null),
       'accessGroupId': new FormControl(null)
@@ -76,12 +90,12 @@ export class FilesEditComponent implements OnInit {
   }
 
   onSubmit(): void{
-    if (this.signupForm.valid) {
-    console.log(this.signupForm.value);
+    if (this.updateForm.valid) {
+    console.log(this.updateForm.value);
 
     this.isLoading = true;
 
-    this.filesService.updateFile(this.signupForm.value).subscribe((hl: any) => {
+    this.filesService.updateFile(this.updateForm.value).subscribe((hl: any) => {
       this.isLoading = false;
       Swal.fire({
         title: "Great!",
@@ -120,8 +134,23 @@ export class FilesEditComponent implements OnInit {
       this.ngOnInit();
     }
   );
-  this.signupForm.reset(); // success, we reset form
+  this.updateForm.reset(); // success, we reset form
   }
+}
+
+private initForm() {
+  this.isLoading = true;
+  if (this.editMode) {
+  this.filesService.getFile(this.editedFileIndex).subscribe((result)=>{
+    this.updateForm = new FormGroup({
+      'fileId': new FormControl(result['fileId'], Validators.required),
+      'filename': new FormControl(result['filename'], Validators.required),
+      'fileType': new FormControl(result['fileType'], Validators.required),
+      'accessGroupId': new FormControl(result['accessGroupId'], Validators.required),
+    });
+    this.isLoading = false;
+  });
+ }
 }
 
 }

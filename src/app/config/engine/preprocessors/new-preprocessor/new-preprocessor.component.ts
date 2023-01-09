@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { PreprocessorService } from '../../../../core/_services/config/preprocessors.service';
@@ -10,6 +10,11 @@ import { PreprocessorService } from '../../../../core/_services/config/preproces
   templateUrl: './new-preprocessor.component.html'
 })
 export class NewPreprocessorComponent implements OnInit {
+
+  editMode = false;
+  editedPreprocessorIndex: number;
+  Preprocessor: any // Change to Model
+
   // Loader
   isLoading = false;
 
@@ -20,21 +25,30 @@ export class NewPreprocessorComponent implements OnInit {
   ) { }
 
   // Create or Edit Preprocessor
-  signupForm: FormGroup;
   whichView: string;
 
   prep: any[];
 
+  updateForm = new FormGroup({
+    'name': new FormControl(''),
+    'url': new FormControl(''),
+    'binaryName': new FormControl(''),
+    'keyspaceCommand': new FormControl('--keyspace' || ''),
+    'skipCommand': new FormControl('--skip' || ''),
+    'limitCommand': new FormControl('--limit' || '')
+  });
+
+
   ngOnInit(): void {
 
-    this.signupForm = new FormGroup({
-      'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      'url': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      'binaryName': new FormControl('', [Validators.required]),
-      'keyspaceCommand': new FormControl('--keyspace' || null),
-      'skipCommand': new FormControl('--skip' || null),
-      'limitCommand': new FormControl('--limit' || null)
-    });
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.editedPreprocessorIndex = +params['id'];
+        this.editMode = params['id'] != null;
+        this.initForm();
+      }
+    );
 
     this.route.data.subscribe(data => {
       switch (data['kind']) {
@@ -60,14 +74,14 @@ export class NewPreprocessorComponent implements OnInit {
   }
   swap:any
   onSubmit(): void{
-    if (this.signupForm.valid) {
+    if (this.updateForm.valid) {
 
       this.isLoading = true;
 
       switch (this.whichView) {
 
         case 'create':
-          this.preprocessorService.createPreprocessor(this.signupForm.value)
+          this.preprocessorService.createPreprocessor(this.updateForm.value)
           .subscribe((prep: any) => {
             const response = prep;
             console.log(response);
@@ -95,7 +109,7 @@ export class NewPreprocessorComponent implements OnInit {
 
         case 'edit':
           const id = +this.route.snapshot.params['id'];
-          this.preprocessorService.updateHashType(id,this.signupForm.value)
+          this.preprocessorService.updateHashType(id,this.updateForm.value)
           .subscribe((prep: any) => {
             const response = prep;
             console.log(response);
@@ -126,4 +140,22 @@ export class NewPreprocessorComponent implements OnInit {
 
   }
 
+  private initForm() {
+    this.isLoading = true;
+    if (this.editMode) {
+    this.preprocessorService.getPreprocessor(this.editedPreprocessorIndex).subscribe((result)=>{
+      this.updateForm = new FormGroup({
+        'name': new FormControl(result['name'], [Validators.required, Validators.minLength(1)]),
+        'url': new FormControl(result['url'], [Validators.required, Validators.minLength(1)]),
+        'keyspaceCommand': new FormControl(result['keyspaceCommand'], Validators.required),
+        'binaryName': new FormControl(result['binaryName'], Validators.required),
+        'skipCommand': new FormControl(result['skipCommand'], Validators.required),
+        'limitCommand': new FormControl(result['limitCommand'], Validators.required),
+      });
+      this.isLoading = false;
+    });
+   }
+  }
+
 }
+

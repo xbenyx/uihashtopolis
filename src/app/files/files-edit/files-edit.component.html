@@ -8,27 +8,42 @@
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
                   <h2 class="h5 mb-4">Edit</h2><br>
-                    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                       <div class="row">
                           <div class="form-group">
                               <div class="form-outline">
-                                <label class="form-label" for="getfileid">File ID</label>
-                                <input  [(ngModel)]="allfiles['fileId']" type='number' name='fileId' title="File ID" class='form-control' id="fileId" readonly formControlName="fileId">
+                                <label class="form-label" for="getfileid">ID</label>
+                                <input
+                                       type='number'
+                                       id="fileId"
+                                       class='form-control'
+                                       formControlName="fileId"
+                                >
                               </div>
                           </div>
                           &nbsp;
                           <div class="form-group">
                               <div class="form-outline">
                                 <label class="form-label" for="getfilename">Name</label>
-                                <input  [(ngModel)]="allfiles['filename']" type='text' name='filename' title="File Name" class='form-control' id="filename" formControlName="filename">
+                                <input
+                                      type='text'
+                                      id="filename"
+                                      class='form-control'
+                                      formControlName="filename"
+                                >
                               </div>
                           </div>
                           &nbsp;
                           <div class="form-group">
                               <div class="form-outline">
                                 <label class="form-label" for="getfiletype">File Type</label>
-                                <select [(ngModel)]="allfiles['fileType']" type='number' class='form-select' id='filetype' name="filetype" title="File Type" formControlName="fileType">
-                                    <option *ngFor="let f of filetype" [value]="f.fileType">{{ f.fileName }}</option>
+                                <select
+                                       type='number'
+                                       id='filetype'
+                                       class='form-select'
+                                       formControlName="fileType"
+                                    >
+                                    <option *ngFor="let f of filetype" [ngValue]="f.fileType">{{ f.fileName }}</option>
                                 </select>
                               </div>
                           </div>
@@ -36,8 +51,13 @@
                           <div class="form-group">
                               <div class="form-outline">
                                 <label class="form-label" for="getaccessgroup">Access group</label>
-                                <select [(ngModel)]="allfiles['accessGroupId']" type='number' class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
-                                  <option *ngFor="let a of accessgroup"  [value]="a.accessGroupId">{{ a.groupName }}</option>
+                                <select
+                                       type='number'
+                                       id='accessgroup'
+                                       class='form-select'
+                                       formControlName="accessGroupId"
+                                    >
+                                    <option *ngFor="let a of accessgroup"  [ngValue]="a.accessGroupId">{{ a.groupName }}</option>
                                 </select>
                               </div>
                           </div>
