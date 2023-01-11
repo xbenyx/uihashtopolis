@@ -19,6 +19,7 @@ import { NewTasksComponent } from "./new-tasks/new-tasks.component";
 import { PreconfiguredTasksComponent } from "./preconfigured-tasks/preconfigured-tasks.component";
 import { EditSupertasksComponent } from './edit-supertasks/edit-supertasks.component';
 import { EditPreconfiguredTasksComponent } from './edit-preconfigured-tasks/edit-preconfigured-tasks.component';
+import { EditTasksComponent } from './edit-tasks/edit-tasks.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { EditPreconfiguredTasksComponent } from './edit-preconfigured-tasks/edit
     ImportSupertasksComponent,
     ChunksComponent,
     EditSupertasksComponent,
-    EditPreconfiguredTasksComponent
+    EditPreconfiguredTasksComponent,
+    EditTasksComponent
   ],
   imports:[
     CommonModule,

@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 
 @Component({
   selector: 'app-hashlist',
@@ -48,7 +49,8 @@ export class HashlistComponent implements OnInit, OnDestroy {
     hashType: {description: string, hashTypeId: number, isSalted: string, isSlowHash: string}
   }[] = []; // Should be in models, Todo when data structure is confirmed
 
-  constructor(private listsService: ListsService,
+  constructor(
+    private listsService: ListsService,
     private route:ActivatedRoute
     ) { }
 

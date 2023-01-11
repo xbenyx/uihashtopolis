@@ -39,7 +39,7 @@
                   <th>Dispatched/Searched</th>
                   <th>Cracked</th>
                   <th>Agents</th>
-                  <th>Task Priority</th>
+                  <th>Priority</th>
                   <th>Max Agents</th>
                   <th>Action</th>
               </tr>
@@ -81,6 +81,8 @@
                        <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
                         <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
                        </a>
+                      </td>
+                      <td>
                         <a class='btn-outline-gray-600 float-right' (click)="onArchive(task.taskId)" data-toggle="tooltip" data-placement="top" title="Archive">
                            <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
                         </a>
@@ -100,6 +102,8 @@
                         <a class='btn-outline-gray-600 float-right' [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
                           <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>
                         </a>
+                      </td>
+                      <td>
                         <a class='btn-outline-gray-600 float-right' (click)="onDelete(task.taskId)" data-toggle="tooltip" data-placement="top" title="Delete">
                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                         </a>

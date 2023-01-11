@@ -52,7 +52,7 @@
                       <a>{{ list.hashCount }}</a>)
                   </td>
                   <td>
-                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Import Hashlist">
+                    <a class='btn-outline-gray-600 float-right' [routerLink]="['/hashlists',list.hashlistId,'copy']" data-toggle="tooltip" data-placement="top" title="Import Hashlist">
                       <fa-icon [icon]="faFileExport" aria-hidden="true"></fa-icon>
                    </a>
                    <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Export Hashlist">
@@ -60,7 +60,7 @@
                    </a>
                   </td>
                   <td>
-                   <a class='btn-outline-gray-600 float-right' [routerLink]="['/list',list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                   <a class='btn-outline-gray-600 float-right' [routerLink]="[list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
                       <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
                    </a>
                    <a class='btn-outline-gray-600 float-right' (click)="onArchive(list.hashlistId)" data-toggle="tooltip" data-placement="top" title="Archive">

@@ -4,10 +4,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HashlistComponent } from "./hashlist/hashlist.component";
 import { NewHashlistComponent } from "./new-hashlist/new-hashlist.component";
+import { EditHashlistComponent } from "./edit-hashlist/edit-hashlist.component";
 import { SuperhashlistComponent } from "./superhashlist/superhashlist.component";
 import { NewSuperhashlistComponent } from "./new-superhashlist/new-superhashlist.component";
 import { SearchHashComponent } from "./search-hash/search-hash.component";
 import { ShowCracksComponent } from "./show-cracks/show-cracks.component";
+
 
 const routes: Routes = [
   {
@@ -25,6 +27,13 @@ const routes: Routes = [
         data: {
             kind: 'archived',
             breadcrumb: 'Hashlist Archived'
+        },
+        canActivate: [AuthGuard]},
+      {
+        path: 'hashlist/:id/edit', component: EditHashlistComponent,
+        data: {
+            kind: 'edit-hashlist',
+            breadcrumb: 'Edit Hashlist'
         },
         canActivate: [AuthGuard]},
       {

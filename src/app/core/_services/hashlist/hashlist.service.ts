@@ -36,6 +36,14 @@ export class ListsService {
     );
   }
 
+  getHashlist(id: number):Observable<any> {
+    return this.http.get(`${this.endpoint}/${id}`)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   deleteHashlist(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(

@@ -27,12 +27,14 @@ export class NewSupertasksComponent implements OnInit {
 
   createForm: FormGroup;
   private maxResults = environment.config.prodApiMaxResults
+  formArr: FormArray;
 
   ngOnInit(): void {
 
+
     this.createForm = new FormGroup({
-      supertaskName: new FormControl('', [Validators.required]),
-      pretasks: new FormControl('')
+      supertaskName: new FormControl(''),
+      pretasks: new FormControl(''),
     });
 
     let params = {'maxResults': this.maxResults}

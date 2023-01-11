@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 
 import { ShowTasksComponent } from "./show-tasks/show-tasks.component";
+import { EditTasksComponent } from "./edit-tasks/edit-tasks.component";
 import { NewTasksComponent } from "./new-tasks/new-tasks.component";
 import { PreconfiguredTasksComponent } from "./preconfigured-tasks/preconfigured-tasks.component";
 import { NewPreconfiguredTasksComponent } from "./new-preconfigured-tasks/new-preconfigured-tasks.component";
@@ -30,6 +31,13 @@ const routes: Routes = [
           data: {
               kind: 'show-tasks-archived',
               breadcrumb: 'Show Archived Tasks'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'show-tasks/:id/edit', component: EditTasksComponent,
+          data: {
+              kind: 'edit-task',
+              breadcrumb: 'Edit Task'
           },
           canActivate: [AuthGuard]},
         {
