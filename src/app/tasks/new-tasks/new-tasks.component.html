@@ -30,23 +30,38 @@
                   <div class="row">
                       <div class="form-group">
                           <div class="form-outline">
-                              <label class="form-label requiredak" for="getname" >Name</label>
-                              <input  type='text' name='taskname' title="taskname" class='form-control' id="taskname" formControlName="taskName">
+                              <label class="form-label requiredak" for="getname">Name</label>
+                              <input
+                                    type='text'
+                                    id="taskname"
+                                    class='form-control'
+                                    formControlName="taskName"
+                              >
                           </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                             <label class="form-label" for="getTasknotes">Task notes</label>
-                            <input  type='text' name='tasknotes' title="tasknotes" class='form-control' id="tasknotes" formControlName="notes">
+                            <input
+                                  type='text'
+                                  id="tasknotes"
+                                  class='form-control'
+                                  formControlName="notes"
+                            >
                         </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label requiredak" for="gethashtype">Hashlist</label>
-                            <select  class='form-select' id='hashlistname' name="hashlistname" title="Access Group" formControlName="hashlistname">
-                              <option *ngFor="let ah of allhashlists" [value]="ah.hashlistId">{{ ah.name }}</option>
+                            <label class="form-label requiredak" for="gethashlistId">Hashlist</label>
+                            <select
+                                   type='number'
+                                   id='hashlistId'
+                                   class='form-select'
+                                   formControlName="hashlistId"
+                                >
+                                <option *ngFor="let ah of allhashlists" [ngValue]="ah.hashlistId">{{ ah.name }}</option>
                             </select>
                         </div>
                       </div>
@@ -54,21 +69,38 @@
                       <div class="form-group">
                         <div class="form-outline">
                             <label class="form-label requiredak" for="getattackCmd">Command line</label>
-                            <input  type='text' name='attackCmd' title="AttackCmd" class='form-control' id="attackCmd" formControlName="attackCmd">
+                            <input
+                                  type='text'
+                                  id="attackCmd"
+                                  class='form-control'
+                                  formControlName="attackCmd"
+                            >
                         </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                             <label class="form-label requiredak" for="getpriority">Priority</label>
-                            <input  type='number' name='priority' title="Priority" class='form-control' id="priority" formControlName="priority" validateInputNumber>
+                            <input
+                                  type='number'
+                                  id="priority"
+                                  class='form-control'
+                                  formControlName="priority"
+                                  validateInputNumber
+                            >
                         </div>
                       </div>
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                             <label class="form-label" for="getmaxAgents">Max. number of agents</label>
-                            <input  type='number' name='maxAgents' title="maxAgents" class='form-control' id="maxAgents" formControlName="maxAgents">
+                            <input
+                                  type='number'
+                                  id="maxAgents"
+                                  class='form-control'
+                                  formControlName="maxAgents"
+                                  validateInputNumber
+                            >
                         </div>
                       </div>
                       &nbsp;
@@ -96,21 +128,41 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getchunkTime">Chunk size (seconds)</label>
-                                  <input  type='number' name='chunkTime' title="chunkTime" class='form-control' id="chunkTime" formControlName="chunkTime">
+                                  <input
+                                        type='number'
+                                        id="chunkTime"
+                                        class='form-control'
+                                        formControlName="chunkTime"
+                                        validateInputNumber
+                                  >
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getStatusTimer">Status timer (seconds)</label>
-                                  <input  type='number' name='statusTimer' title="statusTimer" class='form-control' id="statusTimer" formControlName="statusTimer">
+                                  <input
+                                        type='number'
+                                        id="statusTimer"
+                                        class='form-control'
+                                        formControlName="statusTimer"
+                                        validateInputNumber
+                                  >
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getuseNewBench">Benchmark Type (Hashcat only)</label>
-                                  <input  type='text' name='useNewBench' title="useNewBench" class='form-control' id="useNewBench" formControlName="useNewBench">
+                                  <select
+                                        type='number'
+                                        id="useNewBench"
+                                        class='form-control'
+                                        formControlName="useNewBench"
+                                  >
+                                    <option [ngValue]="false">Runtime Benchmark</option>
+                                    <option [ngValue]="true" [defaultSelected]=true>Speed Test</option>
+                                  </select>
                               </div>
                             </div>
                             &nbsp;
@@ -118,9 +170,13 @@
                               <div class="form-outline">
                                 <label for="getisCpuTask">Task is CPU only (gets only CPU agents assigned)</label>
                                 <td>
-                                <select class='form-select' id='isCpuTask' name="isCpuTask" title="isCpuTask" formControlName="isCpuTask">
-                                  <option value="false" [defaultSelected]=true>No</option>
-                                  <option value="true">Yes</option>
+                                <select
+                                       id='isCpuTask'
+                                       class='form-select'
+                                       formControlName="isCpuTask"
+                                     >
+                                    <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                    <option [ngValue]="true">Yes</option>
                                 </select>
                               </div>
                             </div>
@@ -129,9 +185,13 @@
                               <div class="form-outline">
                                 <label for="getisSmall">Task is small (only one agent gets assigned to it)</label>
                                 <td>
-                                <select class='form-select' id='isSmall' name="isSmall" title="isSmall" formControlName="isSmall">
-                                  <option value="false" [defaultSelected]=true>No</option>
-                                  <option value="true">Yes</option>
+                                <select
+                                       id='isSmall'
+                                       class='form-select'
+                                       formControlName="isSmall"
+                                    >
+                                    <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                    <option [ngValue]="true">Yes</option>
                                 </select>
                               </div>
                             </div>
@@ -140,14 +200,15 @@
                               <div class="form-outline">
                                 <label for="getcrackerBinaryId">Binary type to run task</label>
                                 <td>
-                                <select class='form-select'
+                                <select
+                                        type='number'
                                         id='crackerBinaryId'
-                                        name="crackerBinaryId"
-                                        title="crackerBinaryId"
+                                        class='form-select'
                                         #myBinary
                                         (change)="onChangeBinary(myBinary.value)"
                                         formControlName="crackerBinaryId">
-                                  <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
+                                  <option
+                                        *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
                                 </select>
                               </div>
                             </div>
@@ -156,9 +217,18 @@
                               <div class="form-outline">
                                 <label for="getcrackerBinaryId">Binary type version</label>
                                 <td>
-                                <select class='form-select' id='crackerBinaryTypeId' name="crackerBinaryTypeId" title="crackerBinaryTypeId" formControlName="crackerBinaryTypeId">
-                                  <option value="" disabled="true">--<option>
-                                  <option *ngFor="let cv of crackerversions" [value]="cv.crackerBinaryId" type="number">{{ cv.version }}</option>
+                                <select
+                                       type='number'
+                                       id='crackerBinaryTypeId'
+                                       class='form-select'
+                                       formControlName="crackerBinaryTypeId"
+                                    >
+                                    <option [ngValue]=""  disabled="true">--<option>
+                                    <option *ngFor="let cv of crackerversions; let i = index"
+                                    [ngValue]="cv.crackerBinaryId"
+                                    type="number"
+                                    [attr.selected]='i>0 ? "selected" : null'
+                                    >{{ cv.version }}</option>
                                 </select>
                               </div>
                             </div>
@@ -166,8 +236,14 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getusePreprocessor">Set as preprocessor task</label>
-                                  <select  class='form-select' id='usePreprocessor' name="usePreprocessor" title="usePreprocessor" formControlName="usePreprocessor">
-                                    <option *ngFor="let p of prep" [value]="p.preprocessorId">{{ p.name }}</option>
+                                  <select
+                                         type='number'
+                                         id='usePreprocessor'
+                                         class='form-select'
+                                         formControlName="usePreprocessor"
+                                      >
+                                      <option [ngValue]="0" [defaultSelected]=true>No</option>
+                                      <option *ngFor="let p of prep" [ngValue]="p.preprocessorId">{{ p.name }}</option>
                                   </select>
                               </div>
                             </div>
@@ -175,14 +251,25 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getPreprocessorCommand">Preprocessor command</label>
-                                  <input  type='text' name='preprocessorCommand' title="preprocessorCommand" class='form-control' id="preprocessorCommand" formControlName="preprocessorCommand">
+                                  <input
+                                        type='text'
+                                        id="preprocessorCommand"
+                                        class='form-control'
+                                        formControlName="preprocessorCommand"
+                                  >
                               </div>
                             </div>
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getskipKeyspace">Skip a given keyspace at the beginning of the task</label>
-                                  <input  type='number' name='skipKeyspace' title="skipKeyspace" class='form-control' id="skipKeyspace" formControlName="skipKeyspace">
+                                  <input
+                                        type='number'
+                                        id="skipKeyspace"
+                                        class='form-control'
+                                        formControlName="skipKeyspace"
+                                        validateInputNumber
+                                  >
                               </div>
                             </div>
                             &nbsp;
@@ -190,9 +277,15 @@
                               <div class="form-outline">
                                   <label class="form-label" for="getStaticChunks">Use static chunking</label>
                                   <td>
-                                  <select class='form-select' id='staticChunks' name="staticChunks" title="staticChunks" formControlName="staticChunks">
-                                    <option value="false" [defaultSelected]=true>No</option>
-                                    <option value="true">Yes</option>
+                                  <select
+                                         type='number'
+                                         id='staticChunks'
+                                         class='form-select'
+                                         formControlName="staticChunks"
+                                      >
+                                      <option [ngValue]="0" [defaultSelected]=true>No</option>
+                                      <option [ngValue]="1">Fixed Chunk Size</option>
+                                      <option [ngValue]="2">Fixed number of chunks</option>
                                   </select>
                               </div>
                             </div>
@@ -200,7 +293,13 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getchunkSize">if yes, chunk size:</label>
-                                  <input  type='number' name='chunkSize' title="chunkSize" class='form-control' id="chunkSize" formControlName="chunkSize">
+                                  <input
+                                        type='number'
+                                        id="chunkSize"
+                                        class='form-control'
+                                        formControlName="chunkSize"
+                                        validateInputNumber
+                                  >
                               </div>
                             </div>
                             &nbsp;
@@ -208,9 +307,13 @@
                               <div class="form-outline">
                                   <label class="form-label" for="getforcePipe">Enforce piping task (to apply rules before reject)</label>
                                   <td>
-                                  <select class='form-select' id='forcePipe' name="forcePipe" title="forcePipe" formControlName="forcePipe">
-                                    <option value="false" [defaultSelected]=true>No</option>
-                                    <option value="true">Yes</option>
+                                  <select
+                                        class='form-select'
+                                        id='forcePipe'
+                                        formControlName="forcePipe"
+                                      >
+                                      <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                      <option [ngValue]="true">Yes</option>
                                   </select>
                               </div>
                             </div>

@@ -111,14 +111,14 @@ export class EditPreconfiguredTasksComponent implements OnInit{
         'statusTimer': new FormControl(result['statusTimer'], Validators.required),
         'useNewBench': new FormControl(result['useNewBench'], Validators.required),
         'updateData': new FormGroup({
-        'taskName': new FormControl(result['taskName'], Validators.required),
-        'attackCmd': new FormControl(result['attackCmd'], Validators.required),
-        'chunkTime': new FormControl(result['chunkTime'], Validators.required),
-        'color': new FormControl(result['color'], Validators.required),
-        'priority': new FormControl(result['priority'], Validators.required),
-        'maxAgents': new FormControl(result['maxAgents'], Validators.required),
-        'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
-        'isSmall': new FormControl(result['isSmall'], Validators.required),
+          'taskName': new FormControl(result['taskName'], Validators.required),
+          'attackCmd': new FormControl(result['attackCmd'], Validators.required),
+          'chunkTime': new FormControl(result['chunkTime'], Validators.required),
+          'color': new FormControl(result['color'], Validators.required),
+          'priority': new FormControl(result['priority'], Validators.required),
+          'maxAgents': new FormControl(result['maxAgents'], Validators.required),
+          'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
+          'isSmall': new FormControl(result['isSmall'], Validators.required),
         }),
       });
       this.isLoading = false;

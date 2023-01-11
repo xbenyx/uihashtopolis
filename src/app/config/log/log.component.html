@@ -23,7 +23,7 @@
                     <tr *ngFor="let l of logs" [ngStyle]="{'background-color':l.level | warningColor }">
                         <td class="text-align:center">{{ l.logEntryId }}</td>
                         <td>{{ l.time*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}</td>
-                        <td>{{ l.level }}</td>
+                        <td>{{ l.level | lowercase | titlecase }}</td>
                         <td>{{ l.issuer }}-ID-{{ l.issuerId }}</td>
                         <td>{{ l.message }}</td>
                     </tr>

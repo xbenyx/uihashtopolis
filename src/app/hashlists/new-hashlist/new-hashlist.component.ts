@@ -177,9 +177,6 @@ export class NewHashlistComponent implements OnInit {
     $('.fileuploadspan').text('Size: '+fileSizeValue(this.fileToUpload.size));
   }
 
-
-
-
   /**
    * Create Hashlist
    *

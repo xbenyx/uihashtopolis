@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
+import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 
 @Component({
   selector: 'app-new-tasks',
@@ -17,6 +18,15 @@ import { CrackerService } from '../../core/_services/config/cracker.service';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class NewTasksComponent implements OnInit {
+  // Loader
+  isLoading = false;
+  // Config
+  private priority = environment.config.tasks.priority;
+  private maxAgents = environment.config.tasks.maxAgents;
+  private chunkTime = environment.config.tasks.chunkTime;
+  private statusTimer = environment.config.tasks.statusTimer;
+  private chunkSize = environment.config.tasks.chunkSize;
+
   public isCollapsed = true;
   faHome=faHomeAlt;
   faPlus=faPlus;
@@ -33,6 +43,7 @@ export class NewTasksComponent implements OnInit {
   createForm: FormGroup
 
   constructor(
+    private taskService: TasksService,
     private listsService:ListsService,
     private preprocessorService:PreprocessorService,
     private crackerService: CrackerService,
@@ -50,8 +61,12 @@ export class NewTasksComponent implements OnInit {
       this.allhashlists = list.values;
     });
 
+    let params_crack = {'filter': 'crackerBinaryTypeId=1'};
     this.crackerService.getCrackerType().subscribe((crackers: any) => {
       this.crackertype = crackers.values;
+    });
+    this.crackerService.getCrackerBinaries(params_crack).subscribe((crackers: any) => {
+      this.crackerversions = crackers.values;
     });
 
     this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
@@ -60,23 +75,26 @@ export class NewTasksComponent implements OnInit {
 
     this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl('', [Validators.required]),
-      'chunkTime': new FormControl(null || 600),
-      'statusTimer': new FormControl(null || 5),
-      'priority': new FormControl(null || 0,[Validators.required, Validators.pattern("^[0-9]*$")]),
-      'maxAgents': new FormControl(null || 0 ),
-      'color': new FormControl(''),
-      'isCpuTask': new FormControl(''),
-      'skipKeyspace': new FormControl(null || 0,[Validators.required, Validators.pattern("^[0-9]*$")]),
-      'crackerBinaryId': new FormControl(''),
-      "crackerBinaryTypeId": new FormControl(''),
-      "isArchived": new FormControl(''),
       'notes': new FormControl(''),
-      'staticChunks': new FormControl(''),
-      'chunkSize': new FormControl(null || 600),
-      'forcePipe': new FormControl(''),
-      'usePreprocessor': new FormControl(''),
+      'hashlistId': new FormControl('', [Validators.required]),
+      'attackCmd': new FormControl('', [Validators.required]),
+      'priority': new FormControl(null || this.priority,[Validators.required, Validators.pattern("^[0-9]*$")]),
+      'maxAgents': new FormControl(null || this.maxAgents),
+      'chunkTime': new FormControl(null || this.chunkTime),
+      'statusTimer': new FormControl(null || this.statusTimer),
+      'color': new FormControl(''),
+      'isCpuTask': new FormControl(null || false),
+      'skipKeyspace': new FormControl(null || 0),
+      'crackerBinaryId': new FormControl(null || 1),
+      "crackerBinaryTypeId": new FormControl(),
+      "isArchived": new FormControl(false),
+      'staticChunks': new FormControl(null || 0),
+      'chunkSize': new FormControl(null || this.chunkSize),
+      'forcePipe': new FormControl(null || false),
+      'usePreprocessor': new FormControl(null || 0),
       'preprocessorCommand': new FormControl(''),
+      'isSmall': new FormControl(null || false),
+      'useNewBench': new FormControl(null || true)
     });
 
   }
@@ -90,13 +108,40 @@ export class NewTasksComponent implements OnInit {
 
   onChangeBinary(id: string){
     let params = {'filter': 'crackerBinaryTypeId='+id+''};
-    this.crackerService.getCrackerBinary(params).subscribe((crackers: any) => {
+    this.crackerService.getCrackerBinaries(params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
     });
   }
 
   onSubmit(){
+    if (this.createForm.valid) {
 
+      this.isLoading = true;
+
+      this.taskService.createTask(this.createForm.value).subscribe((hasht: any) => {
+        const response = hasht;
+        console.log(response);
+        this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "New Task created!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.createForm.reset(); // success, we reset form
+        },
+        errorMessage => {
+          // check error status code is 500, if so, do some action
+          Swal.fire({
+            title: "Error!",
+            text: "Task was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+        }
+      );
+    }
   }
 
 

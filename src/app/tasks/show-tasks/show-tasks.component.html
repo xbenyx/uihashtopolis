@@ -50,11 +50,11 @@
                       <a>{{ task.taskId }}</a>
                   </td>
                   <td>
-                      <a>{{ task.taskName }}</a>
+                      <a>{{ task.taskName | lowercase | titlecase }}</a>
                       <span *ngIf="task.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
                   </td>
                   <td>
-                    <a>{{ task.crackerBinary.binaryName }}</a>
+                    <a>{{ task.crackerBinary.binaryName | lowercase | titlecase }}</a>
                   </td>
                   <td>{{ task.keyspace }}/ {{ task.keyspaceProgress }} </td>
                   <td>

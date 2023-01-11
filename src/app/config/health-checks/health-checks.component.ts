@@ -107,7 +107,7 @@ export class HealthChecksComponent implements OnInit {
 
   onChangeBinary(id: string){
     let params = {'filter': 'crackerBinaryTypeId='+id+''};
-    this.crackerService.getCrackerBinary(params).subscribe((crackers: any) => {
+    this.crackerService.getCrackerBinaries(params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
     });
   }

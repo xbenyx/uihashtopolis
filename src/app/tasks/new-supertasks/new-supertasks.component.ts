@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { faFile, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
+import { SuperTasksService } from 'src/app/core/_services/tasks/supertasks.sevice';
 
 @Component({
   selector: 'app-new-supertasks',
-  templateUrl: './new-supertasks.component.html'
+  templateUrl: './new-supertasks.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewSupertasksComponent implements OnInit {
   isLoading = false;
@@ -13,32 +19,41 @@ export class NewSupertasksComponent implements OnInit {
   faMagnifyingGlass=faMagnifyingGlass;
 
   constructor(
-    private tasksService: TasksService
+    private pretasksService: PreTasksService,
+    private supertaskService: SuperTasksService,
+    private router: Router,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
+  createForm: FormGroup;
   private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults }
+    this.createForm = new FormGroup({
+      supertaskName: new FormControl('', [Validators.required]),
+      pretasks: new FormControl('')
+    });
 
-    this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
+    let params = {'maxResults': this.maxResults}
+
+    this.pretasksService.getAllPretasks(params).subscribe((tasks: any) => {
       var self = this;
       var response = tasks.values;
-      ($("#Tasks") as any).selectize({
+      ($("#preTasks") as any).selectize({
         maxItems: null,
-        valueField: "taskId",
+        valueField: "pretaskId",
         placeholder: "Search task...",
         labelField: "taskName",
         searchField: ["taskName"],
         loadingClass: 'Loading..',
         highlight: true,
         onChange: function (value) {
-            // self.OnChangeValue(value); // We need to overide DOM event, Angular vs Jquery
+            self.OnChangeValue(value); // We need to overide DOM event, Angular vs Jquery
         },
         render: {
           option: function (item, escape) {
-            return '<div  class="hashtype_selectize">' + escape(item.taskId) + ' -  ' + escape(item.taskName) + '</div>';
+            return '<div  class="hashtype_selectize">' + escape(item.pretaskId) + ' -  ' + escape(item.taskName) + '</div>';
           },
         },
         onInitialize: function(){
@@ -52,6 +67,51 @@ export class NewSupertasksComponent implements OnInit {
           }
           });
         });
+  }
+
+  OnChangeValue(value){
+    let formArr = new FormArray([]);
+    for (let val of value) {
+      formArr.push(
+        new FormControl(+val)
+      );
+    }
+    this.createForm = new FormGroup({
+      supertaskName: new FormControl('', [Validators.required]),
+      pretasks: formArr
+    });
+    this._changeDetectorRef.detectChanges();
+  }
+
+  onSubmit(){
+    if (this.createForm.valid) {
+
+      this.isLoading = true;
+
+      this.supertaskService.createSupertask(this.createForm.value).subscribe((hasht: any) => {
+        const response = hasht;
+        this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "New Supertask created!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.createForm.reset(); // success, we reset form
+          this.router.navigate(['tasks/supertasks']);
+        },
+        errorMessage => {
+          // check error status code is 500, if so, do some action
+          Swal.fire({
+            title: "Error!",
+            text: "Supertask was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+        }
+      );
+    }
   }
 
 }

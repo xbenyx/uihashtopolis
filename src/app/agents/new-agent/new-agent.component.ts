@@ -63,7 +63,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       this.vouchers = vouchers.values;
     });
 
-    this.crackerService.getCrackerBinary().subscribe((binary: any) => {
+    this.crackerService.getCrackerBinaries().subscribe((binary: any) => {
       this.crackerbinary = binary;
       this.dtTrigger.next(void 0);
     });

@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG = {
   header: {
     brand: {
       logo: 'assets/img/logo.png',
-      name: 'Hashtopoli',
+      name: 'Hashtopolis',
       height: '40',
       width: '44'
     },
@@ -31,6 +31,14 @@ export const DEFAULT_CONFIG = {
       link: '',
       name: 'Help'
     }
+  },
+  tasks:{
+    priority: 0,
+    maxAgents: 0,
+    chunkTime: 600,
+    chunkSize: 0,
+    statusTimer: 5,
+
   },
   // File settings
   chunkSizeTUS: 5000,

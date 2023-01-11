@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../core/_services/users/users.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCalendar,faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -12,6 +12,10 @@ import { User } from '../user.model';
   templateUrl: './edit-users.component.html'
 })
 export class EditUsersComponent implements OnInit {
+  editMode = false;
+  editedUserIndex: number;
+  editedUser: any // Change to Model
+
   faCalendar=faCalendar;
   faLock=faLock;
   faUser=faUser;
@@ -25,30 +29,39 @@ export class EditUsersComponent implements OnInit {
 
   user: any[];
 
-  updateForm: FormGroup;  // We need to add validation to the form
-
   allowEdit = false;
 
   constructor(
     private usersService: UsersService,
-    private route:ActivatedRoute) { }
+    private route:ActivatedRoute,
+    private router: Router,
+    ) { }
+
+  updateForm = new FormGroup({
+      'userid': new FormControl({value: '', disabled: true}),
+      'username': new FormControl({value: '', disabled: true}),
+      'email': new FormControl({value: '', disabled: true}),
+      'registered': new FormControl({value: '', disabled: true}),
+      'lastLogin': new FormControl({value: '', disabled: true}),
+      'groups': new FormControl({value: '', disabled: true}),
+      'updateData': new FormGroup({
+        'rightGroupId': new FormControl(''),
+        'setPassword': new FormControl(''),
+        'isValid': new FormControl('')
+      })
+  });
 
   ngOnInit(): void {
-    // console.log(this.route.snapshot.queryParams); // We can use this for authentification
-    // this.route.queryParams.subscribe();
 
-    // this.route.queryParams
-    //   .subscribe(
-    //     // (queryParams: Params) => {
-    //     //   this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
-    //     // }
-    //   )
-
-    this.updateForm = new FormGroup({
-      'rightGroup': new FormControl(null),
-      'setPassword': new FormControl(null),
-      'isValid': new FormControl(true || null)
-    });
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.editedUserIndex = +params['id'];
+        this.editMode = params['id'] != null;
+        this.allowEdit = params['allowEdit'] === '1' ? true : false;
+        this.initForm();
+      }
+    );
 
     this.isLoading = true;
 
@@ -120,6 +133,60 @@ export class EditUsersComponent implements OnInit {
       return {'nameIsUsed': true};
     }
     return null as any;
+  }
+
+  onSubmit(){
+    if (this.updateForm.valid) {
+
+      this.isLoading = true;
+
+      this.usersService.updateUser(this.editedUserIndex,this.updateForm.value).subscribe((agent: any) => {
+        const response = agent;
+        console.log(response);
+        this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "User updated!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.updateForm.reset(); // success, we reset form
+          this.router.navigate(['users/all-users']);
+        },
+        errorMessage => {
+          // check error status code is 500, if so, do some action
+          Swal.fire({
+            title: "Error!",
+            text: "User was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+        }
+      );
+    }
+  }
+
+  private initForm() {
+    this.isLoading = true;
+    if (this.editMode) {
+      this.usersService.getUser(this.editedUserIndex).subscribe((result)=>{
+      this.updateForm = new FormGroup({
+        'userid': new FormControl(result['userId']),
+        'username': new FormControl(result['username']),
+        'email': new FormControl(result['email']),
+        'registered': new FormControl(result['registeredSince']),
+        'lastLogin': new FormControl(result['lastLoginDate']),
+        'groups': new FormControl(result['groups']),
+        'updateData': new FormGroup({
+          'rightGroupId': new FormControl(result['rightGroupId']),
+          'setPassword': new FormControl(result['setPassword']),
+          'isValid': new FormControl(result['isValid']),
+        })
+      });
+      this.isLoading = false;
+    });
+   }
   }
 
 }

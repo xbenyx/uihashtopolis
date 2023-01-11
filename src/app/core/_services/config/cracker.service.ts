@@ -24,12 +24,43 @@ export class CrackerService {
     return throwError(() => err);
   }
 
-  getCrackerBinary(routerParams?: Params):Observable<any> {
+  getCrackerBinaries(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
         queryParams = this.setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  getCrackerBinary(id:number):Observable<any> {
+    return this.http.get(this.endpoint +'/'+ id)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  createCrackerBinary(id:number, arr: any): Observable<any> {
+    return this.http.post<any>(this.endpoint, arr)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  deleteCrackerBinary(id:number):Observable<any> {
+    return this.http.delete(this.endpoint +'/'+ id)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  updateCrackerBinary(id: number, arr: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -48,8 +79,8 @@ export class CrackerService {
     );
   }
 
-  deleteCracker(id:number):Observable<any> {
-    return this.http.delete(this.endpoint +'/'+ id)
+  deleteCrackerType(id:number):Observable<any> {
+    return this.http.delete(this.endpoint_types +'/'+ id)
     .pipe(
       catchError(this.handleError)
     );

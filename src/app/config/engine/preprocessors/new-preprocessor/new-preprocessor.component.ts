@@ -46,7 +46,6 @@ export class NewPreprocessorComponent implements OnInit {
       (params: Params) => {
         this.editedPreprocessorIndex = +params['id'];
         this.editMode = params['id'] != null;
-        this.initForm();
       }
     );
 
@@ -60,6 +59,7 @@ export class NewPreprocessorComponent implements OnInit {
         case 'edit-preprocessor':
           this.whichView = 'edit';
           this.isLoading = true;
+          this.initForm();
 
           const id = +this.route.snapshot.params['id'];
           this.preprocessorService.getPreprocessor(id).subscribe((prep: any) => {

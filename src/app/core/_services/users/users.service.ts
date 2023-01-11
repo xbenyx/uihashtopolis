@@ -46,8 +46,16 @@ export class UsersService {
     );
   }
 
-  createUser(user: any): Observable<any> {
-    return this.http.post<any>(this.endpoint, {username: user.username, email: user.email, rightGroupId: user.rightGroupId}) //Test {username: 'name', email: 'ssd@gmail.com', rightGroupId: 1}
+  createUser(arr: any): Observable<any> {
+    return this.http.post<any>(this.endpoint, arr)
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  updateUser(id: number, arr: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

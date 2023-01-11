@@ -14,7 +14,7 @@
   <div class="btn-toolbar mb-2 mb-md-0">
     <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
       <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-        New Cracker
+        New Binary
     </a>
   </div>
 </div>
@@ -57,21 +57,26 @@
                     <th class="border-0 rounded-start">Cracker ID</th>
                     <th class="border-0">Name</th>
                     <th class="border-0">Available Versions</th>
-                    <th class="border-0">Download URL</th>
                     <th class="border-0 rounded-end">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let cracker of crackerbinary">
-                    <td>{{cracker.crackerBinaryId}}</td>
-                    <td>{{cracker.binaryName}}</td>
-                    <td>{{cracker.version}}</td>
-                    <td>{{cracker.downloadUrl}}</td>
+                  <tr *ngFor="let type of crackerType">
+                    <td>{{ type.crackerBinaryTypeId }}</td>
+                    <td>{{ type.typeName | lowercase | titlecase }}</td>
                     <td>
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/cracker',cracker.crackerBinaryId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                      <p *ngFor="let ver of type.crackerVersions">
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[ver.crackerBinaryId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit Version/Binary">
+                          <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
+                        </a>
+                        {{ ver.version }}
+                      </p>
+                    </td>
+                    <td>
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="[type.crackerBinaryTypeId,'new']" data-toggle="tooltip" data-placement="top" title="Add version/binary">
+                        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
                      </a>
-                     <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(cracker.crackerBinaryId)">
+                     <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(type.crackerBinaryTypeId)">
                           <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                      </a>
                     </td>

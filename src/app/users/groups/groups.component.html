@@ -58,7 +58,7 @@
                           <input  type="text" [(ngModel)]="a.groupName" class="form-control">
                         </div>
                         <div *ngIf="!a.isEdit">
-                          {{ a.groupName }}
+                          {{ a.groupName | lowercase | titlecase }}
                         </div>
                       </td>
                       <td>

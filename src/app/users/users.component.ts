@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { UsersService } from '../core/_services/users/users.service';
 
@@ -12,36 +13,66 @@ export class UsersComponent implements OnInit {
   isLoading = false;
   // We need to access groups using the API
   groups = ['Admin', 'Standard User'];
-  signupForm: FormGroup;
+  createForm: FormGroup;
   // We need an array uf user names, so we do not create a duplicate name.
   usedUserNames = ['Admin', 'Guest'];
 
-  constructor( private route:ActivatedRoute,
-     private usersService: UsersService){}
+  constructor(
+     private route:ActivatedRoute,
+     private router: Router,
+     private usersService: UsersService
+     ){}
 
   ngOnInit(): void {
-    this.signupForm = new FormGroup({
+    this.createForm = new FormGroup({
       // 'username': new FormControl(null, [Validators.required, this.checkUserNameExist.bind(this)]),
-      'username': new FormControl(null),
+      'username': new FormControl('', Validators.required),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'rightGroupId': new FormControl(1),
-      'isAdmin': new FormControl(1),
+      'passwordHash': new FormControl(''),
+      'passwordSalt': new FormControl(''),
+      'isValid': new FormControl(true),
+      'isComputedPassword': new FormControl(true),
+      'lastLoginDate': new FormControl(0),
+      'registeredSince': new FormControl(0),
+      'sessionLifetime': new FormControl(0),
+      'yubikey': new FormControl(''),
+      'otp1': new FormControl(''),
+      'otp2': new FormControl(''),
+      'otp3': new FormControl(''),
+      'otp4': new FormControl(''),
     });
 
   }
 
-  onSubmit(): void{
-    if (this.signupForm.valid) {
-    console.log(this.signupForm);
+  onSubmit(){
+    if (this.createForm.valid) {
 
-    this.isLoading = true;
+      this.isLoading = true;
 
-    this.usersService.createUser(this.signupForm.value).subscribe((user: any) => {
-      this.isLoading = false;
-      // console.log(user);
-    });
-
-    this.signupForm.reset();
+      this.usersService.createUser(this.createForm.value).subscribe((user: any) => {
+        const response = user;
+        console.log(response);
+        this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "New User created!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.router.navigate(['users/all-users']);
+        },
+        errorMessage => {
+          // check error status code is 500, if so, do some action
+          Swal.fire({
+            title: "Error!",
+            text: "User was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+        }
+      );
     }
   }
 

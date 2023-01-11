@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CrackerService } from '../../../core/_services/config/cracker.service';
-import { faEdit, faTrash, faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faHomeAlt, faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { CrackerService } from '../../../core/_services/config/cracker.service';
 
 @Component({
   selector: 'app-crackers',
@@ -15,6 +16,7 @@ export class CrackersComponent implements OnInit, OnDestroy {
   faTrash=faTrash;
   faHome=faHomeAlt;
   faPlus=faPlus;
+  faEye=faEye;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
@@ -23,16 +25,18 @@ export class CrackersComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-  crackerbinary: any = [];
-  constructor(private crackerService: CrackerService) { }
+  crackerType: any = [];
+  constructor(
+    private crackerService: CrackerService
+    ) { }
 
   private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
-    let params = {'maxResults': this.maxResults}
+    let params = {'maxResults': this.maxResults, 'expand': 'crackerVersions'}
 
-    this.crackerService.getCrackerBinary(params).subscribe((binary: any) => {
-      this.crackerbinary = binary.values;
+    this.crackerService.getCrackerType(params).subscribe((type: any) => {
+      this.crackerType = type.values;
       this.dtTrigger.next(void 0);
     });
     this.dtOptions = {
@@ -52,10 +56,10 @@ export class CrackersComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteFile(id: number){
+  onDelete(id: number){
     Swal.fire({
       title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this file!",
+      text: "Once deleted, you will not be able to recover this cracker!",
       icon: "warning",
       buttons: true,
       dangerMode: true,
@@ -63,7 +67,7 @@ export class CrackersComponent implements OnInit, OnDestroy {
     })
     .then((willDelete) => {
       if (willDelete) {
-        this.crackerService.deleteCracker(id).subscribe(() => {
+        this.crackerService.deleteCrackerType(id).subscribe(() => {
           Swal.fire(
             "File has been deleted!",
             {
@@ -71,8 +75,9 @@ export class CrackersComponent implements OnInit, OnDestroy {
           });
         });
       } else {
-        Swal.fire("Your imaginary file is safe!")
+        Swal.fire("Your Cracker is safe!")
       }
     });
   }
+
 }

@@ -17,7 +17,7 @@ const routes: Routes = [
           path: '', component: UsersComponent,
           data: {
               kind: 'users',
-              breadcrumb: 'Show Users'
+              breadcrumb: 'New User'
           },
           canActivate: [AuthGuard]},
         {
