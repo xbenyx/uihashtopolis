@@ -47,7 +47,7 @@
               <tbody>
               <tr *ngFor="let task of alltasks">
                   <td>
-                      <a>{{ task.taskId }}</a>
+                    <span class="pill-ebidem" [ngStyle]="{'background-color': task.color }">{{  task.taskId }}</span>
                   </td>
                   <td>
                       <a>{{ task.taskName | lowercase | titlecase }}</a>

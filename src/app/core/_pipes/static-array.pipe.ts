@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 /*
  * Static Array, with some static configurations
  * Usage:
@@ -11,6 +11,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 */
 @Pipe({
   name: 'staticArray'
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class StaticArrayPipe implements PipeTransform {
 

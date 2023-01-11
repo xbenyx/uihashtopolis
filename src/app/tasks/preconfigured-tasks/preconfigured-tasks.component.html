@@ -28,11 +28,13 @@
               </thead>
               <tbody>
               <tr *ngFor="let ptask of allpretasks">
-                  <td><a>{{ ptask.pretaskId }}</a></td>
-                  <td>
-                      <a>{{ ptask.taskName }}</a>
+                  <td >
+                    <span class="pill-ebidem" [ngStyle]="{'background-color': ptask.color }">{{ ptask.pretaskId }}</span>
                   </td>
-                  <td><a>{{ ptask.attackCmd }}</a></td>
+                  <td>
+                      <a>{{ ptask.taskName | shortenString:20 | lowercase | titlecase }}</a>
+                  </td>
+                  <td><a>{{ ptask.attackCmd | shortenString:25 }}</a></td>
                   <td>
                     <!-- {{ task.keyspace }} -->
                    <!-- <span *ngIf="ptask.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span> -->

@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment';
 import { DataTableDirective } from 'angular-datatables';
+import { StaticArrayPipe } from 'src/app/core/_pipes/static-array.pipe';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
+
 
 @Component({
   selector: 'app-edit-hashlist',
@@ -30,11 +32,14 @@ export class EditHashlistComponent implements OnInit {
 
   constructor(
     private listsService: ListsService,
-    private route:ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
+    private format: StaticArrayPipe
   ) { }
 
-  private maxResults = environment.config.prodApiMaxResults
+  updateForm: FormGroup
+  private maxResults = environment.config.prodApiMaxResults;
+
 
   ngOnInit(): void {
     this.route.params
@@ -45,6 +50,60 @@ export class EditHashlistComponent implements OnInit {
         this.initForm();
       }
     );
+
+    this.updateForm = new FormGroup({
+      'hashlistId': new FormControl({value: '', disabled: true}),
+      'accessGroupId': new FormControl({value: '', disabled: true}),
+      'hashTypeId': new FormControl({value: '', disabled: true}),
+      'useBrain': new FormControl({value: '', disabled: true}),
+      'format': new FormControl({value: '', disabled: true}),
+      'hashCount': new FormControl({value: '', disabled: true}),
+      'cracked': new FormControl({value: '', disabled: true}),
+      'updateData': new FormGroup({
+        'name': new FormControl(''),
+        'notes': new FormControl(''),
+        'isSecret': new FormControl(''),
+        'isSmall': new FormControl(''),
+        'accessGroupId': new FormControl(''),
+      }),
+    });
+
+    this.listsService.getHashlist(this.editedHashlistIndex).subscribe((result)=>{
+      this.editedHashlist = result;
+      });
+
+  }
+
+  onSubmit(){
+    if (this.updateForm.valid) {
+
+      this.isLoading = true;
+
+      this.listsService.updateHashlist(this.updateForm.value['updateData']).subscribe((hasht: any) => {
+        const response = hasht;
+        console.log(response);
+        this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "HashList updated!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.updateForm.reset(); // success, we reset form
+          this.router.navigate(['tasks/preconfigured-tasks']);
+        },
+        errorMessage => {
+          // check error status code is 500, if so, do some action
+          Swal.fire({
+            title: "Error!",
+            text: "HashList was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+        }
+      );
+    }
   }
 
   rerender(): void {
@@ -63,24 +122,28 @@ export class EditHashlistComponent implements OnInit {
     if (this.editMode) {
     this.listsService.getHashlist(this.editedHashlistIndex).subscribe((result)=>{
       this.editedHashlist = result;
-      // this.updateForm = new FormGroup({
-      //   'pretaskId': new FormControl(result['pretaskId'], Validators.required),
-      //   'statusTimer': new FormControl(result['statusTimer'], Validators.required),
-      //   'useNewBench': new FormControl(result['useNewBench'], Validators.required),
-      //   'updateData': new FormGroup({
-      //     'taskName': new FormControl(result['taskName'], Validators.required),
-      //     'attackCmd': new FormControl(result['attackCmd'], Validators.required),
-      //     'chunkTime': new FormControl(result['chunkTime'], Validators.required),
-      //     'color': new FormControl(result['color'], Validators.required),
-      //     'priority': new FormControl(result['priority'], Validators.required),
-      //     'maxAgents': new FormControl(result['maxAgents'], Validators.required),
-      //     'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
-      //     'isSmall': new FormControl(result['isSmall'], Validators.required),
-      //   }),
-      // });
+      this.updateForm = new FormGroup({
+        'hashlistId': new FormControl(result['hashlistId']),
+        'accessGroupId': new FormControl(result['accessGroupId']),
+        'hashTypeId': new FormControl(result['hashTypeId']),
+        'useBrain': new FormControl(result['useBrain'] == 0 ? 'Yes' : 'No'),
+        'format': new FormControl(this.format.transform(result['format'],'formats')),
+        'hashCount': new FormControl(result['hashCount']),
+        'cracked': new FormControl(result['cracked']),
+        'updateData': new FormGroup({
+          'name': new FormControl(result['name']),
+          'notes': new FormControl(result['notes']),
+          'isSecret': new FormControl(result['isSecret']),
+          'isSmall': new FormControl(result['isSmall']),
+          'accessGroupId': new FormControl(result['accessGroupId']),
+        }),
+      });
       this.isLoading = false;
     });
    }
   }
 
 }
+
+
+

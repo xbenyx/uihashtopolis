@@ -114,7 +114,6 @@ export class NewHashlistComponent implements OnInit {
           });
         });
 
-
     }
 
   OnChangeValue(value){

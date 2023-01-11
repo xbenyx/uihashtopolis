@@ -15,7 +15,7 @@
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
               <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <form >
+                <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                     <div class="form-group">
                       <div class="form-outline">
@@ -32,12 +32,12 @@
                     <div formGroupName="updateData">
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label requiredak" for="getName">Member of Access Group</label>
+                            <label class="form-label" for="getaccessGroupId">Member of Access Group</label>
                             <input
                                   type='text'
-                                  id='taskName'
+                                  id='accessGroupId'
                                   class='form-control'
-                                  formControlName="group"
+                                  formControlName="accessGroupId"
                             >
                         </div>
                       </div>
@@ -65,7 +65,6 @@
                             </textarea>
                         </div>
                       </div>
-                      &nbsp;
                     </div>
                     &nbsp;
                     <div class="form-group">
@@ -155,12 +154,12 @@
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="getisSmall">Access Group</label>
+                            <label class="form-label" for="getaccessGroupId">Access Group</label>
                             <td>
                             <select
-                                  id='isSmall'
+                                  id='accessGroupId'
                                   class='form-select'
-                                  formControlName="isSmall"
+                                  formControlName="accessGroupId"
                               >
                               <!-- <option [ngValue]="false">No</option>
                               <option [ngValue]="true">Yes</option> -->
