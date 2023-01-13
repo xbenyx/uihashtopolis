@@ -30,10 +30,6 @@ export class PreconfiguredTasksComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  ngOnDestroy(): void {
-    this.dtTrigger.unsubscribe();
-  }
-
   constructor(
     private preTasksService: PreTasksService
   ) { }
@@ -59,6 +55,11 @@ export class PreconfiguredTasksComponent implements OnInit {
     };
 
   }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
 
 
 }
