@@ -38,15 +38,15 @@ import { EditTasksComponent } from './edit-tasks/edit-tasks.component';
   ],
   imports:[
     CommonModule,
+    RouterModule,
+    DataTablesModule,
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule,
-    DataTablesModule,
     NgbModule,
-    ComponentsModule,
+    TasksRoutingModule,
     PipesModule,
-    TasksRoutingModule
-  ]
+    ComponentsModule
+ ]
 })
 export class TasksModule {}

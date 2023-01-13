@@ -9,22 +9,37 @@
                         <div class="form-group">
                             <div class="form-outline">
                                 <label class="form-label requiredak" for="getname" >Name</label>
-                                <input  type='text' name='name' title="Hashlistname" class='form-control' id="name" formControlName="name">
+                                <input
+                                      type='text'
+                                      id="name"
+                                      class='form-control'
+                                      formControlName="name"
+                                >
                             </div>
                         </div>
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label" for="notes">Notes</label>
-                              <input  type='text' name='notes' title="Notes" class='form-control' id="notes" formControlName="notes">
+                              <input
+                                    type='text'
+                                    id="notes"
+                                    class='form-control'
+                                    formControlName="notes"
+                              >
                           </div>
                         </div>
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="getaccessgroup">Access group</label>
-                              <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
-                                <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
+                              <select
+                                     type='number'
+                                     id='accessgroup'
+                                     class='form-select'
+                                     formControlName="accessGroupId"
+                                  >
+                                  <option *ngFor="let a of accessgroup" [ngValue]="a.accessGroupId">{{ a.groupName }}</option>
                               </select>
                           </div>
                         </div>
@@ -36,8 +51,13 @@
                                 <span class="input-group-text" >
                                   <fa-icon [icon]="faMagnifyingGlass" aria-hidden="true"></fa-icon>
                                 </span>
-                                <select class='form-select' name='hashtype' title="Hashtype"  id="hashtype" formControlName="hashTypeId">
-                                  <option value=""></option>
+                                <select
+                                       type='number'
+                                       id="hashtype"
+                                       class='form-select'
+                                       formControlName="hashTypeId"
+                                    >
+                                    <option value=""></option>
                                 </select>
                             </div>
                           </div>
@@ -47,19 +67,38 @@
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
                               <td>
-                                <select type='number' class='form-select' id='hashlistformat' name="hashlistformat" title="Hashlist Format" formControlName="format" string-number>
-                                  <option value="0" [defaultSelected]=true>Text file</option>
-                                  <option value="1">HCCAPX file / PMKID hash</option>
-                                  <option value="2">Binary file (single hash)</option>
+                                <select
+                                       type='number'
+                                       id='hashlistformat'
+                                       class='form-select'
+                                       formControlName="format"
+                                       string-number
+                                    >
+                                    <option [ngValue]="0" [defaultSelected]=true>Text file</option>
+                                    <option [ngValue]="1">HCCAPX file / PMKID hash</option>
+                                    <option [ngValue]="2">Binary file (single hash)</option>
                                 </select>
                                 <span class="position-relative top-50 start-50">
                                   <br>
-                                  <input type="checkbox" name="separator" id="separator" title="separator" formControlName="isSalted"> Salted hashes, separator:
-                                  <input type="text" name="separator" class='form-control form-control-mini' value=";" title="separator" formControlName="separator">
+                                  <input
+                                        type="checkbox"
+                                        id="separator"
+                                        formControlName="isSalted"
+                                  > Salted hashes, separator:
+                                  <input
+                                        type="text"
+                                        class='form-control form-control-mini'
+                                        formControlName="separator"
+                                        value=";"
+                                  >
                                 </span>
                                 <span class="position-relative top-50 start-50">
                                   <br>
-                                  <input type="checkbox" name="isHexSalt" title="HEX Salt" formControlName="isHexSalt"> Salt is in hex (only when salted hashes)
+                                  <input
+                                        type="checkbox"
+                                        id="isHexSalt"
+                                        formControlName="isHexSalt"
+                                  > Salt is in hex (only when salted hashes)
                                 </span>
                               </td>
                           </div>
@@ -69,9 +108,14 @@
                           <div class="form-outline">
                             <label for="gethashlistformat">Hashcat Brain</label>
                             <td>
-                            <select #usebrain  class='form-select' id='hashcatbrain' name="hashcatbrain" title="Hashcat-brain" formControlName="useBrain">
-                              <option value="false" [defaultSelected]=true>No</option>
-                              <option value="true">Yes</option>
+                            <select
+                                   id='hashcatbrain'
+                                   class='form-select'
+                                   formControlName="useBrain"
+                                   #usebrain
+                                >
+                              <option [ngValue]="false" [defaultSelected]=true>No</option>
+                              <option [ngValue]="true">Yes</option>
                             </select>
                           </div>
                         </div>
@@ -80,17 +124,21 @@
                           <div class="form-outline" *ngIf="usebrain.selectedIndex === usebrain.options.length - 1">
                             <label class="form-label requiredak" for="getbrainfeatures">Hashlist format</label>
                             <td>
-                              <select class='form-select' id='brainfeatures' name="brainfeatures" title="Brain features" formControlName="brainFeatures">
-                                <option value="1">Send hashed passwords</option>
-                                <option value="2">Send attack positions</option>
-                                <option value="3" [defaultSelected]=true>Send hashed passwords and attack positions</option>
+                              <select
+                                     type='number'
+                                     id='brainfeatures'
+                                     class='form-select'
+                                     formControlName="brainFeatures"
+                                  >
+                                  <option [ngValue]="1">Send hashed passwords</option>
+                                  <option [ngValue]="2">Send attack positions</option>
+                                  <option [ngValue]="3" [defaultSelected]=true>Send hashed passwords and attack positions</option>
                               </select>
                               <div class='alert alert-info row justify-content-center closesys'>
                                 Note: When brain is enabled it'll create a network server. If it is used wrongly it could cause bottlenecks or collapse the network server.
                              </div>
                           </div>
                         </div>
-
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
@@ -103,7 +151,15 @@
                                 &nbsp;
                                 <tr id="pasteLine" style="display: none;">
                                   <td>
-                                    <textarea class='form-control' name="hashfield" cols="60" rows="10" title="Hashes" formControlName="sourceData"></textarea>
+                                    <textarea
+                                             class='form-control'
+                                             id='sourceData'
+                                             cols="60"
+                                             rows="10"
+                                             title="Hashes"
+                                             formControlName="sourceData"
+                                    >
+                                    </textarea>
                                   </td>
                                 </tr>
                                 <tr id="uploadLine">  <!-- start Upload -->
@@ -129,7 +185,13 @@
                                   </ul>
                                 </div> -->
                                 <div>
-                                <input accept="/*" name="file" type="file" (change)="handleFileInput($event)" fileSelect directory #file formControlName="sourceData">
+                                <input
+                                      type="file"
+                                      accept="/*"
+                                      formControlName="sourceData"
+                                      (change)="handleFileInput($event)"
+                                      fileSelect directory #file
+                                >
                                 <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
                                 &nbsp;
                                 </div>

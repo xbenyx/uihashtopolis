@@ -44,6 +44,7 @@ export class NewSupertasksComponent implements OnInit {
       var response = tasks.values;
       ($("#preTasks") as any).selectize({
         maxItems: null,
+        plugins: ["restore_on_backspace"],
         valueField: "pretaskId",
         placeholder: "Search task...",
         labelField: "taskName",

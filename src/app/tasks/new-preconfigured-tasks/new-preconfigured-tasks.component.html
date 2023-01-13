@@ -27,13 +27,28 @@
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
+                                  <label class="form-label requiredak" for="setFiles">Select Files for attack</label>
+                                  <select
+                                         type='number'
+                                         id="files"
+                                         class='form-select'
+                                         formControlName="files"
+                                      >
+                                      <option value=""></option>
+                                  </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
                                   <label class="form-label requiredak" for="setattackCmd">Command line</label>
-                                  <input
-                                        type='text'
-                                        id="attackCmd"
-                                        class='form-control'
-                                        formControlName="attackCmd"
-                                  >
+                                  <textarea
+                                         type='text'
+                                         id="attackCmd"
+                                         class='form-control'
+                                         formControlName="attackCmd"
+                                      >
+                                  </textarea>
                               </div>
                             </div>
                             &nbsp;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark, faEye } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -23,6 +23,7 @@ export class ShowTasksComponent implements OnInit {
   faArchive=faArchive;
   faCopy=faCopy;
   faBookmark=faBookmark;
+  faEye=faEye;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -70,18 +71,11 @@ export class ShowTasksComponent implements OnInit {
 
     this.dtOptions = {
       dom: 'Bfrtip',
+      pageLength: 10,
       stateSave: true,
       select: true,
-      pageLength: 50,
-      "order": [ [6, 'desc'], [0, 'asc'] ],
-      "columnDefs": [
-        { "orderable": false, "targets": [3, 8] },
-        { "orderable": true, "targets": [0, 1, 2, 4, 5, 6, 7] }
-      ],
-      buttons: [
-        'copy', 'excel', 'csv', 'edit'
-    ]
-  };
+      buttons: [ 'copy', 'excel', 'csv']
+    };
 
  });
 

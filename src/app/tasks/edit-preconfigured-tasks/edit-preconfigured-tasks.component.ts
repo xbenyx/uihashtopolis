@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy ,ChangeDetectorRe
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { DataTableDirective } from 'angular-datatables';
 
 import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
 import { Pretask } from '../../core/_models/pretask';
@@ -33,23 +34,17 @@ export class EditPreconfiguredTasksComponent implements OnInit{
 
   pretask: any = [];
   color: string = '';
+  updateForm: FormGroup
   private maxResults = environment.config.prodApiMaxResults
 
-  updateForm = new FormGroup({
-    'pretaskId': new FormControl({value: '', disabled: true}),
-    'statusTimer': new FormControl({value: '', disabled: true}),
-    'useNewBench': new FormControl({value: '', disabled: true}),
-    'updateData': new FormGroup({
-    'taskName': new FormControl(''),
-    'attackCmd': new FormControl(''),
-    'chunkTime': new FormControl(''),
-    'color': new FormControl(''),
-    'priority': new FormControl(''),
-    'maxAgents': new FormControl(''),
-    'isCpuTask': new FormControl(''),
-    'isSmall': new FormControl(''),
-    }),
-  });
+  // Table Files
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject<any>();
+  dtOptions: any = {};
+
+  files: any //Add Model
 
   ngOnInit(): void {
     this.route.params
@@ -60,6 +55,44 @@ export class EditPreconfiguredTasksComponent implements OnInit{
         this.initForm();
       }
     );
+
+    this.updateForm = new FormGroup({
+      'pretaskId': new FormControl({value: '', disabled: true}),
+      'statusTimer': new FormControl({value: '', disabled: true}),
+      'useNewBench': new FormControl({value: '', disabled: true}),
+      'updateData': new FormGroup({
+      'taskName': new FormControl(''),
+      'attackCmd': new FormControl(''),
+      'chunkTime': new FormControl(''),
+      'color': new FormControl(''),
+      'priority': new FormControl(''),
+      'maxAgents': new FormControl(''),
+      'isCpuTask': new FormControl(''),
+      'isSmall': new FormControl(''),
+      }),
+    });
+
+    // Files Table
+
+    let params = {
+      'maxResults': this.maxResults,
+      // 'filter': 'pretaskId='+this.editedPretaskIndex+'',
+      'expand': 'pretaskFiles'
+    }
+
+    this.preTasksService.getAllPretasks(params).subscribe((pretasks: any) => {
+      this.files = pretasks.values;
+      this.dtTrigger.next(void 0);
+    });
+
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      pageLength: 10,
+      stateSave: true,
+      select: true,
+      buttons: [ 'copy', 'excel', 'csv']
+    };
+
   }
 
   OnChangeValue(value){
@@ -105,10 +138,10 @@ export class EditPreconfiguredTasksComponent implements OnInit{
     if (this.editMode) {
     this.preTasksService.getPretask(this.editedPretaskIndex).subscribe((result)=>{
       this.pretask = result;
-      console.log(this.pretask)
+      this.color = result['color'];
       this.updateForm = new FormGroup({
         'pretaskId': new FormControl(result['pretaskId'], Validators.required),
-        'statusTimer': new FormControl(result['statusTimer'], Validators.required),
+        'statusTimer': new FormControl(result['statusTimer'] + ' seconds', Validators.required),
         'useNewBench': new FormControl(result['useNewBench'], Validators.required),
         'updateData': new FormGroup({
           'taskName': new FormControl(result['taskName'], Validators.required),

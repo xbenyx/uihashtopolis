@@ -26,30 +26,9 @@ export class EditTasksComponent implements OnInit {
     private router: Router
   ) { }
 
+  updateForm: FormGroup;
   color: string = '';
   private maxResults = environment.config.prodApiMaxResults
-
-  updateForm = new FormGroup({
-    'taskId': new FormControl({value: '', disabled: true}),
-    'forcePipe': new FormControl({value: '', disabled: true}),
-    'skipKeyspace': new FormControl({value: '', disabled: true}),
-    'keyspace': new FormControl({value: '', disabled: true}),
-    'keyspaceProgress': new FormControl({value: '', disabled: true}),
-    'crackerBinaryId': new FormControl({value: '', disabled: true}),
-    'chunkSize': new FormControl({value: '', disabled: true}),
-    'updateData': new FormGroup({
-      'taskName': new FormControl(''),
-      'attackCmd': new FormControl(''),
-      'notes': new FormControl(''),
-      'color': new FormControl(''),
-      'chunkTime': new FormControl(''),
-      'statusTimer': new FormControl(''),
-      'priority': new FormControl(''),
-      'maxAgents': new FormControl(''),
-      'isCpuTask': new FormControl(''),
-      'isSmall': new FormControl(''),
-    }),
-  });
 
   ngOnInit(): void {
     this.route.params
@@ -60,7 +39,28 @@ export class EditTasksComponent implements OnInit {
         this.initForm();
       }
     );
-    this.tasksService.getTask(this.editedTaskIndex).subscribe((result)=>{      });
+
+    this.updateForm = new FormGroup({
+      'taskId': new FormControl({value: '', disabled: true}),
+      'forcePipe': new FormControl({value: '', disabled: true}),
+      'skipKeyspace': new FormControl({value: '', disabled: true}),
+      'keyspace': new FormControl({value: '', disabled: true}),
+      'keyspaceProgress': new FormControl({value: '', disabled: true}),
+      'crackerBinaryId': new FormControl({value: '', disabled: true}),
+      'chunkSize': new FormControl({value: '', disabled: true}),
+      'updateData': new FormGroup({
+        'taskName': new FormControl(''),
+        'attackCmd': new FormControl(''),
+        'notes': new FormControl(''),
+        'color': new FormControl(''),
+        'chunkTime': new FormControl(''),
+        'statusTimer': new FormControl(''),
+        'priority': new FormControl(''),
+        'maxAgents': new FormControl(''),
+        'isCpuTask': new FormControl(''),
+        'isSmall': new FormControl(''),
+      }),
+    });
   }
 
   OnChangeValue(value){
@@ -74,8 +74,8 @@ export class EditTasksComponent implements OnInit {
 
       this.isLoading = true;
 
-      this.tasksService.updateTask(this.editedTaskIndex,this.updateForm.value['updateData']).subscribe((hasht: any) => {
-        const response = hasht;
+      this.tasksService.updateTask(this.editedTaskIndex,this.updateForm.value['updateData']).subscribe((tasks: any) => {
+        const response = tasks;
         console.log(response);
         this.isLoading = false;
           Swal.fire({
@@ -105,6 +105,7 @@ export class EditTasksComponent implements OnInit {
     this.isLoading = true;
     if (this.editMode) {
     this.tasksService.getTask(this.editedTaskIndex).subscribe((result)=>{
+      this.color = result['color'];
       this.updateForm = new FormGroup({
         'taskId': new FormControl(result['taskId']),
         'forcePipe': new FormControl(result['forcePipe']),

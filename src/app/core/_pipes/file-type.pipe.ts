@@ -1,4 +1,5 @@
 import {
+    Injectable,
     Pipe,
     PipeTransform } from '@angular/core';
 /*
@@ -12,7 +13,10 @@ import {
 @Pipe({
     name: 'fileType'
   })
-  export class FileTypePipe implements PipeTransform {
+@Injectable({
+  providedIn: 'root'
+})
+export class FileTypePipe implements PipeTransform {
 
     transform(value: any) {
         switch(value) {

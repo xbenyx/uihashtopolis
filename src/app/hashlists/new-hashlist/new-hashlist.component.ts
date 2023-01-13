@@ -67,7 +67,7 @@ export class NewHashlistComponent implements OnInit {
       'isHexSalt': new FormControl(false),
       'accessGroupId': new FormControl(null, [Validators.required]),
       'useBrain': new FormControl(false),
-      'brainFeatures': new FormControl(null || '3'),
+      'brainFeatures': new FormControl(null || 3),
       'notes': new FormControl(''),
       "sourceType": new FormControl('upload' || null),
       "sourceData": new FormControl(''),
