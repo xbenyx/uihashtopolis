@@ -5,7 +5,7 @@ import { Params } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { environment } from './../../../environments/environment';
-import { BaseChunk } from '../_models/chunk.model';
+import { BaseChunk } from '../_models/chunk';
 
 
 @Injectable({

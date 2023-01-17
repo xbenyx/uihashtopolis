@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { PropertyResolver } from '../../core/_services/property-resolver';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FilterService {
 
     constructor() { }

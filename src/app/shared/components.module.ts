@@ -3,26 +3,28 @@ import { CommonModule } from '@angular/common';
 
 import { AlertComponent } from "./alert/alert.component";
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
-import { FilterBoxComponent } from "./filter-box/filter-box.component";
 import { FormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
+import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
 
 @NgModule({
   declarations: [
     AlertComponent,
-    LoadingSpinnerComponent,
-    FilterBoxComponent
+    LoadingSpinnerComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    FilterTextboxModule
   ],
   exports: [
+    CommonModule,
     AlertComponent,
     LoadingSpinnerComponent,
-    FilterBoxComponent,
-    ColorPickerModule
+    ColorPickerModule,
+    FilterTextboxModule
+
   ]
 })
 export class ComponentsModule {}

@@ -1,8 +1,9 @@
-import { Component, OnInit, ComponentRef } from '@angular/core';
+import { Component, OnInit, ComponentRef, Input } from '@angular/core';
 import { faDigitalTachograph, faMicrochip, faHomeAlt, faPlus, faUserSecret,faEye, faTemperature0, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
+import { FilterService } from 'src/app/core/_services/filter.service';
 
 @Component({
   selector: 'app-agent-status',
@@ -20,23 +21,15 @@ export class AgentStatusComponent implements OnInit {
   faTemperature0=faTemperature0;
   faInfoCircle=faInfoCircle;
 
-  showagents: any = [];
-  agents = [{rack: 'Rack AB jkhjkhjkh'},{rack: 'Rack CB'}, {rack: 'Rack AB'},{rack: 'Rack AB'},{rack: 'Rack CB'}, {rack: 'Rack AB'},{rack: 'Rack AB'},{rack: 'Rack CB'}, {rack: 'Rack AB'}];
-  _filteredCustomers: any;
-  mapComponentRef: ComponentRef<any> = {} as ComponentRef<any>;
+  showagents: any[] = [];
+  _filteredCustomers: any[] = [];
+  filterText: string = '';
 
   constructor(
     private agentsService: AgentsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private filterService: FilterService
   ) { }
-
-  ngOnInit(): void {
-
-    this.agentsService.getAgents().subscribe((agents: any) => {
-      this.showagents = agents.values;
-    });
-
-  }
 
   get filteredCustomers() {
     return this._filteredCustomers;
@@ -44,22 +37,32 @@ export class AgentStatusComponent implements OnInit {
 
   set filteredCustomers(value: any[]) {
     this._filteredCustomers = value;
-    this.updateMapComponentDataPoints();
   }
+
+  ngOnInit(): void {
+    this.getAgentsPage(1);
+  }
+
+  pageChanged(page: number) {
+    this.getAgentsPage(page);
+  }
+
+  getAgentsPage(page: number) {
+    this.agentsService.getAgents().subscribe((agents: any) => {
+      this.showagents = this.filteredCustomers = agents.values;
+    });
+  }
+
+  // Filter
 
   filterChanged(data: string) {
-    if (data && this.agents) {
+    if (data && this.showagents) {
         data = data.toUpperCase();
-        const props = ['firstName', 'lastName', 'city', 'state.name'];
-        // this.filteredCustomers = this.filterService.filter<any>(this.agents, data, props);
+        const props = ['agentName'];
+        this._filteredCustomers = this.filterService.filter<any>(this.showagents, data, props);
+        console.log(this._filteredCustomers)
     } else {
-      this.filteredCustomers = this.agents;
-    }
-  }
-
-  updateMapComponentDataPoints() {
-    if (this.mapComponentRef && this.mapComponentRef.instance) {
-      this.mapComponentRef.instance.dataPoints = this.filteredCustomers;
+      this._filteredCustomers = this.showagents;
     }
   }
 

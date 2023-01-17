@@ -63,7 +63,7 @@ import { PipesModule } from './shared/pipes.module';
     DirectivesModule,
     PipesModule,
     ComponentsModule,
-    AppRoutingModule
+    AppRoutingModule  // Main routes for the App
 
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}, AppPreloadingStrategy],

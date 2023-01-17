@@ -14,7 +14,8 @@
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group ms-2 ms-3">
-      <app-filter-box class="navbar-right" style="margin-top: 5px;"></app-filter-box>
+      <cm-filter-textbox class="navbar-right"
+                     (changed)="filterChanged($event)"></cm-filter-textbox>
     </div>
   </div>
 </div>
@@ -22,7 +23,7 @@
 <br>
 <div class="container">
   <div class="row card-container-ag">
-      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of showagents">
+      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of _filteredCustomers;">
           <div class="card card-ag">
               <div class="card-header-ag">
                 <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
