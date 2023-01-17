@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { UsersService } from '../core/_services/users/users.service';
+import { ValidationService } from '../core/_services/validation.service';
 
 @Component({
   selector: 'app-users',
@@ -27,7 +28,7 @@ export class UsersComponent implements OnInit {
     this.createForm = new FormGroup({
       // 'username': new FormControl(null, [Validators.required, this.checkUserNameExist.bind(this)]),
       'username': new FormControl('', Validators.required),
-      'email': new FormControl(null, [Validators.required, Validators.email]),
+      'email': new FormControl(null, [Validators.required, Validators.email]), //Check ValidationService.emailValidator
       'rightGroupId': new FormControl(1),
       'passwordHash': new FormControl(''),
       'passwordSalt': new FormControl(''),

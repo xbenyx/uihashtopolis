@@ -6,6 +6,7 @@ import { Injectable } from "@angular/core";
 // If we have issue giving different network connections, we can add network types and preload only if its a fast network to avoid bottlenecks
 @Injectable()
 export class AppPreloadingStrategy implements PreloadingStrategy {
+
   preload(route: Route, load: Function): Observable<any> {
     const loadRoute = delay =>
       delay ? timer(150).pipe(mergeMap(_ => load())) : load();
@@ -13,4 +14,5 @@ export class AppPreloadingStrategy implements PreloadingStrategy {
       ? loadRoute(route.data['delay'])
       : of(null);
   }
+
 }

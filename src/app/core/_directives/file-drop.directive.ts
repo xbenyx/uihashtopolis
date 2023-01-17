@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 /*
- * Cetects when a file is hovered or dropped
+ * Detects when a file is hovered or dropped
  * Usage:
  *   value | fileDrop
  * Example:

@@ -6,6 +6,7 @@ import { faCalendar,faLock, faUser, faEnvelope } from '@fortawesome/free-solid-s
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { User } from '../user.model';
+import { ValidationService } from '../../core/_services/validation.service';
 
 @Component({
   selector: 'app-edit-users',
@@ -46,7 +47,7 @@ export class EditUsersComponent implements OnInit {
       'groups': new FormControl({value: '', disabled: true}),
       'updateData': new FormGroup({
         'rightGroupId': new FormControl(''),
-        'setPassword': new FormControl(''),
+        'setPassword': new FormControl('',ValidationService.passwordValidator),
         'isValid': new FormControl('')
       })
   });
