@@ -11,10 +11,10 @@ export const DEFAULT_CONFIG = {
   favicon: 'assets/img/favicon.ico',
   header: {
     brand: {
-      logo: 'assets/img/logo.png',
-      name: 'Hashtopolis',
-      height: '40',
-      width: '44'
+      logo: 'assets/img/logo_alter_1.png',
+      name: '',
+      height: '60',
+      width: '70'
     },
   },
   footer:{

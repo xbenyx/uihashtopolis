@@ -69,6 +69,16 @@
                       <div class="form-group">
                         <div class="form-outline">
                             <label class="form-label requiredak" for="getattackCmd">Command line</label>
+                            <fa-icon
+                                    placement="bottom"
+                                    ngbTooltip="Use #HL# for hash list and assume all files in current directory.
+                                    If you have Linux agents, please mind the filename case sensitivity!
+                                    "
+                                    container="body"
+                                    [icon]="faInfoCircle"
+                                    aria-hidden="true"
+                            >
+                            </fa-icon>
                             <input
                                   type='text'
                                   id="attackCmd"
@@ -76,6 +86,7 @@
                                   formControlName="attackCmd"
                             >
                         </div>
+
                       </div>
                       &nbsp;
                       <div class="form-group">
@@ -153,11 +164,19 @@
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getuseNewBench">Benchmark Type (Hashcat only)</label>
+                                  <label class="form-label" for="getuseNewBench">Benchmark Type</label>
+                                  <fa-icon
+                                          placement="bottom"
+                                          ngbTooltip="Only works for Hashcat"
+                                          container="body"
+                                          [icon]="faInfoCircle"
+                                          aria-hidden="true"
+                                  >
+                                  </fa-icon>
                                   <select
                                         type='number'
                                         id="useNewBench"
-                                        class='form-control'
+                                        class='form-select'
                                         formControlName="useNewBench"
                                   >
                                     <option [ngValue]="false">Runtime Benchmark</option>
@@ -168,7 +187,15 @@
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                <label for="getisCpuTask">Task is CPU only (gets only CPU agents assigned)</label>
+                                <label for="getisCpuTask">Task is CPU only</label>
+                                <fa-icon
+                                        placement="bottom"
+                                        ngbTooltip="Task is assigned only to CPU agents"
+                                        container="body"
+                                        [icon]="faInfoCircle"
+                                        aria-hidden="true"
+                                >
+                                </fa-icon>
                                 <td>
                                 <select
                                        id='isCpuTask'
@@ -183,7 +210,15 @@
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                <label for="getisSmall">Task is small (only one agent gets assigned to it)</label>
+                                <label for="getisSmall">Task is small</label>
+                                <fa-icon
+                                        placement="bottom"
+                                        ngbTooltip="Only one agent is assigned to the task"
+                                        container="body"
+                                        [icon]="faInfoCircle"
+                                        aria-hidden="true"
+                                >
+                                </fa-icon>
                                 <td>
                                 <select
                                        id='isSmall'
@@ -305,7 +340,15 @@
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getforcePipe">Enforce piping task (to apply rules before reject)</label>
+                                  <label class="form-label" for="getforcePipe">Enforce piping task</label>
+                                  <fa-icon
+                                          placement="bottom"
+                                          ngbTooltip="To apply rules before reject"
+                                          container="body"
+                                          [icon]="faInfoCircle"
+                                          aria-hidden="true"
+                                  >
+                                  </fa-icon>
                                   <td>
                                   <select
                                         class='form-select'

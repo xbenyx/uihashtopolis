@@ -1,6 +1,10 @@
 <form>
   Filter:
-  <input type="text" name="filter"
-      [(ngModel)]="model.filter"
-      (keyup)="filterChanged($event)"  />
+  <input
+        type="text"
+        id="cm-filter"
+        name="filter"
+        [(ngModel)]="model.filter"
+        (keyup)="filterChanged($event)"
+  />
 </form>

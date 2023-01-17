@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
@@ -31,6 +31,7 @@ export class NewTasksComponent implements OnInit {
   faHome=faHomeAlt;
   faPlus=faPlus;
   faTrash=faTrash;
+  faInfoCircle=faInfoCircle;
   color: string = '#fff'
 
   dtTrigger: Subject<any> = new Subject<any>();

@@ -6,6 +6,49 @@
   01- Main Header Navbar
 */
 
+.top-nav-cat {
+  height: 35px;
+  line-height: 35px;
+}
+
+.top-cat {
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  background-color: #F9F9F9;
+  font-size: 14px;
+  height: 40px;
+  line-height: 40px;
+  margin: 12px 12px 0 0;
+  padding: 0 20px;
+  border-radius: 100px;
+  text-decoration: none;
+  color: #353539;
+  width: auto;
+}
+
+.top-cat:hover {
+  color: #3260a0;
+  border-color: #4B5563;
+}
+
+.top-cat-selected {
+  color: #3260a0;
+  border-color: #4B5563;
+}
+
+.top-cat-sub a {
+  text-decoration: none;
+  display: block;
+  color: #353539;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 7px 10px;
+}
+
 .dropdown-menu-end {
   --bs-position: end;
 }
@@ -528,3 +571,7 @@ svg {
 /*
   03- End
 */
+
+
+
+

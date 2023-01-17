@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { faPowerOff, faSun, faMoon, faUserCircle, faInbox, faQuestionCircle, faBell, faEye } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { faServer, faTasks, faDatabase, faFileArchive, faCogs, faUserGroup,faPowerOff, faSun, faMoon, faUserCircle, faInbox, faQuestionCircle, faBell, faEye } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { Subscription } from 'rxjs';
+
 import { AuthService } from '../../auth/auth.service';
 import { NotificationsBellService } from '../../core/_services/shared/notifbell.service';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +18,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAuthentificated = false;
   isMobile = false;
   private userSub: Subscription;
+  public dropdown: NgbDropdown;
   storedToggletheme:string = localStorage.getItem('toggledarkmode');
 
   // Icons User Menu
+  faServer=faServer;
+  faTasks=faTasks;
+  faDatabase=faDatabase;
+  faFileArchive=faFileArchive;
+  faCogs=faCogs;
+  faUserGroup=faUserGroup;
+  // SubMenu User
     faPowerOff=faPowerOff;
     faBell=faBell;
     faSun=faSun;
@@ -30,7 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public notifbell: {title: string, description: string, datetime: string}[] = [];
 
-  constructor(private authService: AuthService, private notificationbService: NotificationsBellService) { }
+  constructor(
+    private authService: AuthService,
+    private ren: Renderer2,
+    private notificationbService: NotificationsBellService
+    ) { }
 
   collapsed = true;
   toggleCollapsed(): void {
@@ -47,9 +61,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.isAuthentificated = !!user;
     });
 
-    this.notificationbService.getNoficationsBell().subscribe((nb: any) => {
-      this.notifbell = nb;
-    });
+    // this.notificationbService.getNoficationsBell().subscribe((nb: any) => {
+    //   this.notifbell = nb;
+    // });
 
   }
 
@@ -69,6 +83,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       localStorage.setItem('toggledarkmode','dark')
       this.storedToggletheme = localStorage.getItem('toggledarkmode');
     }
+  }
+
+  onMouseEnter(drop:NgbDropdown){
+    drop.open()
+  }
+
+  onMouseLeave(drop:NgbDropdown){
+    drop.close()
   }
 
 }

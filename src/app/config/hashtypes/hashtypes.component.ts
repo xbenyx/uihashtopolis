@@ -1,4 +1,4 @@
-import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -25,6 +25,7 @@ export class HashtypesComponent implements OnInit {
   faEdit=faEdit;
   faSave=faSave;
   faCancel=faCancel;
+  faInfoCircle=faInfoCircle;
 
   // Create Hashtype
   signupForm: FormGroup;

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -17,6 +17,7 @@ export class NewCrackersComponent implements OnInit {
   // Loader
   isLoading = false;
   faDownload=faDownload;
+  faInfoCircle=faInfoCircle;
 
   editMode = false;
   editedTypeIndex: number;

@@ -22,7 +22,15 @@
                     <div class="row">
                         <div class="form-group">
                           <div class="form-outline">
-                            <label class="form-label requiredak" for="sethashtype">Hashtype (Hashcat -m)</label>
+                            <label class="form-label requiredak" for="sethashtype">Hashtype</label>
+                            <fa-icon
+                                    placement="bottom"
+                                    ngbTooltip="ie. Hashcat -m"
+                                    container="body"
+                                    [icon]="faInfoCircle"
+                                    aria-hidden="true"
+                            >
+                            </fa-icon>
                             <input type='number' name='hashtype' title="Hashtype" class='form-control' id="hashtype" formControlName="hashTypeId" validateInputNumber>
                             <span *ngIf="!signupForm.errors?.['hashTypeId'].valid && signupForm.errors?.['hashTypeId'].touched" class="help-block" >
                               <span *ngIf="signupForm.errors?.['hashtypeIsUsed']" >This name is already in use!</span>
@@ -40,7 +48,15 @@
                         &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
-                            <label for="setsalted">Salted (only if there is a separate salt value)</label>
+                            <label for="setsalted">Salted</label>
+                            <fa-icon
+                                    placement="bottom"
+                                    ngbTooltip="Only if there is a separate salt value"
+                                    container="body"
+                                    [icon]="faInfoCircle"
+                                    aria-hidden="true"
+                            >
+                            </fa-icon>
                             <td>
                             <select  class='form-select' name="isSalted"  title="Is Salted" formControlName="isSalted">
                               <option value="true" [defaultSelected]=true>No</option>
