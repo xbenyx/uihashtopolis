@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, Output, EventEmitter } from "@angular/core";
 import { catchError, tap } from 'rxjs/operators';
-import { environment } from './../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Subject, throwError, map, Observable, Observer  } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../_models/auth-user.model';
 import { Data, Router } from "@angular/router";
 
 export interface AuthResponseData {
@@ -15,12 +15,15 @@ export interface AuthResponseData {
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    @Output() authChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+    isAuthenticated = false;
+    redirectUrl: string = '';
     private tokenExpiration: any;
     private endpoint = environment.config.prodApiEndpoint + '/auth';
 
-    constructor(private http: HttpClient, private router: Router){
-
-    }
+    constructor(
+      private http: HttpClient, private router: Router
+      ){}
 
     autoLogin(){
         const userData: { _token: string, _expires: string} = JSON.parse(localStorage.getItem('userData'));
@@ -38,10 +41,15 @@ export class AuthService {
         }
     }
 
-    logIn(username: string, password: string){
-        return this.http.post<AuthResponseData>(this.endpoint + '/token', {username: username, password: password}, {headers: new HttpHeaders({ 'Authorization': 'Basic '+window.btoa(username+':'+password) })}
-        ).pipe(catchError(this.handleError), tap(resData => {
-            this.handleAuthentication(resData.token, +resData.expires, username);
+    logIn(username: string, password: string): Observable<any>{
+        return this.http.post<AuthResponseData>(this.endpoint + '/token', {username: username, password: password},
+            {headers: new HttpHeaders({ 'Authorization': 'Basic '+window.btoa(username+':'+password) })})
+            .pipe(
+              catchError(this.handleError),
+              tap(resData => {
+                  this.handleAuthentication(resData.token, +resData.expires, username);
+                  this.isAuthenticated = true;
+                  this.userAuthChanged(true);
         }));
     }
 
@@ -70,6 +78,11 @@ export class AuthService {
             clearTimeout(this.tokenExpiration)
         }
         this.tokenExpiration = null;
+    }
+
+
+    private userAuthChanged(status: boolean) {
+      this.authChanged.emit(status); // Raise changed event
     }
 
     private handleAuthentication(token: string, expires: number, username: string) {

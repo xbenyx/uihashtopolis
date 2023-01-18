@@ -1,4 +1,4 @@
-import { AuthGuard } from "../auth/auth.guard";
+import { AuthGuard } from "../core/_guards/auth.guard";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 
@@ -13,6 +13,7 @@ import { NewSupertasksComponent } from "./new-supertasks/new-supertasks.componen
 import { EditSupertasksComponent } from "./edit-supertasks/edit-supertasks.component";
 import { ImportSupertasksComponent } from "./import-supertasks/import-supertasks.component";
 import { ChunksComponent } from "./chunks/chunks.component";
+import { PendingChangesGuard } from "../core/_guards/pendingchanges.guard";
 
 
 const routes: Routes = [
@@ -39,14 +40,16 @@ const routes: Routes = [
               kind: 'edit-task',
               breadcrumb: 'Edit Task'
           },
-          canActivate: [AuthGuard]},
+          canActivate: [AuthGuard],
+          canDeactivate: [PendingChangesGuard]},
         {
           path: 'new-tasks', component: NewTasksComponent,
           data: {
               kind: 'new-tasks',
               breadcrumb: 'New tasks'
           },
-          canActivate: [AuthGuard]},
+          canActivate: [AuthGuard],
+          canDeactivate: [PendingChangesGuard]},
         {
           path: 'preconfigured-tasks', component: PreconfiguredTasksComponent,
           data: {
@@ -67,7 +70,8 @@ const routes: Routes = [
               kind: 'edit-preconfigured-tasks',
               breadcrumb: 'Edit Preconfigured tasks'
           },
-          canActivate: [AuthGuard]},
+          canActivate: [AuthGuard],
+          canDeactivate: [PendingChangesGuard]},
         {
           path: 'supertasks', component: SupertasksComponent,
           data: {

@@ -1,4 +1,4 @@
-import { Hashlist } from "./hashlist";
+// import { Hashlist } from "./hashlist";
 
 export interface NormalTask {
     id: number;
@@ -7,5 +7,5 @@ export interface NormalTask {
     maxAgents: number;
 
     hashlistId: number;
-    hashlist: Hashlist;
+    // hashlist: Hashlist;
 }

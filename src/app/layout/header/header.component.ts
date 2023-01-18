@@ -3,7 +3,7 @@ import { faServer, faTasks, faDatabase, faFileArchive, faCogs, faUserGroup,faPow
 import { environment } from './../../../environments/environment';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../core/_services/auth.service';
 import { NotificationsBellService } from '../../core/_services/shared/notifbell.service';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 

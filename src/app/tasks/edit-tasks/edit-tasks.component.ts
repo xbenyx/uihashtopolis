@@ -1,17 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
+import { Observable } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
 
 @Component({
   selector: 'app-edit-tasks',
   templateUrl: './edit-tasks.component.html'
 })
-export class EditTasksComponent implements OnInit {
+export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   editMode = false;
   editedTaskIndex: number;
@@ -130,6 +132,21 @@ export class EditTasksComponent implements OnInit {
       this.isLoading = false;
     });
    }
+  }
+
+  // @HostListener allows us to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (!this.canDeactivate()) {
+        $event.returnValue = "This message is displayed to the user in IE and Edge when they navigate without using Angular routing (type another URL/close the browser/etc)";
+    }
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.updateForm.valid) {
+    return false;
+    }
+    return true;
   }
 
 }

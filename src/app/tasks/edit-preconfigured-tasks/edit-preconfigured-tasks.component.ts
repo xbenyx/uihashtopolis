@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy ,ChangeDetectorRef, ViewChild   } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy ,ChangeDetectorRef, ViewChild, HostListener   } from '@angular/core';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { environment } from './../../../environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { DataTableDirective } from 'angular-datatables';
@@ -61,14 +61,14 @@ export class EditPreconfiguredTasksComponent implements OnInit{
       'statusTimer': new FormControl({value: '', disabled: true}),
       'useNewBench': new FormControl({value: '', disabled: true}),
       'updateData': new FormGroup({
-      'taskName': new FormControl(''),
-      'attackCmd': new FormControl(''),
-      'chunkTime': new FormControl(''),
-      'color': new FormControl(''),
-      'priority': new FormControl(''),
-      'maxAgents': new FormControl(''),
-      'isCpuTask': new FormControl(''),
-      'isSmall': new FormControl(''),
+        'taskName': new FormControl(''),
+        'attackCmd': new FormControl(''),
+        'chunkTime': new FormControl(''),
+        'color': new FormControl(''),
+        'priority': new FormControl(''),
+        'maxAgents': new FormControl(''),
+        'isCpuTask': new FormControl(''),
+        'isSmall': new FormControl(''),
       }),
     });
 
@@ -158,5 +158,20 @@ export class EditPreconfiguredTasksComponent implements OnInit{
     });
    }
   }
+
+    // @HostListener allows us to also guard against browser refresh, close, etc.
+    @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {
+      if (!this.canDeactivate()) {
+          $event.returnValue = "This message is displayed to the user in IE and Edge when they navigate without using Angular routing (type another URL/close the browser/etc)";
+      }
+    }
+
+    canDeactivate(): Observable<boolean> | boolean {
+      if (this.updateForm.valid) {
+      return false;
+      }
+      return true;
+    }
 
 }

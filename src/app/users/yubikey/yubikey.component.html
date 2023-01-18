@@ -4,37 +4,50 @@
       <p class="mb-0">If you want to use a Yubikey to authentificate, you can customize your credentials below.</p>
   </div>
 </div>
-<!-- Breadcrum end -->
 <!-- Body -->
 <section>
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
               <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
-              <!-- <h2 class="h5 mb-4">Yubikey</h2><br> -->
-                <form>
+                <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label" for="yubikey_id">Yubikey Client ID</label>
-                            <!-- <input *ngFor="let c of config" [(ngModel)]="c.yubikey_id" type='text' name='yubikey_id' title="yubikey_id" class='form-control' id="yubikey_id"> -->
-                            <input type='text' name='yubikey_id' title="yubikey_id" class='form-control' id="yubikey_id">
+                            <input
+                                  type='number'
+                                  id="yubikey"
+                                  class='form-control'
+                                  formControlName="yubikey"
+                            >
                           </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label" for="yubikey_key">Yubikey Secret Key</label>
-                            <!-- <input *ngFor="let c of config" [(ngModel)]="c.yubikey_key" type='text' name='yubikey_key' title="yubikey_key" class='form-control' id="yubikey_key"> -->
-                            <input type='text' name='yubikey_key' title="yubikey_key" class='form-control' id="yubikey_key">
+                            <input
+                                  type='string'
+                                  id="otp1"
+                                  class='form-control'
+                                  formControlName="otp1"
+                            >
                           </div>
                         </div>
+                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                             <label class="form-label" for="yubikey_key">Yubikey API URL</label>
-                            <!-- <input *ngFor="let c of config" [(ngModel)]="c.yubikey_key" type='text' name='yubikey_key' title="yubikey_key" class='form-control' id="yubikey_key"> -->
-                            <input type='text' name='yubikey_key' title="yubikey_key" class='form-control' id="yubikey_key">
+                            <input
+                                  type='string'
+                                  id="otp2"
+                                  class='form-control'
+                                  formControlName="otp2"
+                            >
                           </div>
                         </div>
+                        &nbsp;
                   </div>
                   <button  class="btn btn-gray-800" type="submit">Update</button>
             </form>

@@ -1,4 +1,4 @@
-import { AuthGuard } from "../auth/auth.guard";
+import { AuthGuard } from "../core/_guards/auth.guard";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { AgentStatusComponent } from "./agent-status/agent-status.component";
 import { NewAgentComponent } from "./new-agent/new-agent.component";
 import { ShowAgentsComponent } from "./show-agents/show-agents.component";
 import { EditAgentComponent } from "./edit-agent/edit-agent.component";
+import { PendingChangesGuard } from "../core/_guards/pendingchanges.guard";
 
 const routes: Routes = [
   {

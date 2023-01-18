@@ -1,4 +1,4 @@
-import { AuthGuard } from "../auth/auth.guard";
+import { AuthGuard } from "../core/_guards/auth.guard";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { SuperhashlistComponent } from "./superhashlist/superhashlist.component"
 import { NewSuperhashlistComponent } from "./new-superhashlist/new-superhashlist.component";
 import { SearchHashComponent } from "./search-hash/search-hash.component";
 import { ShowCracksComponent } from "./show-cracks/show-cracks.component";
+import { PendingChangesGuard } from "../core/_guards/pendingchanges.guard";
 
 
 const routes: Routes = [
@@ -35,14 +36,16 @@ const routes: Routes = [
             kind: 'edit-hashlist',
             breadcrumb: 'Edit Hashlist'
         },
-        canActivate: [AuthGuard]},
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard]},
       {
         path: 'new-hashlist', component: NewHashlistComponent,
         data: {
             kind: 'new-hashlist',
             breadcrumb: 'New Hashlist'
         },
-        canActivate: [AuthGuard]},
+        canActivate: [AuthGuard],
+        canDeactivate: [PendingChangesGuard]},
       {
         path: 'superhashlist', component: SuperhashlistComponent,
         data: {

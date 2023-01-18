@@ -129,19 +129,12 @@ export class EditUsersComponent implements OnInit {
     });
   }
 
-  checkUserNameExist(control: FormControl): {[s: string]: boolean}{
-    if(this.usedUserNames.indexOf(control.value) !== -1){
-      return {'nameIsUsed': true};
-    }
-    return null as any;
-  }
-
   onSubmit(){
     if (this.updateForm.valid) {
 
       this.isLoading = true;
 
-      this.usersService.updateUser(this.editedUserIndex,this.updateForm.value).subscribe((agent: any) => {
+      this.usersService.updateUser(this.updateForm.value, this.editedUserIndex).subscribe((agent: any) => {
         const response = agent;
         console.log(response);
         this.isLoading = false;

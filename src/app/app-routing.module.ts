@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './layout/error-page/error-page.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './core/_guards/auth.guard';
 
 const appRoutes: Routes = [
     {path: '', component: HomeComponent, data: { breadcrumb: 'Home'}, canActivate: [AuthGuard] },

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UsersService } from '../../core/_services/users/users.service';
 import { faEdit,faHomeAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 
+import { UsersService } from '../../core/_services/users/users.service';
 
 @Component({
   selector: 'app-all-users',
@@ -38,10 +38,11 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
     }
   }[] = [];
 
-  public test:any  = [];
-
-  constructor(private usersService: UsersService,
-    private route:ActivatedRoute,private router:Router) { }
+  constructor(
+    private usersService: UsersService,
+    private route:ActivatedRoute,
+    private router:Router
+  ) { }
 
   private maxResults = environment.config.prodApiMaxResults
 

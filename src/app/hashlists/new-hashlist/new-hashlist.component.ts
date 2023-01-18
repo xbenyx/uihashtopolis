@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -215,4 +215,19 @@ export class NewHashlistComponent implements OnInit {
     // this.signupForm.reset(); // success, we reset form
     }
   }
+
+    // @HostListener allows us to also guard against browser refresh, close, etc.
+    @HostListener('window:beforeunload', ['$event'])
+    unloadNotification($event: any) {
+      if (!this.canDeactivate()) {
+          $event.returnValue = "This message is displayed to the user in IE and Edge when they navigate without using Angular routing (type another URL/close the browser/etc)";
+      }
+    }
+
+    canDeactivate(): Observable<boolean> | boolean {
+      if (this.signupForm.valid) {
+      return false;
+      }
+      return true;
+    }
 }

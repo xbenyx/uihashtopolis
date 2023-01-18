@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -145,5 +145,19 @@ export class NewTasksComponent implements OnInit {
     }
   }
 
+  // @HostListener allows us to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (!this.canDeactivate()) {
+        $event.returnValue = "This message is displayed to the user in IE and Edge when they navigate without using Angular routing (type another URL/close the browser/etc)";
+    }
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.createForm.valid) {
+    return false;
+    }
+    return true;
+  }
 
 }

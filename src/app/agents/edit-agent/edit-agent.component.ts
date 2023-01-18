@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faAlignJustify, faIdBadge, faComputer, faKey } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UsersService } from '../../core/_services/users/users.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-agent',
@@ -50,9 +51,9 @@ export class EditAgentComponent implements OnInit {
 
     this.updateForm = new FormGroup({
       'isActive': new FormControl(''),
-      'userId': new FormControl(''),
+      'userId': new FormControl({value: '', disabled: true}),
       'agentName': new FormControl(''),
-      'token': new FormControl(''),
+      'token': new FormControl({value: '', disabled: true}),
       'cpuOnly': new FormControl(),
       'cmdPars': new FormControl(''),
       'ignoreErrors': new FormControl(''),
@@ -111,9 +112,9 @@ export class EditAgentComponent implements OnInit {
     if (this.editMode) {
       this.agentsService.getAgent(this.editedAgentIndex).subscribe((result)=>{
       this.updateForm = new FormGroup({
-        'isActive': new FormControl(result['isActive']),
+        'isActive': new FormControl(result['isActive'], [Validators.required]),
         'userId': new FormControl(result['userId']),
-        'agentName': new FormControl(result['agentName']),
+        'agentName': new FormControl(result['agentName'], [Validators.required]),
         'token': new FormControl(result['token']),
         'cpuOnly': new FormControl(result['cpuOnly']),
         'cmdPars': new FormControl(result['cmdPars']),

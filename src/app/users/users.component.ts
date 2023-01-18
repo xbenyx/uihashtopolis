@@ -77,14 +77,13 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  // Connect this with the
   checkUserNameExist(control: FormControl): {[s: string]: boolean}{
     if(this.usedUserNames.indexOf(control.value) !== -1){
       return {'nameIsUsed': true};
     }
     return null as any;
   }
-
-
 
 
 }
