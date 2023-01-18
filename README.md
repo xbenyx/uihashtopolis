@@ -1,32 +1,48 @@
 # Accounting software
 
 This application renders accounting tables, currently not working.
+The goal of this a
 <!-- # Hastopolis UI -->
 
 <!-- ![Hashtopolis - Animated gif demo](demo/intro1.gif) -->
 
 # Installation and set up, using Docker (Recommended)
-1) Clone the project (i.e cd /root/)
 
-      git clone {{ Project }}
+1. Install Docker Desktop
 
-(Note: If you dont want to use Docker, just run npm install and ng build. Its not recommended)
-2) Run the multistage dockerfile
+2. Clone the project or download the .zip
 
-      docker build -t hashtopolis-client .
-3) docker run -p 80:80 hashtopolis-client
+3. Run the multistage Dockerfile, Run `docker build -t hashtopolis-client .` (Careful with don't delete the dot)
 
-# Deploy project using
+4. Run `docker run -p 80:80 hashtopolis-client`
 
-1) Create project, note the dot is important otherwise will create the directory in the wrong path cmd:  docker-compose run --rm app sh -c "hashtopolis-ui startproject app ."
-2) Now we start services in docker using the command cmd: docker-compose up
+## Build the Docker UI Image
 
-# Installation and set up, only with Angular
+1. Run `docker-compose build nginx`.
 
-1) cd /var/www/html and clone project
-2) Npm install and Npm build
+2. Tag the image with your Docker Hub repo name:
 
-Note: If the app loads but you are getting an error 404. Go to the src/app/app-routing.module.ts and in NgModule imports add {useHash: true}
+    ```bash
+    docker tag nginx-uihashtopolis <YOUR_DOCKER_HUB_NAME>/nginx-uihashtopolis
+    ```
+
+3. Push the image to Docker Hub:
+
+    ```bash
+    docker push <YOUR_DOCKER_HUB_NAME>/nginx-uihashtopolis
+    ```
+
+# Installation and set up with Nodejs || Angular
+
+1. Install the latest LTS version of Node.js from https://nodejs.org.
+
+2. Clone the project or download the .zip
+
+3. Go to the folder then: Run `npm install` to install app dependencies
+
+4. Run `ng build --watch` to build and bundle the code
+
+5. Run `npm start` to launch the App, alternative if you have installed Angular just run `ng server`
 
 
-### Common Errors
+### Features
