@@ -1,8 +1,8 @@
 # Accounting software  (STATUS NOT WORKING)
 
-**UIHashtopolis** it's written in **typescript** using the Angular framework.
+**UIHashtopolis** is a free and open source platform used for manage guessing password tools. It's written in **typescript** using the Angular framework.
 
-It is a tool create to solve the problems listed below.
+The tool was created to solve the problems listed below.
 
 1. Guessing...
 
@@ -17,7 +17,9 @@ We will have a beta soon.
 
 # INSTALLING & RUNNING
 
-To install and run **UIHastopolis**, you need the Docker or the last version or Nodejs. We recommend you install a package release since master will often include untested features and modules.
+To install and run **UIHastopolis**, you need Docker or the last version or Nodejs. We recommend you install a package release since master will often include untested features and modules.
+
+We will release a beta soon.
 
 # Installation and set up, using Docker (Recommended)
 
