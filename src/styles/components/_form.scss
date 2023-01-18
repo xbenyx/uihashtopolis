@@ -303,13 +303,21 @@ progress::-webkit-progress-value {
 /*
   05- Custom filter box
 */
+.filterboxglass{
+  border:none;
+  background:#e7eaed;
+  padding:7px;
+  // width:80%;
+  border-radius:9px;
+  color:black;
+}
 
 #filterbox{
   border:none;
-  background:#e7eaed;
-  padding:6px;
-  width:90%;
-  border-radius:6px;
+  background:#f3f5f7;
+  padding:7px;
+  width:80%;
+  border-radius: 0px 9px 9px 0px;
   color:black;
 }
 

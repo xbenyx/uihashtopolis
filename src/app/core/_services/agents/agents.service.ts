@@ -4,6 +4,8 @@ import { environment } from './../../../../environments/environment';
 import { Params } from '@angular/router';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
+import { IPagedResults } from '../../_models/paged-results';
+import { IAgents } from '../../_models/agents';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +36,7 @@ export class AgentsService {
     );
   }
 
-  deleteAgent(id: number):Observable<any> {
+  deleteAgent(id: number): Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       catchError(this.handleError)

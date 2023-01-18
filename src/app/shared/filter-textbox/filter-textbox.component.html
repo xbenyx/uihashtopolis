@@ -1,7 +1,6 @@
 <form>
   <div class="input-group">
-  <div class="searchbox">
-        <!-- <fa-icon id="filterbox" [icon]="faMagnifyingGlass" aria-hidden="true"></fa-icon> ToDo -->
+    <fa-icon class="filterboxglass" [icon]="faMagnifyingGlass" aria-hidden="true"></fa-icon>
         <input
               type="text"
               id="filterbox"
@@ -11,6 +10,5 @@
               (keyup)="filterChanged($event)"
         />
   </div>
-</div>
 </form>
 
