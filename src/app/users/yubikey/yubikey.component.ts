@@ -45,18 +45,18 @@ export class YubikeyComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.usersService.getCurrentUser().subscribe((cuser: any) => {
+    this.usersService.getCurrentUserID().subscribe((cuser: any) => {
       this.user = cuser.values;
       this.isLoading = false;
     });
   }
 
-  onSubmit(){
+  onSubmit(id: number){
     if (this.updateForm.valid) {
 
       this.isLoading = true;
 
-      this.usersService.updateUser(this.updateForm.value).subscribe((agent: any) => {
+      this.usersService.updateUser(this.updateForm.value, id).subscribe((agent: any) => {
         const response = agent;
         console.log(response);
         this.isLoading = false;

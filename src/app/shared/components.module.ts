@@ -24,7 +24,6 @@ import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
     LoadingSpinnerComponent,
     ColorPickerModule,
     FilterTextboxModule
-
   ]
 })
 export class ComponentsModule {}

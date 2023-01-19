@@ -74,7 +74,7 @@ The second file is in src/proxy.conf.json
 
 | Main | Description |
 | --- | --- |
-| `prodApiMaxResults` | As default all API calls are limited to 3000, you can increase/decrease this value. |
+| `prodApiMaxResults` | As default all API calls are limited to `3000`, you can increase/decrease this value. |
 | `devApiEndpoint` | API endpoint for mock up data |
 | `agentURL` | Backend API path |
 | `agentdownloadURL` | Backend API path, where a agent file is downloaded |
@@ -90,15 +90,22 @@ If you want to customize the logo/title, see table below.
 | `height` | You can play with the logo height |
 | `width` | You can play with the logo width |
 
+Customize some behaviour in the Agents module.
+
+| Agents | Description |
+| --- | --- |
+| `statusOrderBy` | Options `asc` and `desc`. Default `asc` |
+| `statusOrderByName` | Options `agentName`, `agentId`. Default `agentName` |
+
 You might want to change some default parameters when a task is being created.
 
 | Tasks | Description |
 | --- | --- |
-| `priority` | Task priority. Default 0 |
-| `maxAgents` | Max. Agents assigned to the task. Default 0 |
-| `chunkTime` | Chunk Time. Default 600 |
-| `chunkSize` | Chunk Size. Default 0 |
-| `statusTimer` | Status Timer. Default 5. |
+| `priority` | Task priority. Default `0` |
+| `maxAgents` | Max. Agents assigned to the task. Default `0` |
+| `chunkTime` | Chunk Time. Default `600` |
+| `chunkSize` | Chunk Size. Default `0` |
+| `statusTimer` | Status Timer. Default `5`. |
 
 
 # Community

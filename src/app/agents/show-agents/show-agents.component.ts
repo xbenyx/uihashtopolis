@@ -5,6 +5,7 @@ import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-show-agents',

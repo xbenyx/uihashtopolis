@@ -4,6 +4,7 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { FilterService } from 'src/app/core/_services/filter.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-agent-status',
@@ -20,6 +21,9 @@ export class AgentStatusComponent implements OnInit {
   faEdit=faEye;
   faTemperature0=faTemperature0;
   faInfoCircle=faInfoCircle;
+
+  public statusOrderBy = environment.config.agents.statusOrderBy;
+  public statusOrderByName = environment.config.agents.statusOrderByName;
 
   showagents: any[] = [];
   _filteredCustomers: any[] = [];
@@ -49,7 +53,8 @@ export class AgentStatusComponent implements OnInit {
 
   getAgentsPage(page: number) {
     this.agentsService.getAgents().subscribe((agents: any) => {
-      this.showagents = this.filteredCustomers = agents.values;
+      // this.showagents = this.filteredCustomers = agents.values;
+      this.showagents = this.filteredCustomers = agents;
     });
   }
 

@@ -50,15 +50,14 @@ export class UsersService {
     );
   }
 
-  getCurrentUser():Observable<any> {
+  getCurrentUserID():Observable<any> {
     const user_id = isPlatformBrowser(this.platformId)
       ? JSON.parse(localStorage.getItem('userData'))._username //Change username for id
       : null;
     let queryParams: Params = {'filter': 'username='+user_id+''}; // Temporary until we get id
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ',JSON.stringify(data))),
     );
   }
 

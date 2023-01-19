@@ -12,7 +12,7 @@ import { IAgents } from '../../_models/agents';
 })
 export class AgentsService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/ui/agents';
+  private endpoint = 'http://localhost:3000/agent';
 
   constructor(private http: HttpClient) { }
 
@@ -21,7 +21,8 @@ export class AgentsService {
     if (routerParams) {
         queryParams = this.setParameter(routerParams);
     }
-    return this.http.get(this.endpoint, {params: queryParams})
+    // return this.http.get(this.endpoint, {params: queryParams})
+    return this.http.get(this.endpoint)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)

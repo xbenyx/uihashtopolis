@@ -32,6 +32,10 @@ export const DEFAULT_CONFIG = {
       name: 'Help'
     }
   },
+  agents:{
+    statusOrderBy: 'asc',
+    statusOrderByName: 'agentName',
+  },
   tasks:{
     priority: 0,
     maxAgents: 0,
