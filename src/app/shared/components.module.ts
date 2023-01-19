@@ -6,6 +6,7 @@ import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinn
 import { FormsModule } from "@angular/forms";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
+import { PaginationModule } from "./pagination/pagination.module";
 
 @NgModule({
   declarations: [
@@ -16,14 +17,16 @@ import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
     CommonModule,
     FormsModule,
     ColorPickerModule,
-    FilterTextboxModule
+    FilterTextboxModule,
+    PaginationModule
   ],
   exports: [
     CommonModule,
     AlertComponent,
     LoadingSpinnerComponent,
     ColorPickerModule,
-    FilterTextboxModule
+    FilterTextboxModule,
+    PaginationModule
   ]
 })
 export class ComponentsModule {}

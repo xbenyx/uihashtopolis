@@ -29,6 +29,9 @@ export class AgentStatusComponent implements OnInit {
   _filteredCustomers: any[] = [];
   filterText: string = '';
 
+  totalRecords = 0;
+  pageSize = 20;
+
   constructor(
     private agentsService: AgentsService,
     private modalService: NgbModal,
@@ -54,6 +57,8 @@ export class AgentStatusComponent implements OnInit {
   getAgentsPage(page: number) {
     this.agentsService.getAgents().subscribe((agents: any) => {
       this.showagents = this.filteredCustomers = agents.values;
+      this.totalRecords = agents.total*100;
+      console.log(this.totalRecords)
     });
   }
 
@@ -62,7 +67,7 @@ export class AgentStatusComponent implements OnInit {
   filterChanged(data: string) {
     if (data && this.showagents) {
         data = data.toUpperCase();
-        const props = ['agentName'];
+        const props = ['agentName', 'agentId'];
         this._filteredCustomers = this.filterService.filter<any>(this.showagents, data, props);
         console.log(this._filteredCustomers)
     } else {

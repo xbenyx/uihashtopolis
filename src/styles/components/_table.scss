@@ -2,6 +2,9 @@
           SECTION TABLES
    ================================== */
 
+/*
+  01- Main Style
+*/
 .table .thead-light th {
   background-color: #F2F4F6;
   color: #1F2937;
@@ -24,3 +27,30 @@
   border-top-right-radius: 0.5rem !important;
   border-bottom-right-radius: 0.5rem !important;
 }
+
+/*
+  01- End
+*/
+
+/*
+  02- Pagination
+*/
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+  background-color: #4B5563;
+  border-color: #4B5563;
+  color:#e0e4ea;
+}
+
+.pagination a {
+    cursor: pointer;
+}
+
+/*
+  02- End
+*/

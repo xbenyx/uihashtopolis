@@ -82,7 +82,15 @@
       </div>
   </div>
 </div>
-
+<!-- Pagination -->
+<div class="align-items-right py-4">
+  <cm-pagination
+                [totalItems]="totalRecords"
+                [pageSize]="pageSize"
+                (pageChanged)="pageChanged($event)"
+  >
+  </cm-pagination>
+</div>
 <!-- Modal Device Utilisation -->
 <ng-template #device let-modal>
 	<div class="modal-header">
