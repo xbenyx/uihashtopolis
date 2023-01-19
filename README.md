@@ -1,17 +1,12 @@
-# Accounting software  (STATUS NOT WORKING)
+# UI-Hashtopolis - ACCOUNTING SOFTWARE  (STATUS NOT WORKING)
 
 **UI-Hashtopolis** is a free and open-source platform used for managing "guessing" password tools. It's written in **typescript** using the Angular framework.
-
-Therefore, the goals are listed below.
-
-1. Guessing...
 
 # Development Status
 
 We will have a beta soon.
 
 # Screenshots
-<!-- # Hastopolis UI -->
 
 <!-- ![Hashtopolis - Animated gif demo](demo/intro1.gif) -->
 
@@ -86,12 +81,16 @@ The second file is in src/proxy.conf.json
 | `appName` | App Name |
 | `chunkSizeTUS` | File size chunk (Note. Unit is in bits) |
 
+If you want to customize the logo/title, see table below.
+
 | Header/Brand | Description |
 | --- | --- |
 | `logo` | Path to change the default logo. |
 | `name` | As default empty, otherwise it'll add a title besides the logo |
 | `height` | You can play with the logo height |
 | `width` | You can play with the logo width |
+
+You might want to change some default parameters when a task is being created.
 
 | Tasks | Description |
 | --- | --- |
