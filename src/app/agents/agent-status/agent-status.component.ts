@@ -53,8 +53,7 @@ export class AgentStatusComponent implements OnInit {
 
   getAgentsPage(page: number) {
     this.agentsService.getAgents().subscribe((agents: any) => {
-      // this.showagents = this.filteredCustomers = agents.values;
-      this.showagents = this.filteredCustomers = agents;
+      this.showagents = this.filteredCustomers = agents.values;
     });
   }
 

@@ -4,7 +4,7 @@ services:
   hastopolis-client:
     build:
       context: .
-      dockerfile: ./.docker/development.dockerfile
+      dockerfile: .docker/node.dockerfile
     command: npm start
     container_name: hashtopolis-client-start
     image: hashtopolis-client
@@ -17,3 +17,4 @@ services:
 networks:
   default:
     name: hashtopolis_bridge
+
