@@ -2,9 +2,9 @@
 export const DEFAULT_CONFIG = {
   prodApiEndpoint: 'https://crackz.one/api/v2',
   prodApiPort: '8080',
+  frontEndUrl: 'https://crackz.one/',
   prodApiMaxResults: '3000',
   devApiEndpoint: 'http://localhost:3000',
-  frontEndUrl: 'https://crackz.one/',
   agentURL: '/api/server.php',
   agentdownloadURL: '/agents.php?download=',
   appName: 'Hashtopolis V1',
@@ -38,7 +38,6 @@ export const DEFAULT_CONFIG = {
     chunkTime: 600,
     chunkSize: 0,
     statusTimer: 5,
-
   },
   // File settings
   chunkSizeTUS: 5000,
