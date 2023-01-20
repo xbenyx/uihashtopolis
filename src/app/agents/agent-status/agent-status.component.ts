@@ -57,7 +57,7 @@ export class AgentStatusComponent implements OnInit {
   getAgentsPage(page: number) {
     this.agentsService.getAgents().subscribe((agents: any) => {
       this.showagents = this.filteredCustomers = agents.values;
-      this.totalRecords = agents.total*100;
+      this.totalRecords = agents.total;
       console.log(this.totalRecords)
     });
   }

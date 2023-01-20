@@ -10,7 +10,7 @@
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
                   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                       <div class="row">
                             <div class="form-group">
@@ -42,6 +42,14 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label requiredak" for="setattackCmd">Command line</label>
+                                  <fa-icon
+                                          placement="bottom"
+                                          (click)="open(cheatsheet)"
+                                          container="body"
+                                          [icon]="faInfoCircle"
+                                          aria-hidden="true"
+                                          class="gray-light-ico"
+                                  ></fa-icon>
                                   <textarea
                                          type='text'
                                          id="attackCmd"
@@ -161,5 +169,97 @@
   </div>
 </div>
 
+
+<!-- Cheat Sheet Utilisation -->
+<ng-template #cheatsheet let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Cheat Sheet</h4>
+	</div>
+	<div class="modal-body">
+		<form>
+			<div class="mb-3">
+        <div class="row">
+          <ngb-accordion #acc="ngbAccordion" activeIds="config-panel-one">
+            <ngb-panel title="Required" id="config-panel-one">
+              <ng-template ngbPanelContent>
+                Use #HL# for hash list and assume all files in current directory.
+                If you have Linux agents, please mind the filename case sensitivity!
+                <br>
+                <p>Rules: to add a rule list and "-r" needs to be added before the Filename. ie. -r Filename</p>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Attack Modes">
+              <ng-template ngbPanelContent>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Value</th>
+                      <th scope="col">Attack</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let c of attackmode">
+                      <th scope="row">{{c.value}}</th>
+                      <td>{{c.name}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Attack Examples">
+              <ng-template ngbPanelContent>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Type</th>
+                      <th scope="col">Example</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ax of attackex">
+                      <th scope="row">{{ax.value}}</th>
+                      <td>{{ax.example}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Built-in charsets in Hashcat">
+              <ng-template ngbPanelContent>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Value</th>
+                      <th scope="col">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ch of charsets">
+                      <th scope="row">{{ch.value}}</th>
+                      <td>{{ch.descrip}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel title="Foreign Characters Hashcat">
+              <ng-template ngbPanelContent>
+                <p>Hashcat uses UTF-8, if you are doing an attack using wordlist as soon as the format is supported it should be fine.
+                  If you are trying a brute attack, it'll require use the command --hex-charset. ie.
+                </p>
+                <p>German: --hex-charset -1 c3 -2 8489969c9fa4a9b6bc german.hash ?a?a?a?1?2?a?a</p>
+                <p>Russian: --hex-charset -1 d0dld2d3d4 -2 808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0ala2a3a4a5a6a7a8a9aaabacadaeafb0blb2b3b4b5b6b7b8b9babbbcbdbebf -i ?1?2?1?2?1?2?1?2</p>
+                <p>Encoding: It is better practice encode the custom charsets in the mask, please note From and To in the example. ie. --encoding-from=utf-8 or --encoding-to=utf-8  </p>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+	</div>
+</ng-template>
 
 

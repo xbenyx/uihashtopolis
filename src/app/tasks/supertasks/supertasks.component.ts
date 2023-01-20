@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { DataTableDirective } from 'angular-datatables';
 
+// declare var $: any;
 @Component({
   selector: 'app-supertasks',
   templateUrl: './supertasks.component.html'
@@ -45,14 +46,17 @@ export class SupertasksComponent implements OnInit {
     });
 
     this.dtOptions = {
-      dom: 'Bfrtip',
+      dom: 'Qlfrtip',
       pageLength: 10,
       stateSave: true,
+      responsive: true,
       select: true,
       buttons: []
     };
 
   }
+
+
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

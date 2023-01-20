@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 
 import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { FilesService } from '../../core/_services/files/files.service';
 import { FileTypePipe } from 'src/app/core/_pipes/file-type.pipe';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-new-preconfigured-tasks',
@@ -15,6 +17,7 @@ import { FileTypePipe } from 'src/app/core/_pipes/file-type.pipe';
 export class NewPreconfiguredTasksComponent implements OnInit {
   // Loader
   isLoading = false;
+  faInfoCircle=faInfoCircle;
   // Config
   private maxResults = environment.config.prodApiMaxResults
   private priority = environment.config.tasks.priority;
@@ -26,6 +29,7 @@ export class NewPreconfiguredTasksComponent implements OnInit {
     private preTasksService: PreTasksService,
     private crackerService: CrackerService,
     private filesService: FilesService,
+    private modalService: NgbModal,
     private fileType: FileTypePipe
   ) { }
 
@@ -161,5 +165,55 @@ export class NewPreconfiguredTasksComponent implements OnInit {
     //   // });
     //   // this._changeDetectorRef.detectChanges();
     // }
+
+  // Modal Information
+  attackmode =[
+    {'value': '0', 'name': 'Straight(Using rules)' },
+    {'value': '1', 'name': 'Combination' },
+    {'value': '3', 'name': 'Brute-force'},
+    {'value': '6', 'name': 'Hybrid Dictionary+ Mask'},
+    {'value': '7', 'name': 'Hybrid Mask + Dictionary'},
+  ]
+
+  attackex =[
+    {'value': 'Dictionary', 'example': '-w3 -O #HL# -a 0 rockyou.txt' },
+    {'value': 'Dictionary + Rules', 'example': '-w3 -O #HL# -a 0 rockyou.txt -r base64rule.txt' },
+    {'value': 'Combination', 'example': '-w3 -O #HL# -a 1 rockyou.txt rockyou2.txt'},
+    {'value': 'Hybrid Dictionary + Mask', 'example': '-w3 -O #HL# -a 6 -m dict.txt ?a?a?a?a'},
+    {'value': 'Hybrid Mask + Dictionary', 'example': '-w3 -O #HL# -a 7 -m ?a?a?a?a dict.txt'},
+  ]
+
+  charsets =[
+    {'value': '?l', 'descrip': 'abcdefghĳklmnopqrstuvwxyz' },
+    {'value': '?u', 'descrip': 'ABCDEFGHĲKLMNOPQRSTUVWXYZ' },
+    {'value': '?d', 'descrip': '0123456789' },
+    {'value': '?h', 'descrip': '0123456789abcdef' },
+    {'value': '?H', 'descrip': '0123456789ABCDEF' },
+    {'value': '?s', 'descrip': '«space»!"#$%&()*+,-./:;<=>?@[\]^_`{|}~'},
+    {'value': '?a', 'descrip': '?l?u?d?s'},
+    {'value': '?b', 'descrip': '0x00 - 0xff'},
+  ]
+
+  closeResult = '';
+  open(content) {
+		this.modalService.open(content, { size: 'xl' }).result.then(
+			(result) => {
+				this.closeResult = `Closed with: ${result}`;
+			},
+			(reason) => {
+				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+			},
+		);
+	}
+
+	private getDismissReason(reason: any): string {
+		if (reason === ModalDismissReasons.ESC) {
+			return 'by pressing ESC';
+		} else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+			return 'by clicking on a backdrop';
+		} else {
+			return `with: ${reason}`;
+		}
+	}
 
 }

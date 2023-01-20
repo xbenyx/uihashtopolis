@@ -4,28 +4,14 @@
       <p class="mb-0">Section to create a new task.</p>
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
-      <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-          Config Attack
-      </a>
   </div>
-</div>
-<!-- New Task -->
-<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <div class="form-group">
-    <div class="form-outline">
-        <label class="form-label requiredak" for="getattackCmd">Command line</label>
-        <input  type='text' name='attackCmd' title="AttackCmd" class='form-control' id="attackCmd" formControlName="attackCmd">
-    </div>
-  </div>
-  &nbsp;
 </div>
 <!-- New Task End-->
 <section>
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
                 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                       <div class="form-group">
