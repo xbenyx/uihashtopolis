@@ -163,7 +163,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
     @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) {
       if (!this.canDeactivate()) {
-          $event.returnValue = "This message is displayed to the user in IE and Edge when they navigate without using Angular routing (type another URL/close the browser/etc)";
+        $event.returnValue = "IE and Edge Message";
       }
     }
 

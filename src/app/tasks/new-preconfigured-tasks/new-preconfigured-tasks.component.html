@@ -52,9 +52,9 @@
                                   ></fa-icon>
                                   <textarea
                                          type='text'
-                                         id="attackCmd"
                                          class='form-control'
                                          formControlName="attackCmd"
+                                         #cmdAttack
                                       >
                                   </textarea>
                               </div>
@@ -78,6 +78,7 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="setchunkTime">Chunk size (seconds)</label>
+                                  <td>
                                   <input
                                         type='number'
                                         id="chunkTime"
@@ -91,6 +92,7 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="setStatusTimer">Status timer (seconds)</label>
+                                  <td>
                                   <input
                                         type='number'
                                         id="statusTimer"
@@ -104,15 +106,31 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="setuseNewBench">Benchmark Type (Hashcat only)</label>
+                                  <td>
                                   <select
                                         type='number'
                                         id="useNewBench"
-                                        class='form-control'
+                                        class='form-select'
                                         formControlName="useNewBench"
                                   >
                                     <option [ngValue]="false">Runtime Benchmark</option>
                                     <option [ngValue]="true" [defaultSelected]=true>Speed Test</option>
                                   </select>
+                              </div>
+                            </div>
+                            &nbsp;
+                            <div class="form-group">
+                              <div class="form-outline">
+                                <label for="setcrackerBinaryTypeId">Binary type to run task</label>
+                                <td>
+                                <select
+                                        type='number'
+                                        id='crackerBinaryTypeId'
+                                        class='form-select'
+                                        #myBinary
+                                        formControlName="crackerBinaryTypeId">
+                                  <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
+                                </select>
                               </div>
                             </div>
                             &nbsp;
@@ -146,21 +164,6 @@
                               </div>
                             </div>
                             &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                <label for="setcrackerBinaryTypeId">Binary type to run task</label>
-                                <td>
-                                <select
-                                        type='number'
-                                        id='crackerBinaryTypeId'
-                                        class='form-select'
-                                        #myBinary
-                                        formControlName="crackerBinaryTypeId">
-                                  <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
-                                </select>
-                              </div>
-                            </div>
-                            &nbsp;
                         </div>
                   <button class="btn btn-gray-800" type="submit">Create</button>
             </form>
@@ -182,10 +185,10 @@
           <ngb-accordion #acc="ngbAccordion" activeIds="config-panel-one">
             <ngb-panel title="Required" id="config-panel-one">
               <ng-template ngbPanelContent>
-                Use #HL# for hash list and assume all files in current directory.
+                Use <code>#HL#</code> for hash list and assume all files in current directory.
                 If you have Linux agents, please mind the filename case sensitivity!
                 <br>
-                <p>Rules: to add a rule list and "-r" needs to be added before the Filename. ie. -r Filename</p>
+                <p>Rules: Format is <code>-r Filename</code></p>
               </ng-template>
             </ngb-panel>
             <ngb-panel title="Attack Modes">
@@ -245,11 +248,10 @@
             <ngb-panel title="Foreign Characters Hashcat">
               <ng-template ngbPanelContent>
                 <p>Hashcat uses UTF-8, if you are doing an attack using wordlist as soon as the format is supported it should be fine.
-                  If you are trying a brute attack, it'll require use the command --hex-charset. ie.
+                  If you are trying a brute attack, it'll require use the command <code>--hex-charset</code>. Example:
                 </p>
                 <p>German: --hex-charset -1 c3 -2 8489969c9fa4a9b6bc german.hash ?a?a?a?1?2?a?a</p>
-                <p>Russian: --hex-charset -1 d0dld2d3d4 -2 808182838485868788898a8b8c8d8e8f909192939495969798999a9b9c9d9e9fa0ala2a3a4a5a6a7a8a9aaabacadaeafb0blb2b3b4b5b6b7b8b9babbbcbdbebf -i ?1?2?1?2?1?2?1?2</p>
-                <p>Encoding: It is better practice encode the custom charsets in the mask, please note From and To in the example. ie. --encoding-from=utf-8 or --encoding-to=utf-8  </p>
+                <p>Encoding: It is better practice encode the custom charsets in the mask, please note From and To in the example. ie. <code>--encoding-from=utf-8</code> or <code>--encoding-to=utf-8</code> </p>
               </ng-template>
             </ngb-panel>
           </ngb-accordion>

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 
@@ -14,7 +14,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-new-preconfigured-tasks',
   templateUrl: './new-preconfigured-tasks.component.html'
 })
-export class NewPreconfiguredTasksComponent implements OnInit {
+export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
+  @ViewChild('cmdAttack', {static: true}) cmdAttack: any;
   // Loader
   isLoading = false;
   faInfoCircle=faInfoCircle;
@@ -41,13 +42,13 @@ export class NewPreconfiguredTasksComponent implements OnInit {
 
     this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl('', [Validators.required]),
+      'attackCmd': new FormControl(null || '#HL#', [Validators.required]),
       'maxAgents': new FormControl(null || this.maxAgents),
       'chunkTime': new FormControl(null || this.chunkTime),
       'statusTimer': new FormControl(null || this.statusTimer),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),
-      "crackerBinaryTypeId": new FormControl(null || 0),
+      "crackerBinaryTypeId": new FormControl(null || 1),
       'isSmall': new FormControl(null || false),
       'useNewBench': new FormControl(null || true),
       'isMaskImport': new FormControl(false),
@@ -97,38 +98,38 @@ export class NewPreconfiguredTasksComponent implements OnInit {
       );
     }
   }
+  public matchFileType: any
 
   ngAfterViewInit() {
 
     let params = {'maxResults': this.maxResults }
 
-    this.filesService.getFiles(params).subscribe((files: any) => {
+    this.filesService.getFiles(params).subscribe((ptask: any) => {
       var self = this;
       var selftext = this;
-      console.log(files.values)
-      var response = files.values;
+      let response = ptask.values;
       ($("#files") as any).selectize({
-        maxItems: null,
-        // plugins: ["restore_on_backspace","drag_drop"],
+        maxItems: 10,
         plugins: ["restore_on_backspace"],
-        // delimiter: ",",
+        delimiter: ",",
         persist: false,
         valueField: "fileId",
         placeholder: "Search for file...",
         labelField: "filename",
-        searchField: ["filename"],
+        searchField: ["fileType", "filename"],
         sortField: 'fileType',
         loadingClass: 'Loading..',
         highlight: true,
         onItemAdd: function (value, $item) {
-          selftext.OnChangeAttack(this.getItem(value)[0].innerHTML);
+          this.matchFileType = response.find(element => element.fileId === +value);
+          selftext.OnChangeAttack(this.getItem(value)[0].innerHTML, this.matchFileType);
         },
         onChange: function (value) {
-          self.OnChangeFile(value); // We need to overide DOM event, Angular vs Jquery
+          self.OnChangeFile(value); // We need to overide DOM event, Angular has some issues with Jquery
         },
         render: {
           option: function (item, escape) {
-            return '<div  class="hashtype_selectize">' + escape(item.fileType == 0 ? 'Wordlist':'' || item.fileType == 1 ? 'Rules':'Other') + ' -  ' + escape(item.filename) + '</div>';
+            return '<div  class="hashtype_selectize">' + escape(item.fileType == 0 ? 'Wordlist':'' || item.fileType == 1 ? 'Rules':'Other') + ' -  ' + escape(item.filename) +' ('+escape(item.size)+')'+'</div>';
           },
         },
         onInitialize: function(){
@@ -145,26 +146,45 @@ export class NewPreconfiguredTasksComponent implements OnInit {
     }
 
     OnChangeFile(value){
+      let formArr = new FormArray([]);
+      for (let val of value) {
+        formArr.push(
+          new FormControl(+val)
+        );
+      }
+      // this.createForm = new FormGroup({
+      //   supertaskName: new FormControl('', [Validators.required]),
+      //   pretasks: formArr
+      // });
       this.createForm.patchValue({
-        attackCmd: value
-        // files: value
+        // attackCmd: value
+        files: formArr
       });
       // this._changeDetectorRef.detectChanges();
     }
 
-    OnChangeAttack(value){
-      // this.createForm.patchValue({
-      //   attackCmd: value
-      // });
+    OnChangeAttack(item: string, arr: string){
+      let currentCmd = this.createForm.get('attackCmd').value;
+      let newCmd = item;
+      this.validateFile(newCmd);
+      if (arr['fileType'] === 1){
+        newCmd = '-r '+ newCmd;
+      }
+      this.createForm.patchValue({
+        attackCmd: currentCmd+' '+ newCmd
+      });
       // this._changeDetectorRef.detectChanges();
     }
 
-    // OnChangeValue(value){
-    //   // this.signupForm.patchValue({
-    //   //   hashTypeId: value
-    //   // });
-    //   // this._changeDetectorRef.detectChanges();
-    // }
+    validateFile(value){
+      if(value.split('.').pop() == 'txt'){
+        Swal.fire({
+          title: "Heads Up!",
+          text: "Hashcat has some issues loading 7z files. Better convert it to a hash file ;)",
+          icon: "warning",
+        })
+      }
+    }
 
   // Modal Information
   attackmode =[

@@ -65,14 +65,14 @@
                                     aria-hidden="true"
                             >
                             </fa-icon>
-                            <input
+                            <textarea
                                   type='text'
                                   id="attackCmd"
                                   class='form-control'
                                   formControlName="attackCmd"
                             >
+                            </textarea>
                         </div>
-
                       </div>
                       &nbsp;
                       <div class="form-group">
@@ -228,8 +228,7 @@
                                         #myBinary
                                         (change)="onChangeBinary(myBinary.value)"
                                         formControlName="crackerBinaryId">
-                                  <option
-                                        *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
+                                  <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
                                 </select>
                               </div>
                             </div>
@@ -272,12 +271,14 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getPreprocessorCommand">Preprocessor command</label>
-                                  <input
+                                  <textarea
                                         type='text'
                                         id="preprocessorCommand"
                                         class='form-control'
                                         formControlName="preprocessorCommand"
+                                        #cmdPreAttack
                                   >
+                                  </textarea>
                               </div>
                             </div>
                             &nbsp;
