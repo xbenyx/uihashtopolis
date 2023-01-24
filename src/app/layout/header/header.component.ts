@@ -29,14 +29,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   faCogs=faCogs;
   faUserGroup=faUserGroup;
   // SubMenu User
-    faPowerOff=faPowerOff;
-    faBell=faBell;
-    faSun=faSun;
-    faMoon=faMoon;
-    faUserCircle=faUserCircle;
-    faInbox=faInbox;
-    faQuestionCircle=faQuestionCircle;
-    faEye=faEye;
+  faPowerOff=faPowerOff;
+  faBell=faBell;
+  faSun=faSun;
+  faMoon=faMoon;
+  faUserCircle=faUserCircle;
+  faInbox=faInbox;
+  faQuestionCircle=faQuestionCircle;
+  faEye=faEye;
 
   public notifbell: {title: string, description: string, datetime: string}[] = [];
 
