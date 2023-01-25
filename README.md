@@ -16,8 +16,16 @@ To install and run **UIHastopolis**, you need Docker or the last version of Node
 
 We will release a beta soon.
 
+## Pre-Installation - Setp up Back end API
 
-# Installation and set up, using Docker (Recommended)
+1. Clone project `git clone -b feature/apiv2 https://github.com/hashtopolis/server.git`
+2. Go to the  `.devcontainer` folder in the project and run `docker-compose up -d`
+
+Notes:
+- Can not create hashlist/files? You could be facing folder permissions. Run `chown vscode:vscode tmp/ files/ import/`
+
+
+# Installation and set up UI using Docker (Recommended)
 
 1. Install Docker Desktop
 
