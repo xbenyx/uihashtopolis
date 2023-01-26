@@ -34,6 +34,7 @@
               "src/styles/styles.scss",
               "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/@selectize/selectize/dist/css/selectize.css",
               "node_modules/@selectize/selectize/dist/css/selectize.bootstrap5.css",
               "node_modules/jquery-ui/themes/base/selectable.css"
@@ -129,6 +130,7 @@
               "src/styles/styles.scss",
               "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "node_modules/datatables.net-select-dt/css/select.dataTables.css",
               "node_modules/@selectize/selectize/dist/css/selectize.css",
               "node_modules/@selectize/selectize/dist/css/selectize.bootstrap5.css",
               "node_modules/jquery-ui/themes/base/selectable.css"

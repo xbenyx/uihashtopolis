@@ -20,11 +20,12 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   faFileText=faFileText;
   faTrash=faTrash;
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  isChecked:boolean =false;
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -36,21 +37,128 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   constructor(
     private agentsService: AgentsService
   ) { }
-
+  message = '';
   ngOnInit(): void {
+    // let table =  $('#agents').DataTable({});
+
     this.agentsService.getAgents().subscribe((agents: any) => {
       this.showagents = agents.values;
+      this.showagents.forEach(f => (f.checked = false));
       this.dtTrigger.next(void 0);
     });
+
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,
       stateSave: true,
-      select: true,
+      destroy: true,
+      scrollY: "50vh",
+      select: {
+        style: 'multi',
+        },
+      columnDefs: [ {
+        width: "10% !important;",
+        targets: 0,
+        searchable: false,
+        orderable: false,
+        // className: "dt-body-center"
+      } ],
       buttons: [
-        'copy', 'excel', 'csv', 'edit'
-    ]
+        {
+          extend: 'collection',
+          text: 'Export',
+          buttons: [
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: [1, 2, 3, 4, 5]
+              },
+            },
+            {
+              extend: 'print',
+              exportOptions: {
+                columns: [1, 2, 3, 4, 5]
+              },
+              customize: function ( win ) {
+                $(win.document.body)
+                    .css( 'font-size', '10pt' )
+                $(win.document.body).find( 'table' )
+                    .addClass( 'compact' )
+                    .css( 'font-size', 'inherit' );
+             }
+            },
+              'csv','copy'
+             ]
+        },
+        {
+          extend: 'csvHtml5',
+          exportOptions: {modifier: {selected: true}},
+          select: true,
+          customize: function (dt, csv) {
+            var data = "";
+            for (var i = 0; i < dt.length; i++) {
+              data = "Agents\n\n"+  dt;
+            }
+            return data;
+         }
+        },
+        {
+          extend: 'collection',
+          text: 'Actions',
+          buttons: [
+                {
+                  text: 'Delete Selected Agents',
+                  // enabled: false,
+                  action: function () {
+                    this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
+                      dtElement.dtInstance.then((dtInstance: any) => {
+                        var table = dtInstance.table().node().id;
+                        var row = table.row(this).data()
+                      });
+                    });
+                    // if(agentIds.length == 0) return;
+                  }
+                },
+                {
+                  text: 'Activate Selected Agents',
+                  // className: 'btn-gray-800',
+                  action: function ( e, dt, node, config ) {
+                      dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                  }
+                },
+             ]
+        }
+      ],
     };
+  }
+
+  setCheckAll(){
+    let chkBoxlength = $(".checkboxCls:checked").length;
+    if (this.isChecked == true) {
+      $(".checkboxCls").prop("checked", false);
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.rows(  ).deselect();
+        this.isChecked = false;
+      });
+
+    } else {
+      $(".checkboxCls").prop("checked", true);
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.rows(  ).select();
+        this.isChecked = true;
+      });
+    }
+  }
+
+  getSelectedAgents(){
+    var agentIds = [];
+    $('#agents tr.selected').each(function(){
+      var row = row(this).data()
+      // agentIds.push(row.agentId);
+      console.log(row)
+    });
+
+    if(agentIds.length == 0) return;
   }
 
   rerender(): void {
