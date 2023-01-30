@@ -7,6 +7,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { environment } from 'src/environments/environment';
 
+declare let $:any;
+
 @Component({
   selector: 'app-show-agents',
   templateUrl: './show-agents.component.html'
@@ -37,7 +39,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   constructor(
     private agentsService: AgentsService
   ) { }
-  message = '';
+
   ngOnInit(): void {
     // let table =  $('#agents').DataTable({});
 
@@ -110,11 +112,13 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                   text: 'Delete Selected Agents',
                   // enabled: false,
                   action: function () {
-                    this.dtElements.forEach((dtElement: DataTableDirective, index: number) => {
-                      dtElement.dtInstance.then((dtInstance: any) => {
-                        var table = dtInstance.table().node().id;
-                        var row = table.row(this).data()
-                      });
+                    // const selection = $().DataTable().rows({ selected: true } ).data().toArray();
+                    // console.log(selection.length +" row(s) selected for delete:");
+
+                    $('#agents tr.selected').each(function(){
+                      // var row = table.row( this ).data().id
+                      // agentIds.push(row.agentId);
+                      // console.log(row)
                     });
                     // if(agentIds.length == 0) return;
                   }

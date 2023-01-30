@@ -10,6 +10,7 @@ import { ArraySortPipe } from "../core/_pipes/orderby-item.pipe";
 import { FileTypePipe } from "../core/_pipes/file-type.pipe";
 import { HealthCheckStatusPipe } from "../core/_pipes/healthcheck-status.pipe";
 import { ReplaceStringPipe } from "../core/_pipes/replace-string.pipe";
+import { SecondsToTimePipe } from "../core/_pipes/secondsto-time.pipe";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ReplaceStringPipe } from "../core/_pipes/replace-string.pipe";
     ArraySortPipe,
     FileTypePipe,
     HealthCheckStatusPipe,
-    ReplaceStringPipe
+    ReplaceStringPipe,
+    SecondsToTimePipe
   ],
   imports: [CommonModule],
   exports: [
@@ -33,7 +35,8 @@ import { ReplaceStringPipe } from "../core/_pipes/replace-string.pipe";
     ArraySortPipe,
     FileTypePipe,
     HealthCheckStatusPipe,
-    ReplaceStringPipe
+    ReplaceStringPipe,
+    SecondsToTimePipe
   ]
 })
 export class PipesModule {}
