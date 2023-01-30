@@ -18,7 +18,7 @@
       </a>
   </div>
 </div>
-<!-- New Hashtype -->
+<!-- New Agent Binary -->
   <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
     <section>
       <div class="container">
@@ -52,7 +52,7 @@
                           <div class="form-group">
                             <div class="form-outline">
                               <label class="form-label" for="setuptrack">Update Track</label>
-                              <select name="updatetrack" class="form-control" title="Updatetrack">
+                              <select name="updatetrack" class="form-select" title="Updatetrack">
                                 <option value="release">Release</option>
                                 <option value="stable" selected>Stable</option>
                               </select>
@@ -69,11 +69,10 @@
     </section>
     &nbsp;&nbsp;
   </div>
-  <!-- New Hashtype End-->
+  <!-- New Agent Binary End-->
   <!-- Body -->
   <div class="card border-0 shadow mb-4">
     <div class="card-body">
-          <!-- <h2>All users ({{allusers.length}})</h2> -->
           <div class="table-responsive">
               <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                 <thead class="thead-light">
@@ -96,8 +95,11 @@
                       <td>{{ b.version }}</td>
                       <td>{{ b.updateTrack }}</td>
                       <td>
-                        <a>
-                          <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(b.agentBinaryId)"><fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon></button>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="[b.agentBinaryId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                        </a>
+                        <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(b.agentBinaryId)">
+                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                         </a>
                       </td>
                   </tr>

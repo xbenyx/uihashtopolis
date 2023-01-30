@@ -13,6 +13,7 @@ import { PipesModule } from "../shared/pipes.module";
 import { ComponentsModule } from "../shared/components.module";
 import { EditAgentComponent } from './edit-agent/edit-agent.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DirectivesModule } from "../shared/directives.module";
 
 @NgModule({
   declarations:[
@@ -31,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     NgbModule,
     AgentsRoutingModule,
     PipesModule,
+    DirectivesModule,
     ComponentsModule
   ]
 })

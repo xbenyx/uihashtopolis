@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faDownload, faInfoCircle, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { environment } from './../../../environments/environment';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { VoucherService } from '../../core/_services/agents/voucher.service';
+import { AgentBinService } from 'src/app/core/_services/config/agentbinary.service';
 
 @Component({
   selector: 'app-new-agent',
@@ -18,6 +19,9 @@ export class NewAgentComponent implements OnInit, OnDestroy {
   isLoading = false;
   // Form attributtes
   faTrash=faTrash;
+  faDownload=faDownload;
+  faInfoCircle=faInfoCircle;
+  faCopy=faCopy;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -30,13 +34,14 @@ export class NewAgentComponent implements OnInit, OnDestroy {
   }
 
   createForm: FormGroup
-  crackerbinary: any = [];
+  binaries: any = [];
+  // public binaries: {agentBinaryId: number, type: string, version: string, operatingSystems: string, filename: string, updateTrack: string, updateAvailable: string}[] = [];
   vouchers: any = [];
 
   randomstring:any
 
   constructor(
-    private crackerService: CrackerService,
+    private agentBinService: AgentBinService,
     private voucherService: VoucherService
   ) { }
 
@@ -63,8 +68,8 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       this.vouchers = vouchers.values;
     });
 
-    this.crackerService.getCrackerBinaries().subscribe((binary: any) => {
-      this.crackerbinary = binary;
+    this.agentBinService.getAgentBin().subscribe((bin: any) => {
+      this.binaries = bin.values;
       this.dtTrigger.next(void 0);
     });
     this.dtOptions = {
@@ -84,6 +89,11 @@ export class NewAgentComponent implements OnInit, OnDestroy {
         this.dtTrigger['new'].next();
       });
     });
+  }
+
+
+  onCopy(){
+    // this.copier.copyText(this.someContentToCopy);
   }
 
   onDelete(id: number){
