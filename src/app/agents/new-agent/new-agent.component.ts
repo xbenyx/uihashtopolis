@@ -91,11 +91,6 @@ export class NewAgentComponent implements OnInit, OnDestroy {
     });
   }
 
-
-  onCopy(){
-    // this.copier.copyText(this.someContentToCopy);
-  }
-
   onDelete(id: number){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
