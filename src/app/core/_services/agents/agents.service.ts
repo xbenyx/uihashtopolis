@@ -39,6 +39,7 @@ export class AgentsService {
   deleteAgent(id: number): Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
+      tap(data => console.log(JSON.stringify(data))),
       catchError(this.handleError)
     );
   }

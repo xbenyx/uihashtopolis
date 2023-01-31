@@ -94,6 +94,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
+                self.onSelectedAgents();
                 var data = "";
                 for (var i = 0; i < dt.length; i++) {
                   data = "Agents\n\n"+  dt;
@@ -112,41 +113,23 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                   text: 'Delete Agents',
                   autoClose: true,
                   action: function (e, dt, node, config) {
-                    let selectionnum = self.onSelectedAgents();
-                      selectionnum.forEach(function (value) {
-                        Swal.fire('Deleting....Please wait')
-                        Swal.showLoading()
-                        self.onDeleteBulk(value);
-                      });
-                    self.onDone();
+                    self.onDeleteBulk();
                   }
                 },
                 {
                   text: 'Activate Agents',
                   autoClose: true,
                   action: function ( e, dt, node, config ) {
-                    let selectionnum = self.onSelectedAgents();
-                    selectionnum.forEach(function (id) {
-                      Swal.fire('Activating....Please wait')
-                      Swal.showLoading()
-                      const isActive = {isActive: true};
-                      self.onUpdateBulk(id,isActive);
-                    });
-                    self.onDone();
+                    const isActive = {isActive: true};
+                    self.onUpdateBulk(isActive);
                   }
                 },
                 {
                   text: 'Deactivate Agents',
                   autoClose: true,
                   action: function ( e, dt, node, config ) {
-                    let selectionnum = self.onSelectedAgents()
-                    selectionnum.forEach(function (id) {
-                        Swal.fire('Deactivating....Please wait')
-                        Swal.showLoading()
-                        const isActive = {isActive: false};
-                        self.onUpdateBulk(id,isActive);
-                    });
-                    self.onDone();
+                    const isActive = {isActive: false};
+                    self.onUpdateBulk(isActive);
                   }
                 },
              ]
@@ -183,13 +166,13 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDone(){
+  onDone(value: any){
     setTimeout(() => {
       this.ngOnInit();
       this.rerender();  // rerender datatables
       Swal.close();
       Swal.fire({
-        title: 'Done!',
+        title: ''+value+' Agents processed!',
         type: 'success',
         timer: 1500,
         showConfirmButton: false
@@ -200,20 +183,56 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   onSelectedAgents(){
     $(".dt-button-background").trigger("click");
     let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
-    if(selection.length == 0) return;
+    if(selection.length == 0) {
+      Swal.fire({
+        title: "You haven't selected any Agent",
+        type: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      })
+      return;
+    }
     let selectionnum = selection.map(i=>Number(i));
 
     return selectionnum;
   }
 
-  onDeleteBulk(id: number){
-    this.agentsService.deleteAgent(id).subscribe(() => {
-    });
+  onDeleteBulk(){
+    const self = this;
+    let selectionnum = this.onSelectedAgents();
+    let sellen = selectionnum.length;
+    let errors = [];
+    selectionnum.forEach(function (value) {
+      Swal.fire('Deleting....Please wait')
+      Swal.showLoading()
+    self.agentsService.deleteAgent(value).subscribe(
+      err => {
+        console.log('HTTP Error', err)
+        err = 1;
+        errors.push(err);
+      },
+      );
+     });
+   self.onDone(sellen);
   }
 
-  onUpdateBulk(id: number, value: any){
-    this.agentsService.updateAgent(id, value).subscribe((agent: any) => {
-    });
+  onUpdateBulk(value: any){
+    const self = this;
+    let selectionnum = this.onSelectedAgents();
+    let sellen = selectionnum.length;
+    let errors = [];
+    selectionnum.forEach(function (id) {
+      Swal.fire('Updating....Please wait')
+      Swal.showLoading()
+    self.agentsService.updateAgent(id, value).subscribe(
+      err => {
+        console.log('HTTP Error', err)
+        err = 1;
+        errors.push(err);
+      },
+    );
+   });
+  self.onDone(sellen);
   }
 
   onDelete(id: number){
