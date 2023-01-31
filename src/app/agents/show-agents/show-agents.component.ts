@@ -41,14 +41,14 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // let table =  $('#agents').DataTable({});
 
     this.agentsService.getAgents().subscribe((agents: any) => {
       this.showagents = agents.values;
-      this.showagents.forEach(f => (f.checked = false));
+      // this.showagents.forEach(f => (f.checked = false));
       this.dtTrigger.next(void 0);
     });
 
+    const self = this;
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,
@@ -89,45 +89,64 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                     .css( 'font-size', 'inherit' );
              }
             },
-              'csv','copy'
+            {
+              extend: 'csvHtml5',
+              exportOptions: {modifier: {selected: true}},
+              select: true,
+              customize: function (dt, csv) {
+                var data = "";
+                for (var i = 0; i < dt.length; i++) {
+                  data = "Agents\n\n"+  dt;
+                }
+                return data;
+             }
+            },
+              'copy'
              ]
         },
         {
-          extend: 'csvHtml5',
-          exportOptions: {modifier: {selected: true}},
-          select: true,
-          customize: function (dt, csv) {
-            var data = "";
-            for (var i = 0; i < dt.length; i++) {
-              data = "Agents\n\n"+  dt;
-            }
-            return data;
-         }
-        },
-        {
           extend: 'collection',
-          text: 'Actions',
+          text: 'Bulk Actions',
           buttons: [
                 {
-                  text: 'Delete Selected Agents',
-                  // enabled: false,
-                  action: function () {
-                    // const selection = $().DataTable().rows({ selected: true } ).data().toArray();
-                    // console.log(selection.length +" row(s) selected for delete:");
-
-                    $('#agents tr.selected').each(function(){
-                      // var row = table.row( this ).data().id
-                      // agentIds.push(row.agentId);
-                      // console.log(row)
-                    });
-                    // if(agentIds.length == 0) return;
+                  text: 'Delete Agents',
+                  autoClose: true,
+                  action: function (e, dt, node, config) {
+                    let selectionnum = self.onSelectedAgents();
+                      selectionnum.forEach(function (value) {
+                        Swal.fire('Deleting....Please wait')
+                        Swal.showLoading()
+                        self.onDeleteBulk(value);
+                      });
+                    self.onDone();
                   }
                 },
                 {
-                  text: 'Activate Selected Agents',
-                  // className: 'btn-gray-800',
+                  text: 'Activate Agents',
+                  autoClose: true,
                   action: function ( e, dt, node, config ) {
-                      dt.column( -2 ).visible( ! dt.column( -2 ).visible() );
+                    let selectionnum = self.onSelectedAgents();
+                    selectionnum.forEach(function (id) {
+                      Swal.fire('Activating....Please wait')
+                      Swal.showLoading()
+                      const isActive = {isActive: true};
+                      self.onUpdateBulk(id,isActive);
+                    });
+                    self.onDone();
+                  }
+                },
+                {
+                  text: 'Deactivate Agents',
+                  autoClose: true,
+                  action: function ( e, dt, node, config ) {
+                    let selectionnum = self.onSelectedAgents()
+                    selectionnum.forEach(function (id) {
+                        Swal.fire('Deactivating....Please wait')
+                        Swal.showLoading()
+                        const isActive = {isActive: false};
+                        self.onUpdateBulk(id,isActive);
+                    });
+                    self.onDone();
                   }
                 },
              ]
@@ -144,7 +163,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         dtInstance.rows(  ).deselect();
         this.isChecked = false;
       });
-
     } else {
       $(".checkboxCls").prop("checked", true);
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -152,17 +170,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         this.isChecked = true;
       });
     }
-  }
-
-  getSelectedAgents(){
-    var agentIds = [];
-    $('#agents tr.selected').each(function(){
-      var row = row(this).data()
-      // agentIds.push(row.agentId);
-      console.log(row)
-    });
-
-    if(agentIds.length == 0) return;
   }
 
   rerender(): void {
@@ -173,6 +180,39 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.dtTrigger['new'].next();
       });
+    });
+  }
+
+  onDone(){
+    setTimeout(() => {
+      this.ngOnInit();
+      this.rerender();  // rerender datatables
+      Swal.close();
+      Swal.fire({
+        title: 'Done!',
+        type: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      })
+    },3000);
+  }
+
+  onSelectedAgents(){
+    $(".dt-button-background").trigger("click");
+    let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+    if(selection.length == 0) return;
+    let selectionnum = selection.map(i=>Number(i));
+
+    return selectionnum;
+  }
+
+  onDeleteBulk(id: number){
+    this.agentsService.deleteAgent(id).subscribe(() => {
+    });
+  }
+
+  onUpdateBulk(id: number, value: any){
+    this.agentsService.updateAgent(id, value).subscribe((agent: any) => {
     });
   }
 
@@ -215,4 +255,5 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 }
