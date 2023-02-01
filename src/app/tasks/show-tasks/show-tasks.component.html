@@ -46,9 +46,7 @@
               </thead>
               <tbody>
               <tr *ngFor="let task of alltasks">
-                  <td>
-                    <span class="pill-ebidem" [ngStyle]="{'background-color': task.color }">{{  task.taskId }}</span>
-                  </td>
+                  <td [ngClass]="!task.color ? '' : 'pill-ebidem-tk'"  [ngStyle]="{'background-color': task.color }">{{ task.taskId }}</td>
                   <td>
                       <a>{{ task.taskName | lowercase | titlecase }}</a>
                       <span *ngIf="task.isSecret == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>

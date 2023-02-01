@@ -206,7 +206,7 @@ export class HashtypesComponent implements OnInit {
       text: "If your Hashtype is being in a Hashlist/Task that could lead to issues!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#4B5563',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     })

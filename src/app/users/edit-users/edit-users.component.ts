@@ -103,7 +103,7 @@ export class EditUsersComponent implements OnInit {
       text: "Once deleted, it cannot be recover.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#4B5563',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     })

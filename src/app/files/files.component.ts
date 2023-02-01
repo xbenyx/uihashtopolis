@@ -62,7 +62,6 @@ export class FilesComponent implements OnInit {
 // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
 
-// Render Table with Datatables directive
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
@@ -256,7 +255,7 @@ export class FilesComponent implements OnInit {
       text: "Once deleted, it can not be recovered!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#4B5563',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     })

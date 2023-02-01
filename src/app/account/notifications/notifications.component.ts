@@ -119,7 +119,7 @@ export class NotificationsComponent implements OnInit {
       text: "Once deleted, it can not be recovered!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#4B5563',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     })

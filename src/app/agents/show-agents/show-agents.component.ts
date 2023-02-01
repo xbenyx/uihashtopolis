@@ -263,12 +263,12 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       const { value: formValues } = await Swal.fire({
         title: title,
         html:
-          '<input id="swal-input1" class="swal2-input">',
+          '<input id="agent-input" class="swal2-input">',
         focusConfirm: false,
         confirmButtonColor: '#4B5563',
         preConfirm: () => {
           return [
-            (<HTMLInputElement>document.getElementById('swal-input1')).value,
+            (<HTMLInputElement>document.getElementById('agent-input')).value,
           ]
         }
       })
@@ -298,7 +298,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       text: "Once deleted, it cannot be recover.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#4B5563',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     })

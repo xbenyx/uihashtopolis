@@ -8,6 +8,8 @@ import { DataTableDirective } from 'angular-datatables';
 
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 
+declare let $:any;
+
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html'
@@ -25,13 +27,13 @@ export class ShowTasksComponent implements OnInit {
   faBookmark=faBookmark;
   faEye=faEye;
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  ngOnDestroy(): void {
+  ngOnDestroy(){
     this.dtTrigger.unsubscribe();
   }
 
@@ -69,11 +71,16 @@ export class ShowTasksComponent implements OnInit {
       this.dtTrigger.next(void 0);
     });
 
+    const self = this;
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,
       stateSave: true,
-      select: true,
+      destroy: true,
+      scrollY: "50vh",
+      select: {
+        style: 'multi',
+        },
       buttons: [
         {
           extend: 'collection',
@@ -112,7 +119,42 @@ export class ShowTasksComponent implements OnInit {
             },
               'copy'
             ]
-          }
+          },
+                  {
+          extend: 'collection',
+          text: 'Bulk Actions',
+          drawCallback: function() {
+            var hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
+            $('.buttons-excel')[0].style.visibility = hasRows ? 'visible' : 'hidden'
+          },
+          buttons: [
+                {
+                  text: 'Delete Task(s)',
+                  autoClose: true,
+                  action: function (e, dt, node, config) {
+                    self.onDeleteBulk();
+                  }
+                },
+                {
+                  text: 'Archive Task(s)',
+                  autoClose: true,
+                  enabled: !this.isArchived,
+                  action: function (e, dt, node, config) {
+                    const edit = {isArchived: true};
+                    self.onUpdateBulk(edit);
+                  }
+                },
+                {
+                  text: 'Assign to Project (under construction)',
+                  autoClose: true,
+                  enabled: !this.isArchived,
+                  action: function ( e, dt, node, config ) {
+                    const title = 'Assign to Project'
+                    self.onModalProject(title)
+                  }
+                },
+             ]
+        }
         ],
     };
 
@@ -158,7 +200,7 @@ export class ShowTasksComponent implements OnInit {
       text: "Once deleted, it can not be recovered!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#4B5563',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
     })
@@ -184,5 +226,107 @@ export class ShowTasksComponent implements OnInit {
       }
     });
   }
+
+  // Bulk actions
+
+  onSelectedTasks(){
+    $(".dt-button-background").trigger("click");
+    let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+    if(selection.length == 0) {
+      Swal.fire({
+        title: "You haven't selected any Task",
+        type: 'success',
+        timer: 1500,
+        showConfirmButton: false
+      })
+      return;
+    }
+    let selectionnum = selection.map(i=>Number(i));
+
+    return selectionnum;
+  }
+
+    onDeleteBulk(){
+      const self = this;
+      let selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+      let sellen = selectionnum.length;
+      let errors = [];
+      selectionnum.forEach(function (value) {
+        Swal.fire('Deleting...'+sellen+' Task(s)...Please wait')
+        Swal.showLoading()
+      self.tasksService.deleteTask(value)
+      .subscribe(
+        err => {
+          console.log('HTTP Error', err)
+          err = 1;
+          errors.push(err);
+        },
+        );
+      });
+    self.onDone(sellen);
+  }
+
+    onUpdateBulk(value: any){
+      const self = this;
+      let selectionnum = this.onSelectedTasks();
+      let sellen = selectionnum.length;
+      selectionnum.forEach(function (id) {
+        Swal.fire('Updating...'+sellen+' Task(s)...Please wait')
+        Swal.showLoading()
+      self.tasksService.updateTask(id, value).subscribe(
+      );
+    });
+    self.onDone(sellen);
+  }
+
+    onDone(value?: any){
+      setTimeout(() => {
+        this.ngOnInit();
+        this.rerender();  // rerender datatables
+        Swal.close();
+        Swal.fire({
+          title: 'Done!',
+          type: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        })
+      },3000);
+   }
+
+    onModalProject(title: string){
+      (async () => {
+
+        $(".dt-button-background").trigger("click");
+        let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+        if(selection.length == 0) {
+          Swal.fire({
+            title: "You haven't selected any Task",
+            type: 'success',
+            timer: 1500,
+            showConfirmButton: false
+          })
+          return;
+        }
+
+        const { value: formValues } = await Swal.fire({
+          title: title,
+          html:
+            '<input id="project-input" class="swal2-input">',
+          focusConfirm: false,
+          confirmButtonColor: '#4B5563',
+          preConfirm: () => {
+            return [
+              (<HTMLInputElement>document.getElementById('project-input')).value,
+            ]
+          }
+        })
+
+        if (formValues) {
+          let edit = {projectName: +formValues};
+          this.onUpdateBulk(edit);
+        }
+
+        })()
+    }
 
 }
