@@ -27,9 +27,13 @@ export class LogComponent implements OnInit {
       });
       this.dtOptions = {
         dom: 'Bfrtip',
-        pageLength: 10,
-        stateSave: true,
-        select: true,
+        scrollY: true,
+        buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
         buttons: [
           {
             extend: 'collection',
@@ -70,6 +74,7 @@ export class LogComponent implements OnInit {
               ]
             }
           ],
+        }
       };
     }
 

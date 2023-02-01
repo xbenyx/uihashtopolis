@@ -88,6 +88,12 @@ export class HashlistComponent implements OnInit, OnDestroy {
       stateSave: true,
       select: true,
       pageLength: 50,
+      buttons: {
+        dom: {
+          button: {
+            className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+          }
+        },
       buttons: [
         {
           extend: 'collection',
@@ -128,6 +134,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
             ]
           }
         ],
+      }
     };
 
   });

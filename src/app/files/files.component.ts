@@ -119,6 +119,12 @@ export class FilesComponent implements OnInit {
         select: {
           style: 'multi',
           },
+        buttons: {
+            dom: {
+              button: {
+                className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+              }
+            },
         buttons: [
           {
             extend: 'collection',
@@ -155,7 +161,9 @@ export class FilesComponent implements OnInit {
                   return data;
                }
               },
-                'copy'
+              {
+                extend: 'copy',
+              }
               ]
             },
             {
@@ -181,12 +189,12 @@ export class FilesComponent implements OnInit {
                       text: 'Line Count (Missing API Call)',
                       autoClose: true,
                       action: function ( e, dt, node, config ) {
-
                       }
                     }
                 ]
              }
           ],
+        }
       };
 
       this.uploadProgress = this.uploadService.uploadProgress; //Uploading File using tus protocol

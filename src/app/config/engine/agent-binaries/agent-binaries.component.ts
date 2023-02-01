@@ -44,6 +44,12 @@ export class AgentBinariesComponent implements OnInit {
         pageLength: 10,
         stateSave: true,
         select: true,
+        buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
         buttons: [
           {
             extend: 'collection',
@@ -84,6 +90,7 @@ export class AgentBinariesComponent implements OnInit {
               ]
             }
           ],
+        }
       };
 
     }

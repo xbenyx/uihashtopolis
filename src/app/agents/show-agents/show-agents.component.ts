@@ -66,6 +66,12 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         searchable: false,
         orderable: false,
       } ],
+      buttons: {
+        dom: {
+          button: {
+            className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+          }
+        },
       buttons: [
         {
           extend: 'collection',
@@ -103,12 +109,15 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                 return data;
              }
             },
-              'copy'
+            {
+              extend: 'copy',
+            }
              ]
         },
         {
           extend: 'collection',
           text: 'Bulk Actions',
+          className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
           buttons: [
                 {
                   text: 'Delete Agents',
@@ -142,8 +151,9 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                   }
                 },
              ]
-        }
-      ],
+          }
+        ],
+      }
     };
   }
 

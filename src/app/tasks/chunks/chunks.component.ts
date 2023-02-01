@@ -38,6 +38,12 @@ export class ChunksComponent implements OnInit {
       processing: true,
       deferRender: true,
       destroy:true,
+      buttons: {
+        dom: {
+          button: {
+            className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt'
+          }
+        },
       buttons: [
         {
           extend: 'collection',
@@ -68,10 +74,13 @@ export class ChunksComponent implements OnInit {
                 return data;
              }
             },
-              'copy'
+            {
+              extend: 'copy',
+            }
             ]
           }
         ],
+      }
     };
 
   }

@@ -58,7 +58,53 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
       pageLength: 10,
       stateSave: true,
       select: true,
-      buttons: ['copy', 'excel', 'csv', 'edit']
+      buttons: {
+        dom: {
+          button: {
+            className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+          }
+        },
+      buttons: [
+        {
+          extend: 'collection',
+          text: 'Export',
+          buttons: [
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: [0, 1]
+              },
+            },
+            {
+              extend: 'print',
+              exportOptions: {
+                columns: [0,1]
+              },
+              customize: function ( win ) {
+                $(win.document.body)
+                    .css( 'font-size', '10pt' )
+                $(win.document.body).find( 'table' )
+                    .addClass( 'compact' )
+                    .css( 'font-size', 'inherit' );
+             }
+            },
+            {
+              extend: 'csvHtml5',
+              exportOptions: {modifier: {selected: true}},
+              select: true,
+              customize: function (dt, csv) {
+                var data = "";
+                for (var i = 0; i < dt.length; i++) {
+                  data = "Agents\n\n"+  dt;
+                }
+                return data;
+             }
+            },
+              'copy'
+            ]
+          }
+        ],
+      }
     };
   }
 

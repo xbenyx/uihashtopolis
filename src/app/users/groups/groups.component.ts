@@ -54,6 +54,12 @@ export class GroupsComponent implements OnInit {
         processing: true,  // Error loading
         deferRender: true,
         destroy:true,
+        buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
         buttons: [
           {
             extend: 'collection',
@@ -94,6 +100,7 @@ export class GroupsComponent implements OnInit {
               ]
             }
           ],
+        }
       };
 
     }

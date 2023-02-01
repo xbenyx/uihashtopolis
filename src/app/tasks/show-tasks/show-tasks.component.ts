@@ -81,6 +81,12 @@ export class ShowTasksComponent implements OnInit {
       select: {
         style: 'multi',
         },
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
       buttons: [
         {
           extend: 'collection',
@@ -117,10 +123,12 @@ export class ShowTasksComponent implements OnInit {
                 return data;
              }
             },
-              'copy'
+            {
+              extend: 'copy',
+            }
             ]
           },
-                  {
+          {
           extend: 'collection',
           text: 'Bulk Actions',
           drawCallback: function() {
@@ -156,6 +164,7 @@ export class ShowTasksComponent implements OnInit {
              ]
         }
         ],
+      }
     };
 
  });

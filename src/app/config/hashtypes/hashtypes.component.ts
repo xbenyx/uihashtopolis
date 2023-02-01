@@ -65,6 +65,12 @@ export class HashtypesComponent implements OnInit {
       processing: true,  // Error loading
       deferRender: true,
       destroy:true,
+      buttons: {
+        dom: {
+          button: {
+            className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+          }
+        },
       buttons: [
         {
           extend: 'collection',
@@ -105,6 +111,7 @@ export class HashtypesComponent implements OnInit {
             ]
           }
         ],
+      }
     };
 
   }
