@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../core/_services/config/config.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-server',
@@ -9,6 +9,7 @@ import { faHomeAlt} from '@fortawesome/free-solid-svg-icons';
 })
 export class ServerComponent implements OnInit {
   faHome=faHomeAlt;
+  faInfoCircle=faInfoCircle;
 
   whichView: string;
 
