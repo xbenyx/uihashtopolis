@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
 import { Params } from '@angular/router';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Observable, tap, catchError, throwError, retryWhen, shareReplay, timer, delayWhen, retry, debounce, delay, take } from 'rxjs';
 
 import { IPagedResults } from '../../_models/paged-results';
 import { IAgents } from '../../_models/agents';
@@ -40,7 +40,15 @@ export class AgentsService {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
       tap(data => console.log(JSON.stringify(data))),
-      catchError(this.handleError)
+      catchError(this.handleError),
+      retryWhen(errors => {
+          return errors
+                  .pipe(
+                    tap(() => console.log("Retrying...")),
+                    delay(2000), // Add a delay before retry delete
+                    take(3)  // Retry delete Agents
+                  );
+      } )
     );
   }
 

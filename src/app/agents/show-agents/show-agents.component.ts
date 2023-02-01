@@ -6,6 +6,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { environment } from 'src/environments/environment';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare let $:any;
 
@@ -37,7 +38,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   showagents: any = [];
 
   constructor(
-    private agentsService: AgentsService
+    private agentsService: AgentsService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -120,16 +122,26 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                   text: 'Activate Agents',
                   autoClose: true,
                   action: function ( e, dt, node, config ) {
-                    const isActive = {isActive: true};
-                    self.onUpdateBulk(isActive);
+                    const edit = {isActive: true};
+                    self.onUpdateBulk(edit);
                   }
                 },
                 {
                   text: 'Deactivate Agents',
                   autoClose: true,
                   action: function ( e, dt, node, config ) {
-                    const isActive = {isActive: false};
-                    self.onUpdateBulk(isActive);
+                    const edit = {isActive: false};
+                    self.onUpdateBulk(edit);
+                  }
+                },
+                {
+                  text: 'Edit Rack',
+                  autoClose: true,
+                  action: function ( e, dt, node, config ) {
+                    const title = 'Update Rack'
+                    self.onModal(title)
+                    // const isActive = {rack: false};
+                    // self.onUpdateBulk(isActive);
                   }
                 },
              ]
@@ -166,13 +178,13 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onDone(value: any){
+  onDone(value?: any){
     setTimeout(() => {
       this.ngOnInit();
       this.rerender();  // rerender datatables
       Swal.close();
       Swal.fire({
-        title: ''+value+' Agents processed!',
+        title: 'Done!',
         type: 'success',
         timer: 1500,
         showConfirmButton: false
@@ -203,9 +215,10 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     let sellen = selectionnum.length;
     let errors = [];
     selectionnum.forEach(function (value) {
-      Swal.fire('Deleting....Please wait')
+      Swal.fire('Deleting...'+sellen+' Agents...Please wait')
       Swal.showLoading()
-    self.agentsService.deleteAgent(value).subscribe(
+    self.agentsService.deleteAgent(value)
+    .subscribe(
       err => {
         console.log('HTTP Error', err)
         err = 1;
@@ -222,7 +235,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     let sellen = selectionnum.length;
     let errors = [];
     selectionnum.forEach(function (id) {
-      Swal.fire('Updating....Please wait')
+      Swal.fire('Updating...'+sellen+' Agents...Please wait')
       Swal.showLoading()
     self.agentsService.updateAgent(id, value).subscribe(
       err => {
@@ -233,6 +246,46 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     );
    });
   self.onDone(sellen);
+  }
+
+  onModal(title: string){
+    (async () => {
+
+      $(".dt-button-background").trigger("click");
+      let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+      if(selection.length == 0) {
+        Swal.fire({
+          title: "You haven't selected any Agent",
+          type: 'success',
+          timer: 1500,
+          showConfirmButton: false
+        })
+        return;
+      }
+
+      const { value: formValues } = await Swal.fire({
+        title: title,
+        html:
+          '<input id="swal-input1" class="swal2-input">',
+        focusConfirm: false,
+        confirmButtonColor: '#4B5563',
+        preConfirm: () => {
+          return [
+            (<HTMLInputElement>document.getElementById('swal-input1')).value,
+          ]
+        }
+      })
+
+      let rack = []
+      if (formValues) {
+        rack.push({rack: formValues})
+        // we need to send pus
+        // this.onUpdateBulk(formValues);
+        Swal.fire(JSON.stringify(rack))
+
+      }
+
+      })()
   }
 
   onDelete(id: number){
@@ -274,5 +327,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 
 }
