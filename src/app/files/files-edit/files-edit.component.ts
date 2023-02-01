@@ -51,9 +51,11 @@ export class FilesEditComponent implements OnInit {
 
     this.updateForm = new FormGroup({
       'fileId': new FormControl({value: '', disabled: true}),
-      'filename': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      'fileType': new FormControl(null),
-      'accessGroupId': new FormControl(null)
+      'updateData': new FormGroup({
+        'filename': new FormControl('', [Validators.required, Validators.minLength(1)]),
+        'fileType': new FormControl(null),
+        'accessGroupId': new FormControl(null)
+      })
     });
 
     this.route.data.subscribe(data => {
@@ -144,9 +146,11 @@ private initForm() {
   this.filesService.getFile(this.editedFileIndex).subscribe((result)=>{
     this.updateForm = new FormGroup({
       'fileId': new FormControl(result['fileId'], Validators.required),
-      'filename': new FormControl(result['filename'], Validators.required),
-      'fileType': new FormControl(result['fileType'], Validators.required),
-      'accessGroupId': new FormControl(result['accessGroupId'], Validators.required),
+      'updateData': new FormGroup({
+        'filename': new FormControl(result['filename'], Validators.required),
+        'fileType': new FormControl(result['fileType'], Validators.required),
+        'accessGroupId': new FormControl(result['accessGroupId'], Validators.required),
+      })
     });
     this.isLoading = false;
   });

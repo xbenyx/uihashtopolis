@@ -65,7 +65,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         targets: 0,
         searchable: false,
         orderable: false,
-        // className: "dt-body-center"
       } ],
       buttons: [
         {
@@ -138,10 +137,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
                   text: 'Edit Rack',
                   autoClose: true,
                   action: function ( e, dt, node, config ) {
-                    const title = 'Update Rack'
+                    const title = 'Update Rack (Missing Field)'
                     self.onModal(title)
-                    // const isActive = {rack: false};
-                    // self.onUpdateBulk(isActive);
                   }
                 },
              ]
@@ -215,7 +212,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     let sellen = selectionnum.length;
     let errors = [];
     selectionnum.forEach(function (value) {
-      Swal.fire('Deleting...'+sellen+' Agents...Please wait')
+      Swal.fire('Deleting...'+sellen+' Agent(s)...Please wait')
       Swal.showLoading()
     self.agentsService.deleteAgent(value)
     .subscribe(

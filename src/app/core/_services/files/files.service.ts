@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
 import { ActivatedRoute, Params } from '@angular/router';
 import { environment } from './../../../../environments/environment';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Observable, tap, catchError, throwError, retryWhen, delay, take } from 'rxjs';
 
 import { Filetype, UpdateFileType } from '../../_models/files';
 
@@ -47,7 +47,15 @@ export class FilesService {
   deleteFile(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
-      catchError(this.handleError)
+      catchError(this.handleError),
+      retryWhen(errors => {
+        return errors
+                .pipe(
+                  tap(() => console.log("Retrying...")),
+                  delay(2000), // Add a delay before retry delete
+                  take(3)  // Retry delete Agents
+                );
+    } )
     );
   }
 
@@ -59,9 +67,17 @@ export class FilesService {
   }
 
   updateFile(arr: any): Observable<UpdateFileType> {
-    return this.http.patch<any>(this.endpoint + '/' + arr.fileId, {filename: arr.filename, fileType: +arr.fileType, accessGroupId: +arr.accessGroupId })
+    return this.http.patch<any>(this.endpoint + '/' + arr.fileId, arr.updateData)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  updateBulkFile(id: number, arr: any): Observable<UpdateFileType> {
+    return this.http.patch<any>(this.endpoint + '/' + id, arr)
+    .pipe(
+      tap(data => console.log('Work: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
