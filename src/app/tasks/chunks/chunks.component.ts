@@ -38,7 +38,40 @@ export class ChunksComponent implements OnInit {
       processing: true,
       deferRender: true,
       destroy:true,
-      buttons: ['copy', 'excel', 'csv', 'edit']
+      buttons: [
+        {
+          extend: 'collection',
+          text: 'Export',
+          buttons: [
+            {
+              extend: 'excelHtml5',
+            },
+            {
+              extend: 'print',
+              customize: function ( win ) {
+                $(win.document.body)
+                    .css( 'font-size', '10pt' )
+                $(win.document.body).find( 'table' )
+                    .addClass( 'compact' )
+                    .css( 'font-size', 'inherit' );
+             }
+            },
+            {
+              extend: 'csvHtml5',
+              exportOptions: {modifier: {selected: true}},
+              select: true,
+              customize: function (dt, csv) {
+                var data = "";
+                for (var i = 0; i < dt.length; i++) {
+                  data = "Agents\n\n"+  dt;
+                }
+                return data;
+             }
+            },
+              'copy'
+            ]
+          }
+        ],
     };
 
   }

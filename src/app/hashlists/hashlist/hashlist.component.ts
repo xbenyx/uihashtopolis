@@ -88,14 +88,46 @@ export class HashlistComponent implements OnInit, OnDestroy {
       stateSave: true,
       select: true,
       pageLength: 50,
-      "order": [ [0, 'asc'] ],
-      "columnDefs": [
-        { "orderable": false, "targets": [5, 6] },
-        { "orderable": true, "targets": [0, 1, 2, 3, 4] }
-      ],
       buttons: [
-        'copy', 'excel', 'csv', 'edit'
-    ]
+        {
+          extend: 'collection',
+          text: 'Export',
+          buttons: [
+            {
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: [0, 1, 2, 3, 4]
+              },
+            },
+            {
+              extend: 'print',
+              exportOptions: {
+                columns: [0, 1, 2, 3, 4]
+              },
+              customize: function ( win ) {
+                $(win.document.body)
+                    .css( 'font-size', '10pt' )
+                $(win.document.body).find( 'table' )
+                    .addClass( 'compact' )
+                    .css( 'font-size', 'inherit' );
+             }
+            },
+            {
+              extend: 'csvHtml5',
+              exportOptions: {modifier: {selected: true}},
+              select: true,
+              customize: function (dt, csv) {
+                var data = "";
+                for (var i = 0; i < dt.length; i++) {
+                  data = "Agents\n\n"+  dt;
+                }
+                return data;
+             }
+            },
+              'copy'
+            ]
+          }
+        ],
     };
 
   });
