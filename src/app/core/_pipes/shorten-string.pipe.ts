@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Usage:
  *   value | shortenString:limit
  * Example:
- *   {{ Benito | fileSize:3 }}
+ *   {{ Benito | shortenString:3 }}
  *   formats to: Ben
 */
 @Pipe({

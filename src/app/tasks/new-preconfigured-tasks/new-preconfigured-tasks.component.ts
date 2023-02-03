@@ -1,14 +1,18 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faInfoCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 
 import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { FilesService } from '../../core/_services/files/files.service';
 import { FileTypePipe } from 'src/app/core/_pipes/file-type.pipe';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+
+declare let $:any;
 
 @Component({
   selector: 'app-new-preconfigured-tasks',
@@ -19,6 +23,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   // Loader
   isLoading = false;
   faInfoCircle=faInfoCircle;
+  faLock=faLock;
   // Config
   private maxResults = environment.config.prodApiMaxResults
   private priority = environment.config.tasks.priority;
@@ -37,6 +42,32 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   createForm: FormGroup
   crackertype: any
   color: string = '#fff'
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject<any>();
+  dtOptions: any = {};
+
+  // ToDo change to interface
+  public allfiles: {
+    fileId: number,
+    filename: string,
+    size: number,
+    isSecret: number,
+    fileType: number,
+    accessGroupId: number,
+    lineCount:number
+    accessGroup: {
+      accessGroupId: number,
+      groupName: string
+    }
+  }[] = [];
+
+  ngOnDestroy(){
+    this.dtTrigger.unsubscribe();
+  }
+
 
   ngOnInit(): void {
 
@@ -58,6 +89,67 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
     this.crackerService.getCrackerType().subscribe((crackers: any) => {
       this.crackertype = crackers.values;
     });
+
+    let params = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
+
+    this.filesService.getFiles(params).subscribe((files: any) => {
+      this.allfiles = files.values;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        setTimeout(() => {
+          this.dtTrigger[0].next(null);
+          dtInstance.columns.adjust();
+        });
+     });
+    });
+
+
+    this.dtOptions[0] = {
+      dom: 'Bfrtip',
+      scrollY: "1000px",
+      scrollCollapse: true,
+      paging: false,
+      // destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+
+    this.dtOptions[1] = {
+      dom: 'Bfrtip',
+      scrollY: "1000px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+
+    this.dtOptions[2] = {
+      dom: 'Bfrtip',
+      scrollY: "1000px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
 
   }
 
@@ -98,9 +190,14 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       );
     }
   }
+
   public matchFileType: any
+  active: number; //Active show first table wordlist
 
   ngAfterViewInit() {
+
+    this.active =1;
+    this.dtTrigger[0].next(null);
 
     let params = {'maxResults': this.maxResults }
 
@@ -214,6 +311,25 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
     {'value': '?b', 'descrip': '0x00 - 0xff'},
   ]
 
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
+  // Navigation Modals
+
+  navChanged(event) {
+    console.log('navChanged', event);
+  }
+
+
+  // Modal Information
   closeResult = '';
   open(content) {
 		this.modalService.open(content, { size: 'xl' }).result.then(
