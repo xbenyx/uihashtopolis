@@ -53,36 +53,51 @@
                             >
                         </div>
                       </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getPriority">Priority</label>
-                            <input
-                                  type='number'
-                                  id='priority'
-                                  class='form-control'
-                                  formControlName="priority"
-                                  validateInputNumber
-                              >
+                      <div class="row">
+                        <div class="col">
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getPriority">Priority</label>
+                                <input
+                                      type='number'
+                                      id='priority'
+                                      class='form-control'
+                                      formControlName="priority"
+                                      validateInputNumber
+                                  >
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                        <div class="col">
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getMaxAgents">Max agents</label>
+                                <input
+                                      type='number'
+                                      id='maxAgents'
+                                      class='form-control'
+                                      formControlName="maxAgents"
+                                      validateInputNumber
+                                  >
+                            </div>
+                          </div>
+                          &nbsp;
                         </div>
                       </div>
-                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="getMaxAgents">Max agents</label>
-                            <input
-                                  type='number'
-                                  id='maxAgents'
-                                  class='form-control'
-                                  formControlName="maxAgents"
-                                  validateInputNumber
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getChunkTime">Chunk size (seconds)</label>
+                            <label class="form-label" for="getChunkTime">Chunk size</label>
+                            <fa-icon
+                                    placement="bottom"
+                                    ngbTooltip="Measure is in seconds time."
+                                    container="body"
+                                    [icon]="faInfoCircle"
+                                    aria-hidden="true"
+                                    class="gray-light-ico"
+                            ></fa-icon>
                             <input
                                   type='number'
                                   id='chunkTime'
@@ -95,7 +110,7 @@
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="getcolor">Pick or enter color (identify tasks)</label>
+                            <label class="form-label" for="getcolor">Task Color Identifier</label>
                             <div class="input-group-text w-50 mx-auto">
                               <input type='text' class="form-control"
                                   [(colorPicker)]="color" cpWidth='230px' cpHeight="100px"
@@ -109,64 +124,94 @@
                       </div>
                     </div>
                     &nbsp;
-                    <div class="form-group">
-                      <div class="form-outline">
-                           <label class="form-label" for="getuseNewBench">Benchmark Type</label>
-                           <select
-                                id='useNewBench'
-                                class='form-control'
-                                formControlName="useNewBench"
-                            >
-                            <option [ngValue]="false">Runtime Benchmark</option>
-                            <option [ngValue]="true" [defaultSelected]=true>Speed Test</option>
-                          </select>
+                    <div class="row">
+                      <div class="col">
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label" for="getuseNewBench">Benchmark Type</label>
+                              <select
+                                    id='useNewBench'
+                                    class='form-control'
+                                    formControlName="useNewBench"
+                                >
+                                <option [ngValue]="false">Runtime Benchmark</option>
+                                <option [ngValue]="true" [defaultSelected]=true>Speed Test</option>
+                              </select>
+                          </div>
+                        </div>
+                        &nbsp;
+                      </div>
+                      <div class="col">
+                        &nbsp;
+                        <div class="form-group">
+                          <div class="form-outline">
+                              <label class="form-label" for="getStatusTimer">Status timer</label>
+                              <input
+                                    type='text'
+                                    id='statusTimer'
+                                    class='form-control'
+                                    formControlName="statusTimer"
+                                >
+                          </div>
+                        </div>
+                        &nbsp;
                       </div>
                     </div>
-                    &nbsp;
-                    <div class="form-group">
-                      <div class="form-outline">
-                           <label class="form-label" for="getStatusTimer">Status timer</label>
-                           <input
-                                type='text'
-                                id='statusTimer'
-                                class='form-control'
-                                formControlName="statusTimer"
-                            >
-                      </div>
-                    </div>
-                    &nbsp;
                     <div formGroupName="updateData">
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getisCpuTask">CPU only task?</label>
-                            <td>
-                            <select
-                                  id='isCpuTask'
-                                  class='form-select'
-                                  formControlName="isCpuTask"
-                              >
-                              <option [ngValue]="false">No</option>
-                              <option [ngValue]="true">Yes</option>
-                            </select>
+                      <div class="row">
+                        <div class="col">
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getisCpuTask">CPU only</label>
+                                <fa-icon
+                                        placement="bottom"
+                                        ngbTooltip="The task will work only with CPU agents assigned"
+                                        container="body"
+                                        [icon]="faInfoCircle"
+                                        aria-hidden="true"
+                                        class="gray-light-ico"
+                                ></fa-icon>
+                                <select
+                                      id='isCpuTask'
+                                      class='form-select'
+                                      formControlName="isCpuTask"
+                                  >
+                                  <option [ngValue]="false">No</option>
+                                  <option [ngValue]="true">Yes</option>
+                                </select>
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                        <div class="col">
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getisSmall">Small task</label>
+                                <fa-icon
+                                        placement="bottom"
+                                        ngbTooltip="The task will work only with CPU agents assigned"
+                                        container="body"
+                                        [icon]="faInfoCircle"
+                                        aria-hidden="true"
+                                        class="gray-light-ico"
+                                ></fa-icon>
+                                <select
+                                      id='isSmall'
+                                      class='form-select'
+                                      formControlName="isSmall"
+                                  >
+                                  <option [ngValue]="false">No</option>
+                                  <option [ngValue]="true">Yes</option>
+                                </select>
+                            </div>
+                          </div>
+                          &nbsp;
                         </div>
                       </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getisSmall">Small task?</label>
-                            <td>
-                            <select
-                                  id='isSmall'
-                                  class='form-select'
-                                  formControlName="isSmall"
-                              >
-                              <option [ngValue]="false">No</option>
-                              <option [ngValue]="true">Yes</option>
-                            </select>
-                        </div>
-                      </div>
-                      &nbsp;
-                      </div>
+                    </div>
                     </div>
                   <button class="btn btn-gray-800" type="submit">Update</button>
             </form>

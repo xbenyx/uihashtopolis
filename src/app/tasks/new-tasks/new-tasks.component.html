@@ -74,36 +74,43 @@
                             </textarea>
                         </div>
                       </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label requiredak" for="getpriority">Priority</label>
-                            <input
-                                  type='number'
-                                  id="priority"
-                                  class='form-control'
-                                  formControlName="priority"
-                                  validateInputNumber
-                            >
+                      <div class="row">
+                        <div class="col">
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label requiredak" for="getpriority">Priority</label>
+                                <input
+                                      type='number'
+                                      id="priority"
+                                      class='form-control'
+                                      formControlName="priority"
+                                      validateInputNumber
+                                >
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                          <div class="col">
+                            &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getmaxAgents">Max. number of agents</label>
+                                <input
+                                      type='number'
+                                      id="maxAgents"
+                                      class='form-control'
+                                      formControlName="maxAgents"
+                                      validateInputNumber
+                                >
+                            </div>
+                          </div>
+                          &nbsp;
                         </div>
                       </div>
-                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label" for="getmaxAgents">Max. number of agents</label>
-                            <input
-                                  type='number'
-                                  id="maxAgents"
-                                  class='form-control'
-                                  formControlName="maxAgents"
-                                  validateInputNumber
-                            >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getcolor">Pick or enter color (identify tasks)</label>
+                            <label class="form-label" for="getcolor">Task Color Identifier</label>
                             <div class="input-group-text w-50 mx-auto">
                               <input type='text' class="form-control"
                                   [(colorPicker)]="color" cpWidth='230px' cpHeight="100px"
@@ -122,32 +129,189 @@
                             <span><b>Advanced Settings</b></span>
                           </ng-template>
                           <ng-template ngbPanelContent>
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getchunkTime">Chunk size (seconds)</label>
-                                  <input
-                                        type='number'
-                                        id="chunkTime"
-                                        class='form-control'
-                                        formControlName="chunkTime"
-                                        validateInputNumber
-                                  >
+                            <div class="row">
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getchunkTime">Chunk size</label>
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip="Measure is in seconds time."
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                              class="gray-light-ico"
+                                      ></fa-icon>
+                                      <input
+                                            type='number'
+                                            id="chunkTime"
+                                            class='form-control'
+                                            formControlName="chunkTime"
+                                            validateInputNumber
+                                      >
+                                  </div>
+                                </div>
+                                &nbsp;
+                              </div>
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getStatusTimer">Status timer</label>
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip="Measure is in seconds time."
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                              class="gray-light-ico"
+                                      ></fa-icon>
+                                      <input
+                                            type='number'
+                                            id="statusTimer"
+                                            class='form-control'
+                                            formControlName="statusTimer"
+                                            validateInputNumber
+                                      >
+                                  </div>
+                                </div>
+                              &nbsp;
+                            </div>
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getskipKeyspace">Skip keyspace</label>
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip="Skip a given keyspace at the beginning of the task"
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                              class="gray-light-ico"
+                                      ></fa-icon>
+                                      <input
+                                            type='number'
+                                            id="skipKeyspace"
+                                            class='form-control'
+                                            formControlName="skipKeyspace"
+                                            validateInputNumber
+                                      >
+                                  </div>
+                                </div>
+                                &nbsp;
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                    <label class="form-label" for="getisCpuTask">CPU only</label>
+                                    <fa-icon
+                                            placement="bottom"
+                                            ngbTooltip="Task is assigned only to CPU agents"
+                                            container="body"
+                                            [icon]="faInfoCircle"
+                                            aria-hidden="true"
+                                    >
+                                    </fa-icon>
+                                    <select
+                                          id='isCpuTask'
+                                          class='form-select'
+                                          formControlName="isCpuTask"
+                                        >
+                                        <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                        <option [ngValue]="true">Yes</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                    <label class="form-label" for="getisSmall">Small task</label>
+                                    <fa-icon
+                                            placement="bottom"
+                                            ngbTooltip="Only one agent is assigned to the task"
+                                            container="body"
+                                            [icon]="faInfoCircle"
+                                            aria-hidden="true"
+                                    >
+                                    </fa-icon>
+                                    <select
+                                          id='isSmall'
+                                          class='form-select'
+                                          formControlName="isSmall"
+                                        >
+                                        <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                        <option [ngValue]="true">Yes</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getforcePipe">Enforce piping</label>
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip="To apply rules before reject"
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                      >
+                                      </fa-icon>
+                                      <select
+                                            class='form-select'
+                                            id='forcePipe'
+                                            formControlName="forcePipe"
+                                          >
+                                          <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                          <option [ngValue]="true">Yes</option>
+                                      </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getStaticChunks">Use static chunking</label>
+                                      <td>
+                                      <select
+                                            type='number'
+                                            id='staticChunks'
+                                            class='form-select'
+                                            formControlName="staticChunks"
+                                          >
+                                          <option [ngValue]="0" [defaultSelected]=true>No</option>
+                                          <option [ngValue]="1">Fixed Chunk Size</option>
+                                          <option [ngValue]="2">Fixed number of chunks</option>
+                                      </select>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getchunkSize">if yes, chunk size:</label>
+                                      <input
+                                            type='number'
+                                            id="chunkSize"
+                                            class='form-control'
+                                            formControlName="chunkSize"
+                                            validateInputNumber
+                                      >
+                                  </div>
+                                </div>
                               </div>
                             </div>
                             &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getStatusTimer">Status timer (seconds)</label>
-                                  <input
-                                        type='number'
-                                        id="statusTimer"
-                                        class='form-control'
-                                        formControlName="statusTimer"
-                                        validateInputNumber
-                                  >
-                              </div>
-                            </div>
-                            &nbsp;
+                            <hr>
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getuseNewBench">Benchmark Type</label>
@@ -171,181 +335,85 @@
                               </div>
                             </div>
                             &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                <label for="getisCpuTask">Task is CPU only</label>
-                                <fa-icon
-                                        placement="bottom"
-                                        ngbTooltip="Task is assigned only to CPU agents"
-                                        container="body"
-                                        [icon]="faInfoCircle"
-                                        aria-hidden="true"
-                                >
-                                </fa-icon>
-                                <td>
-                                <select
-                                       id='isCpuTask'
-                                       class='form-select'
-                                       formControlName="isCpuTask"
-                                     >
-                                    <option [ngValue]="false" [defaultSelected]=true>No</option>
-                                    <option [ngValue]="true">Yes</option>
-                                </select>
+                            <div class="row">
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                    <label class="form-label" for="getcrackerBinaryId">Binary type to run task</label>
+                                    <select
+                                            type='number'
+                                            id='crackerBinaryId'
+                                            class='form-select'
+                                            #myBinary
+                                            (change)="onChangeBinary(myBinary.value)"
+                                            formControlName="crackerBinaryId">
+                                      <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                &nbsp;
+                              </div>
+                              <div class="col">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                    <label class="form-label" for="getcrackerBinaryId">Binary type version</label>
+                                    <select
+                                          type='number'
+                                          id='crackerBinaryTypeId'
+                                          class='form-select'
+                                          formControlName="crackerBinaryTypeId"
+                                        >
+                                        <option [ngValue]=""  disabled="true">--<option>
+                                        <option *ngFor="let cv of crackerversions; let i = index"
+                                        [ngValue]="cv.crackerBinaryId"
+                                        type="number"
+                                        [attr.selected]='i>0 ? "selected" : null'
+                                        >{{ cv.version }}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                &nbsp;
                               </div>
                             </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                <label for="getisSmall">Task is small</label>
-                                <fa-icon
-                                        placement="bottom"
-                                        ngbTooltip="Only one agent is assigned to the task"
-                                        container="body"
-                                        [icon]="faInfoCircle"
-                                        aria-hidden="true"
-                                >
-                                </fa-icon>
-                                <td>
-                                <select
-                                       id='isSmall'
-                                       class='form-select'
-                                       formControlName="isSmall"
-                                    >
-                                    <option [ngValue]="false" [defaultSelected]=true>No</option>
-                                    <option [ngValue]="true">Yes</option>
-                                </select>
+                            <hr/>
+                            <div class="row g-3">
+                              <div class="col-md-4">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getusePreprocessor">Set Preprocessor</label>
+                                      <select
+                                            type='number'
+                                            id='usePreprocessor'
+                                            class='form-select'
+                                            formControlName="usePreprocessor"
+                                          >
+                                          <option [ngValue]="0" [defaultSelected]=true>No</option>
+                                          <option *ngFor="let p of prep" [ngValue]="p.preprocessorId">{{ p.name }}</option>
+                                      </select>
+                                  </div>
+                                </div>
+                                &nbsp;
                               </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                <label for="getcrackerBinaryId">Binary type to run task</label>
-                                <td>
-                                <select
-                                        type='number'
-                                        id='crackerBinaryId'
-                                        class='form-select'
-                                        #myBinary
-                                        (change)="onChangeBinary(myBinary.value)"
-                                        formControlName="crackerBinaryId">
-                                  <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
-                                </select>
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                <label for="getcrackerBinaryId">Binary type version</label>
-                                <td>
-                                <select
-                                       type='number'
-                                       id='crackerBinaryTypeId'
-                                       class='form-select'
-                                       formControlName="crackerBinaryTypeId"
-                                    >
-                                    <option [ngValue]=""  disabled="true">--<option>
-                                    <option *ngFor="let cv of crackerversions; let i = index"
-                                    [ngValue]="cv.crackerBinaryId"
-                                    type="number"
-                                    [attr.selected]='i>0 ? "selected" : null'
-                                    >{{ cv.version }}</option>
-                                </select>
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getusePreprocessor">Set as preprocessor task</label>
-                                  <select
-                                         type='number'
-                                         id='usePreprocessor'
-                                         class='form-select'
-                                         formControlName="usePreprocessor"
+                              <div class="col-md-8">
+                                &nbsp;
+                                <div class="form-group">
+                                  <div class="form-outline">
+                                      <label class="form-label" for="getPreprocessorCommand">Preprocessor command</label>
+                                      <textarea
+                                            type='text'
+                                            id="preprocessorCommand"
+                                            class='form-control'
+                                            formControlName="preprocessorCommand"
+                                            #cmdPreAttack
                                       >
-                                      <option [ngValue]="0" [defaultSelected]=true>No</option>
-                                      <option *ngFor="let p of prep" [ngValue]="p.preprocessorId">{{ p.name }}</option>
-                                  </select>
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getPreprocessorCommand">Preprocessor command</label>
-                                  <textarea
-                                        type='text'
-                                        id="preprocessorCommand"
-                                        class='form-control'
-                                        formControlName="preprocessorCommand"
-                                        #cmdPreAttack
-                                  >
-                                  </textarea>
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getskipKeyspace">Skip a given keyspace at the beginning of the task</label>
-                                  <input
-                                        type='number'
-                                        id="skipKeyspace"
-                                        class='form-control'
-                                        formControlName="skipKeyspace"
-                                        validateInputNumber
-                                  >
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getStaticChunks">Use static chunking</label>
-                                  <td>
-                                  <select
-                                         type='number'
-                                         id='staticChunks'
-                                         class='form-select'
-                                         formControlName="staticChunks"
-                                      >
-                                      <option [ngValue]="0" [defaultSelected]=true>No</option>
-                                      <option [ngValue]="1">Fixed Chunk Size</option>
-                                      <option [ngValue]="2">Fixed number of chunks</option>
-                                  </select>
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getchunkSize">if yes, chunk size:</label>
-                                  <input
-                                        type='number'
-                                        id="chunkSize"
-                                        class='form-control'
-                                        formControlName="chunkSize"
-                                        validateInputNumber
-                                  >
-                              </div>
-                            </div>
-                            &nbsp;
-                            <div class="form-group">
-                              <div class="form-outline">
-                                  <label class="form-label" for="getforcePipe">Enforce piping task</label>
-                                  <fa-icon
-                                          placement="bottom"
-                                          ngbTooltip="To apply rules before reject"
-                                          container="body"
-                                          [icon]="faInfoCircle"
-                                          aria-hidden="true"
-                                  >
-                                  </fa-icon>
-                                  <td>
-                                  <select
-                                        class='form-select'
-                                        id='forcePipe'
-                                        formControlName="forcePipe"
-                                      >
-                                      <option [ngValue]="false" [defaultSelected]=true>No</option>
-                                      <option [ngValue]="true">Yes</option>
-                                  </select>
-                              </div>
+                                      </textarea>
+                                  </div>
+                                </div>
+                              &nbsp;
+                             </div>
                             </div>
                           </ng-template>
                         </ngb-panel>

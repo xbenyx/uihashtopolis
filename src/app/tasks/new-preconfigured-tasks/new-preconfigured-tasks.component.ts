@@ -192,11 +192,14 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   }
 
   public matchFileType: any
-  active: number; //Active show first table wordlist
+  active= 0; //Active show first table wordlist
 
   ngAfterViewInit() {
 
-    this.active =1;
+
+    setTimeout(() => {
+      this.active =1;
+    },1000);
     this.dtTrigger[0].next(null);
 
     let params = {'maxResults': this.maxResults }

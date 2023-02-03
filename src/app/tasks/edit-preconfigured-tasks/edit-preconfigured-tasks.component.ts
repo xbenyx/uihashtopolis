@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy ,ChangeDetectorRef, ViewChild, HostListener   } from '@angular/core';
-import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -25,6 +25,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
   faPlus=faPlus;
   faTrash=faTrash;
   isLoading = false;
+  faInfoCircle=faInfoCircle;
 
   constructor(
     private preTasksService: PreTasksService,

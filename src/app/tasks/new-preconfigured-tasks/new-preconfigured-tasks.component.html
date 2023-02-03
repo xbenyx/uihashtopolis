@@ -5,7 +5,7 @@
   <div class="btn-toolbar mb-2 mb-md-0">
   </div>
 </div>
-<!-- New Task End-->
+<!-- New PreTask End-->
   <div class="container px-lg-5">
       <div class="row no-gutters">
           <div class="col-12 col-sm-6 col-md-8 align-items-center justify-content-left">
@@ -47,7 +47,7 @@
                             &nbsp;
                             <div class="form-group">
                               <div class="form-outline">
-                                  <label class="form-label" for="getcolor">Pick or enter color (identify tasks)</label>
+                                  <label class="form-label" for="getcolor">Task Color Identifier</label>
                                   <div class="input-group-text w-50 mx-auto">
                                     <input type='text' class="form-control"
                                         [(colorPicker)]="color" cpWidth='230px' cpHeight="100px"
@@ -59,163 +59,172 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="row">
-                              <div class="col">
-                                &nbsp;
-                                <div class="form-group">
-                                  <div class="form-outline">
-                                      <label class="form-label" for="setchunkTime">Chunk size</label>
-                                        <fa-icon
-                                                placement="bottom"
-                                                ngbTooltip="Measure is seconds time."
-                                                container="body"
-                                                [icon]="faInfoCircle"
-                                                aria-hidden="true"
-                                                class="gray-light-ico"
-                                        ></fa-icon>
-                                      <input
-                                            type='number'
-                                            id="chunkTime"
-                                            class='form-control'
-                                            formControlName="chunkTime"
-                                            validateInputNumber
-                                      >
-                                  </div>
-                                </div>
-                                &nbsp;
-                              </div>
-                              <div class="col">
-                                &nbsp;
-                                <div class="form-group">
-                                  <div class="form-outline">
-                                      <label class="form-label" for="setStatusTimer">Status timer</label>
-                                      <fa-icon
-                                              placement="bottom"
-                                              ngbTooltip="Measure is seconds time."
-                                              container="body"
-                                              [icon]="faInfoCircle"
-                                              aria-hidden="true"
-                                              class="gray-light-ico"
-                                      ></fa-icon>
-                                      <input
-                                            type='number'
-                                            id="statusTimer"
-                                            class='form-control'
-                                            formControlName="statusTimer"
-                                            validateInputNumber
-                                      >
-                                  </div>
-                                </div>
-                                &nbsp;
-                              </div>
-                            </div>
                             &nbsp;
-                            <div class="row">
-                              <div class="col">
-                                &nbsp;
-                                <div class="form-group">
-                                  <div class="form-outline">
-                                      <label class="form-label" for="setuseNewBench">Benchmark Type</label>
-                                      <fa-icon
-                                              placement="bottom"
-                                              ngbTooltip="Only applies to Hashcat. If binary type generic is selected this benchmark option will be ignored."
-                                              container="body"
-                                              [icon]="faInfoCircle"
-                                              aria-hidden="true"
-                                              class="gray-light-ico"
-                                      ></fa-icon>
-                                      <select
-                                            type='number'
-                                            id="useNewBench"
-                                            class='form-select'
-                                            formControlName="useNewBench"
-                                      >
-                                        <option [ngValue]="false">Runtime Benchmark</option>
-                                        <option [ngValue]="true" [defaultSelected]=true>Speed Test</option>
-                                      </select>
+                            <ngb-accordion #acc="ngbAccordion" >
+                              <ngb-panel>
+                                <ng-template ngbPanelTitle>
+                                  <span><b>Advanced Settings</b></span>
+                                </ng-template>
+                                <ng-template ngbPanelContent>
+                                  <div class="row">
+                                    <div class="col">
+                                      &nbsp;
+                                      <div class="form-group">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="setchunkTime">Chunk size</label>
+                                              <fa-icon
+                                                      placement="bottom"
+                                                      ngbTooltip="Measure is in seconds time."
+                                                      container="body"
+                                                      [icon]="faInfoCircle"
+                                                      aria-hidden="true"
+                                                      class="gray-light-ico"
+                                              ></fa-icon>
+                                            <input
+                                                  type='number'
+                                                  id="chunkTime"
+                                                  class='form-control'
+                                                  formControlName="chunkTime"
+                                                  validateInputNumber
+                                            >
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="col">
+                                      &nbsp;
+                                      <div class="form-group">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="setStatusTimer">Status timer</label>
+                                            <fa-icon
+                                                    placement="bottom"
+                                                    ngbTooltip="Measure is in seconds time."
+                                                    container="body"
+                                                    [icon]="faInfoCircle"
+                                                    aria-hidden="true"
+                                                    class="gray-light-ico"
+                                            ></fa-icon>
+                                            <input
+                                                  type='number'
+                                                  id="statusTimer"
+                                                  class='form-control'
+                                                  formControlName="statusTimer"
+                                                  validateInputNumber
+                                            >
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                                &nbsp;
-                              </div>
-                              <div class="col">
-                                &nbsp;
-                                <div class="form-group">
-                                  <div class="form-outline">
-                                    <label class="form-label" for="setcrackerBinaryTypeId">Binary type</label>
-                                    <fa-icon
-                                            placement="bottom"
-                                            ngbTooltip="The task will run using the binary type selected."
-                                            container="body"
-                                            [icon]="faInfoCircle"
-                                            aria-hidden="true"
-                                            class="gray-light-ico"
-                                    ></fa-icon>
-                                    <select
-                                            type='number'
-                                            id='crackerBinaryTypeId'
-                                            class='form-select'
-                                            #myBinary
-                                            formControlName="crackerBinaryTypeId"
-                                    >
-                                      <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
-                                    </select>
+                                  &nbsp;
+                                  <div class="row">
+                                    <div class="col">
+                                      &nbsp;
+                                      <div class="form-group">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="setuseNewBench">Benchmark Type</label>
+                                            <fa-icon
+                                                    placement="bottom"
+                                                    ngbTooltip="Only applies to Hashcat. If binary type generic is selected this benchmark option will be ignored."
+                                                    container="body"
+                                                    [icon]="faInfoCircle"
+                                                    aria-hidden="true"
+                                                    class="gray-light-ico"
+                                            ></fa-icon>
+                                            <select
+                                                  type='number'
+                                                  id="useNewBench"
+                                                  class='form-select'
+                                                  formControlName="useNewBench"
+                                            >
+                                              <option [ngValue]="false">Runtime Benchmark</option>
+                                              <option [ngValue]="true" [defaultSelected]=true>Speed Test</option>
+                                            </select>
+                                        </div>
+                                      </div>
+                                      &nbsp;
+                                    </div>
+                                    <div class="col">
+                                      &nbsp;
+                                      <div class="form-group">
+                                        <div class="form-outline">
+                                          <label class="form-label" for="setcrackerBinaryTypeId">Binary type</label>
+                                          <fa-icon
+                                                  placement="bottom"
+                                                  ngbTooltip="The task will run using the binary type selected."
+                                                  container="body"
+                                                  [icon]="faInfoCircle"
+                                                  aria-hidden="true"
+                                                  class="gray-light-ico"
+                                          ></fa-icon>
+                                          <select
+                                                  type='number'
+                                                  id='crackerBinaryTypeId'
+                                                  class='form-select'
+                                                  #myBinary
+                                                  formControlName="crackerBinaryTypeId"
+                                          >
+                                            <option *ngFor="let cb of crackertype" [value]="cb.crackerBinaryTypeId">{{ cb.typeName }}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      &nbsp;
+                                    </div>
                                   </div>
-                                </div>
-                                &nbsp;
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col">
-                                &nbsp;
-                                <div class="form-group">
-                                  <div class="form-outline">
-                                    <label class="form-label" for="setisCpuTask">CPU only</label>
-                                    <fa-icon
-                                            placement="bottom"
-                                            ngbTooltip="The task will work only with CPU agents assigned"
-                                            container="body"
-                                            [icon]="faInfoCircle"
-                                            aria-hidden="true"
-                                            class="gray-light-ico"
-                                    ></fa-icon>
-                                    <select
-                                          id='isCpuTask'
-                                          class='form-select'
-                                          formControlName="isCpuTask"
-                                        >
-                                        <option [ngValue]="false" [defaultSelected]=true>No</option>
-                                        <option [ngValue]="true">Yes</option>
-                                    </select>
+                                  <div class="row">
+                                    <div class="col">
+                                      &nbsp;
+                                      <div class="form-group">
+                                        <div class="form-outline">
+                                          <label class="form-label" for="setisCpuTask">CPU only</label>
+                                          <fa-icon
+                                                  placement="bottom"
+                                                  ngbTooltip="The task will work only with CPU agents assigned"
+                                                  container="body"
+                                                  [icon]="faInfoCircle"
+                                                  aria-hidden="true"
+                                                  class="gray-light-ico"
+                                          ></fa-icon>
+                                          <select
+                                                id='isCpuTask'
+                                                class='form-select'
+                                                formControlName="isCpuTask"
+                                              >
+                                              <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                              <option [ngValue]="true">Yes</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      &nbsp;
+                                    </div>
+                                    <div class="col">
+                                      &nbsp;
+                                      <div class="form-group">
+                                        <div class="form-outline">
+                                          <label class="form-label" for="setisSmall">Small task</label>
+                                          <fa-icon
+                                                  placement="bottom"
+                                                  ngbTooltip="Only one agent gets assigned to it."
+                                                  container="body"
+                                                  [icon]="faInfoCircle"
+                                                  aria-hidden="true"
+                                                  class="gray-light-ico"
+                                          ></fa-icon>
+                                          <select
+                                                id='isSmall'
+                                                class='form-select'
+                                                formControlName="isSmall"
+                                              >
+                                              <option [ngValue]="false" [defaultSelected]=true>No</option>
+                                              <option [ngValue]="true">Yes</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      &nbsp;
+                                    </div>
                                   </div>
-                                </div>
-                                &nbsp;
-                              </div>
-                              <div class="col">
-                                &nbsp;
-                                <div class="form-group">
-                                  <div class="form-outline">
-                                    <label class="form-label" for="setisSmall">Small task</label>
-                                    <fa-icon
-                                            placement="bottom"
-                                            ngbTooltip="Only one agent gets assigned to it."
-                                            container="body"
-                                            [icon]="faInfoCircle"
-                                            aria-hidden="true"
-                                            class="gray-light-ico"
-                                    ></fa-icon>
-                                    <select
-                                          id='isSmall'
-                                          class='form-select'
-                                          formControlName="isSmall"
-                                        >
-                                        <option [ngValue]="false" [defaultSelected]=true>No</option>
-                                        <option [ngValue]="true">Yes</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                &nbsp;
-                              </div>
-                            </div>
+                              </ng-template>
+                            </ngb-panel>
+                          </ngb-accordion>
+                          &nbsp;
                          </div>
                   <button class="btn btn-gray-800" type="submit">Create</button>
               </form>
