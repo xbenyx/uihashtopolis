@@ -1,6 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener  } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener, ViewChild  } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faPlus, faTrash, faInfoCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Observable, Subject } from 'rxjs';
@@ -11,6 +11,8 @@ import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
+import { FilesService } from '../../core/_services/files/files.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-new-tasks',
@@ -27,52 +29,107 @@ export class NewTasksComponent implements OnInit {
   private statusTimer = environment.config.tasks.statusTimer;
   private chunkSize = environment.config.tasks.chunkSize;
 
-  public isCollapsed = true;
   faHome=faHomeAlt;
   faPlus=faPlus;
   faTrash=faTrash;
   faInfoCircle=faInfoCircle;
+  faLock=faLock;
   color: string = '#fff'
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  allhashlists: any;
-  prep: any;
-  crackertype: any;
+  allhashlists: any;  // ToDo change to interface
+  prep: any;  // ToDo change to interface
+  crackertype: any;  // ToDo change to interface
   crackerversions: any = [];
   createForm: FormGroup
+
+  // ToDo change to interface
+  public allfiles: {
+      fileId: number,
+      filename: string,
+      size: number,
+      isSecret: number,
+      fileType: number,
+      accessGroupId: number,
+      lineCount:number
+      accessGroup: {
+        accessGroupId: number,
+        groupName: string
+      }
+    }[] = [];
 
   constructor(
     private taskService: TasksService,
     private listsService:ListsService,
     private preprocessorService:PreprocessorService,
+    private filesService: FilesService,
     private crackerService: CrackerService,
     private _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
-  private maxResults = environment.config.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults;
+
+  ngOnDestroy(){
+    this.dtTrigger.unsubscribe();
+  }
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
-    let params_prep = {'maxResults': this.maxResults }
+   this.fetchData();
 
-    this.listsService.getAllhashlists(params).subscribe((list: any) => {
-      this.allhashlists = list.values;
-    });
+    this.dtOptions[0] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      autoWidth: false,
+      // destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
 
-    let params_crack = {'filter': 'crackerBinaryTypeId=1'};
-    this.crackerService.getCrackerType().subscribe((crackers: any) => {
-      this.crackertype = crackers.values;
-    });
-    this.crackerService.getCrackerBinaries(params_crack).subscribe((crackers: any) => {
-      this.crackerversions = crackers.values;
-    });
+    this.dtOptions[1] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
 
-    this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
-      this.prep = prep.values;
-    });
+    this.dtOptions[2] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
 
     this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
@@ -97,6 +154,50 @@ export class NewTasksComponent implements OnInit {
       'isSmall': new FormControl(null || false),
       'useNewBench': new FormControl(null || true)
     });
+
+  }
+
+  async fetchData() {
+    let params = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
+    let params_prep = {'maxResults': this.maxResults }
+    let params_crack = {'filter': 'crackerBinaryTypeId=1'};
+    let params_f = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
+
+    await this.listsService.getAllhashlists(params).subscribe((list: any) => {
+      this.allhashlists = list.values;
+    });
+
+    await this.crackerService.getCrackerType().subscribe((crackers: any) => {
+      this.crackertype = crackers.values;
+    });
+
+    await this.crackerService.getCrackerBinaries(params_crack).subscribe((crackers: any) => {
+      this.crackerversions = crackers.values;
+    });
+
+    await this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
+      this.prep = prep.values;
+    });
+
+    await this.filesService.getFiles(params_f).subscribe((files: any) => {
+      this.allfiles = files.values;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        setTimeout(() => {
+          this.dtTrigger[0].next(null);
+          dtInstance.columns.adjust();
+        });
+     });
+    });
+  }
+
+  active= 0; //Active show first table wordlist
+
+  ngAfterViewInit() {
+
+    setTimeout(() => {
+      this.active = 1;
+    },2000);
+    this.dtTrigger.next(null);
 
   }
 

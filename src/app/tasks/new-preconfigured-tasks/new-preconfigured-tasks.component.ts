@@ -68,7 +68,6 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
     this.dtTrigger.unsubscribe();
   }
 
-
   ngOnInit(): void {
 
     this.createForm = new FormGroup({
