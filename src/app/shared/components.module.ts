@@ -11,14 +11,14 @@ import { PaginationModule } from "./pagination/pagination.module";
 @NgModule({
   declarations: [
     AlertComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ColorPickerModule,
     FilterTextboxModule,
-    PaginationModule
+    PaginationModule,
   ],
   exports: [
     CommonModule,
@@ -26,7 +26,7 @@ import { PaginationModule } from "./pagination/pagination.module";
     LoadingSpinnerComponent,
     ColorPickerModule,
     FilterTextboxModule,
-    PaginationModule
+    PaginationModule,
   ]
 })
 export class ComponentsModule {}

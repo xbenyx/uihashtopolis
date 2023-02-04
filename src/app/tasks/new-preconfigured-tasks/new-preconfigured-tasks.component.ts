@@ -68,6 +68,57 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
     this.dtTrigger.unsubscribe();
   }
 
+  // New checkbox
+  filesFormArray: Array<any> = [];
+  onChange(fileId:number, fileType:number, fileName: string, $target: EventTarget) {
+    const isChecked = (<HTMLInputElement>$target).checked;
+    if(isChecked) {
+      this.filesFormArray.push(fileId);
+      this.OnChangeAttack(fileName, fileType);
+      this.createForm.patchValue({files: this.filesFormArray });
+      console.log(this.filesFormArray)
+    } else {
+      let index = this.filesFormArray.indexOf(fileId);
+      this.filesFormArray.splice(index,1);
+      this.createForm.patchValue({files: this.filesFormArray});
+      this.OnChangeAttack(fileName, fileType, true);
+    }
+  }
+
+  OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
+    if(onRemove == true){
+      let currentCmd = this.createForm.get('attackCmd').value;
+      let newCmd = item
+      if (fileType === 1 ){newCmd = '-r '+ newCmd;}
+      newCmd = currentCmd.replace(newCmd,'');
+      newCmd = newCmd.replace(/^\s+|\s+$/g, "");
+      this.createForm.patchValue({
+        attackCmd: newCmd
+      });
+    } else {
+      let currentCmd = this.createForm.get('attackCmd').value;
+      let newCmd = item;
+      this.validateFile(newCmd);
+      if (fileType === 1 ){
+        newCmd = '-r '+ newCmd;
+      }
+      this.createForm.patchValue({
+        attackCmd: currentCmd+' '+ newCmd
+      });
+    }
+  }
+
+  validateFile(value){
+    if(value.split('.').pop() == '7zip'){
+      Swal.fire({
+        title: "Heads Up!",
+        text: "Hashcat has some issues loading 7z files. Better convert it to a hash file ;)",
+        icon: "warning",
+      })
+    }
+  }
+
+
   ngOnInit(): void {
 
     this.createForm = new FormGroup({
@@ -152,6 +203,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
   }
 
+  // Path Color DOM value
   OnChangeValue(value){
     this.createForm.patchValue({
       color: value
@@ -195,95 +247,13 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit() {
 
-
     setTimeout(() => {
       this.active =1;
     },1000);
     this.dtTrigger[0].next(null);
 
-    let params = {'maxResults': this.maxResults }
+  }
 
-    this.filesService.getFiles(params).subscribe((ptask: any) => {
-      var self = this;
-      var selftext = this;
-      let response = ptask.values;
-      ($("#files") as any).selectize({
-        maxItems: 10,
-        plugins: ["restore_on_backspace"],
-        delimiter: ",",
-        persist: false,
-        valueField: "fileId",
-        placeholder: "Search for file...",
-        labelField: "filename",
-        searchField: ["fileType", "filename"],
-        sortField: 'fileType',
-        loadingClass: 'Loading..',
-        highlight: true,
-        onItemAdd: function (value, $item) {
-          this.matchFileType = response.find(element => element.fileId === +value);
-          selftext.OnChangeAttack(this.getItem(value)[0].innerHTML, this.matchFileType);
-        },
-        onChange: function (value) {
-          self.OnChangeFile(value); // We need to overide DOM event, Angular has some issues with Jquery
-        },
-        render: {
-          option: function (item, escape) {
-            return '<div  class="hashtype_selectize">' + escape(item.fileType == 0 ? 'Wordlist':'' || item.fileType == 1 ? 'Rules':'Other') + ' -  ' + escape(item.filename) +' ('+escape(item.size)+')'+'</div>';
-          },
-        },
-        onInitialize: function(){
-          var selectize = this;
-            selectize.addOption(response); // This is will add to option
-            var selected_items = [];
-            $.each(response, function( i, obj) {
-                selected_items.push(obj.id);
-            });
-            selectize.setValue(selected_items); //this will set option values as default
-          }
-          });
-        });
-    }
-
-    OnChangeFile(value){
-      let formArr = new FormArray([]);
-      for (let val of value) {
-        formArr.push(
-          new FormControl(+val)
-        );
-      }
-      // this.createForm = new FormGroup({
-      //   supertaskName: new FormControl('', [Validators.required]),
-      //   pretasks: formArr
-      // });
-      this.createForm.patchValue({
-        // attackCmd: value
-        files: formArr
-      });
-      // this._changeDetectorRef.detectChanges();
-    }
-
-    OnChangeAttack(item: string, arr: string){
-      let currentCmd = this.createForm.get('attackCmd').value;
-      let newCmd = item;
-      this.validateFile(newCmd);
-      if (arr['fileType'] === 1){
-        newCmd = '-r '+ newCmd;
-      }
-      this.createForm.patchValue({
-        attackCmd: currentCmd+' '+ newCmd
-      });
-      // this._changeDetectorRef.detectChanges();
-    }
-
-    validateFile(value){
-      if(value.split('.').pop() == 'txt'){
-        Swal.fire({
-          title: "Heads Up!",
-          text: "Hashcat has some issues loading 7z files. Better convert it to a hash file ;)",
-          icon: "warning",
-        })
-      }
-    }
 
   // Modal Information
   attackmode =[
@@ -329,7 +299,6 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   navChanged(event) {
     console.log('navChanged', event);
   }
-
 
   // Modal Information
   closeResult = '';

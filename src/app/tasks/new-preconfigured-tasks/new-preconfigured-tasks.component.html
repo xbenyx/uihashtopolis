@@ -247,11 +247,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr *ngFor="let f of allfiles | search:'0':'fileId'">
+                                <tr *ngFor="let f of allfiles | search:'1':'fileType'">
                                     <td *ngIf="f.isSecret == 1" class="width: 100px">
-                                      <form [formGroup]="createForm">
-                                        <input  type="checkbox" class="form-check-input" [value]="f.filename" formControlName="files">
-                                        {{ f.filename | shortenString:25 }}
+                                      <form [formGroup]="createForm" novalidate>
+
+                                          <div class="form-check" >
+                                          <input class="form-check-input" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox" >
+                                          <label class="form-check-label" for="{{f.filename}}">
+                                              {{f.filename | shortenString:25 }}
+                                          </label>
+                                        </div>
+                                        <!-- </form> -->
+                                        <!-- <input  type="checkbox" class="form-check-input" [value]="f.filename" formControlName="files">
+                                        {{ f.filename | shortenString:25 }} -->
                                       </form>
                                       <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
                                       <fa-icon
@@ -291,7 +299,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr *ngFor="let f of allfiles | search:'1':'fileId'">
+                                <tr *ngFor="let f of allfiles | search:'1':'fileType'">
                                     <td *ngIf="f.isSecret == 1">{{ f.filename | shortenString:25 }}
                                       <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
                                       <fa-icon
