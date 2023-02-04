@@ -66,6 +66,7 @@ export class NewTasksComponent implements OnInit {
   constructor(
     private taskService: TasksService,
     private listsService:ListsService,
+    private router: Router,
     private preprocessorService:PreprocessorService,
     private filesService: FilesService,
     private crackerService: CrackerService,
@@ -77,6 +78,56 @@ export class NewTasksComponent implements OnInit {
   ngOnDestroy(){
     this.dtTrigger.unsubscribe();
   }
+
+    // New checkbox
+    filesFormArray: Array<any> = [];
+    onChange(fileId:number, fileType:number, fileName: string, $target: EventTarget) {
+      const isChecked = (<HTMLInputElement>$target).checked;
+      if(isChecked) {
+        this.filesFormArray.push(fileId);
+        this.OnChangeAttack(fileName, fileType);
+        this.createForm.patchValue({files: this.filesFormArray });
+        console.log(this.filesFormArray)
+      } else {
+        let index = this.filesFormArray.indexOf(fileId);
+        this.filesFormArray.splice(index,1);
+        this.createForm.patchValue({files: this.filesFormArray});
+        this.OnChangeAttack(fileName, fileType, true);
+      }
+    }
+
+    OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
+      if(onRemove == true){
+        let currentCmd = this.createForm.get('attackCmd').value;
+        let newCmd = item
+        if (fileType === 1 ){newCmd = '-r '+ newCmd;}
+        newCmd = currentCmd.replace(newCmd,'');
+        newCmd = newCmd.replace(/^\s+|\s+$/g, "");
+        this.createForm.patchValue({
+          attackCmd: newCmd
+        });
+      } else {
+        let currentCmd = this.createForm.get('attackCmd').value;
+        let newCmd = item;
+        this.validateFile(newCmd);
+        if (fileType === 1 ){
+          newCmd = '-r '+ newCmd;
+        }
+        this.createForm.patchValue({
+          attackCmd: currentCmd+' '+ newCmd
+        });
+      }
+    }
+
+    validateFile(value){
+      if(value.split('.').pop() == '7zip'){
+        Swal.fire({
+          title: "Heads Up!",
+          text: "Hashcat has some issues loading 7z files. Better convert it to a hash file ;)",
+          icon: "warning",
+        })
+      }
+    }
 
   ngOnInit(): void {
 
@@ -135,7 +186,7 @@ export class NewTasksComponent implements OnInit {
       'taskName': new FormControl('', [Validators.required]),
       'notes': new FormControl(''),
       'hashlistId': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl('', [Validators.required]),
+      'attackCmd': new FormControl(null || '#HL#', [Validators.required]),
       'priority': new FormControl(null || this.priority,[Validators.required, Validators.pattern("^[0-9]*$")]),
       'maxAgents': new FormControl(null || this.maxAgents),
       'chunkTime': new FormControl(null || this.chunkTime),
@@ -149,10 +200,11 @@ export class NewTasksComponent implements OnInit {
       'staticChunks': new FormControl(null || 0),
       'chunkSize': new FormControl(null || this.chunkSize),
       'forcePipe': new FormControl(null || false),
-      'usePreprocessor': new FormControl(null || 0),
+      'usePreprocessor': new FormControl(null || false),
       'preprocessorCommand': new FormControl(''),
       'isSmall': new FormControl(null || false),
-      'useNewBench': new FormControl(null || true)
+      'useNewBench': new FormControl(null || true),
+      'files': new FormControl('')
     });
 
   }
@@ -173,6 +225,7 @@ export class NewTasksComponent implements OnInit {
 
     await this.crackerService.getCrackerBinaries(params_crack).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
+      this.createForm.get('crackerBinaryTypeId').setValue(1) //ToDo
     });
 
     await this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
@@ -212,6 +265,7 @@ export class NewTasksComponent implements OnInit {
     let params = {'filter': 'crackerBinaryTypeId='+id+''};
     this.crackerService.getCrackerBinaries(params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
+      // this.createForm.get('crackerBinaryTypeId').setValue(this.crackerversions.slice(-1)[0] ) // Auto select the latest version
     });
   }
 
@@ -232,6 +286,7 @@ export class NewTasksComponent implements OnInit {
             timer: 1500
           });
           this.createForm.reset(); // success, we reset form
+          this.router.navigate(['tasks/show-tasks']);
         },
         errorMessage => {
           // check error status code is 500, if so, do some action

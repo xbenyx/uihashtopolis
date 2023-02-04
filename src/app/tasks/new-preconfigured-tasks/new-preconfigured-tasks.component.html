@@ -228,7 +228,6 @@
                        </div>
                   <button class="btn btn-gray-800" type="submit">Create</button>
               </form>
-              {{ createForm.value | json }}
            </div>
         </div>
         <div class="col-6 col-md-4">
@@ -247,19 +246,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr *ngFor="let f of allfiles | search:'1':'fileType'">
+                                <tr *ngFor="let f of allfiles | search:'0':'fileType'">
                                     <td *ngIf="f.isSecret == 1" class="width: 100px">
                                       <form [formGroup]="createForm" novalidate>
-
-                                          <div class="form-check" >
+                                        <div class="form-check" >
                                           <input class="form-check-input" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox" >
                                           <label class="form-check-label" for="{{f.filename}}">
                                               {{f.filename | shortenString:25 }}
                                           </label>
                                         </div>
-                                        <!-- </form> -->
-                                        <!-- <input  type="checkbox" class="form-check-input" [value]="f.filename" formControlName="files">
-                                        {{ f.filename | shortenString:25 }} -->
                                       </form>
                                       <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
                                       <fa-icon
@@ -300,7 +295,15 @@
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let f of allfiles | search:'1':'fileType'">
-                                    <td *ngIf="f.isSecret == 1">{{ f.filename | shortenString:25 }}
+                                    <td *ngIf="f.isSecret == 1">
+                                      <form [formGroup]="createForm" novalidate>
+                                        <div class="form-check" >
+                                          <input class="form-check-input" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox" >
+                                          <label class="form-check-label" for="{{f.filename}}">
+                                              {{f.filename | shortenString:25 }}
+                                          </label>
+                                        </div>
+                                      </form>
                                       <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
                                       <fa-icon
                                               placement="bottom"
@@ -330,7 +333,49 @@
                     <li [ngbNavItem]="3">
                       <a ngbNavLink>Other</a>
                       <ng-template ngbNavContent>
-
+                        <div class="table-responsive">
+                          &nbsp;
+                            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[1]" >
+                              <thead class="thead-light">
+                                <tr>
+                                    <th class="border-0 rounded-start rounded-end">File Name</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let f of allfiles | search:'2':'fileType'">
+                                    <td *ngIf="f.isSecret == 1">
+                                      <form [formGroup]="createForm" novalidate>
+                                        <div class="form-check" >
+                                          <input class="form-check-input" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox" >
+                                          <label class="form-check-label" for="{{f.filename}}">
+                                              {{f.filename | shortenString:25 }}
+                                          </label>
+                                        </div>
+                                      </form>
+                                      <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip='Full Name: {{f.filename}} / Line Count: {{f.lineCount}} / Size: {{ f.size | fileSize:false}}'
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                      >
+                                      </fa-icon>
+                                    </td>
+                                    <td *ngIf="f.isSecret == 0">{{ f.filename | shortenString:18 }}
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip='Line Count:{{f.lineCount}}/ Size:{{ f.size | fileSize:false}}'
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                      >
+                                      </fa-icon>
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                        </div>
                       </ng-template>
                     </li>
                   </ul>

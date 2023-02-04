@@ -127,6 +127,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       'maxAgents': new FormControl(null || this.maxAgents),
       'chunkTime': new FormControl(null || this.chunkTime),
       'statusTimer': new FormControl(null || this.statusTimer),
+      'priority': new FormControl(0),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),
       "crackerBinaryTypeId": new FormControl(null || 1),
