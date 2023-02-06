@@ -56,7 +56,7 @@
     <div class="container">
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-600">
+              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
 
                 <div class="files files-effect-scale files-theme boxtest">
                   <input type="radio" name="files" checked  id="tab1" class="tab-content-first">
@@ -67,40 +67,48 @@
                   <ul>
                     <li class="tab-content tab-content-first" >
                       <div class="row" >
-                        <form>
+                        <form [formGroup]="createForm">
                         <div class="col-sm">
                           <div class="form-group">
                             <label class="form-label requiredak" for="Associatedg">Associated Access Group</label>
-                            <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group">
+                            <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
                               <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
                             </select>
                           </div>
                         </div>
                         &nbsp;
-                        <div class="col-sm">
-                            <div class="filedrop"
-                              fileDrop
-                              [class.hovering]="isHovering"
-                              (hovered)="toggleHover($event)">
-                              <div class="icon"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon></div>
-                              <header>Drag & Drop here</header>
-                              <span>OR</span>
-                              <button (click)="file.click()">Browse for File</button>
-                              <input class="file-input" type="file" fileSelect  webkitdirectory directory multiple hidden #file>
-                              <p>Supported formats: .zip and .dmp</p>
-                             </div>
-                              <button class="button is-danger">Cancel</button>
-                          <!-- <div class="mb-3">
-                              <fa-icon [icon]="faPaperclip" aria-hidden="true"></fa-icon>
-                              <label for="formFile" class="form-label">Max size of 4 GB (bigger file use Import Files)</label>
-                              <input class="form-control fileuploadspan" type="file" id="formFile" (change)="handleFileInput($event)">
+                          <tr id="uploadLine">  <!-- start Upload -->
+                           <div>
+                              <input
+                                    type="file"
+                                    accept="/*"
+                                    formControlName="sourceData"
+                                    (change)="handleFileInput($event)"
+                                    fileSelect directory #file
+                              >
                               <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
-                          </div> -->
-                        </div>
-                        &nbsp;
-                        <div class="col-sm">
-                              <button type="submit" class="btn btn-gray-800" >Upload</button>
-                        </div>
+                              &nbsp;
+                            </div>
+                            <div *ngFor="let fileStatus of uploadProgress | async">
+                                 &nbsp;
+                                <p>Uploading File: {{fileStatus.filename}}</p>
+                                <progress
+                                        class="progress is-info"
+                                        color="primary"
+                                        mode="determinate"
+                                        [value]="fileStatus.progress"
+                                >
+                                </progress>
+                                <p>Progress: {{fileStatus.progress}}%</p>
+                                <div *ngIf="fileStatus.progress == 100">
+                                  <p>File Uploaded</p>
+                                </div>
+                            </div>
+                          </tr>  <!-- end Upload -->
+                          &nbsp;
+                          <div class="col-sm">
+                                <button type="submit" class="btn btn-gray-800" (click)="onuploadFile(file.files);">Upload</button>
+                          </div>
                       </form>
                       </div>
                     </li>

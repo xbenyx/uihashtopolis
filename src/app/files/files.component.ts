@@ -57,7 +57,8 @@ export class FilesComponent implements OnInit {
     private http: HttpClient,
     private accessgroupService:AccessGroupsService,
     private route:ActivatedRoute,
-    private uploadService:UploadTUSService) { }
+    private uploadService:UploadTUSService
+    ) { }
 
 // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
@@ -74,6 +75,7 @@ export class FilesComponent implements OnInit {
 
   filterType: number
   whichView: string;
+  createForm: FormGroup;
 
   private maxResults = environment.config.prodApiMaxResults
 
@@ -196,6 +198,15 @@ export class FilesComponent implements OnInit {
           ],
         }
       };
+
+      this.createForm = new FormGroup({
+        filename: new FormControl(''),
+        isSecret: new FormControl(false),
+        fileType: new FormControl(this.filterType),
+        accessGroupId: new FormControl(''),
+        sourceType: new FormControl(''),
+        sourceData: new FormControl(''),
+      });
 
       this.uploadProgress = this.uploadService.uploadProgress; //Uploading File using tus protocol
 
