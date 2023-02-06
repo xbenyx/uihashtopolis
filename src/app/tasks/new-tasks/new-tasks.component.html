@@ -67,8 +67,16 @@
                                   id="attackCmd"
                                   class='form-control'
                                   formControlName="attackCmd"
+                                  required
                             >
                             </textarea>
+                            <span  *ngIf="attckcmd.errors" [style.color]="attckcmd.errors?  'red' : null">
+                              Please remove manually the blacklisted Characters or use the button below!
+                              <br>
+                              <b>BlackListed Chars: &#36; &#124; &#123; &#125; &#768; &#40; &#41; &lt; &gt; &quot; &apos; &amp; </b>
+                              <br>
+                              <button class="btn btn-gray-800" (click)="onRemoveFChars()">Remove Blacklisted Chars</button>
+                            </span>
                         </div>
                       </div>
                       <div class="row">
@@ -416,6 +424,7 @@
                       </ngb-accordion>
                       &nbsp;
                     </div>
+                    <span *ngIf="!createForm.valid && createForm.touched" class="help-block" >Please complete all the form!</span><br>
                   <button class="btn btn-gray-800" type="submit">Create</button>
             </form>
     </div>
@@ -538,7 +547,7 @@
                                   <div class="form-check" >
                                     <input class="form-check-input" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox" >
                                     <label class="form-check-label" for="{{f.filename}}">
-                                        {{f.filename | shortenString:25 }}
+                                        {{f.filename | shortenString:35 }}
                                     </label>
                                   </div>
                                 </form>

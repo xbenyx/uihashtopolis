@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
@@ -79,25 +79,25 @@ export class NewTasksComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
-    // New checkbox
-    filesFormArray: Array<any> = [];
-    onChange(fileId:number, fileType:number, fileName: string, $target: EventTarget) {
-      const isChecked = (<HTMLInputElement>$target).checked;
-      if(isChecked) {
+  // New checkbox
+  filesFormArray: Array<any> = [];
+  onChange(fileId:number, fileType:number, fileName: string, $target: EventTarget) {
+    const isChecked = (<HTMLInputElement>$target).checked;
+    if(isChecked) {
         this.filesFormArray.push(fileId);
         this.OnChangeAttack(fileName, fileType);
         this.createForm.patchValue({files: this.filesFormArray });
         console.log(this.filesFormArray)
-      } else {
+    } else {
         let index = this.filesFormArray.indexOf(fileId);
         this.filesFormArray.splice(index,1);
         this.createForm.patchValue({files: this.filesFormArray});
         this.OnChangeAttack(fileName, fileType, true);
-      }
     }
+  }
 
-    OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
-      if(onRemove == true){
+  OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
+    if(onRemove == true){
         let currentCmd = this.createForm.get('attackCmd').value;
         let newCmd = item
         if (fileType === 1 ){newCmd = '-r '+ newCmd;}
@@ -106,7 +106,7 @@ export class NewTasksComponent implements OnInit {
         this.createForm.patchValue({
           attackCmd: newCmd
         });
-      } else {
+    } else {
         let currentCmd = this.createForm.get('attackCmd').value;
         let newCmd = item;
         this.validateFile(newCmd);
@@ -116,18 +116,27 @@ export class NewTasksComponent implements OnInit {
         this.createForm.patchValue({
           attackCmd: currentCmd+' '+ newCmd
         });
-      }
     }
+  }
 
-    validateFile(value){
-      if(value.split('.').pop() == '7zip'){
-        Swal.fire({
-          title: "Heads Up!",
-          text: "Hashcat has some issues loading 7z files. Better convert it to a hash file ;)",
-          icon: "warning",
-        })
-      }
+  validateFile(value){
+    if(value.split('.').pop() == '7zip'){
+      Swal.fire({
+        title: "Heads Up!",
+        text: "Hashcat has some issues loading 7z files. Better convert it to a hash file ;)",
+        icon: "warning",
+      })
     }
+  }
+
+  onRemoveFChars(){
+    const forbidden = /[&*;$()\[\]{}'"\\|<>\/]/g;
+    let currentCmd = this.createForm.get('attackCmd').value;
+    currentCmd = currentCmd.replace(forbidden,'');
+    this.createForm.patchValue({
+      attackCmd: currentCmd
+    });
+  }
 
   ngOnInit(): void {
 
@@ -186,7 +195,7 @@ export class NewTasksComponent implements OnInit {
       'taskName': new FormControl('', [Validators.required]),
       'notes': new FormControl(''),
       'hashlistId': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl(null || '#HL#', [Validators.required]),
+      'attackCmd': new FormControl(null || '#HL#', [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
       'priority': new FormControl(null || this.priority,[Validators.required, Validators.pattern("^[0-9]*$")]),
       'maxAgents': new FormControl(null || this.maxAgents),
       'chunkTime': new FormControl(null || this.chunkTime),
@@ -207,6 +216,17 @@ export class NewTasksComponent implements OnInit {
       'files': new FormControl('')
     });
 
+  }
+
+  get attckcmd(){
+    return this.createForm.controls['attackCmd'];
+  };
+
+  forbiddenChars(name: RegExp): ValidatorFn{
+    return (control: AbstractControl): { [key: string]: any } => {
+      const forbidden = name.test(control.value);
+      return forbidden ? { 'forbidden' : { value: control.value } } : null;
+    };
   }
 
   async fetchData() {
@@ -276,7 +296,6 @@ export class NewTasksComponent implements OnInit {
 
       this.taskService.createTask(this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",
@@ -287,6 +306,7 @@ export class NewTasksComponent implements OnInit {
           });
           this.createForm.reset(); // success, we reset form
           this.router.navigate(['tasks/show-tasks']);
+          // this.router.navigate(['config/engine/crackers']);
         },
         errorMessage => {
           // check error status code is 500, if so, do some action

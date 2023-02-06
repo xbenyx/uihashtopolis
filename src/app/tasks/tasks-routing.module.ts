@@ -49,7 +49,8 @@ const routes: Routes = [
               breadcrumb: 'New tasks'
           },
           canActivate: [AuthGuard],
-          canDeactivate: [PendingChangesGuard]},
+          // canDeactivate: [PendingChangesGuard]
+        },
         {
           path: 'preconfigured-tasks', component: PreconfiguredTasksComponent,
           data: {

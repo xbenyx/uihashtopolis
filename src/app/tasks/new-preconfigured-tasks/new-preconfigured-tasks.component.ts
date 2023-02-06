@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { faInfoCircle, faLock } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 
@@ -123,7 +123,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
     this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl(null || '#HL#', [Validators.required]),
+      'attackCmd': new FormControl(null || '#HL#', [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
       'maxAgents': new FormControl(null || this.maxAgents),
       'chunkTime': new FormControl(null || this.chunkTime),
       'statusTimer': new FormControl(null || this.statusTimer),
@@ -202,6 +202,26 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       }
     }
 
+  }
+
+  get attckcmd(){
+    return this.createForm.controls['attackCmd'];
+  };
+
+  forbiddenChars(name: RegExp): ValidatorFn{
+    return (control: AbstractControl): { [key: string]: any } => {
+      const forbidden = name.test(control.value);
+      return forbidden ? { 'forbidden' : { value: control.value } } : null;
+    };
+  }
+
+  onRemoveFChars(){
+    const forbidden = /[&*;$()\[\]{}'"\\|<>\/]/g;
+    let currentCmd = this.createForm.get('attackCmd').value;
+    currentCmd = currentCmd.replace(forbidden,'');
+    this.createForm.patchValue({
+      attackCmd: currentCmd
+    });
   }
 
   // Path Color DOM value
