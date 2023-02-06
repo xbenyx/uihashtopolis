@@ -16,11 +16,6 @@ const appRoutes: Routes = [
       data: { preload: true, delay: false }
     },
     {
-      path: 'projects',
-      loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
-      data: { preload: false, delay: false }
-    },
-    {
       path: 'tasks',
       loadChildren: () => import('./tasks/tasks.module').then(m => m.TasksModule),
       data: { preload: true, delay: false }
