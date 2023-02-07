@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
 import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-edit-tasks',
@@ -31,6 +32,12 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   updateForm: FormGroup;
   color: string = '';
   private maxResults = environment.config.prodApiMaxResults
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject<any>();
+  dtOptions: any = {};
 
   ngOnInit(): void {
     this.route.params
@@ -63,6 +70,56 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
         'isSmall': new FormControl(''),
       }),
     });
+
+    this.dtOptions[0] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      autoWidth: false,
+      // destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+
+    this.dtOptions[1] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+
+    this.dtOptions[2] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+
   }
 
   OnChangeValue(value){
