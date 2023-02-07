@@ -94,6 +94,13 @@ const routes: Routes = [
           },
           canActivate: [AuthGuard]},
         {
+          path: 'preconfigured-tasks/:id/copytask', component: NewPreconfiguredTasksComponent,
+          data: {
+              kind: 'copy-tasks',
+              breadcrumb: 'Copy Task to Preconfigured task'
+          },
+          canActivate: [AuthGuard]},
+        {
           path: 'supertasks', component: SupertasksComponent,
           data: {
             kind: 'supertasks',

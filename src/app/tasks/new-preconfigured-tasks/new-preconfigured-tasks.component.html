@@ -9,7 +9,11 @@
         <h2 class="h5 mb-4">New Preconfigured Tasks</h2><br>
       </div>
       <div *ngSwitchCase="'edit'">
-        <h2 class="h5 mb-4">New Preconfigured Tasks <small>(Copied From Pretask ID {{copiedPretaskIndex}})</small></h2>
+        <h2 class="h5 mb-4">New Preconfigured Tasks <small>(Copied From Pretask ID {{editedIndex}})</small></h2>
+        <br>
+      </div>
+      <div *ngSwitchCase="'task'">
+        <h2 class="h5 mb-4">New Preconfigured Tasks <small>(Copied From Task ID {{editedIndex}})</small></h2>
         <br>
       </div>
     </div>

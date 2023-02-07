@@ -12,6 +12,7 @@ import { ModalDismissReasons, NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 
 declare let $:any;
 
@@ -33,6 +34,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   private statusTimer = environment.config.tasks.statusTimer;
 
   constructor(
+    private taskService: TasksService,
     private preTasksService: PreTasksService,
     private crackerService: CrackerService,
     private filesService: FilesService,
@@ -43,7 +45,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   ) { }
 
   copyMode = false;
-  copiedPretaskIndex: number;
+  editedIndex: number;
   whichView: string;
   createForm: FormGroup
   crackertype: any
@@ -130,7 +132,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
     this.route.params
     .subscribe(
       (params: Params) => {
-        this.copiedPretaskIndex = +params['id'];
+        this.editedIndex = +params['id'];
         this.copyMode = params['id'] != null;
       }
     );
@@ -146,7 +148,12 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
           this.whichView = 'edit';
           this.isLoading = true;
           this.initForm();
+        break;
 
+        case 'copy-tasks':
+          this.whichView = 'task';
+          this.isLoading = true;
+          this.initFormt();
         break;
 
       }
@@ -309,9 +316,33 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   private initForm() {
     this.isLoading = true;
     if (this.copyMode) {
-    this.preTasksService.getPretask(this.copiedPretaskIndex).subscribe((result)=>{
+    this.preTasksService.getPretask(this.editedIndex).subscribe((result)=>{
       this.createForm = new FormGroup({
-        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.copiedPretaskIndex+')', [Validators.required, Validators.minLength(1)]),
+        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
+        'attackCmd': new FormControl(result['attackCmd']),
+        'maxAgents': new FormControl(result['maxAgents'], Validators.required),
+        'chunkTime': new FormControl(result['chunkTime'], Validators.required),
+        'statusTimer': new FormControl(result['statusTimer'], Validators.required),
+        'priority': new FormControl(result['priority'], Validators.required),
+        'color': new FormControl(result['color'], Validators.required),
+        'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
+        'crackerBinaryTypeId': new FormControl(result['crackerBinaryTypeId'], Validators.required),
+        'isSmall': new FormControl(result['isSmall'], Validators.required),
+        'useNewBench': new FormControl(result['useNewBench'], Validators.required),
+        'isMaskImport': new FormControl(result['isMaskImport'], Validators.required),
+        'files': new FormControl(result['files'], Validators.required),
+      });
+      this.isLoading = false;
+    });
+   }
+  }
+
+  private initFormt() {
+    this.isLoading = true;
+    if (this.copyMode) {
+    this.taskService.getTask(this.editedIndex).subscribe((result)=>{
+      this.createForm = new FormGroup({
+        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_from_task_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
         'attackCmd': new FormControl(result['attackCmd']),
         'maxAgents': new FormControl(result['maxAgents'], Validators.required),
         'chunkTime': new FormControl(result['chunkTime'], Validators.required),
