@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { faAlignJustify, faIdBadge, faComputer, faKey } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faIdBadge, faComputer, faKey, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { faLinux, faWindows, faApple } from '@fortawesome/free-brands-svg-icons';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -26,6 +26,7 @@ export class EditAgentComponent implements OnInit {
   faLinux=faLinux;
   faWindows=faWindows;
   faApple=faApple;
+  faInfoCircle=faInfoCircle;
 
   constructor(
     private route:ActivatedRoute,
