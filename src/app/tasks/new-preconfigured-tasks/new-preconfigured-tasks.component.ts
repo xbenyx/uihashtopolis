@@ -11,6 +11,7 @@ import { FileTypePipe } from 'src/app/core/_pipes/file-type.pipe';
 import { ModalDismissReasons, NgbModal, NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 declare let $:any;
 
@@ -36,9 +37,14 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
     private crackerService: CrackerService,
     private filesService: FilesService,
     private modalService: NgbModal,
+    private route:ActivatedRoute,
+    private router: Router,
     private fileType: FileTypePipe
   ) { }
 
+  copyMode = false;
+  copiedPretaskIndex: number;
+  whichView: string;
   createForm: FormGroup
   crackertype: any
   color: string = '#fff'
@@ -120,6 +126,31 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
 
   ngOnInit(): void {
+
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.copiedPretaskIndex = +params['id'];
+        this.copyMode = params['id'] != null;
+      }
+    );
+
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'new-preconfigured-tasks':
+          this.whichView = 'create';
+        break;
+
+        case 'copy-preconfigured-tasks':
+          this.whichView = 'edit';
+          this.isLoading = true;
+          this.initForm();
+
+        break;
+
+      }
+    });
 
     this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
@@ -275,34 +306,29 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
   }
 
-
-  // Modal Information
-  attackmode =[
-    {'value': '0', 'name': 'Straight(Using rules)' },
-    {'value': '1', 'name': 'Combination' },
-    {'value': '3', 'name': 'Brute-force'},
-    {'value': '6', 'name': 'Hybrid Dictionary+ Mask'},
-    {'value': '7', 'name': 'Hybrid Mask + Dictionary'},
-  ]
-
-  attackex =[
-    {'value': 'Dictionary', 'example': '-w3 -O #HL# -a 0 rockyou.txt' },
-    {'value': 'Dictionary + Rules', 'example': '-w3 -O #HL# -a 0 rockyou.txt -r base64rule.txt' },
-    {'value': 'Combination', 'example': '-w3 -O #HL# -a 1 rockyou.txt rockyou2.txt'},
-    {'value': 'Hybrid Dictionary + Mask', 'example': '-w3 -O #HL# -a 6 -m dict.txt ?a?a?a?a'},
-    {'value': 'Hybrid Mask + Dictionary', 'example': '-w3 -O #HL# -a 7 -m ?a?a?a?a dict.txt'},
-  ]
-
-  charsets =[
-    {'value': '?l', 'descrip': 'abcdefghĳklmnopqrstuvwxyz' },
-    {'value': '?u', 'descrip': 'ABCDEFGHĲKLMNOPQRSTUVWXYZ' },
-    {'value': '?d', 'descrip': '0123456789' },
-    {'value': '?h', 'descrip': '0123456789abcdef' },
-    {'value': '?H', 'descrip': '0123456789ABCDEF' },
-    {'value': '?s', 'descrip': '«space»!"#$%&()*+,-./:;<=>?@[\]^_`{|}~'},
-    {'value': '?a', 'descrip': '?l?u?d?s'},
-    {'value': '?b', 'descrip': '0x00 - 0xff'},
-  ]
+  private initForm() {
+    this.isLoading = true;
+    if (this.copyMode) {
+    this.preTasksService.getPretask(this.copiedPretaskIndex).subscribe((result)=>{
+      this.createForm = new FormGroup({
+        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.copiedPretaskIndex+')', [Validators.required, Validators.minLength(1)]),
+        'attackCmd': new FormControl(result['attackCmd']),
+        'maxAgents': new FormControl(result['maxAgents'], Validators.required),
+        'chunkTime': new FormControl(result['chunkTime'], Validators.required),
+        'statusTimer': new FormControl(result['statusTimer'], Validators.required),
+        'priority': new FormControl(result['priority'], Validators.required),
+        'color': new FormControl(result['color'], Validators.required),
+        'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
+        'crackerBinaryTypeId': new FormControl(result['crackerBinaryTypeId'], Validators.required),
+        'isSmall': new FormControl(result['isSmall'], Validators.required),
+        'useNewBench': new FormControl(result['useNewBench'], Validators.required),
+        'isMaskImport': new FormControl(result['isMaskImport'], Validators.required),
+        'files': new FormControl(result['files'], Validators.required),
+      });
+      this.isLoading = false;
+    });
+   }
+  }
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -343,5 +369,33 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 			return `with: ${reason}`;
 		}
 	}
+
+  // Modal Information
+    attackmode =[
+      {'value': '0', 'name': 'Straight(Using rules)' },
+      {'value': '1', 'name': 'Combination' },
+      {'value': '3', 'name': 'Brute-force'},
+      {'value': '6', 'name': 'Hybrid Dictionary+ Mask'},
+      {'value': '7', 'name': 'Hybrid Mask + Dictionary'},
+    ]
+
+    attackex =[
+      {'value': 'Dictionary', 'example': '-w3 -O #HL# -a 0 rockyou.txt' },
+      {'value': 'Dictionary + Rules', 'example': '-w3 -O #HL# -a 0 rockyou.txt -r base64rule.txt' },
+      {'value': 'Combination', 'example': '-w3 -O #HL# -a 1 rockyou.txt rockyou2.txt'},
+      {'value': 'Hybrid Dictionary + Mask', 'example': '-w3 -O #HL# -a 6 -m dict.txt ?a?a?a?a'},
+      {'value': 'Hybrid Mask + Dictionary', 'example': '-w3 -O #HL# -a 7 -m ?a?a?a?a dict.txt'},
+    ]
+
+    charsets =[
+      {'value': '?l', 'descrip': 'abcdefghĳklmnopqrstuvwxyz' },
+      {'value': '?u', 'descrip': 'ABCDEFGHĲKLMNOPQRSTUVWXYZ' },
+      {'value': '?d', 'descrip': '0123456789' },
+      {'value': '?h', 'descrip': '0123456789abcdef' },
+      {'value': '?H', 'descrip': '0123456789ABCDEF' },
+      {'value': '?s', 'descrip': '«space»!"#$%&()*+,-./:;<=>?@[\]^_`{|}~'},
+      {'value': '?a', 'descrip': '?l?u?d?s'},
+      {'value': '?b', 'descrip': '0x00 - 0xff'},
+    ]
 
 }

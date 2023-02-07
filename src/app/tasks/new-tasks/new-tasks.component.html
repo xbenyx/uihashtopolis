@@ -1,7 +1,18 @@
+<div *ngIf="isLoading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+<!-- Header -->
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">New Tasks</h2>
-      <p class="mb-0">Section to create a new task.</p>
+      <div [ngSwitch]="whichView">
+        <div *ngSwitchCase="'create'">
+          <p class="mb-0">Section to create a new task.</p>
+        </div>
+        <div *ngSwitchCase="'edit'">
+          <p class="mb-0">Data Copied From Pretask ID {{copiedPretaskIndex}}</p>
+        </div>
+      </div>
   </div>
 </div>
 <!-- New Task End-->

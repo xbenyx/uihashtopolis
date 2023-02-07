@@ -13,6 +13,7 @@ import { CrackerService } from '../../core/_services/config/cracker.service';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 import { FilesService } from '../../core/_services/files/files.service';
 import { DataTableDirective } from 'angular-datatables';
+import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 
 @Component({
   selector: 'app-new-tasks',
@@ -42,6 +43,9 @@ export class NewTasksComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
+  copyMode = false;
+  copiedPretaskIndex: number;
+  whichView: string;
   allhashlists: any;  // ToDo change to interface
   prep: any;  // ToDo change to interface
   crackertype: any;  // ToDo change to interface
@@ -64,8 +68,10 @@ export class NewTasksComponent implements OnInit {
     }[] = [];
 
   constructor(
+    private preTasksService: PreTasksService,
     private taskService: TasksService,
     private listsService:ListsService,
+    private route:ActivatedRoute,
     private router: Router,
     private preprocessorService:PreprocessorService,
     private filesService: FilesService,
@@ -139,6 +145,31 @@ export class NewTasksComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.route.params
+    .subscribe(
+      (params: Params) => {
+        this.copiedPretaskIndex = +params['id'];
+        this.copyMode = params['id'] != null;
+      }
+    );
+
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'new-tasks':
+          this.whichView = 'create';
+        break;
+
+        case 'copy-pretask':
+          this.whichView = 'edit';
+          this.isLoading = true;
+          this.initForm();
+
+        break;
+
+      }
+    });
 
    this.fetchData();
 
@@ -320,6 +351,53 @@ export class NewTasksComponent implements OnInit {
       );
     }
   }
+
+  private initForm() {
+    this.isLoading = true;
+    if (this.copyMode) {
+    this.preTasksService.getPretask(this.copiedPretaskIndex).subscribe((result)=>{
+      this.createForm = new FormGroup({
+        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.copiedPretaskIndex+')', [Validators.required, Validators.minLength(1)]),
+        'notes': new FormControl('Copied from pretask id'+this.copiedPretaskIndex+'', Validators.required),
+        'hashlistId': new FormControl('', [Validators.required]),
+        'attackCmd': new FormControl(result['attackCmd']),
+        'maxAgents': new FormControl(result['maxAgents'], Validators.required),
+        'chunkTime': new FormControl(result['chunkTime'], Validators.required),
+        'statusTimer': new FormControl(result['statusTimer'], Validators.required),
+        'priority': new FormControl(result['priority'], Validators.required),
+        'color': new FormControl(result['color'], Validators.required),
+        'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
+        'crackerBinaryTypeId': new FormControl(result['crackerBinaryTypeId'], Validators.required),
+        'isSmall': new FormControl(result['isSmall'], Validators.required),
+        'useNewBench': new FormControl(result['useNewBench'], Validators.required),
+        'isMaskImport': new FormControl(result['isMaskImport'], Validators.required),
+        'skipKeyspace': new FormControl(null || 0),
+        'crackerBinaryId': new FormControl(null || 1),
+        "isArchived": new FormControl(false),
+        'staticChunks': new FormControl(null || 0),
+        'chunkSize': new FormControl(null || this.chunkSize),
+        'forcePipe': new FormControl(null || false),
+        'usePreprocessor': new FormControl(null || false),
+        'preprocessorCommand': new FormControl(''),
+        'files': new FormControl(result['files'], Validators.required),
+      });
+      this.isLoading = false;
+    });
+   }
+  }
+
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
 
   // @HostListener allows us to also guard against browser refresh, close, etc.
   @HostListener('window:beforeunload', ['$event'])

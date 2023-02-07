@@ -109,6 +109,58 @@ export class PreconfiguredTasksComponent implements OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
+  onDelete(id: number){
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once deleted, it can not be recovered!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: '#4B5563',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        this.preTasksService.deletePretask(id).subscribe(() => {
+          Swal.fire(
+            "PreTask has been deleted!",
+            {
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.ngOnInit();
+          this.rerender();  // rerender datatables
+        });
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'No worries, your PreTask is safe!',
+          'error'
+        )
+      }
+    });
+  }
+
+
 
 
 }

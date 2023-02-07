@@ -43,22 +43,20 @@ const routes: Routes = [
           canActivate: [AuthGuard],
           canDeactivate: [PendingChangesGuard]},
         {
-          path: 'show-tasks/:id/copy', component: EditTasksComponent,
-          data: {
-              kind: 'copy-task',
-              breadcrumb: 'Copy Task'
-          },
-          canActivate: [AuthGuard],
-          canDeactivate: [PendingChangesGuard]},
-        {
           path: 'new-tasks', component: NewTasksComponent,
           data: {
               kind: 'new-tasks',
               breadcrumb: 'New tasks'
           },
           canActivate: [AuthGuard],
-          canDeactivate: [PendingChangesGuard]
-        },
+          canDeactivate: [PendingChangesGuard]},
+        {
+          path: 'new-tasks/:id/copypretask', component: NewTasksComponent,
+          data: {
+              kind: 'copy-pretask',
+              breadcrumb: 'Copy Task'
+          },
+          canActivate: [AuthGuard]},
         {
           path: 'preconfigured-tasks', component: PreconfiguredTasksComponent,
           data: {
@@ -74,13 +72,20 @@ const routes: Routes = [
           },
           canActivate: [AuthGuard]},
         {
-          path: 'edit-preconfigured-tasks/:id/edit', component: EditPreconfiguredTasksComponent,
+          path: 'preconfigured-tasks/:id/edit', component: EditPreconfiguredTasksComponent,
           data: {
               kind: 'edit-preconfigured-tasks',
               breadcrumb: 'Edit Preconfigured tasks'
           },
           canActivate: [AuthGuard],
           canDeactivate: [PendingChangesGuard]},
+        {
+          path: 'preconfigured-tasks/:id/copy', component: NewPreconfiguredTasksComponent,
+          data: {
+              kind: 'copy-preconfigured-tasks',
+              breadcrumb: 'Copy Preconfigured tasks'
+          },
+          canActivate: [AuthGuard]},
         {
           path: 'supertasks', component: SupertasksComponent,
           data: {
