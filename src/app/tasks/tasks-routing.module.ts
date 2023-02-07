@@ -43,13 +43,21 @@ const routes: Routes = [
           canActivate: [AuthGuard],
           canDeactivate: [PendingChangesGuard]},
         {
+          path: 'show-tasks/:id/copy', component: EditTasksComponent,
+          data: {
+              kind: 'copy-task',
+              breadcrumb: 'Copy Task'
+          },
+          canActivate: [AuthGuard],
+          canDeactivate: [PendingChangesGuard]},
+        {
           path: 'new-tasks', component: NewTasksComponent,
           data: {
               kind: 'new-tasks',
               breadcrumb: 'New tasks'
           },
           canActivate: [AuthGuard],
-          // canDeactivate: [PendingChangesGuard]
+          canDeactivate: [PendingChangesGuard]
         },
         {
           path: 'preconfigured-tasks', component: PreconfiguredTasksComponent,
