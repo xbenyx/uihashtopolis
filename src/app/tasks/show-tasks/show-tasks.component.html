@@ -72,11 +72,11 @@
                             <button ngbDropdownItem [routerLink]="[task.taskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
                               <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
                             </button>
-                            <button ngbDropdownItem [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to task">
+                            <button ngbDropdownItem [routerLink]="['/tasks/new-tasks',task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to Task">
                               <fa-icon [icon]="faCopy" aria-hidden="true"></fa-icon> Copy to task
                             </button>
-                            <button ngbDropdownItem [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
-                              <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>  Copy to task
+                            <button ngbDropdownItem [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to Pretask">
+                              <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon>  Copy to Pretask
                             </button>
                             <button ngbDropdownItem (click)="onArchive(task.taskId)" data-toggle="tooltip" data-placement="top" title="Archive">
                               <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon> Archive
@@ -96,7 +96,7 @@
                           <button ngbDropdownItem [routerLink]="[task.taskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
                             <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
                           </button>
-                          <button ngbDropdownItem [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to task">
+                          <button ngbDropdownItem [routerLink]="['/tasks/new-tasks', task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to task">
                             <fa-icon [icon]="faCopy" aria-hidden="true"></fa-icon> Copy to task
                           </button>
                           <button ngbDropdownItem [routerLink]="[task.taskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">

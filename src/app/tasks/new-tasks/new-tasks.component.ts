@@ -44,7 +44,7 @@ export class NewTasksComponent implements OnInit {
   dtOptions: any = {};
 
   copyMode = false;
-  copiedPretaskIndex: number;
+  editedIndex: number;
   whichView: string;
   allhashlists: any;  // ToDo change to interface
   prep: any;  // ToDo change to interface
@@ -149,7 +149,7 @@ export class NewTasksComponent implements OnInit {
     this.route.params
     .subscribe(
       (params: Params) => {
-        this.copiedPretaskIndex = +params['id'];
+        this.editedIndex = +params['id'];
         this.copyMode = params['id'] != null;
       }
     );
@@ -161,11 +161,16 @@ export class NewTasksComponent implements OnInit {
           this.whichView = 'create';
         break;
 
+        case 'copy-task':
+          this.whichView = 'edit';
+          this.isLoading = true;
+          this.initFormt();
+        break;
+
         case 'copy-pretask':
           this.whichView = 'edit';
           this.isLoading = true;
-          this.initForm();
-
+          this.initFormpt();
         break;
 
       }
@@ -352,15 +357,49 @@ export class NewTasksComponent implements OnInit {
     }
   }
 
-  private initForm() {
+  private initFormt() {
     this.isLoading = true;
     if (this.copyMode) {
-    this.preTasksService.getPretask(this.copiedPretaskIndex).subscribe((result)=>{
+    this.taskService.getTask(this.editedIndex).subscribe((result)=>{
       this.createForm = new FormGroup({
-        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.copiedPretaskIndex+')', [Validators.required, Validators.minLength(1)]),
-        'notes': new FormControl('Copied from pretask id'+this.copiedPretaskIndex+'', Validators.required),
+        'taskName': new FormControl(result['taskName']+'_(Copied_task_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
+        'notes': new FormControl('Copied from task id'+this.editedIndex+'', Validators.required),
         'hashlistId': new FormControl('', [Validators.required]),
-        'attackCmd': new FormControl(result['attackCmd']),
+        'attackCmd': new FormControl(result['attackCmd'], [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
+        'maxAgents': new FormControl(result['maxAgents'], Validators.required),
+        'chunkTime': new FormControl(result['chunkTime'], Validators.required),
+        'statusTimer': new FormControl(result['statusTimer'], Validators.required),
+        'priority': new FormControl(result['priority'], Validators.required),
+        'color': new FormControl(result['color'], Validators.required),
+        'isCpuTask': new FormControl(result['isCpuTask'], Validators.required),
+        'crackerBinaryTypeId': new FormControl(result['crackerBinaryTypeId'], Validators.required),
+        'isSmall': new FormControl(result['isSmall'], Validators.required),
+        'useNewBench': new FormControl(result['useNewBench'], Validators.required),
+        'isMaskImport': new FormControl(result['isMaskImport'], Validators.required),
+        'skipKeyspace': new FormControl(null || 0),
+        'crackerBinaryId': new FormControl(null || 1),
+        "isArchived": new FormControl(false),
+        'staticChunks': new FormControl(null || 0),
+        'chunkSize': new FormControl(null || this.chunkSize),
+        'forcePipe': new FormControl(null || false),
+        'usePreprocessor': new FormControl(null || false),
+        'preprocessorCommand': new FormControl(''),
+        'files': new FormControl(result['files'], Validators.required),
+      });
+      this.isLoading = false;
+    });
+   }
+  }
+
+  private initFormpt() {
+    this.isLoading = true;
+    if (this.copyMode) {
+    this.preTasksService.getPretask(this.editedIndex).subscribe((result)=>{
+      this.createForm = new FormGroup({
+        'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
+        'notes': new FormControl('Copied from pretask id'+this.editedIndex+'', Validators.required),
+        'hashlistId': new FormControl('', [Validators.required]),
+        'attackCmd': new FormControl(result['attackCmd'], [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
         'maxAgents': new FormControl(result['maxAgents'], Validators.required),
         'chunkTime': new FormControl(result['chunkTime'], Validators.required),
         'statusTimer': new FormControl(result['statusTimer'], Validators.required),

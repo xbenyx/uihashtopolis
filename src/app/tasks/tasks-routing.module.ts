@@ -51,6 +51,13 @@ const routes: Routes = [
           canActivate: [AuthGuard],
           canDeactivate: [PendingChangesGuard]},
         {
+          path: 'new-tasks/:id/copy', component: NewTasksComponent,
+          data: {
+              kind: 'copy-task',
+              breadcrumb: 'Copy Task'
+          },
+          canActivate: [AuthGuard]},
+        {
           path: 'new-tasks/:id/copypretask', component: NewTasksComponent,
           data: {
               kind: 'copy-pretask',
