@@ -6,15 +6,12 @@
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Edit Task</h2>
   </div>
-  <div class="btn-toolbar mb-2 mb-md-0">
-  </div>
 </div>
 <!-- Edit Task -->
-<section>
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+  <div class="container px-lg-5">
+    <div class="row no-gutters">
+        <div class="col-6 col-sm-8 col-md-8 d-flex align-items-center justify-content-center">
+            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-600">
                 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                     <div class="form-group">
@@ -80,218 +77,274 @@
                           </div>
                         </div>
                       </div>
-                        <div class="form-group">
-                          <div class="form-outline">
-                              <label class="form-label" for="getPriority">Priority</label>
-                              <td>
-                              <input
-                                    type='number'
-                                    id='priority'
-                                    class='form-control'
-                                    formControlName="priority"
-                                    validateInputNumber
+                      <div class="row">
+                        <div class="col">
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getPriority">Priority</label>
+                                <td>
+                                <input
+                                      type='number'
+                                      id='priority'
+                                      class='form-control'
+                                      formControlName="priority"
+                                      validateInputNumber
+                                  >
+                            </div>
+                          </div>
+                          &nbsp;
+                          </div>
+                          <div class="col">
+                            &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getMaxAgents">Max agents</label>
+                                <td>
+                                <input
+                                      type='number'
+                                      id='maxAgents'
+                                      class='form-control'
+                                      formControlName="maxAgents"
+                                      validateInputNumber
+                                  >
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getstatusTimer">Status timer</label>
+                                <td>
+                                <input
+                                      type='text'
+                                      id='statusTimer'
+                                      class='form-control'
+                                      formControlName="statusTimer"
+                                  >
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getChunkTime">Chunk size (seconds)</label>
+                                <td>
+                                <input
+                                      type='number'
+                                      id='chunkTime'
+                                      class='form-control'
+                                      formControlName="chunkTime"
+                                      validateInputNumber
                                 >
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getisCpuTask">CPU only</label>
+                                <select
+                                      id='isCpuTask'
+                                      class='form-select'
+                                      formControlName="isCpuTask"
+                                  >
+                                  <option [ngValue]="false">No</option>
+                                  <option [ngValue]="true">Yes</option>
+                                </select>
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getisSmall">Small task</label>
+                                <select
+                                      id='isSmall'
+                                      class='form-select'
+                                      formControlName="isSmall"
+                                  >
+                                  <option [ngValue]="false">No</option>
+                                  <option [ngValue]="true">Yes</option>
+                                </select>
+                              </div>
+                            </div>
+                            &nbsp;
                           </div>
                         </div>
-                        &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline">
-                              <label class="form-label" for="getMaxAgents">Max agents</label>
-                              <td>
-                              <input
-                                    type='number'
-                                    id='maxAgents'
-                                    class='form-control'
-                                    formControlName="maxAgents"
-                                    validateInputNumber
-                                >
-                          </div>
-                        </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getstatusTimer">Status timer</label>
-                            <td>
-                            <input
-                                  type='text'
-                                  id='statusTimer'
-                                  class='form-control'
-                                  formControlName="statusTimer"
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getisCpuTask">CPU only task?</label>
-                            <td>
-                            <select
-                                  id='isCpuTask'
-                                  class='form-select'
-                                  formControlName="isCpuTask"
-                              >
-                              <option [ngValue]="false">No</option>
-                              <option [ngValue]="true">Yes</option>
-                            </select>
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getisSmall">Small task?</label>
-                            <td>
-                            <select
-                                  id='isSmall'
-                                  class='form-select'
-                                  formControlName="isSmall"
-                              >
-                              <option [ngValue]="false">No</option>
-                              <option [ngValue]="true">Yes</option>
-                            </select>
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getChunkTime">Chunk size (seconds)</label>
-                            <td>
-                            <input
-                                  type='number'
-                                  id='chunkTime'
-                                  class='form-control'
-                                  formControlName="chunkTime"
-                                  validateInputNumber
-                            >
-                        </div>
-                      </div>
-                    &nbsp;
-                  </div>
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getchunkSize">Number of Chunks</label>
-                            <input
-                                  type='text'
-                                  id='chunkSize'
-                                  class='form-control'
-                                  formControlName="chunkSize"
-                            >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getforcePipe">Enforce Piping</label>
-                            <input
-                                  type='text'
-                                  id='forcePipe'
-                                  class='form-control'
-                                  formControlName="forcePipe"
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getSkipKeyspace">Skipping keyspace at the beginning</label>
-                            <input
-                                  type='number'
-                                  id='skipKeyspace'
-                                  class='form-control'
-                                  formControlName="skipKeyspace"
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getKeyspace">Keyspace size</label>
-                            <input
-                                  type='text'
-                                  id='keyspace'
-                                  class='form-control'
-                                  formControlName="keyspace"
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getKeyspace">Keyspace dispatched</label>
-                            <input
-                                  type='text'
-                                  id='keyspaceProgress'
-                                  class='form-control'
-                                  formControlName="keyspaceProgress"
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getKeyspace">Keyspace Searched</label>
-                            <input
-                                  type='text'
-                                  id='keyspaceProgress'
-                                  class='form-control'
-                                  formControlName="keyspaceProgress"
-                              >
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getKeyspace">Time spent</label>
-                            <td>
-                             Missing API
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getKeyspace">Estimated time</label>
-                            <td>
-                             Missing API
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getKeyspace">Speed</label>
-                            <td>
-                             Missing API
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getTaskId">Hashlist</label>
-                            <td>
-                              Missing API
-                        </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getCrackerBinaryId">Cracker binary</label>
-                            <input
-                              type='text'
-                              id='crackerBinaryId'
-                              class='form-control'
-                              formControlName="crackerBinaryId"
-                            >
-                        </div>
-                        &nbsp;
                       </div>
                     </div>
                   <button class="btn btn-gray-800" type="submit">Update</button>
             </form>
          </div>
       </div>
+      <div class="col-12 col-sm-8 col-md-4 d-flex">
+        <div class="bg-white shadow border-0 rounded p-4 w-100 fmxw-500">
+          <h4>Task Information</h4>
+          &nbsp;
+          <form [formGroup]="updateForm">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getchunkSize">Number of Chunks</label>
+                    <input
+                          type='text'
+                          id='chunkSize'
+                          class='form-control'
+                          formControlName="chunkSize"
+                    >
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getforcePipe">Enforce Piping</label>
+                    <input
+                          type='text'
+                          id='forcePipe'
+                          class='form-control'
+                          formControlName="forcePipe"
+                      >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              &nbsp;
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getSkipKeyspace">Skipping keyspace</label>
+                    <input
+                          type='number'
+                          id='skipKeyspace'
+                          class='form-control'
+                          formControlName="skipKeyspace"
+                      >
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              &nbsp;
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getKeyspace">Keyspace size</label>
+                    <input
+                          type='text'
+                          id='keyspace'
+                          class='form-control'
+                          formControlName="keyspace"
+                      >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              &nbsp;
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getKeyspace">Keyspace dispatched</label>
+                    <input
+                          type='text'
+                          id='keyspaceProgress'
+                          class='form-control'
+                          formControlName="keyspaceProgress"
+                      >
+                </div>
+              </div>
+              &nbsp;
+            </div>
+            <div class="col">
+              &nbsp;
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getKeyspace">Keyspace Searched</label>
+                    <input
+                          type='text'
+                          id='keyspaceProgress'
+                          class='form-control'
+                          formControlName="keyspaceProgress"
+                      >
+                </div>
+              </div>
+              &nbsp;
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getKeyspace">Time spent</label>
+                    <td>
+                    Missing API
+                </div>
+              </div>
+              &nbsp;
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getKeyspace">Estimated time</label>
+                    <td>
+                    Missing API
+                </div>
+              </div>
+              &nbsp;
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label" for="getKeyspace">Speed</label>
+                    <td>
+                    Missing API
+                </div>
+              </div>
+              &nbsp;
+            </div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <div class="form-outline">
+                <label class="form-label" for="getTaskId">Hashlist</label>
+                <td>
+                  Missing API
+            </div>
+          </div>
+          &nbsp;
+          <div class="form-group">
+            <div class="form-outline">
+                <label class="form-label" for="getCrackerBinaryId">Cracker binary</label>
+                <input
+                  type='text'
+                  id='crackerBinaryId'
+                  class='form-control'
+                  formControlName="crackerBinaryId"
+                >
+            </div>
+            &nbsp;
+          </div>
+         </form>
+         <hr>
+         <h4>Visual Representation</h4>
+        </div>
+      </div>
    </div>
 </div>
-
-<h2>Visual Representation?</h2>
-<h2>Attached Files? Where to get them</h2>
-<h2>Assigned agents? Where to get them</h2>
-
-
+<!-- Attached Files -->
+<h2>Attached Files</h2>
+<!-- Assigned Agents -->
+<h2>Assigned agents</h2>
+<!-- Assigned Agents -->
+<h2>Assigned chunks</h2>

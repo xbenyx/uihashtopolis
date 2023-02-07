@@ -110,7 +110,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.color = result['color'];
       this.updateForm = new FormGroup({
         'taskId': new FormControl(result['taskId']),
-        'forcePipe': new FormControl(result['forcePipe']),
+        'forcePipe': new FormControl(result['forcePipe']== true? 'Yes':'No'),
         'skipKeyspace': new FormControl(result['skipKeyspace']),
         'keyspace': new FormControl(result['keyspace']),
         'keyspaceProgress': new FormControl(result['keyspaceProgress']),
