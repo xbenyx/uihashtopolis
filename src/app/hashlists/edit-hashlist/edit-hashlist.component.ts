@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -9,7 +9,7 @@ import { StaticArrayPipe } from 'src/app/core/_pipes/static-array.pipe';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-
+import { AccessGroupsService } from '../../core/_services/accessgroups.service';
 
 @Component({
   selector: 'app-edit-hashlist',
@@ -22,6 +22,7 @@ export class EditHashlistComponent implements OnInit {
   editedHashlist: any // Change to Model
 
   faHome=faHomeAlt;
+  faInfoCircle=faInfoCircle;
   isLoading = false;
 
   @ViewChild(DataTableDirective, {static: false})
@@ -32,12 +33,14 @@ export class EditHashlistComponent implements OnInit {
 
   constructor(
     private listsService: ListsService,
+    private accessgroupService:AccessGroupsService,
     private route: ActivatedRoute,
     private router: Router,
     private format: StaticArrayPipe
   ) { }
 
   updateForm: FormGroup
+  accessgroup: any //Change to Interface
   private maxResults = environment.config.prodApiMaxResults;
 
 
@@ -53,7 +56,7 @@ export class EditHashlistComponent implements OnInit {
 
     this.updateForm = new FormGroup({
       'hashlistId': new FormControl({value: '', disabled: true}),
-      'accessGroupId': new FormControl({value: '', disabled: true}),
+      'accessGroupId': new FormControl(''),
       'hashTypeId': new FormControl({value: '', disabled: true}),
       'useBrain': new FormControl({value: '', disabled: true}),
       'format': new FormControl({value: '', disabled: true}),
@@ -71,6 +74,28 @@ export class EditHashlistComponent implements OnInit {
     this.listsService.getHashlist(this.editedHashlistIndex).subscribe((result)=>{
       this.editedHashlist = result;
       });
+
+    this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+      this.accessgroup = agroups.values;
+    });
+
+    this.dtOptions[0] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      autoWidth: false,
+      // destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+       buttons:[]
+      }
+    }
+
 
   }
 
