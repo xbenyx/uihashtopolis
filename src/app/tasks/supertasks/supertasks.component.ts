@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SuperTasksService } from '../../core/_services/tasks/supertasks.sevice';
 import { ActivatedRoute } from '@angular/router';
-import { faEdit, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faPlus, faAdd } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -17,6 +17,7 @@ export class SupertasksComponent implements OnInit {
   faEdit=faEdit;
   faTrash=faTrash;
   faPlus=faPlus;
+  faAdd=faAdd;
 
   allsupertasks: any = [];
 
@@ -55,7 +56,6 @@ export class SupertasksComponent implements OnInit {
     };
 
   }
-
 
 
   rerender(): void {

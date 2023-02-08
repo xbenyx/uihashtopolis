@@ -19,7 +19,7 @@
                 <tr>
                   <th class="border-0 rounded-start">ID</th>
                   <th class="border-0">Name</th>
-                  <th class="border-0 rounded-end">Action</th>
+                  <th class="border-0 rounded-end right">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -27,14 +27,14 @@
                   <td>{{ stask.supertaskId }}</td>
                   <td>{{ stask.supertaskName }}</td>
                   <td>
-                    <a class='btn-outline-gray-600 float-right' [routerLink]="['../',stask.supertaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                       <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
+                    <a class='btn-outline-gray-600 actions-td-right' (click)="onDelete(stask.supertaskId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                     </a>
-                    <!-- <a class='btn btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Apply to Hashlist">
-                      <a>Apply to Hashlist</a>
-                    </a> -->
-                    <a class='btn-outline-gray-600 float-right' (click)="onDelete(stask.supertaskId)" data-toggle="tooltip" data-placement="top" title="Delete">
-                       <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+                    <a class='btn btn-outline-gray-600 actions-td-right' data-toggle="tooltip" data-placement="top" title="Apply to Hashlist">
+                      <fa-icon [icon]="faAdd" aria-hidden="true"></fa-icon>Apply Hashlist
+                    </a>
+                    <a class='btn-outline-gray-600 actions-td-right' [routerLink]="['../',stask.supertaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                      <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
                     </a>
                   </td>
               </tr>
