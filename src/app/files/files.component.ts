@@ -375,7 +375,7 @@ export class FilesComponent implements OnInit {
       let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
       if(selection.length == 0) {
         Swal.fire({
-          title: "You haven't selected any Agent",
+          title: "You haven't selected any File",
           type: 'success',
           timer: 1500,
           showConfirmButton: false
