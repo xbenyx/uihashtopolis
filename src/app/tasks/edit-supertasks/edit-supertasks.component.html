@@ -9,12 +9,11 @@
   </div>
 </div>
 <!-- Body -->
-<section>
-  <div class="container">
-      <div class="row justify-content-center">
-          <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
-                <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+<div class="container px-lg-5">
+  <div class="row no-gutters">
+      <div class="col-12 col-sm-6 col-md-8 align-items-center justify-content-left">
+            <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
+                <form [formGroup]="viewForm">
                   <div class="row">
                     <div class="row g-3">
                       <div class="col-md-2">
@@ -90,21 +89,49 @@
                     </div>
                     <hr>
                   </div>
-                  <button class="btn btn-gray-800" type="submit">Update</button>
-                  &nbsp;
                   <a class="btn btn-gray-800" >Apply to Hashlist</a>
                   &nbsp;
                   <button  class="btn btn-danger" (ngSubmit)="onDelete()">Delete</button>
             </form>
         </div>
       </div>
+      <div class="col-6 col-md-4">
+        <div class="bg-white shadow border-0 rounded p-4 w-100 fmxw-700">
+          <h5>Add Pretask (Missing Patch API call)</h5>
+          <form (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="form-group">
+                <div class="form-outline">
+                    <label class="form-label requiredak" for="getTasks">Select or search to assign pretasks</label>
+                    <div class="input-group">
+                      <span class="input-group-text" >
+                        <fa-icon [icon]="faMagnifyingGlass" aria-hidden="true"></fa-icon>
+                      </span>
+                      <select
+                            type='number'
+                            id="pretasks"
+                            class='form-select'
+                            formControlName="pretasks"
+                          >
+                          <option [ngValue]=""></option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+              &nbsp;
+            </div>
+            <button class="btn btn-gray-800" >Add</button>
+          </form>
+        </div>
+      </div>
    </div>
 </div>
+
 
 <!--Table Pretasks part of the supertask -->
 &nbsp;&nbsp;
 <section>
-<h4>Pretasks part of this supertask</h4>
+<h4>Pretasks</h4>
 <div class="table-responsive">
   &nbsp;
     <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[0]">
@@ -119,10 +146,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let pt of pretasks">
-          <td>{{ pt.supertaskName }}</td>
-          <td>{{ pt.pretasks['taskName'] }}</td>
-          <td>{{ pt.attackCmd }}</td>
+        <tr *ngFor="let p of pretasks[0].pretasks">
+          <td>
+            <span [ngClass]="!p.color ? '' : 'pill-ebidem-tk'" [ngStyle]="{'background-color': p.color }">{{  p.pretaskId }}</span>
+          </td>
+          <td>{{ p.taskName }}</td>
+          <td>{{ p.attackCmd }}</td>
           <td>Missing</td>
           <td>Missing</td>
           <td>

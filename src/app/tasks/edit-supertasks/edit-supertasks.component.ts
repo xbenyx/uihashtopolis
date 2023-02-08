@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
-import { faAlignJustify, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faInfoCircle, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { SuperTasksService } from 'src/app/core/_services/tasks/supertasks.sevice';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 
 @Component({
   selector: 'app-edit-supertasks',
@@ -22,9 +23,11 @@ export class EditSupertasksComponent implements OnInit {
   isLoading = false;
   faAlignJustify=faAlignJustify;
   faInfoCircle=faInfoCircle;
+  faMagnifyingGlass=faMagnifyingGlass;
 
   constructor(
     private supertaskService: SuperTasksService,
+    private pretasksService: PreTasksService,
     private route:ActivatedRoute,
     private router: Router,
   ) { }
@@ -37,6 +40,7 @@ export class EditSupertasksComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
+  viewForm: FormGroup;
   updateForm: FormGroup;
   pretasks: any = [];
 
@@ -51,35 +55,20 @@ export class EditSupertasksComponent implements OnInit {
       }
     );
 
+    this.viewForm = new FormGroup({
+      supertaskId: new FormControl({value: '', disabled: true}),
+      supertaskName: new FormControl({value: '', disabled: true}),
+    });
+
     this.updateForm = new FormGroup({
-      'supertaskId': new FormControl({value: '', disabled: true}),
-      'supertaskName': new FormControl({value: '', disabled: true}),
+      supertaskName: new FormControl(''),
+      pretasks: new FormControl(''),
     });
 
-    this.isLoading = true;
-    let params = {'maxResults': this.maxResults, 'expand': 'pretasks', 'filter': 'supertaskId='+this.editedSTIndex+''};
-
-    this.supertaskService.getAllsupertasks(params).subscribe((result)=>{
-         this.pretasks = result.values;
-    });
-
-    this.dtOptions[0] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      autoWidth: false,
-      searching: false,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
-
+    setTimeout(() => {
+      this.fetchPreTaskData();
+     }, 1000);
+    this.isLoading = false;
   }
 
   onSubmit(){
@@ -112,6 +101,49 @@ export class EditSupertasksComponent implements OnInit {
         }
       );
     }
+  }
+
+  ngAfterViewInit() {
+
+    this.pretasksService.getAllPretasks().subscribe((htypes: any) => {
+      var self = this;
+      var response = htypes.values;
+      ($("#pretasks") as any).selectize({
+        plugins: ['remove_button'],
+        valueField: "pretaskId",
+        placeholder: "Search pretask...",
+        labelField: "taskName",
+        searchField: ["taskName"],
+        loadingClass: 'Loading..',
+        highlight: true,
+        onChange: function (value) {
+            // self.OnChangeValue(value); // We need to overide DOM event, Angular vs Jquery
+        },
+        render: {
+          option: function (item, escape) {
+            return '<div  class="hashtype_selectize" ngbTooltip="The "">' + escape(item.pretaskId) + ' -  ' + escape(item.taskName) + '</div>';
+          },
+        },
+        onInitialize: function(){
+          var selectize = this;
+            selectize.addOption(response); // This is will add to option
+            var selected_items = [];
+            $.each(response, function( i, obj) {
+                selected_items.push(obj.id);
+            });
+            selectize.setValue(selected_items); //this will set option values as default
+          }
+          });
+        });
+
+
+
+    }
+
+  OnChangeValue(value){
+    // this.signupForm.patchValue({
+    //     hashTypeId: value
+    // });
   }
 
   onDelete(){
@@ -158,13 +190,40 @@ export class EditSupertasksComponent implements OnInit {
     this.isLoading = true;
     if (this.editMode) {
     this.supertaskService.getSupertask(this.editedSTIndex).subscribe((result)=>{
-      this.updateForm = new FormGroup({
-        'supertaskId': new FormControl(result['supertaskId']),
-        'supertaskName': new FormControl(result['supertaskName']),
+      this.viewForm = new FormGroup({
+        supertaskId: new FormControl(result['supertaskId']),
+        supertaskName: new FormControl(result['supertaskName']),
       });
       this.isLoading = false;
     });
    }
+  }
+
+  async fetchPreTaskData() {
+
+    let params = {'maxResults': this.maxResults, 'expand': 'pretasks', 'filter': 'supertaskId='+this.editedSTIndex+''};
+
+    this.supertaskService.getAllsupertasks(params).subscribe((result)=>{
+         this.pretasks = result.values;
+    });
+
+    this.dtOptions[0] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      autoWidth: false,
+      searching: false,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+
   }
 
 }
