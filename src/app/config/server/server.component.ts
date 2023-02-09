@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService } from '../../core/_services/config/config.service';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
+import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-server',
@@ -29,8 +29,8 @@ export class ServerComponent implements OnInit {
           this.whichView = 'cracking';
         break;
 
-        case 'finetunning':
-          this.whichView = 'finetunning';
+        case 'agent':
+          this.whichView = 'agent';
         break;
 
         case 'ui':
