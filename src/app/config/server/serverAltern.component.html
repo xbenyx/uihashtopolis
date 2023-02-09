@@ -885,6 +885,166 @@
       </div>
     </div>
   </div>
+  <div [ngSwitch]="whichView">
+    <div *ngSwitchCase="'general'">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+          <form>
+            <div class="row">
+              <h3>General Settings </h3>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setHcErrorIgnore">Ignore error messages from crackers containing the string below</label>
+                  <td>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <input
+                        type='number'
+                        id="hcErrorIgnore"
+                        class='form-control'
+                        formControlName="hcErrorIgnore"
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setNumLogEntries">Number of log entries to be retained</label>
+                  <td>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <input
+                        type='number'
+                        id="numLogEntries"
+                        class='form-control'
+                        formControlName="numLogEntries"
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setTimefmt">Set the time format(UI)</label>
+                  <input
+                        type='text'
+                        id="timefmt"
+                        class='form-control'
+                        formControlName="timefmt"
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setMaxSessionLength">Max session length users can configure (in hours) -???</label>
+                  <input
+                        type='text'
+                        id="maxSessionLength"
+                        class='form-control'
+                        formControlName="maxSessionLength"
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setBaseHost">Base hostname/port/protocol to use. Only fill this in to override the auto-determined value -- ???</label>
+                  <td>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <input
+                        type='number'
+                        id="baseHost"
+                        class='form-control'
+                        formControlName="baseHost"
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setContactEmail">Admin email address displayed on the webpage footer (hidden if empty)</label>
+                  <td>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <input
+                        type='number'
+                        id="contactEmail"
+                        class='form-control'
+                        formControlName="contactEmail"
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setContactEmail">(UI Map array) Server level to be logged on the server to file - ???</label>
+                  <td>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <select
+                        type='number'
+                        id='serverLogLevel'
+                        class='form-select'
+                        formControlName="serverLogLevel"
+                    >
+                      <option [ngValue]=""></option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setContactEmail">(UI Map array) Server level to be logged on the server to file - ???</label>
+                  <td>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <select
+                        type='number'
+                        id='serverLogLevel'
+                        class='form-select'
+                        formControlName="serverLogLevel"
+                    >
+                      <option [ngValue]=""></option>
+                  </select>
+                </div>
+              </div>
+                <p> Base url for the webpage (this does not include hostname and is normally determined automatically on the installation) --- ??? </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </div> <!-- End Server settings  -->
 </div> <!-- End switch  -->
