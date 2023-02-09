@@ -10,6 +10,7 @@ import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/fre
 export class ServerComponent implements OnInit {
   faHome=faHomeAlt;
   faInfoCircle=faInfoCircle;
+  faExclamationTriangle=faExclamationTriangle;
 
   whichView: string;
 
@@ -25,29 +26,26 @@ export class ServerComponent implements OnInit {
     this.route.data.subscribe(data => {
       switch (data['kind']) {
 
-        case 'cracking':
-          this.whichView = 'cracking';
-        break;
-
         case 'agent':
           this.whichView = 'agent';
         break;
 
-        case 'ui':
-          this.whichView = 'ui';
+        case 'task-chunk':
+          this.whichView = 'task-chunk';
         break;
 
-        case 'yubikey':
-          this.whichView = 'yubikey';
+        case 'hch':
+          this.whichView = 'hch';
         break;
 
-        case 'server':
-          this.whichView = 'server';
+        case 'notif':
+          this.whichView = 'notif';
         break;
 
-        case 'notifications':
-          this.whichView = 'notifications';
+        case 'gs':
+          this.whichView = 'gs';
         break;
+
 
       }
 

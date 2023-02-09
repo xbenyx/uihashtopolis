@@ -20,45 +20,38 @@ const routes: Routes = [
     path: '',
     children: [
         {
-          path: 'cracking',  component: ServerComponent,
+          path: 'agent',  component: ServerComponent,
           data: {
-              kind: 'cracking',
-              breadcrumb: 'Cracking'
+              kind: 'agent',
+              breadcrumb: 'Agent Settings'
           },
           canActivate: [AuthGuard]},
         {
-          path: 'finetunning',  component: ServerComponent,
+          path: 'task-chunk',  component: ServerComponent,
           data: {
-              kind: 'finetunning',
-              breadcrumb: 'Finetunning'
+              kind: 'task-chunk',
+              breadcrumb: 'Task Chunk Settings'
           },
           canActivate: [AuthGuard]},
         {
-          path: 'ui',  component: ServerComponent,
+          path: 'hch',  component: ServerComponent,
           data: {
-              kind: 'ui',
-              breadcrumb: 'UI'
-          },
-          canActivate: [AuthGuard]},
-        {
-          path: 'yubikey',  component: ServerComponent,
-          data: {
-              kind: 'yubikey',
-              breadcrumb: 'Yubikey'
+              kind: 'hch',
+              breadcrumb: 'Hashes/Cracks/Hashlist Settings'
           },
           canActivate: [AuthGuard]},
         {
           path: 'notifications',  component: ServerComponent,
           data: {
-              kind: 'notifications',
+              kind: 'notif',
               breadcrumb: 'Notifications'
           },
           canActivate: [AuthGuard]},
         {
-          path: 'server',  component: ServerComponent,
+          path: 'general-settings',  component: ServerComponent,
           data: {
-              kind: 'server',
-              breadcrumb: 'Server'
+              kind: 'gs',
+              breadcrumb: 'General Settings'
           },
           canActivate: [AuthGuard]},
         {
