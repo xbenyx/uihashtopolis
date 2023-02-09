@@ -36,8 +36,11 @@ export class HashtypesComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-  constructor(private hashtypeService: HashtypeService,
-    private route:ActivatedRoute, private router:Router) { }
+  constructor(
+    private hashtypeService: HashtypeService,
+    private route:ActivatedRoute,
+    private router:Router
+  ) { }
 
   public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
 
@@ -102,7 +105,7 @@ export class HashtypesComponent implements OnInit {
               customize: function (dt, csv) {
                 var data = "";
                 for (var i = 0; i < dt.length; i++) {
-                  data = "Agents\n\n"+  dt;
+                  data = "Hashtypes\n\n"+  dt;
                 }
                 return data;
              }

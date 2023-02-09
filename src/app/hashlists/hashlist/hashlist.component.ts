@@ -125,7 +125,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
               customize: function (dt, csv) {
                 var data = "";
                 for (var i = 0; i < dt.length; i++) {
-                  data = "Agents\n\n"+  dt;
+                  data = "Hashlist\n\n"+  dt;
                 }
                 return data;
              }

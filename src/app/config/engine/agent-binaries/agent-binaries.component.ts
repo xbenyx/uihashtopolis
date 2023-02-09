@@ -81,7 +81,7 @@ export class AgentBinariesComponent implements OnInit {
                 customize: function (dt, csv) {
                   var data = "";
                   for (var i = 0; i < dt.length; i++) {
-                    data = "Agents\n\n"+  dt;
+                    data = "AgentBinaries\n\n"+  dt;
                   }
                   return data;
                }

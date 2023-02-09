@@ -10,7 +10,6 @@ import { ForgotComponent } from "./forgot/forgot.component";
 import { ComponentsModule } from "../shared/components.module";
 
 
-
 @NgModule({
   declarations:[
     AuthComponent,

@@ -96,7 +96,6 @@ export class EditHashlistComponent implements OnInit {
       }
     }
 
-
   }
 
   onSubmit(){
@@ -116,7 +115,7 @@ export class EditHashlistComponent implements OnInit {
             timer: 1500
           });
           this.updateForm.reset(); // success, we reset form
-          this.router.navigate(['tasks/preconfigured-tasks']);
+          this.router.navigate(['hashlist']);
         },
         errorMessage => {
           // check error status code is 500, if so, do some action

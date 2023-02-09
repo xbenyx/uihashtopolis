@@ -137,7 +137,7 @@ export class HealthChecksComponent implements OnInit {
             customize: function (dt, csv) {
               var data = "";
               for (var i = 0; i < dt.length; i++) {
-                data = "Agents\n\n"+  dt;
+                data = "Health Checks\n\n"+  dt;
               }
               return data;
            }
