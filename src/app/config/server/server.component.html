@@ -354,15 +354,14 @@
     </div>
     <div *ngSwitchCase="'task-chunk'">
       <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
           <form>
             <div class="row">
-              <h3>Task/Chunk Settings</h3>
-              <h5>Benchmark / Chunk</h5>
+              <h3>Task/Chunk Settings</h3>&nbsp;
+              <h5><u>Benchmark / Chunk</u></h5>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setAgentUtilThreshold2">Duration of a runtime benchmark process( Drop it?)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -371,18 +370,18 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
-                        type='text'
+                        type='number'
                         id="agentUtilThreshold2"
                         class='form-control'
                         formControlName="agentUtilThreshold2"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setChunktime">Expected duration of a chunk</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -391,6 +390,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="chunktime"
@@ -398,11 +398,10 @@
                         formControlName="chunktime"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setDisptolerance">Authorised expansion in percentage of the final chunk of a task</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -411,6 +410,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="disptolerance"
@@ -418,11 +418,10 @@
                         formControlName="disptolerance"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setDefaultBenchmark">Speed benchmark as default benchmark process (option1 dropped, drop this)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -431,6 +430,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="defaultBenchmark"
@@ -438,11 +438,10 @@
                         formControlName="defaultBenchmark"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setDisableTrimming">Disable trimming of chunks and redo whole chunk</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -451,6 +450,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="disableTrimming"
@@ -458,13 +458,12 @@
                         formControlName="disableTrimming"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <hr>
-              <h5>Command Line & Misc.</h5>
+              <h5><u>Command Line & Misc.</u></h5>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashlistAlias">Placeholder string for the hashlist in the command line during task creation</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -473,6 +472,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="hashlistAlias"
@@ -480,11 +480,10 @@
                         formControlName="hashlistAlias"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setBlacklistChars">Forbidden characters in the attack command input</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -493,6 +492,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="blacklistChars"
@@ -500,11 +500,10 @@
                         formControlName="blacklistChars"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPriority0Start">Also automatically assign tasks with priority 0 (Needed, check file)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -513,6 +512,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="priority0Start"
@@ -520,11 +520,10 @@
                         formControlName="priority0Start"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setShowTaskPerformance">Show cracks/minute for active tasks</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -533,6 +532,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="showTaskPerformance"
@@ -540,13 +540,12 @@
                         formControlName="showTaskPerformance"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <hr>
-              <h5>Rule splitting</h5>
+              <h5><u>Rule splitting</u></h5>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setRuleSplitSmallTasks">When rule splitting is applied for tasks, always make them a small task</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -555,6 +554,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="ruleSplitSmallTasks"
@@ -562,11 +562,10 @@
                         formControlName="ruleSplitSmallTasks"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setRuleSplitAlways">Even do rule splitting when there are not enough rules but just the benchmark is too high. Can result in subtasks with just one rule</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -575,6 +574,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="ruleSplitAlways"
@@ -582,11 +582,10 @@
                         formControlName="ruleSplitAlways"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setRuleSplitDisable">Disable automatic task splitting with large rule files</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -595,6 +594,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="ruleSplitDisable"
@@ -757,7 +757,7 @@
                         formControlName="plainTextMaxLength"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPlainTextMaxLength">Maximum length of plain text</label>
@@ -777,7 +777,7 @@
                         formControlName="plainTextMaxLength"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPlainTextMaxLength">(Add ngId Warning on touch) Maximum length of a hash <fa-icon  [icon]="faExclamationTriangle"></fa-icon> Such change may take a long time depending on the database size </label>
