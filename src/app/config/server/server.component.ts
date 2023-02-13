@@ -21,6 +21,8 @@ export class ServerComponent implements OnInit {
 
   public config: {configId: number, configSectionId: number, item: string, value: number}[] = [];
 
+  serverlog = [{id:0, value: 'TRACE'},{id:1, value: 'DEBUG'},{id:2, value: 'INFO'},{id:3, value: 'WARNING'},{id:4, value: 'ERROR'},{id:5, value: 'FATAL'}];
+
   ngOnInit(): void {
 
     this.route.data.subscribe(data => {
@@ -56,4 +58,8 @@ export class ServerComponent implements OnInit {
     });
 
   }
+
+
+
+
 }

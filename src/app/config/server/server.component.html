@@ -494,7 +494,7 @@
                   </fa-icon>
                   <td>
                   <input
-                        type='number'
+                        type='text'
                         id="blacklistChars"
                         class='form-control'
                         formControlName="blacklistChars"
@@ -612,15 +612,14 @@
     </div>
     <div *ngSwitchCase="'hch'">
       <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
           <form>
             <div class="row">
-              <h3>Hashes/Cracks/Hashlist</h3>
-              <h5>Import/Display of Hashlist</h5>
+              <h3>Hashes/Cracks/Hashlist</h3>&nbsp;
+              <h5>Import/Display of Hashlist</h5>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setMaxHashlistSize">Maximum number of lines in a hashlist</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -629,6 +628,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="maxHashlistSize"
@@ -636,11 +636,10 @@
                         formControlName="maxHashlistSize"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPagingSize">Number of hashes shown per page in the Hash View</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -649,6 +648,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="pagingSize"
@@ -656,11 +656,10 @@
                         formControlName="pagingSize"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashesPerPage">Number of hashes per page on hashes view (Drop it or UI?)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -669,6 +668,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="hashesPerPage"
@@ -676,11 +676,10 @@
                         formControlName="hashesPerPage"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setFieldseparator">The separator character used to separate hash and plain (or salt)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -689,18 +688,18 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
-                        type='number'
+                        type='text'
                         id="fieldseparator"
                         class='form-control'
                         formControlName="fieldseparator"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashlistImportCheck">Check if hashes have been previously cracked (in other hashlists) at hashlist creation time)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -709,6 +708,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="hashlistImportCheck"
@@ -716,12 +716,11 @@
                         formControlName="hashlistImportCheck"
                   >
                 </div>
-              </div>
-              <h5>Database Parameters</h5>
+              </div>&nbsp;
+              <h5>Database Parameters</h5>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setBatchSize">Batch size of SQL query when hashlist is sent to the agent</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -730,6 +729,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="batchSize"
@@ -737,11 +737,10 @@
                         formControlName="batchSize"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPlainTextMaxLength">Maximum length of plain text</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -750,6 +749,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="plainTextMaxLength"
@@ -769,6 +769,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="plainTextMaxLength"
@@ -788,6 +789,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="plainTextMaxLength"
@@ -808,7 +810,7 @@
         <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
           <form>
             <div class="row">
-              <h3>Notifications</h3>
+              <h3>Notifications</h3>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setEmailSender">Email address sending the notification emails (Discuss)</label>
@@ -827,11 +829,10 @@
                         formControlName="emailSender"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setEmailSenderName">Sender's name on emails sent from Hashtopolis (Discuss)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -840,6 +841,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="emailSenderName"
@@ -847,11 +849,10 @@
                         formControlName="emailSenderName"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setTelegramBotToken">Telegram bot token used to send telegram notifications</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -860,6 +861,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="telegramBotToken"
@@ -867,11 +869,10 @@
                         formControlName="telegramBotToken"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyEnable">Enable using a proxy for sending notifications</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -880,6 +881,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="notificationsProxyEnable"
@@ -887,11 +889,10 @@
                         formControlName="notificationsProxyEnable"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyServer">(Add if above is selected)Server url of the proxy to use for notification</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -900,6 +901,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="notificationsProxyServer"
@@ -907,11 +909,10 @@
                         formControlName="notificationsProxyServer"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyPort">(Add if above is selected)Set the port for the notifications proxy</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -920,6 +921,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="notificationsProxyPort"
@@ -927,11 +929,10 @@
                         formControlName="notificationsProxyPort"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyType">Proxy type to use for notifications</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -940,6 +941,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="notificationsProxyType"
@@ -947,7 +949,7 @@
                         formControlName="notificationsProxyType"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
             </div>
             <button  class="btn btn-gray-800" type="submit">Save</button>
           </form>
@@ -956,14 +958,13 @@
     </div> <!-- End switch  -->
     <div *ngSwitchCase="'gs'">
       <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
           <form>
             <div class="row">
               <h3>General Settings </h3>
               <div class="form-group">
                 <div class="form-outline">
-                  <label class="form-label" for="setHcErrorIgnore">Ignore error messages from crackers containing the string below</label>
-                  <td>
+                  <label class="form-label" for="setHcErrorIgnore">Ignore error messages from crackers containing the string below. (How it works?)</label>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -972,18 +973,18 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
-                        type='number'
+                        type='text'
                         id="hcErrorIgnore"
                         class='form-control'
                         formControlName="hcErrorIgnore"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNumLogEntries">Number of log entries to be retained</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -992,6 +993,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="numLogEntries"
@@ -999,7 +1001,7 @@
                         formControlName="numLogEntries"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setTimefmt">Set the time format(UI)</label>
@@ -1010,7 +1012,7 @@
                         formControlName="timefmt"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setMaxSessionLength">Max session length users can configure (in hours) -???</label>
@@ -1021,11 +1023,10 @@
                         formControlName="maxSessionLength"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setBaseHost">Base hostname/port/protocol to use. Only fill this in to override the auto-determined value -- ???</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -1034,6 +1035,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="baseHost"
@@ -1041,11 +1043,10 @@
                         formControlName="baseHost"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setContactEmail">Admin email address displayed on the webpage footer (hidden if empty)</label>
-                  <td>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -1054,6 +1055,7 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
+                  <td>
                   <input
                         type='number'
                         id="contactEmail"
@@ -1061,11 +1063,10 @@
                         formControlName="contactEmail"
                   >
                 </div>
-              </div>
+              </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
-                  <label class="form-label" for="setContactEmail">(UI Map array) Server level to be logged on the server to file - ???</label>
-                  <td>
+                  <label class="form-label" for="setServerLogLevel">(UI Map array) Server level to be logged on the server to file - ???</label>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -1074,38 +1075,18 @@
                           aria-hidden="true"
                   >
                   </fa-icon>
-                  <select
-                        type='number'
-                        id='serverLogLevel'
-                        class='form-select'
-                        formControlName="serverLogLevel"
-                    >
-                      <option [ngValue]=""></option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="form-outline">
-                  <label class="form-label" for="setContactEmail">(UI Map array) Server level to be logged on the server to file - ???</label>
                   <td>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
                   <select
                         type='number'
                         id='serverLogLevel'
                         class='form-select'
                         formControlName="serverLogLevel"
                     >
-                      <option [ngValue]=""></option>
+                      <option *ngFor="let sl in serverlog" [ngValue]="sl.id">{{ sl.value }}</option>
+                      <option  >ghjfghfgh</option>
                   </select>
                 </div>
-              </div>
+              </div>&nbsp;
             </div>
                 <p> Base url for the webpage (this does not include hostname and is normally determined automatically on the installation) --- ??? </p>
           </form>
