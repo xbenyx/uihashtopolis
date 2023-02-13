@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, tap} from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 import { map, Observable, throwError } from 'rxjs';
+import { Params } from '@angular/router';
 
 
 @Injectable({
@@ -10,12 +11,24 @@ import { map, Observable, throwError } from 'rxjs';
 })
 export class ConfigService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/config';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/configs';
 
   constructor(private http: HttpClient) { }
 
-  config():Observable<any> {
-    return this.http.get(this.endpoint)
+  getAllconfig(routerParams?: Params):Observable<any> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = this.setParameter(routerParams);
+    }
+    return this.http.get(this.endpoint, {params: queryParams})
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
+  updateConfig(id: number, arr: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
@@ -31,6 +44,15 @@ export class ConfigService {
     return throwError(() => err);
   }
 
+  private setParameter(routerParams: Params): HttpParams {
+    let queryParams = new HttpParams();
+    for (const key in routerParams) {
+        if (routerParams.hasOwnProperty(key)) {
+            queryParams = queryParams.set(key, routerParams[key]);
+        }
+    }
+    return queryParams;
+  }
 
 
 
