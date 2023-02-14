@@ -107,6 +107,8 @@
                             id="agenttimeout"
                             class='form-control'
                             formControlName="agenttimeout"
+                            #agenttimeout
+                            (change)="autoSave('agenttimeout',agenttimeout.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -127,6 +129,8 @@
                             id="benchtime"
                             class='form-control'
                             formControlName="benchtime"
+                            #benchtime
+                            (change)="autoSave('benchtime',benchtime.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -147,6 +151,8 @@
                             id="statustimer"
                             class='form-control'
                             formControlName="statustimer"
+                            #statustimer
+                            (change)="autoSave('statustimer',statustimer.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -167,6 +173,8 @@
                             id="agentDataLifetime"
                             class='form-control'
                             formControlName="agentDataLifetime"
+                            #agentDataLifetime
+                            (change)="autoSave('agentDataLifetime',agentDataLifetime.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -190,6 +198,8 @@
                                     id="hideIpInfo"
                                     class="form-check-input"
                                     formControlName="hideIpInfo"
+                                    #hideIpInfo
+                                    (change)="autoSave('hideIpInfo',hideIpInfo.value, true)"
                               >
                           </div>
                         </div>&nbsp;
@@ -214,6 +224,8 @@
                                     id="voucherDeletion"
                                     class="form-check-input"
                                     formControlName="voucherDeletion"
+                                    #voucherDeletion
+                                    (change)="autoSave('voucherDeletion',voucherDeletion.value, true)"
                               >
                           </div>
                         </div>&nbsp;
@@ -239,6 +251,8 @@
                             id="agentStatLimit"
                             class='form-control'
                             formControlName="agentStatLimit"
+                            #agentStatLimit
+                            (change)="autoSave('agentStatLimit',agentStatLimit.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -259,9 +273,11 @@
                             id='agentStatTension'
                             class='form-select'
                             formControlName="agentStatTension"
+                            #agentStatTension
+                            (change)="autoSave('agentStatTension',agentStatTension.value)"
                         >
-                          <option [ngValue]="0">Straight lines</option>
-                          <option [ngValue]="1">Bezier curves</option>
+                          <option value="0">Straight lines</option>
+                          <option value="1">Bezier curves</option>
                       </select>
                     </div>
                   </div>&nbsp;
@@ -282,6 +298,8 @@
                             id="agentTempThreshold1"
                             class='form-control'
                             formControlName="agentTempThreshold1"
+                            #agentTempThreshold1
+                            (change)="autoSave('agentTempThreshold1',agentTempThreshold1.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -302,6 +320,8 @@
                             id="agentTempThreshold2"
                             class='form-control'
                             formControlName="agentTempThreshold2"
+                            #agentTempThreshold2
+                            (change)="autoSave('agentTempThreshold2',agentTempThreshold2.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -322,6 +342,8 @@
                             id="agentUtilThreshold1"
                             class='form-control'
                             formControlName="agentUtilThreshold1"
+                            #agentUtilThreshold1
+                            (change)="autoSave('agentUtilThreshold1',agentUtilThreshold1.value)"
                       >
                     </div>
                   </div>&nbsp;
@@ -342,12 +364,14 @@
                             id="agentUtilThreshold2"
                             class='form-control'
                             formControlName="agentUtilThreshold2"
+                            #agentUtilThreshold2
+                            (change)="autoSave('agentUtilThreshold2',agentUtilThreshold2.value)"
                       >
                     </div>
                   </div>
                   &nbsp;&nbsp;
              </div>
-            <button  class="btn btn-gray-800" type="submit">Save</button>
+            <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
           </form>
         </div>
       </div>
@@ -396,6 +420,8 @@
                         id="chunktime"
                         class='form-control'
                         formControlName="chunktime"
+                        #chunktime
+                        (change)="autoSave('chunktime',chunktime.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -416,6 +442,8 @@
                         id="disptolerance"
                         class='form-control'
                         formControlName="disptolerance"
+                        #disptolerance
+                        (change)="autoSave('disptolerance',disptolerance.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -437,6 +465,8 @@
                             id="defaultBenchmark"
                             class="form-check-input"
                             formControlName="defaultBenchmark"
+                            #defaultBenchmark
+                            (change)="autoSave('defaultBenchmark',defaultBenchmark.value, true)"
                       >
                   </div>
                 </div>
@@ -459,6 +489,8 @@
                             id="disableTrimming"
                             class="form-check-input"
                             formControlName="disableTrimming"
+                            #disableTrimming
+                            (change)="autoSave('disableTrimming',disableTrimming.value)"
                       >
                   </div>
                 </div>
@@ -482,6 +514,8 @@
                         id="hashlistAlias"
                         class='form-control'
                         formControlName="hashlistAlias"
+                        #hashlistAlias
+                        (change)="autoSave('hashlistAlias',hashlistAlias.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -502,6 +536,8 @@
                         id="blacklistChars"
                         class='form-control'
                         formControlName="blacklistChars"
+                        #blacklistChars
+                        (change)="autoSave('blacklistChars',blacklistChars.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -523,6 +559,8 @@
                             id="priority0Start"
                             class="form-check-input"
                             formControlName="priority0Start"
+                            #priority0Start
+                            (change)="autoSave('priority0Start',priority0Start.value, true)"
                       >
                   </div>
                 </div>
@@ -545,6 +583,8 @@
                             id="showTaskPerformance"
                             class="form-check-input"
                             formControlName="showTaskPerformance"
+                            #showTaskPerformance
+                            (change)="autoSave('showTaskPerformance',showTaskPerformance.value, true)"
                       >
                   </div>
                 </div>
@@ -569,6 +609,8 @@
                             id="ruleSplitSmallTasks"
                             class="form-check-input"
                             formControlName="ruleSplitSmallTasks"
+                            #ruleSplitSmallTasks
+                            (change)="autoSave('ruleSplitSmallTasks',ruleSplitSmallTasks.value, true)"
                       >
                   </div>
                 </div>
@@ -591,6 +633,8 @@
                             id="ruleSplitAlways"
                             class="form-check-input"
                             formControlName="ruleSplitAlways"
+                            #ruleSplitAlways
+                            (change)="autoSave('ruleSplitAlways',ruleSplitAlways.value, true)"
                       >
                   </div>
                 </div>
@@ -613,6 +657,8 @@
                             id="ruleSplitDisable"
                             class="form-check-input"
                             formControlName="ruleSplitDisable"
+                            #ruleSplitDisable
+                            (change)="autoSave('ruleSplitDisable',ruleSplitDisable.value, true)"
                       >
                   </div>
                 </div>
@@ -620,7 +666,7 @@
               &nbsp;&nbsp;
             </div>
           </form>
-          <button  class="btn btn-gray-800" type="submit">Save</button>
+          <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
         </div>
       </div>
     </div>
@@ -648,6 +694,8 @@
                         id="maxHashlistSize"
                         class='form-control'
                         formControlName="maxHashlistSize"
+                        #maxHashlistSize
+                        (change)="autoSave('maxHashlistSize',maxHashlistSize.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -668,6 +716,8 @@
                         id="pagingSize"
                         class='form-control'
                         formControlName="pagingSize"
+                        #pagingSize
+                        (change)="autoSave('pagingSize',pagingSize.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -688,6 +738,8 @@
                         id="hashesPerPage"
                         class='form-control'
                         formControlName="hashesPerPage"
+                        #hashesPerPage
+                        (change)="autoSave('hashesPerPage',hashesPerPage.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -708,6 +760,8 @@
                         id="fieldseparator"
                         class='form-control'
                         formControlName="fieldseparator"
+                        #fieldseparator
+                        (change)="autoSave('fieldseparator',fieldseparator.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -723,12 +777,16 @@
                   >
                   </fa-icon>
                   <td>
-                  <input
-                        type='number'
-                        id="hashlistImportCheck"
-                        class='form-control'
-                        formControlName="hashlistImportCheck"
-                  >
+                  <div class="form-check form-switch">
+                    <input
+                          type="checkbox"
+                          id="hashlistImportCheck"
+                          class="form-check-input"
+                          formControlName="hashlistImportCheck"
+                          #hashlistImportCheck
+                          (change)="autoSave('hashlistImportCheck',hashlistImportCheck.value, true)"
+                    >
+                  </div>
                 </div>
               </div>&nbsp;
               <h5><u>Database Parameters</u></h5>&nbsp;
@@ -749,6 +807,8 @@
                         id="batchSize"
                         class='form-control'
                         formControlName="batchSize"
+                        #batchSize
+                        (change)="autoSave('batchSize',batchSize.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -769,6 +829,8 @@
                         id="plainTextMaxLength"
                         class='form-control'
                         formControlName="plainTextMaxLength"
+                        #plainTextMaxLength
+                        (change)="autoSave('plainTextMaxLength',plainTextMaxLength.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -789,6 +851,8 @@
                         id="hashMaxLength"
                         class='form-control'
                         formControlName="hashMaxLength"
+                        #hashMaxLength
+                        (change)="autoSave('hashMaxLength',hashMaxLength.value)"
                   >
                 </div>
                 <span *ngIf="hchForm.controls['hashMaxLength']?.touched">
@@ -797,7 +861,7 @@
               </div>
               &nbsp;&nbsp;
             </div>
-           <button  class="btn btn-gray-800" type="submit">Save</button>
+           <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
           </form>
         </div>
       </div>
@@ -824,6 +888,8 @@
                         id="emailSender"
                         class='form-control'
                         formControlName="emailSender"
+                        #emailSender
+                        (change)="autoSave('emailSender',emailSender.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -844,6 +910,8 @@
                         id="emailSenderName"
                         class='form-control'
                         formControlName="emailSenderName"
+                        #emailSenderName
+                        (change)="autoSave('emailSenderName',emailSenderName.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -863,6 +931,8 @@
                         id="telegramBotToken"
                         class='form-control'
                         formControlName="telegramBotToken"
+                        #telegramBotToken
+                        (change)="autoSave('telegramBotToken',telegramBotToken.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -884,6 +954,8 @@
                             id="notificationsProxyEnable"
                             class="form-check-input"
                             formControlName="notificationsProxyEnable"
+                            #notificationsProxyEnable
+                            (change)="autoSave('notificationsProxyEnable',notificationsProxyEnable.value, true, true)"
                       >
                   </div>
                 </div>
@@ -906,6 +978,8 @@
                           class='form-control'
                           placeholder="http..."
                           formControlName="notificationsProxyServer"
+                          #notificationsProxyServer
+                          (change)="autoSave('notificationsProxyServer',notificationsProxyServer.value)"
                     >
                   </div>
                 </div>&nbsp;
@@ -926,6 +1000,8 @@
                           id="notificationsProxyPort"
                           class='form-control'
                           formControlName="notificationsProxyPort"
+                          #notificationsProxyPort
+                          (change)="autoSave('notificationsProxyPort',notificationsProxyPort.value)"
                     >
                   </div>
                 </div>&nbsp;
@@ -947,13 +1023,15 @@
                         id='notificationsProxyType'
                         class='form-select'
                         formControlName="notificationsProxyType"
+                        #notificationsProxyType
+                        (change)="autoSave('notificationsProxyType',notificationsProxyType.value)"
                     >
                       <option *ngFor="let p of proxytype">{{ p.value }}</option>
                   </select>
                 </div>
               </div>&nbsp;
             </div>
-            <button  class="btn btn-gray-800" type="submit">Save</button>
+            <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
           </form>
         </div>
       </div>
@@ -982,6 +1060,8 @@
                             id="hashcatBrainEnable"
                             class="form-check-input"
                             formControlName="hashcatBrainEnable"
+                            #hashcatBrainEnable
+                            (change)="autoSave('hashcatBrainEnable',hashcatBrainEnable.value, true, true)"
                       >
                   </div>
                 </div>
@@ -1005,6 +1085,8 @@
                             class='form-control'
                             placeholder="URL"
                             formControlName="hashcatBrainHost"
+                            #hashcatBrainHost
+                            (change)="autoSave('hashcatBrainHost',hashcatBrainHost.value)"
                       >
                   </div>
                 </div>&nbsp;
@@ -1026,6 +1108,8 @@
                             class='form-control'
                             placeholder="I.e. 8080"
                             formControlName="hashcatBrainPort"
+                            #hashcatBrainPort
+                            (change)="autoSave('hashcatBrainPort',hashcatBrainPort.value)"
                       >
                   </div>
                 </div>&nbsp;
@@ -1046,6 +1130,8 @@
                             id="hashcatBrainPass"
                             class='form-control'
                             formControlName="hashcatBrainPass"
+                            #hashcatBrainPass
+                            (change)="autoSave('hashcatBrainPass',hashcatBrainPass.value)"
                       >
                   </div>
                 </div>&nbsp;
@@ -1067,6 +1153,8 @@
                         id="hcErrorIgnore"
                         class='form-control'
                         formControlName="hcErrorIgnore"
+                        #hcErrorIgnore
+                        (change)="autoSave('hcErrorIgnore',hcErrorIgnore.value)"
                   ></textarea>
                 </div>
               </div>&nbsp;
@@ -1087,6 +1175,8 @@
                         id="numLogEntries"
                         class='form-control'
                         formControlName="numLogEntries"
+                        #numLogEntries
+                        (change)="autoSave('numLogEntries',numLogEntries.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -1098,8 +1188,10 @@
                         id="timefmt"
                         class='form-select'
                         formControlName="timefmt"
+                        #timefmt
+                        (change)="autoSave('timefmt',timefmt.value)"
                   >
-                  <option *ngFor="let d of dateFormat" [ngValue]="d.format">{{ d.description }}</option>
+                  <option *ngFor="let d of dateFormat" [value]="d.format">{{ d.description }}</option>
                   </select>
                 </div>
               </div>&nbsp;
@@ -1112,6 +1204,8 @@
                         id="maxSessionLength"
                         class='form-control'
                         formControlName="maxSessionLength"
+                        #maxSessionLength
+                        (change)="autoSave('maxSessionLength',maxSessionLength.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -1131,6 +1225,8 @@
                         id="baseHost"
                         class='form-control'
                         formControlName="baseHost"
+                        #baseHost
+                        (change)="autoSave('baseHost',baseHost.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -1150,6 +1246,8 @@
                         id="contactEmail"
                         class='form-control'
                         formControlName="contactEmail"
+                        #contactEmail
+                        (change)="autoSave('contactEmail',contactEmail.value)"
                   >
                 </div>
               </div>&nbsp;
@@ -1170,6 +1268,8 @@
                         id='serverLogLevel'
                         class='form-select'
                         formControlName="serverLogLevel"
+                        #serverLogLevel
+                        (change)="autoSave('serverLogLevel',serverLogLevel.value)"
                     >
                       <option *ngFor="let sl of serverlog" [ngValue]="sl.id">{{ sl.value }}</option>
                   </select>
@@ -1177,7 +1277,7 @@
               </div>&nbsp;
             </div>
                 <p> Base url for the webpage (this does not include hostname and is normally determined automatically on the installation) --- ??? </p>
-            <button  class="btn btn-gray-800" type="submit">Save</button>
+            <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
           </form>
         </div>
       </div>

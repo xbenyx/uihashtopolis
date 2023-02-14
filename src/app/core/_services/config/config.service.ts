@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { catchError, tap} from 'rxjs/operators';
+import { catchError, debounceTime, tap} from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
 import { map, Observable, throwError } from 'rxjs';
 import { Params } from '@angular/router';
@@ -30,6 +30,7 @@ export class ConfigService {
   updateConfig(id: number, arr: any): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
+      debounceTime(2000),
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );

@@ -4,6 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-server',
@@ -20,7 +21,7 @@ export class ServerComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -238,5 +239,46 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  // Auto Save Settings
+
+  searchTxt:string = '';
+  timeout = null;
+
+  autoSave(key: string, value: any, sw?: boolean, collap?: boolean){
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+    this.isLoading = true;
+    let params = {'filter=item': key};
+    this.configService.getAllconfig(params).subscribe((result)=>{
+      let indexUpdate = result.values.find(obj => obj.item === key).configId;
+      let valueUpdate = result.values.find(obj => obj.item === key).value;
+      let arr = {'item': key, 'value':  this.checkSwitch(value, valueUpdate, sw)};
+      this.configService.updateConfig(indexUpdate, arr).subscribe((result)=>{
+        if(collap === true){
+        this.isLoading = false;
+        }else{
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Setting change has been saved',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.ngOnInit();
+        }
+      });
+    });
+   }, 1500);
+  }
+
+  checkSwitch(value: any, ovalue: any, sw?: boolean){
+    if(sw == true && ovalue === '1'){
+      return '0';
+    }if(sw == true && ovalue === '0') {
+      return '1';
+    }else {
+      return value;
+    }
+  }
 
 }
