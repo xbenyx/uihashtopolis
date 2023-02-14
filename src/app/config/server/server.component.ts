@@ -35,9 +35,14 @@ export class ServerComponent implements OnInit {
   notifForm: FormGroup;
   gsForm: FormGroup;
 
-  serverlog = [{id:0, value: 'TRACE'},{id:1, value: 'DEBUG'},{id:2, value: 'INFO'},{id:3, value: 'WARNING'},{id:4, value: 'ERROR'},{id:5, value: 'FATAL'}];
+  serverlog = [{id:0, value: 'TRACE'},{id:10, value: 'DEBUG'},{id:20, value: 'INFO'},{id:30, value: 'WARNING'},{id:40, value: 'ERROR'},{id:50, value: 'FATAL'}];
   proxytype = [{value:'HTTP'},{value:'HTTPS'},{value:'SOCKS4'},{value:'SOCKS5'}];
-  dateFormat = [{format:'HTTP'},{format:'HTTPS'},{format:'SOCKS4'},{format:'SOCKS5'}];
+  dateFormat = [
+    {format:'dd/MM/yyyy h:mm:ss', description:'06/07/2023, 9:03 AM (dd/MM/yyyy h:mm:ss)'},
+    {format:'M/d/yy, h:mm a', description:'7/6/23, 9:03 AM (M/d/yy, h:mm a)'},
+    {format:'MMM d, y, h:mm:ss a', description:'Jul 06, 2023, 9:03:01 AM (MMM d, y, h:mm:ss a)'},
+    {format:'M/d/yy', description:'7/6/23 (M/d/yy)'},
+  ];
 
   ngOnInit(): void {
 
@@ -112,6 +117,10 @@ export class ServerComponent implements OnInit {
         case 'gs':
           this.whichView = 'gs';
           this.gsForm = new FormGroup({
+            'hashcatBrainEnable': new FormControl(),
+            'hashcatBrainHost': new FormControl(),
+            'hashcatBrainPort': new FormControl(),
+            'hashcatBrainPass': new FormControl(),
             'hcErrorIgnore': new FormControl(),
             'numLogEntries': new FormControl(),
             'timefmt': new FormControl(),
@@ -213,6 +222,10 @@ export class ServerComponent implements OnInit {
     let params = {'maxResults': this.maxResults}
     this.configService.getAllconfig(params).subscribe((result)=>{
       this.gsForm = new FormGroup({
+        'hashcatBrainEnable': new FormControl(result.values.find(obj => obj.item === 'hashcatBrainEnable').value === '0' ? false: true),
+        'hashcatBrainHost': new FormControl(result.values.find(obj => obj.item === 'hashcatBrainHost').value),
+        'hashcatBrainPort': new FormControl(result.values.find(obj => obj.item === 'hashcatBrainPort').value),
+        'hashcatBrainPass': new FormControl(result.values.find(obj => obj.item === 'hashcatBrainPass').value),
         'hcErrorIgnore': new FormControl(result.values.find(obj => obj.item === 'hcErrorIgnore').value),
         'numLogEntries': new FormControl(result.values.find(obj => obj.item === 'numLogEntries').value),
         'timefmt': new FormControl(result.values.find(obj => obj.item === 'timefmt').value),
@@ -224,7 +237,6 @@ export class ServerComponent implements OnInit {
       this.isLoading = false;
     });
   }
-
 
 
 }

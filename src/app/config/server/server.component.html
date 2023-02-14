@@ -888,45 +888,48 @@
                   </div>
                 </div>
               </div>&nbsp;
-              <div class="form-group">
-                <div class="form-outline">
-                  <label class="form-label" for="setNotificationsProxyServer">(Add if above is selected)Server url of the proxy to use for notification</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
-                  <input
-                        type='text'
-                        id="notificationsProxyServer"
-                        class='form-control'
-                        formControlName="notificationsProxyServer"
-                  >
-                </div>
-              </div>&nbsp;
-              <div class="form-group">
-                <div class="form-outline">
-                  <label class="form-label" for="setNotificationsProxyPort">(Add if above is selected)Set the port for the notifications proxy</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
-                  <td>
-                  <input
-                        type='number'
-                        id="notificationsProxyPort"
-                        class='form-control'
-                        formControlName="notificationsProxyPort"
-                  >
-                </div>
-              </div>&nbsp;
+              <div *ngIf="notifForm.get('notificationsProxyEnable').value == '1'">
+                <div class="form-group">
+                  <div class="form-outline">
+                    <label class="form-label" for="setNotificationsProxyServer">Server url of the proxy to use for notification</label>
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip="....."
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                    <input
+                          type='text'
+                          id="notificationsProxyServer"
+                          class='form-control'
+                          placeholder="http..."
+                          formControlName="notificationsProxyServer"
+                    >
+                  </div>
+                </div>&nbsp;
+                <div class="form-group">
+                  <div class="form-outline">
+                    <label class="form-label" for="setNotificationsProxyPort">Set the port for the notifications proxy</label>
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip="....."
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                    <td>
+                    <input
+                          type='number'
+                          id="notificationsProxyPort"
+                          class='form-control'
+                          formControlName="notificationsProxyPort"
+                    >
+                  </div>
+                </div>&nbsp;
+              </div>
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyType">Proxy type to use for notifications</label>
@@ -961,6 +964,93 @@
           <form [formGroup]="gsForm">
             <div class="row">
               <h3>General Settings</h3>&nbsp;
+              <div class="form-group">
+                <div class="form-outline">
+                  <label class="form-label" for="setHashcatBrainEnable">Enable Hashcat Brain</label>
+                  <fa-icon
+                          placement="bottom"
+                          ngbTooltip="....."
+                          container="body"
+                          [icon]="faInfoCircle"
+                          aria-hidden="true"
+                  >
+                  </fa-icon>
+                  <td>
+                  <div class="form-check form-switch">
+                      <input
+                            type="checkbox"
+                            id="hashcatBrainEnable"
+                            class="form-check-input"
+                            formControlName="hashcatBrainEnable"
+                      >
+                  </div>
+                </div>
+              </div>&nbsp;
+              <div *ngIf="gsForm.get('hashcatBrainEnable').value == '1'">
+                <h5><u>Hashcat Brain Server Parameters</u></h5>&nbsp;
+                <div class="form-group">
+                  <div class="form-outline">
+                    <label class="form-label" for="setHashcatBrainHost">Host to be used for hashcat brain (must be reachable by agents)</label>
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip="....."
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                    <input
+                            type='text'
+                            id="hashcatBrainHost"
+                            class='form-control'
+                            placeholder="URL"
+                            formControlName="hashcatBrainHost"
+                      >
+                  </div>
+                </div>&nbsp;
+                <div class="form-group">
+                  <div class="form-outline">
+                    <label class="form-label" for="setHashcatBrainPort">Port for hashcat brain</label>
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip="....."
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                    <td>
+                    <input
+                            type='number'
+                            id="hashcatBrainPort"
+                            class='form-control'
+                            placeholder="I.e. 8080"
+                            formControlName="hashcatBrainPort"
+                      >
+                  </div>
+                </div>&nbsp;
+                <div class="form-group">
+                  <div class="form-outline">
+                    <label class="form-label" for="setHashcatBrainPass">Password to be used to access hashcat brain server</label>
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip="....."
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                    <td>
+                    <input
+                            type='password'
+                            id="hashcatBrainPass"
+                            class='form-control'
+                            formControlName="hashcatBrainPass"
+                      >
+                  </div>
+                </div>&nbsp;
+                <hr>
+              </div>
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHcErrorIgnore">Ignore error messages from crackers containing the string below. (How it works?)</label>
@@ -1002,14 +1092,14 @@
               </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
-                  <label class="form-label" for="setTimefmt">Set the time format(UI)</label>
+                  <label class="form-label" for="setTimefmt">Set the time format</label>
                   <select
                         type='text'
                         id="timefmt"
                         class='form-select'
                         formControlName="timefmt"
                   >
-                  <option *ngFor="let d of dateFormat">{{ d.format }}</option>
+                  <option *ngFor="let d of dateFormat" [ngValue]="d.format">{{ d.description }}</option>
                   </select>
                 </div>
               </div>&nbsp;
@@ -1065,7 +1155,7 @@
               </div>&nbsp;
               <div class="form-group">
                 <div class="form-outline">
-                  <label class="form-label" for="setServerLogLevel">(UI Map array) Server level to be logged on the server to file - ???</label>
+                  <label class="form-label" for="setServerLogLevel">Server level to be logged on the server to file - ???</label>
                   <fa-icon
                           placement="bottom"
                           ngbTooltip="....."
@@ -1087,6 +1177,7 @@
               </div>&nbsp;
             </div>
                 <p> Base url for the webpage (this does not include hostname and is normally determined automatically on the installation) --- ??? </p>
+            <button  class="btn btn-gray-800" type="submit">Save</button>
           </form>
         </div>
       </div>
