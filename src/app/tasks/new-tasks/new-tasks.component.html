@@ -151,14 +151,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                       <label class="form-label" for="getchunkTime">Chunk size</label>
-                                      <fa-icon
-                                              placement="bottom"
-                                              ngbTooltip="Measure is in seconds time."
-                                              container="body"
-                                              [icon]="faInfoCircle"
-                                              aria-hidden="true"
-                                              class="gray-light-ico"
-                                      ></fa-icon>
+                                      <span *ngIf="tasktip.chunkTime">
+                                        <fa-icon
+                                                placement="bottom"
+                                                ngbTooltip='{{tasktip.chunkTime}}'
+                                                container="body"
+                                                [icon]="faInfoCircle"
+                                                aria-hidden="true"
+                                                class="gray-light-ico"
+                                        ></fa-icon>
+                                      </span>
                                       <input
                                             type='number'
                                             id="chunkTime"
@@ -175,14 +177,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                       <label class="form-label" for="getStatusTimer">Status timer</label>
-                                      <fa-icon
-                                              placement="bottom"
-                                              ngbTooltip="Measure is in seconds time."
-                                              container="body"
-                                              [icon]="faInfoCircle"
-                                              aria-hidden="true"
-                                              class="gray-light-ico"
-                                      ></fa-icon>
+                                      <span *ngIf="tasktip.statusTimer">
+                                        <fa-icon
+                                                placement="bottom"
+                                                ngbTooltip='{{tasktip.statusTimer}}'
+                                                container="body"
+                                                [icon]="faInfoCircle"
+                                                aria-hidden="true"
+                                                class="gray-light-ico"
+                                        ></fa-icon>
+                                      </span>
                                       <input
                                             type='number'
                                             id="statusTimer"
@@ -199,14 +203,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                       <label class="form-label" for="getskipKeyspace">Skip keyspace</label>
-                                      <fa-icon
-                                              placement="bottom"
-                                              ngbTooltip="Skip a given keyspace at the beginning of the task"
-                                              container="body"
-                                              [icon]="faInfoCircle"
-                                              aria-hidden="true"
-                                              class="gray-light-ico"
-                                      ></fa-icon>
+                                      <span *ngIf="tasktip.skipKeyspace">
+                                        <fa-icon
+                                                placement="bottom"
+                                                ngbTooltip='{{tasktip.skipKeyspace}}'
+                                                container="body"
+                                                [icon]="faInfoCircle"
+                                                aria-hidden="true"
+                                                class="gray-light-ico"
+                                        ></fa-icon>
+                                      </span>
                                       <input
                                             type='number'
                                             id="skipKeyspace"
@@ -224,14 +230,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                     <label class="form-label" for="getisCpuTask">CPU only</label>
-                                    <fa-icon
-                                            placement="bottom"
-                                            ngbTooltip="Task is assigned only to CPU agents"
-                                            container="body"
-                                            [icon]="faInfoCircle"
-                                            aria-hidden="true"
-                                    >
-                                    </fa-icon>
+                                    <span *ngIf="tasktip.isCpuTask">
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip='{{tasktip.isCpuTask}}'
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                      >
+                                      </fa-icon>
+                                    </span>
                                     <select
                                           id='isCpuTask'
                                           class='form-select'
@@ -247,14 +255,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                     <label class="form-label" for="getisSmall">Small task</label>
-                                    <fa-icon
-                                            placement="bottom"
-                                            ngbTooltip="Only one agent is assigned to the task"
-                                            container="body"
-                                            [icon]="faInfoCircle"
-                                            aria-hidden="true"
-                                    >
-                                    </fa-icon>
+                                    <span *ngIf="tasktip.isSmall">
+                                      <fa-icon
+                                              placement="bottom"
+                                              ngbTooltip='{{tasktip.isSmall}}'
+                                              container="body"
+                                              [icon]="faInfoCircle"
+                                              aria-hidden="true"
+                                      >
+                                      </fa-icon>
+                                    </span>
                                     <select
                                           id='isSmall'
                                           class='form-select'
@@ -270,14 +280,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                       <label class="form-label" for="getforcePipe">Enforce piping</label>
-                                      <fa-icon
-                                              placement="bottom"
-                                              ngbTooltip="To apply rules before reject"
-                                              container="body"
-                                              [icon]="faInfoCircle"
-                                              aria-hidden="true"
-                                      >
-                                      </fa-icon>
+                                      <span *ngIf="tasktip.forcePipe">
+                                        <fa-icon
+                                                placement="bottom"
+                                                ngbTooltip='{{tasktip.forcePipe}}'
+                                                container="body"
+                                                [icon]="faInfoCircle"
+                                                aria-hidden="true"
+                                        >
+                                        </fa-icon>
+                                      </span>
                                       <select
                                             class='form-select'
                                             id='forcePipe'
@@ -296,7 +308,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                       <label class="form-label" for="getStaticChunks">Use static chunking</label>
-                                      <td>
+                                      <span *ngIf="tasktip.staticChunks">
+                                        <fa-icon
+                                                placement="bottom"
+                                                ngbTooltip='{{tasktip.staticChunks}}'
+                                                container="body"
+                                                [icon]="faInfoCircle"
+                                                aria-hidden="true"
+                                        >
+                                        </fa-icon>
+                                      </span>
                                       <select
                                             type='number'
                                             id='staticChunks'
@@ -331,14 +352,16 @@
                             <div class="form-group">
                               <div class="form-outline">
                                   <label class="form-label" for="getuseNewBench">Benchmark Type</label>
-                                  <fa-icon
-                                          placement="bottom"
-                                          ngbTooltip="Only works for Hashcat"
-                                          container="body"
-                                          [icon]="faInfoCircle"
-                                          aria-hidden="true"
-                                  >
-                                  </fa-icon>
+                                  <span *ngIf="tasktip.useNewBench">
+                                    <fa-icon
+                                            placement="bottom"
+                                            ngbTooltip='{{tasktip.useNewBench}}'
+                                            container="body"
+                                            [icon]="faInfoCircle"
+                                            aria-hidden="true"
+                                    >
+                                    </fa-icon>
+                                  </span>
                                   <select
                                         type='number'
                                         id="useNewBench"
@@ -399,6 +422,16 @@
                                 <div class="form-group">
                                   <div class="form-outline">
                                       <label class="form-label" for="getusePreprocessor">Set Preprocessor</label>
+                                      <span *ngIf="tasktip.usePreprocessor">
+                                        <fa-icon
+                                                placement="bottom"
+                                                ngbTooltip='{{tasktip.usePreprocessor}}'
+                                                container="body"
+                                                [icon]="faInfoCircle"
+                                                aria-hidden="true"
+                                        >
+                                        </fa-icon>
+                                      </span>
                                       <select
                                             type='number'
                                             id='usePreprocessor'

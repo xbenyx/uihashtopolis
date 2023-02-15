@@ -14,6 +14,7 @@ import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 import { FilesService } from '../../core/_services/files/files.service';
 import { DataTableDirective } from 'angular-datatables';
 import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
+import { TooltipService } from '../../core/_services/shared/tooltip.service';
 
 @Component({
   selector: 'app-new-tasks',
@@ -76,6 +77,7 @@ export class NewTasksComponent implements OnInit {
     private preprocessorService:PreprocessorService,
     private filesService: FilesService,
     private crackerService: CrackerService,
+    private tooltipService: TooltipService,
     private _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
@@ -144,6 +146,9 @@ export class NewTasksComponent implements OnInit {
     });
   }
 
+  // Tooltips
+  tasktip: any =[]
+
   ngOnInit(): void {
 
     this.route.params
@@ -153,6 +158,8 @@ export class NewTasksComponent implements OnInit {
         this.copyMode = params['id'] != null;
       }
     );
+
+    this.tasktip = this.tooltipService.getTaskTooltips();
 
     this.route.data.subscribe(data => {
       switch (data['kind']) {
