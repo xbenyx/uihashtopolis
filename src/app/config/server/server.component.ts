@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Cookies  from 'js-cookie';
 import { ConfigService } from '../../core/_services/config/config.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { environment } from './../../../environments/environment';
@@ -142,6 +143,7 @@ export class ServerComponent implements OnInit {
 
   private initAgentForm() {
     this.isLoading = true;
+    this.getTooltipLevel()
     let params = {'maxResults': this.maxResults}
     this.configService.getAllconfig(params).subscribe((result)=>{
       this.agentForm = new FormGroup({
@@ -279,6 +281,10 @@ export class ServerComponent implements OnInit {
     }else {
       return value;
     }
+  }
+
+  getTooltipLevel(){
+    Cookies.remove('foo')
   }
 
 }
