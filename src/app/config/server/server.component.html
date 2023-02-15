@@ -93,14 +93,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="SetAgenttimeout">Delay before considering an agent as inactive(or timed out)</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agenttimeout">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agenttimeout}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -115,14 +117,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="SetBenchtime">Delay before considering an issued chunk as inactive</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.benchtime">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.benchtime}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -137,14 +141,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setStatustimer">Frequency of the agent reporting about a task to the server</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.statustimer">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.statustimer}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -159,14 +165,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentDataLifetime">Time during which util and temperature data are retained on the server</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentDataLifetime">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentDataLifetime}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -183,14 +191,16 @@
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label" for="setHideIpInfo">Hide agent's IP information</label>
-                          <fa-icon
-                                  placement="bottom"
-                                  ngbTooltip="....."
-                                  container="body"
-                                  [icon]="faInfoCircle"
-                                  aria-hidden="true"
-                          >
-                          </fa-icon>
+                          <span *ngIf="atip.hideIpInfo">
+                            <fa-icon
+                                    placement="bottom"
+                                    ngbTooltip='{{atip.hideIpInfo}}'
+                                    container="body"
+                                    [icon]="faInfoCircle"
+                                    aria-hidden="true"
+                            >
+                            </fa-icon>
+                          </span>
                           <td>
                           <div class="form-check form-switch">
                               <input
@@ -209,14 +219,16 @@
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label" for="setVoucherDeletion">Voucher(s) can be used to register multiple agents</label>
-                          <fa-icon
-                                  placement="bottom"
-                                  ngbTooltip="....."
-                                  container="body"
-                                  [icon]="faInfoCircle"
-                                  aria-hidden="true"
-                          >
-                          </fa-icon>
+                          <span *ngIf="atip.voucherDeletion">
+                            <fa-icon
+                                    placement="bottom"
+                                    ngbTooltip='{{atip.voucherDeletion}}'
+                                    container="body"
+                                    [icon]="faInfoCircle"
+                                    aria-hidden="true"
+                            >
+                            </fa-icon>
+                          </span>
                           <td>
                           <div class="form-check form-switch">
                               <input
@@ -237,14 +249,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentStatLimit">Maximum number of data points in agent (gpu) graphs</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentStatLimit">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentStatLimit}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -259,14 +273,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentStatTension">Draw straigth lines in agent data graph instead of bezier curves</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentStatTension">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentStatTension}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <select
                             type='number'
@@ -284,14 +300,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentTempThreshold1">Temperature threshold above which an agent is displayed in <a style="color:orange;">orange</a> in the status page</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentTempThreshold1">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentTempThreshold1}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -306,14 +324,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentTempThreshold2">Temperature threshold above which an agent is displayed in <a style="color:red;">red</a> in the status page</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentTempThreshold2">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentTempThreshold2}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -328,14 +348,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentUtilThreshold1">Util threshold below which an agent is displayed in <a style="color:orange;">orange</a> in the status page</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentUtilThreshold1">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentUtilThreshold1}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -350,14 +372,16 @@
                   <div class="form-group">
                     <div class="form-outline">
                       <label class="form-label" for="setAgentUtilThreshold2">Util threshold below which an agent is displayed in <a style="color:red;">red</a> in the status page</label>
-                      <fa-icon
-                              placement="bottom"
-                              ngbTooltip="....."
-                              container="body"
-                              [icon]="faInfoCircle"
-                              aria-hidden="true"
-                      >
-                      </fa-icon>
+                      <span *ngIf="atip.agentUtilThreshold2">
+                        <fa-icon
+                                placement="bottom"
+                                ngbTooltip='{{atip.agentUtilThreshold2}}'
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                        >
+                        </fa-icon>
+                      </span>
                       <td>
                       <input
                             type='number'
@@ -406,14 +430,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setChunktime">Expected duration of a chunk</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.chunktime">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.chunktime}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -428,14 +454,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setDisptolerance">Authorised expansion in percentage of the final chunk of a task</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.disptolerance">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.disptolerance}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -450,14 +478,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setDefaultBenchmark">Speed benchmark as default benchmark process (option1 dropped, drop this)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.defaultBenchmark">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.defaultBenchmark}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -474,14 +504,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setDisableTrimming">Disable trimming of chunks and redo whole chunk</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.disableTrimming">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.disableTrimming}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -500,14 +532,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashlistAlias">Placeholder string for the hashlist in the command line during task creation</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.hashlistAlias">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.hashlistAlias}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='text'
@@ -522,14 +556,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setBlacklistChars">Forbidden characters in the attack command input</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.blacklistChars">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.blacklistChars}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='text'
@@ -544,14 +580,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPriority0Start">Also automatically assign tasks with priority 0 (Needed, check file)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.priority0Start">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.priority0Start}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -568,14 +606,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setShowTaskPerformance">Show cracks/minute for active tasks</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.showTaskPerformance">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.showTaskPerformance}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -594,14 +634,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setRuleSplitSmallTasks">When rule splitting is applied for tasks, always make them a small task</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.ruleSplitSmallTasks">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.ruleSplitSmallTasks}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -618,14 +660,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setRuleSplitAlways">Even do rule splitting when there are not enough rules but just the benchmark is too high. Can result in subtasks with just one rule</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.ruleSplitAlways">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.ruleSplitAlways}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -642,14 +686,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setRuleSplitDisable">Disable automatic task splitting with large rule files</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="tctip.ruleSplitDisable">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{tctip.ruleSplitDisable}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -680,14 +726,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setMaxHashlistSize">Maximum number of lines in a hashlist</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.maxHashlistSize">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.maxHashlistSize}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -702,14 +750,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPagingSize">Number of hashes shown per page in the Hash View</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.pagingSize">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.pagingSize}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -724,14 +774,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashesPerPage">Number of hashes per page on hashes view (Drop it or UI?)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.hashesPerPage">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.hashesPerPage}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -746,14 +798,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setFieldseparator">The separator character used to separate hash and plain (or salt)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.fieldseparator">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.fieldseparator}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='text'
@@ -768,14 +822,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashlistImportCheck">Check if hashes have been previously cracked (in other hashlists) at hashlist creation time)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.hashlistImportCheck">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.hashlistImportCheck}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                     <input
@@ -793,14 +849,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setBatchSize">Batch size of SQL query when hashlist is sent to the agent</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.batchSize">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.batchSize}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -815,14 +873,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setPlainTextMaxLength">Maximum length of plain text</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.batchSize">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.batchSize}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -837,14 +897,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashMaxLength">Maximum length of a hash</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="hchtip.batchSize">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{hchtip.batchSize}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -875,14 +937,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setEmailSender">Email address sending the notification emails (Discuss)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="notiftip.emailSender">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{notiftip.emailSender}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <input
                         type='text'
                         id="emailSender"
@@ -896,14 +960,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setEmailSenderName">Sender's name on emails sent from Hashtopolis (Discuss)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="notiftip.emailSenderName">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{notiftip.emailSenderName}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='text'
@@ -918,14 +984,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setTelegramBotToken">Telegram bot token used to send telegram notifications</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="notiftip.telegramBotToken">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{notiftip.telegramBotToken}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <input
                         type='text'
                         id="telegramBotToken"
@@ -939,14 +1007,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyEnable">Enable using a proxy for sending notifications</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="notiftip.notificationsProxyEnable">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{notiftip.notificationsProxyEnable}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -964,14 +1034,16 @@
                 <div class="form-group">
                   <div class="form-outline">
                     <label class="form-label" for="setNotificationsProxyServer">Server url of the proxy to use for notification</label>
-                    <fa-icon
-                            placement="bottom"
-                            ngbTooltip="....."
-                            container="body"
-                            [icon]="faInfoCircle"
-                            aria-hidden="true"
-                    >
-                    </fa-icon>
+                    <span *ngIf="notiftip.notificationsProxyServer">
+                      <fa-icon
+                              placement="bottom"
+                              ngbTooltip='{{notiftip.notificationsProxyServer}}'
+                              container="body"
+                              [icon]="faInfoCircle"
+                              aria-hidden="true"
+                      >
+                      </fa-icon>
+                    </span>
                     <input
                           type='text'
                           id="notificationsProxyServer"
@@ -986,14 +1058,16 @@
                 <div class="form-group">
                   <div class="form-outline">
                     <label class="form-label" for="setNotificationsProxyPort">Set the port for the notifications proxy</label>
-                    <fa-icon
-                            placement="bottom"
-                            ngbTooltip="....."
-                            container="body"
-                            [icon]="faInfoCircle"
-                            aria-hidden="true"
-                    >
-                    </fa-icon>
+                    <span *ngIf="notiftip.notificationsProxyPort">
+                      <fa-icon
+                              placement="bottom"
+                              ngbTooltip='{{notiftip.notificationsProxyPort}}'
+                              container="body"
+                              [icon]="faInfoCircle"
+                              aria-hidden="true"
+                      >
+                      </fa-icon>
+                    </span>
                     <td>
                     <input
                           type='number'
@@ -1009,14 +1083,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNotificationsProxyType">Proxy type to use for notifications</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="notiftip.notificationsProxyType">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{notiftip.notificationsProxyType}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <select
                         type='text'
@@ -1045,14 +1121,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHashcatBrainEnable">Enable Hashcat Brain</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="gstip.hashcatBrainEnable">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{gstip.hashcatBrainEnable}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <div class="form-check form-switch">
                       <input
@@ -1071,14 +1149,16 @@
                 <div class="form-group">
                   <div class="form-outline">
                     <label class="form-label" for="setHashcatBrainHost">Host to be used for hashcat brain (must be reachable by agents)</label>
-                    <fa-icon
-                            placement="bottom"
-                            ngbTooltip="....."
-                            container="body"
-                            [icon]="faInfoCircle"
-                            aria-hidden="true"
-                    >
-                    </fa-icon>
+                    <span *ngIf="gstip.hashcatBrainHost">
+                      <fa-icon
+                              placement="bottom"
+                              ngbTooltip='{{gstip.hashcatBrainHost}}'
+                              container="body"
+                              [icon]="faInfoCircle"
+                              aria-hidden="true"
+                      >
+                      </fa-icon>
+                    </span>
                     <input
                             type='text'
                             id="hashcatBrainHost"
@@ -1093,14 +1173,16 @@
                 <div class="form-group">
                   <div class="form-outline">
                     <label class="form-label" for="setHashcatBrainPort">Port for hashcat brain</label>
-                    <fa-icon
-                            placement="bottom"
-                            ngbTooltip="....."
-                            container="body"
-                            [icon]="faInfoCircle"
-                            aria-hidden="true"
-                    >
-                    </fa-icon>
+                    <span *ngIf="gstip.hashcatBrainPort">
+                      <fa-icon
+                              placement="bottom"
+                              ngbTooltip='{{gstip.hashcatBrainPort}}'
+                              container="body"
+                              [icon]="faInfoCircle"
+                              aria-hidden="true"
+                      >
+                      </fa-icon>
+                    </span>
                     <td>
                     <input
                             type='number'
@@ -1116,14 +1198,16 @@
                 <div class="form-group">
                   <div class="form-outline">
                     <label class="form-label" for="setHashcatBrainPass">Password to be used to access hashcat brain server</label>
-                    <fa-icon
-                            placement="bottom"
-                            ngbTooltip="....."
-                            container="body"
-                            [icon]="faInfoCircle"
-                            aria-hidden="true"
-                    >
-                    </fa-icon>
+                    <span *ngIf="gstip.hashcatBrainPass">
+                      <fa-icon
+                              placement="bottom"
+                              ngbTooltip='{{gstip.hashcatBrainPass}}'
+                              container="body"
+                              [icon]="faInfoCircle"
+                              aria-hidden="true"
+                      >
+                      </fa-icon>
+                    </span>
                     <td>
                     <input
                             type='password'
@@ -1140,14 +1224,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setHcErrorIgnore">Ignore error messages from crackers containing the string below. (How it works?)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="gstip.hcErrorIgnore">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{gstip.hcErrorIgnore}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <textarea
                         type='text'
                         id="hcErrorIgnore"
@@ -1161,14 +1247,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setNumLogEntries">Number of log entries to be retained</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="gstip.numLogEntries">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{gstip.numLogEntries}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <input
                         type='number'
@@ -1212,14 +1300,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setBaseHost">Base hostname/port/protocol to use. Only fill this in to override the auto-determined value -- ???</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="gstip.baseHost">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{gstip.baseHost}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <input
                         type='text'
                         id="baseHost"
@@ -1233,14 +1323,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setContactEmail">Admin email address displayed on the webpage footer (hidden if empty)</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="gstip.contactEmail">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{gstip.contactEmail}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <input
                         type='text'
                         id="contactEmail"
@@ -1254,14 +1346,16 @@
               <div class="form-group">
                 <div class="form-outline">
                   <label class="form-label" for="setServerLogLevel">Server level to be logged on the server to file - ???</label>
-                  <fa-icon
-                          placement="bottom"
-                          ngbTooltip="....."
-                          container="body"
-                          [icon]="faInfoCircle"
-                          aria-hidden="true"
-                  >
-                  </fa-icon>
+                  <span *ngIf="gstip.serverLogLevel">
+                    <fa-icon
+                            placement="bottom"
+                            ngbTooltip='{{gstip.serverLogLevel}}'
+                            container="body"
+                            [icon]="faInfoCircle"
+                            aria-hidden="true"
+                    >
+                    </fa-icon>
+                  </span>
                   <td>
                   <select
                         type='text'
@@ -1279,31 +1373,34 @@
                 <p> Base url for the webpage (this does not include hostname and is normally determined automatically on the installation) --- ??? </p>
             <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
           </form>
-          <div class="form-group">
-            <div class="form-outline">
-              <label class="form-label" for="setCookieTooltip">Tooltip Help Level</label>
-              <fa-icon
-                      placement="bottom"
-                      ngbTooltip="....."
-                      container="body"
-                      [icon]="faInfoCircle"
-                      aria-hidden="true"
-              >
-              </fa-icon>
-              <td>
-              <select
-                    type='text'
-                    id="cookieTooltip"
-                    class='form-select'
-                    #cookieTooltip
-                    (change)="autoSave('cookieTooltip',cookieTooltip.value)"
-              >
-                 <option [value]="0">Concise</option>
-                 <option [value]="1">Detailed</option>
-                 <option [value]="2">Very Detailed</option>
-              </select>
-            </div>
-          </div>&nbsp;
+          <form [formGroup]="cookieForm">
+            <div class="form-group">
+              <div class="form-outline">
+                <label class="form-label" for="setCookieTooltip">Tooltip Help Level</label>
+                <fa-icon
+                        placement="bottom"
+                        ngbTooltip="Manage Global level of tooltip details"
+                        container="body"
+                        [icon]="faInfoCircle"
+                        aria-hidden="true"
+                >
+                </fa-icon>
+                <td>
+                <select
+                      type='text'
+                      id="cookieTooltip"
+                      class='form-select'
+                      formControlName="cookieTooltip"
+                      #cookieTooltip
+                      (change)="setTooltipLevel(cookieTooltip.value)"
+                >
+                  <option [value]="0">Concise</option>
+                  <option [value]="1">Detailed</option>
+                  <option [value]="2">Very Detailed</option>
+                </select>
+              </div>
+            </div>&nbsp;
+          </form>
         </div>
       </div>
   </div> <!-- End  settings  -->

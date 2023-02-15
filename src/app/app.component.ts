@@ -5,7 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, Observable } from 'rxjs';
 
 import { AuthService } from './core/_services/auth.service';
-import { CookieService } from './core/_services/cookies.service';
+import { CookieService } from './core/_services/shared/cookies.service';
 
 @Component({
   selector: 'app-root',

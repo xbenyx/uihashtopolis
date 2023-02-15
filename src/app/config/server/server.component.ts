@@ -6,7 +6,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { ConfigService } from '../../core/_services/config/config.service';
-import { CookieService } from '../../core/_services/cookies.service';
+import { CookieService } from '../../core/_services/shared/cookies.service';
+import { TooltipService } from '../../core/_services/shared/tooltip.service';
 
 @Component({
   selector: 'app-server',
@@ -24,6 +25,7 @@ export class ServerComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private cookieService: CookieService,
+    private tooltipService: TooltipService,
     private route:ActivatedRoute,
   ) { }
 
@@ -38,6 +40,7 @@ export class ServerComponent implements OnInit {
   hchForm: FormGroup;
   notifForm: FormGroup;
   gsForm: FormGroup;
+  cookieForm: FormGroup;
 
   serverlog = [{id:0, value: 'TRACE'},{id:10, value: 'DEBUG'},{id:20, value: 'INFO'},{id:30, value: 'WARNING'},{id:40, value: 'ERROR'},{id:50, value: 'FATAL'}];
   proxytype = [{value:'HTTP'},{value:'HTTPS'},{value:'SOCKS4'},{value:'SOCKS5'}];
@@ -47,6 +50,13 @@ export class ServerComponent implements OnInit {
     {format:'MMM d, y, h:mm:ss a', description:'Jul 06, 2023, 9:03:01 AM (MMM d, y, h:mm:ss a)'},
     {format:'M/d/yy', description:'7/6/23 (M/d/yy)'},
   ];
+
+  // Tooltips
+  atip: any =[]
+  tctip: any =[]
+  hchtip: any =[]
+  notiftip: any =[]
+  gstip: any =[]
 
   ngOnInit(): void {
 
@@ -70,6 +80,7 @@ export class ServerComponent implements OnInit {
             'agentUtilThreshold2': new FormControl(),
           });
           this.initAgentForm();
+          this.atip = this.tooltipService.getConfigTooltips().agent;
         break;
 
         case 'task-chunk':
@@ -82,10 +93,12 @@ export class ServerComponent implements OnInit {
             'hashlistAlias': new FormControl(),
             'blacklistChars': new FormControl(),
             'priority0Start': new FormControl(),
+            'showTaskPerformance': new FormControl(),
             'ruleSplitSmallTasks': new FormControl(),
             'ruleSplitAlways': new FormControl(),
             'ruleSplitDisable': new FormControl()
           });
+          this.tctip = this.tooltipService.getConfigTooltips().tc;
           this.initTCForm();
         break;
 
@@ -101,6 +114,7 @@ export class ServerComponent implements OnInit {
             'plainTextMaxLength': new FormControl(),
             'hashMaxLength': new FormControl(),
           });
+          this.hchtip = this.tooltipService.getConfigTooltips().hch;
           this.initHCHForm();
         break;
 
@@ -115,6 +129,7 @@ export class ServerComponent implements OnInit {
             'notificationsProxyPort': new FormControl(),
             'notificationsProxyType': new FormControl(),
           });
+          this.notiftip = this.tooltipService.getConfigTooltips().notif;
           this.initNotifForm();
         break;
 
@@ -133,6 +148,10 @@ export class ServerComponent implements OnInit {
             'contactEmail': new FormControl(),
             'serverLogLevel': new FormControl(),
           });
+          this.cookieForm = new FormGroup({
+            'cookieTooltip': new FormControl(),
+          });
+          this.gstip = this.tooltipService.getConfigTooltips().gs;
           this.initGSForm();
         break;
 
@@ -239,6 +258,9 @@ export class ServerComponent implements OnInit {
         'contactEmail': new FormControl(result.values.find(obj => obj.item === 'contactEmail').value),
         'serverLogLevel': new FormControl(result.values.find(obj => obj.item === 'serverLogLevel').value),
       });
+      this.cookieForm = new FormGroup({
+        'cookieTooltip': new FormControl(this.getTooltipLevel()),
+      });
       this.isLoading = false;
     });
   }
@@ -261,7 +283,7 @@ export class ServerComponent implements OnInit {
         if(collap === true){
         this.isLoading = false;
         }else{
-          this.saveAlert();
+          this.savedAlert();
           this.ngOnInit();
         }
       });
@@ -284,12 +306,12 @@ export class ServerComponent implements OnInit {
   }
 
   setTooltipLevel(value: string){
-    // 0 consise, 1 precise, 2 thorough
     this.cookieService.setCookie('tooltip', value, 365);
-    this.saveAlert();
+    this.savedAlert();
+    this.ngOnInit();
   }
 
-  saveAlert(){
+  savedAlert(){
     Swal.fire({
       position: 'top-end',
       icon: 'success',
