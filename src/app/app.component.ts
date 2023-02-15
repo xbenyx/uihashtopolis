@@ -3,8 +3,9 @@ import { Component,Inject,OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, Observable } from 'rxjs';
-import { AuthService } from './core/_services/auth.service';
 
+import { AuthService } from './core/_services/auth.service';
+import { CookieService } from './core/_services/cookies.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ export class AppComponent implements OnInit{
   appTitle = 'Hashtopolis';
   constructor(
     private authService: AuthService,
+    private cookieService: CookieService,
     private router: Router,
     private metaTitle: Title,
     private meta: Meta,
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.autoLogin();
+    this.cookieService.checkDefaultCookies();
   }
 
   private findCurrentStep(currentRoute) {
@@ -42,7 +45,6 @@ export class AppComponent implements OnInit{
     const length = currRouteFragments.length;
     this.currentStep = currentRoute.split('/')[length - 1];
   }
-
 
 
 }

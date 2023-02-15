@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import Cookies  from 'js-cookie';
-import { ConfigService } from '../../core/_services/config/config.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import { ConfigService } from '../../core/_services/config/config.service';
+import { CookieService } from '../../core/_services/cookies.service';
 
 @Component({
   selector: 'app-server',
@@ -22,6 +23,7 @@ export class ServerComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
+    private cookieService: CookieService,
     private route:ActivatedRoute,
   ) { }
 
@@ -259,13 +261,7 @@ export class ServerComponent implements OnInit {
         if(collap === true){
         this.isLoading = false;
         }else{
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Setting change has been saved',
-            showConfirmButton: false,
-            timer: 1500
-          })
+          this.saveAlert();
           this.ngOnInit();
         }
       });
@@ -284,7 +280,23 @@ export class ServerComponent implements OnInit {
   }
 
   getTooltipLevel(){
-    Cookies.remove('foo')
+    return this.cookieService.getCookie('tooltip');
+  }
+
+  setTooltipLevel(value: string){
+    // 0 consise, 1 precise, 2 thorough
+    this.cookieService.setCookie('tooltip', value, 365);
+    this.saveAlert();
+  }
+
+  saveAlert(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Setting change has been saved',
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
 
 }

@@ -1279,6 +1279,31 @@
                 <p> Base url for the webpage (this does not include hostname and is normally determined automatically on the installation) --- ??? </p>
             <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
           </form>
+          <div class="form-group">
+            <div class="form-outline">
+              <label class="form-label" for="setCookieTooltip">Tooltip Help Level</label>
+              <fa-icon
+                      placement="bottom"
+                      ngbTooltip="....."
+                      container="body"
+                      [icon]="faInfoCircle"
+                      aria-hidden="true"
+              >
+              </fa-icon>
+              <td>
+              <select
+                    type='text'
+                    id="cookieTooltip"
+                    class='form-select'
+                    #cookieTooltip
+                    (change)="autoSave('cookieTooltip',cookieTooltip.value)"
+              >
+                 <option [value]="0">Concise</option>
+                 <option [value]="1">Detailed</option>
+                 <option [value]="2">Very Detailed</option>
+              </select>
+            </div>
+          </div>&nbsp;
         </div>
       </div>
   </div> <!-- End  settings  -->
