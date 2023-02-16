@@ -15,6 +15,7 @@ import { FilesService } from '../../core/_services/files/files.service';
 import { DataTableDirective } from 'angular-datatables';
 import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 @Component({
   selector: 'app-new-tasks',
@@ -78,6 +79,7 @@ export class NewTasksComponent implements OnInit {
     private filesService: FilesService,
     private crackerService: CrackerService,
     private tooltipService: TooltipService,
+    private uiService: UIConfigService,
     private _changeDetectorRef: ChangeDetectorRef,
   ) { }
 
@@ -95,7 +97,6 @@ export class NewTasksComponent implements OnInit {
         this.filesFormArray.push(fileId);
         this.OnChangeAttack(fileName, fileType);
         this.createForm.patchValue({files: this.filesFormArray });
-        console.log(this.filesFormArray)
     } else {
         let index = this.filesFormArray.indexOf(fileId);
         this.filesFormArray.splice(index,1);
@@ -238,7 +239,7 @@ export class NewTasksComponent implements OnInit {
       'taskName': new FormControl('', [Validators.required]),
       'notes': new FormControl(''),
       'hashlistId': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl(null || '#HL#', [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
+      'attackCmd': new FormControl(null, [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
       'priority': new FormControl(null || this.priority,[Validators.required, Validators.pattern("^[0-9]*$")]),
       'maxAgents': new FormControl(null || this.maxAgents),
       'chunkTime': new FormControl(null || this.chunkTime),
@@ -259,6 +260,8 @@ export class NewTasksComponent implements OnInit {
       'files': new FormControl('')
     });
 
+    this.patchHashalias();
+
   }
 
   get attckcmd(){
@@ -266,10 +269,20 @@ export class NewTasksComponent implements OnInit {
   };
 
   forbiddenChars(name: RegExp): ValidatorFn{
+    this.getValue();
+    console.log(this.getValue())
     return (control: AbstractControl): { [key: string]: any } => {
       const forbidden = name.test(control.value);
       return forbidden ? { 'forbidden' : { value: control.value } } : null;
     };
+  }
+
+  getValue() {
+    return this
+      .uiService
+      .getUIforbiddenchar()
+      .subscribe(items => console.log(items)
+      );
   }
 
   async fetchData() {
@@ -303,6 +316,14 @@ export class NewTasksComponent implements OnInit {
           dtInstance.columns.adjust();
         });
      });
+    });
+  }
+
+  patchHashalias(){
+    this.uiService.getUIplaceholder().subscribe((config: any) => {
+      this.createForm.patchValue({
+        attackCmd: config.values[0].value
+      });
     });
   }
 
