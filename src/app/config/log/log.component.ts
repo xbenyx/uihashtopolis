@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { LogentryService } from '../../core/_services/config/logentry.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { LogentryService } from '../../core/_services/config/logentry.service';
 
 @Component({
   selector: 'app-log',
@@ -14,17 +16,27 @@ export class LogComponent implements OnInit {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  uidateformat:any;
 
   public logs: {logEntryId: number, issuer: string, issuerId: number, level: string, message: string, time: number}[] = [];
 
-  constructor(private logentryService: LogentryService,
-    private route:ActivatedRoute, private router:Router) { }
+  constructor(
+    private logentryService: LogentryService,
+    private uiService: UIConfigService,
+    private route:ActivatedRoute,
+    private router:Router
+  ) { }
 
     ngOnInit(): void {
       this.logentryService.getLogs().subscribe((log: any) => {
         this.logs = log.values;
         this.dtTrigger.next(void 0);
       });
+
+      this.uiService.getUIdateformat().subscribe((config: any) => {
+        this.uidateformat = config.values[0].value;
+      });
+
       this.dtOptions = {
         dom: 'Bfrtip',
         scrollY: true,

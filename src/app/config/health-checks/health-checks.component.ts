@@ -11,6 +11,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { HealthcheckService } from '../../core/_services/config/healthcheck.service';
 import { HashtypeService } from '../../core/_services/hashtype.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 @Component({
   selector: 'app-health-checks',
@@ -36,11 +37,13 @@ export class HealthChecksComponent implements OnInit {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  uidateformat:any;
 
   constructor(
     private healthcheckService: HealthcheckService,
     private hashtypeService: HashtypeService,
     private crackerService: CrackerService,
+    private uiService: UIConfigService,
     // private _changeDetectorRef: ChangeDetectorRef,
     private route:ActivatedRoute,
     private router:Router) { }
@@ -93,6 +96,10 @@ export class HealthChecksComponent implements OnInit {
     })
     this.dtTrigger.next(void 0);
     });
+  });
+
+  this.uiService.getUIdateformat().subscribe((config: any) => {
+    this.uidateformat = config.values[0].value;
   });
 
   this.dtOptions = {

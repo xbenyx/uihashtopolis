@@ -91,7 +91,7 @@ export const DEFAULT_CONFIG_TOOLTIP = {
         notificationsProxyType: 'Level 0',
       },
       gs:{
-        hashcatBrainEnable: 'Level 0',
+        hashcatBrainEnable: 'Once enable, new options will show in hashlists',
         hashcatBrainHost: 'Level 0',
         hashcatBrainPort: 'Level 0',
         hashcatBrainPass: 'Level 0',
@@ -152,7 +152,7 @@ export const DEFAULT_CONFIG_TOOLTIP = {
         notificationsProxyType: 'Level 1',
       },
       gs:{
-        hashcatBrainEnable: 'Level 1',
+        hashcatBrainEnable: 'Once enable, new options will show in hashlists',
         hashcatBrainHost: 'Level 1',
         hashcatBrainPort: 'Level 1',
         hashcatBrainPass: 'Level 1',
@@ -213,7 +213,7 @@ export const DEFAULT_CONFIG_TOOLTIP = {
         notificationsProxyType: 'Level 2',
       },
       gs:{
-        hashcatBrainEnable: 'Level 2',
+        hashcatBrainEnable: 'Once enable, new options will show in hashlists',
         hashcatBrainHost: 'Level 2',
         hashcatBrainPort: 'Level 2',
         hashcatBrainPass: 'Level 2',

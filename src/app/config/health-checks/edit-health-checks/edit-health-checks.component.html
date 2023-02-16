@@ -10,7 +10,7 @@
                           <label class="form-label" for="setname">Created</label>
                           <span class="pre input-group-text input-group-lg w-70 mx-auto">
                             <td>
-                              {{ healthc['time']*1000 | date: 'dd/MM/yyyy hh:mm:ss ' }}
+                              {{ healthc['time']*1000 | date: uidateformat }}
                             </td>
                           </span>
                         </div>

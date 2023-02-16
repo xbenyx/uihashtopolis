@@ -51,9 +51,9 @@
                             <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
                           </a>
                         </td>
-                        <td>{{ c.dispatchTime*1000 | date: 'dd/MM/yyyy h:mm:ss' }}</td>
+                        <td>{{ c.dispatchTime*1000 | date: uidateformat }}</td>
                         <td *ngIf="c.solveTime === 0">(No acitivity)</td>
-                        <td *ngIf="c.solveTime > 0">{{ c.solveTime*1000 | date: 'dd/MM/yyyy h:mm:ss' }}</td>
+                        <td *ngIf="c.solveTime > 0">{{ c.solveTime*1000 | date: uidateformat }}</td>
                         <td>{{ (c.solveTime - c.dispatchTime) | sectotime }}</td>
                         <td>{{ c.state | staticArray:'states' }}</td>
                         <td>{{ c.cracked }}</td>

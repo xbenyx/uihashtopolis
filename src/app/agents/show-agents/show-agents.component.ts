@@ -7,6 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { environment } from 'src/environments/environment';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 declare let $:any;
 
@@ -28,6 +29,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  uidateformat:any;
   isChecked:boolean =false;
 
   ngOnDestroy(): void {
@@ -39,6 +41,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
   constructor(
     private agentsService: AgentsService,
+    private uiService: UIConfigService,
     private modalService: NgbModal
   ) { }
 
@@ -48,6 +51,10 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       this.showagents = agents.values;
       // this.showagents.forEach(f => (f.checked = false));
       this.dtTrigger.next(void 0);
+    });
+
+    this.uiService.getUIdateformat().subscribe((config: any) => {
+      this.uidateformat = config.values[0].value;
     });
 
     const self = this;

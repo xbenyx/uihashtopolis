@@ -37,7 +37,7 @@
                             <label class="form-label" for="getlastTime">Last activity</label>
                             <span class="input-group-text input-group-lg w-50 mx-auto">
                               <td>
-                                Time: {{ showagent['lastTime']*1000 | date: 'dd/MM/yyyy h:mm:ss' }}<br>
+                                Time: {{ showagent['lastTime']*1000 | date: uidateformat }}<br>
                                 Action: {{ showagent['lastAct'] }}<br>
                                 IP: <code>{{ showagent['lastIp'] }}</code>
                               </td>

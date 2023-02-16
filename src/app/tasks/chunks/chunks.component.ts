@@ -4,6 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { ChunkService } from '../../core/_services/chunks.service';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 @Component({
   selector: 'app-chunks',
@@ -14,7 +15,8 @@ export class ChunksComponent implements OnInit {
   faEye=faEye;
 
   constructor(
-    private chunkService: ChunkService
+    private chunkService: ChunkService,
+    private uiService: UIConfigService,
   ) { }
 
   @ViewChild(DataTableDirective, {static: false})
@@ -22,6 +24,7 @@ export class ChunksComponent implements OnInit {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  uidateformat:any;
 
   public chunks: {chunkId: number,taskId: number,format: string,skip: number,length: number,agentId: number,dispatchTime: number,solveTime: number,checkpoint: number,progress: number,state: number,cracked: number,speed: number, isEdit: false}[] = [];
 
@@ -31,6 +34,11 @@ export class ChunksComponent implements OnInit {
       this.chunks = hasht.values;
       this.dtTrigger.next(void 0);
     });
+
+    this.uiService.getUIdateformat().subscribe((config: any) => {
+      this.uidateformat = config.values[0].value;
+    });
+
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,

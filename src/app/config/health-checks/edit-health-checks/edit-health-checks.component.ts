@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 import { HealthcheckService } from '../../../core/_services/config/healthcheck.service';
 import { AgentsService } from '../../../core/_services/agents/agents.service';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 @Component({
   selector: 'app-edit-health-checks',
@@ -20,10 +21,12 @@ export class EditHealthChecksComponent implements OnInit {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  uidateformat:any;
 
   constructor(
     private healthcheckService: HealthcheckService,
     private agentsService: AgentsService,
+    private uiService: UIConfigService,
     private route:ActivatedRoute) { }
 
   public healthc: {
@@ -64,6 +67,10 @@ export class EditHealthChecksComponent implements OnInit {
     this.healthcheckService.getHealthCheckedAgents(id).subscribe((hc: any) => {
       this.healthca = hc;
       this.isLoading = false;
+    });
+
+    this.uiService.getUIdateformat().subscribe((config: any) => {
+      this.uidateformat = config.values[0].value;
     });
 
     this.dtOptions = {

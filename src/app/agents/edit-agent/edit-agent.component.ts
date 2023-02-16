@@ -7,7 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UsersService } from '../../core/_services/users/users.service';
-import { Observable } from 'rxjs';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 @Component({
   selector: 'app-edit-agent',
@@ -32,10 +32,12 @@ export class EditAgentComponent implements OnInit {
     private route:ActivatedRoute,
     private router: Router,
     private agentsService: AgentsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private uiService: UIConfigService,
   ) { }
 
   updateForm: FormGroup
+  uidateformat:any;
   showagent: any = [];
   users: any = [];
 
@@ -72,6 +74,10 @@ export class EditAgentComponent implements OnInit {
 
     this.usersService.getAllusers().subscribe((user: any) => {
       this.users = user.values;
+    });
+
+    this.uiService.getUIdateformat().subscribe((config: any) => {
+      this.uidateformat = config.values[0].value;
     });
 
   }
