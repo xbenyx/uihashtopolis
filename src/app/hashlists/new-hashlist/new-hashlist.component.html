@@ -98,48 +98,51 @@
                                         type="checkbox"
                                         id="isHexSalt"
                                         formControlName="isHexSalt"
-                                  > Salt is in hex (only when salted hashes)
+                                  > Salt is in hex (only when salted hashes) {{brainenabled}}
                                 </span>
                               </td>
                           </div>
                         </div>
                         &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label for="gethashlistformat">Hashcat Brain</label>
-                            <td>
-                            <select
-                                   id='hashcatbrain'
-                                   class='form-select'
-                                   formControlName="useBrain"
-                                   #usebrain
-                                >
-                              <option [ngValue]="false" [defaultSelected]=true>No</option>
-                              <option [ngValue]="true">Yes</option>
-                            </select>
-                          </div>
-                        </div>
-                        &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline" *ngIf="usebrain.selectedIndex === usebrain.options.length - 1">
-                            <label class="form-label requiredak" for="getbrainfeatures">Hashlist format</label>
-                            <td>
+                        <div *ngif="brainenabled ===1">
+                          <div class="form-group">
+                            <div class="form-outline">
+                              <label for="gethashlistformat">Hashcat Brain</label>
+                              <td>
+
                               <select
-                                     type='number'
-                                     id='brainfeatures'
-                                     class='form-select'
-                                     formControlName="brainFeatures"
+                                    id='hashcatbrain'
+                                    class='form-select'
+                                    formControlName="useBrain"
+                                    #usebrain
                                   >
-                                  <option [ngValue]="1">Send hashed passwords</option>
-                                  <option [ngValue]="2">Send attack positions</option>
-                                  <option [ngValue]="3" [defaultSelected]=true>Send hashed passwords and attack positions</option>
+                                <!-- <option [ngValue]="false" [defaultSelected]=true>No</option> -->
+                                <option [ngValue]="true">Yes</option>
                               </select>
-                              <div class='alert alert-info row justify-content-center closesys'>
-                                Note: When brain is enabled it'll create a network server. If it is used wrongly it could cause bottlenecks or collapse the network server.
-                             </div>
+                            </div>
                           </div>
+                          &nbsp;
+                          <div class="form-group">
+                            <div class="form-outline" *ngIf="usebrain.selectedIndex === usebrain.options.length - 1">
+                              <label class="form-label requiredak" for="getbrainfeatures">Hashlist format</label>
+                              <td>
+                                <select
+                                      type='number'
+                                      id='brainfeatures'
+                                      class='form-select'
+                                      formControlName="brainFeatures"
+                                    >
+                                    <option [ngValue]="1">Send hashed passwords</option>
+                                    <option [ngValue]="2">Send attack positions</option>
+                                    <option [ngValue]="3" [defaultSelected]=true>Send hashed passwords and attack positions</option>
+                                </select>
+                                <div class='alert alert-info row justify-content-center closesys'>
+                                  Note: When brain is enabled it'll create a network server. If it is used wrongly it could cause bottlenecks or collapse the network server.
+                              </div>
+                            </div>
+                          </div>
+                          &nbsp;
                         </div>
-                        &nbsp;
                         <div class="form-group">
                           <div class="form-outline">
                               <label class="form-label requiredak" for="gethashsource">Hash source</label>

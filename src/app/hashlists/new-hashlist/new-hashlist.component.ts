@@ -13,10 +13,12 @@ import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { HashtypeService } from 'src/app/core/_services/hashtype.service';
 import { AccessGroupsService } from '../../core/_services/accessgroups.service';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 import { UploadTUSService } from '../../core/_services/files/files_tus.service';
 
 import { AccessGroup } from '../../core/_models/access-group';
 import { UploadFileTUS } from '../../core/_models/files';
+
 
 @Component({
   selector: 'app-new-hashlist',
@@ -39,20 +41,28 @@ export class NewHashlistComponent implements OnInit {
   signupForm: FormGroup;
   ShowHideTypeFile = ShowHideTypeFile;
   radio=true;
+  brainenabled:any;
   hashcatbrain: string;
 
   // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
 
-  constructor(private hlService: ListsService,
+  constructor(
+     private hlService: ListsService,
      private _changeDetectorRef: ChangeDetectorRef,
      private hashtypeService: HashtypeService,
      private accessgroupService: AccessGroupsService,
+     private uiService: UIConfigService,
      private router: Router,
      private uploadService:UploadTUSService,
      ) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
+    this.uiService.getUIfbrainenable().subscribe((config: any) => {
+      this.brainenabled = config.values[0].value;
+    });
 
     this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
