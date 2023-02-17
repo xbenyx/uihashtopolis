@@ -28,8 +28,6 @@ export class NewTasksComponent implements OnInit {
   // Config
   private priority = environment.config.tasks.priority;
   private maxAgents = environment.config.tasks.maxAgents;
-  private chunkTime = environment.config.tasks.chunkTime;
-  private statusTimer = environment.config.tasks.statusTimer;
   private chunkSize = environment.config.tasks.chunkSize;
 
   faHome=faHomeAlt;
@@ -139,12 +137,16 @@ export class NewTasksComponent implements OnInit {
   }
 
   onRemoveFChars(){
-    const forbidden = /[&*;$()\[\]{}'"\\|<>\/]/g;
     let currentCmd = this.createForm.get('attackCmd').value;
-    currentCmd = currentCmd.replace(forbidden,'');
+    currentCmd = currentCmd.replace(this.getBanChars(),'');
     this.createForm.patchValue({
       attackCmd: currentCmd
     });
+  }
+
+  getBanChars(){
+    var chars = this.uiService.getUIsettings()._bchars.replace(']', '\\]').replace('[', '\\[');
+    return new RegExp('['+chars+'\/]', "g")
   }
 
   // Tooltips
@@ -239,11 +241,11 @@ export class NewTasksComponent implements OnInit {
       'taskName': new FormControl('', [Validators.required]),
       'notes': new FormControl(''),
       'hashlistId': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl(null, [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
+      'attackCmd': new FormControl(this.uiService.getUIsettings()._halias, [Validators.required, this.forbiddenChars(this.getBanChars())]),
       'priority': new FormControl(null || this.priority,[Validators.required, Validators.pattern("^[0-9]*$")]),
       'maxAgents': new FormControl(null || this.maxAgents),
-      'chunkTime': new FormControl(null || this.chunkTime),
-      'statusTimer': new FormControl(null || this.statusTimer),
+      'chunkTime': new FormControl(null || this.uiService.getUIsettings()._chunkt),
+      'statusTimer': new FormControl(null || this.uiService.getUIsettings()._statimer),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),
       'skipKeyspace': new FormControl(null || 0),
@@ -269,20 +271,14 @@ export class NewTasksComponent implements OnInit {
   };
 
   forbiddenChars(name: RegExp): ValidatorFn{
-    this.getValue();
-    console.log(this.getValue())
     return (control: AbstractControl): { [key: string]: any } => {
       const forbidden = name.test(control.value);
       return forbidden ? { 'forbidden' : { value: control.value } } : null;
     };
   }
 
-  getValue() {
-    return this
-      .uiService
-      .getUIforbiddenchar()
-      .subscribe(items => console.log(items)
-      );
+  getValueBchars(): void {
+    this.uiService.getUIsettings()._bchars
   }
 
   async fetchData() {
@@ -320,10 +316,8 @@ export class NewTasksComponent implements OnInit {
   }
 
   patchHashalias(){
-    this.uiService.getUIplaceholder().subscribe((config: any) => {
-      this.createForm.patchValue({
-        attackCmd: config.values[0].value
-      });
+    this.createForm.patchValue({
+      attackCmd:this.uiService.getUIsettings()._halias
     });
   }
 

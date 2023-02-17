@@ -69,9 +69,7 @@ export class EditHealthChecksComponent implements OnInit {
       this.isLoading = false;
     });
 
-    this.uiService.getUIdateformat().subscribe((config: any) => {
-      this.uidateformat = config.values[0].value;
-    });
+    this.uidateformat = this.uiService.getUIsettings()._timefmt;
 
     this.dtOptions = {
       dom: 'Bfrtip',

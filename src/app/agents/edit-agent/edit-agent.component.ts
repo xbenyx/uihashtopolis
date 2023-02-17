@@ -76,9 +76,7 @@ export class EditAgentComponent implements OnInit {
       this.users = user.values;
     });
 
-    this.uiService.getUIdateformat().subscribe((config: any) => {
-      this.uidateformat = config.values[0].value;
-    });
+    this.uidateformat = this.uiService.getUIsettings()._timefmt;
 
   }
 

@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -29,13 +30,14 @@ import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.co
 import { ErrorPageComponent } from './layout/error-page/error-page.component';
 import { AuthInterceptorService } from './core/_interceptors/auth-interceptor.service';
 /**
- * App Modules
+ * App Modules, Reducers
  *
 */
 import { ComponentsModule } from './shared/components.module';
 import { AuthModule } from './auth/auth.module';
 import { DirectivesModule } from './shared/directives.module';
 import { PipesModule } from './shared/pipes.module';
+import { configReducer } from './core/_store/config.reducer';
 
 
 @NgModule({
@@ -63,8 +65,8 @@ import { PipesModule } from './shared/pipes.module';
     DirectivesModule,
     PipesModule,
     ComponentsModule,
-    AppRoutingModule  // Main routes for the App
-
+    AppRoutingModule,  // Main routes for the App
+    StoreModule.forRoot({configList: configReducer})
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}, AppPreloadingStrategy],
   bootstrap: [AppComponent]

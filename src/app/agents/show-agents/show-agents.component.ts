@@ -53,9 +53,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       this.dtTrigger.next(void 0);
     });
 
-    this.uiService.getUIdateformat().subscribe((config: any) => {
-      this.uidateformat = config.values[0].value;
-    });
+    this.uidateformat = this.uiService.getUIsettings()._timefmt;
 
     const self = this;
     this.dtOptions = {

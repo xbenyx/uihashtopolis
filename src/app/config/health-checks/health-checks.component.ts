@@ -98,9 +98,7 @@ export class HealthChecksComponent implements OnInit {
     });
   });
 
-  this.uiService.getUIdateformat().subscribe((config: any) => {
-    this.uidateformat = config.values[0].value;
-  });
+  this.uidateformat = this.uiService.getUIsettings()._timefmt;
 
   this.dtOptions = {
     dom: 'Bfrtip',

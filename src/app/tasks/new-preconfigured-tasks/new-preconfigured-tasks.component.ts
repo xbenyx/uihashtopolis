@@ -13,6 +13,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
 
 declare let $:any;
 
@@ -30,14 +31,13 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   private maxResults = environment.config.prodApiMaxResults
   private priority = environment.config.tasks.priority;
   private maxAgents = environment.config.tasks.maxAgents;
-  private chunkTime = environment.config.tasks.chunkTime;
-  private statusTimer = environment.config.tasks.statusTimer;
 
   constructor(
     private taskService: TasksService,
     private preTasksService: PreTasksService,
     private crackerService: CrackerService,
     private filesService: FilesService,
+    private uiService: UIConfigService,
     private modalService: NgbModal,
     private route:ActivatedRoute,
     private router: Router,
@@ -163,8 +163,8 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       'taskName': new FormControl('', [Validators.required]),
       'attackCmd': new FormControl(null || '#HL#', [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
       'maxAgents': new FormControl(null || this.maxAgents),
-      'chunkTime': new FormControl(null || this.chunkTime),
-      'statusTimer': new FormControl(null || this.statusTimer),
+      'chunkTime': new FormControl(null || this.uiService.getUIsettings()._chunkt),
+      'statusTimer': new FormControl(null || this.uiService.getUIsettings()._statimer),
       'priority': new FormControl(0),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),

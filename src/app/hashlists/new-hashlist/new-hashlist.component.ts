@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 // import * as $ from "jquery"; //Fixes Test error but affects
 
-import { faMagnifyingGlass, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUpload, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
@@ -32,6 +32,7 @@ export class NewHashlistComponent implements OnInit {
   */
   isLoading = false;
   faUpload=faUpload;
+  faInfoCircle=faInfoCircle;
   faMagnifyingGlass=faMagnifyingGlass;
 
   /**
@@ -60,9 +61,7 @@ export class NewHashlistComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.uiService.getUIfbrainenable().subscribe((config: any) => {
-      this.brainenabled = config.values[0].value;
-    });
+    this.brainenabled = this.uiService.getUIsettings()._enablebrain;
 
     this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
@@ -76,7 +75,7 @@ export class NewHashlistComponent implements OnInit {
       'isSalted': new FormControl(false),
       'isHexSalt': new FormControl(false),
       'accessGroupId': new FormControl(null, [Validators.required]),
-      'useBrain': new FormControl(false),
+      'useBrain': new FormControl(+this.brainenabled=== 1? true:false),
       'brainFeatures': new FormControl(null || 3),
       'notes': new FormControl(''),
       "sourceType": new FormControl('upload' || null),

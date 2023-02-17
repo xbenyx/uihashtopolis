@@ -6,6 +6,7 @@ import { filter, Observable } from 'rxjs';
 
 import { AuthService } from './core/_services/auth.service';
 import { CookieService } from './core/_services/shared/cookies.service';
+import { UIConfigService } from './core/_services/shared/uiconfig.service';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnInit{
   constructor(
     private authService: AuthService,
     private cookieService: CookieService,
+    private uicService:UIConfigService,
     private router: Router,
     private metaTitle: Title,
     private meta: Meta,
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.authService.autoLogin();
     this.cookieService.checkDefaultCookies();
+    this.uicService.checkUIDefault();
   }
 
   private findCurrentStep(currentRoute) {

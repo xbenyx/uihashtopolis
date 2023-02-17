@@ -98,33 +98,26 @@
                                         type="checkbox"
                                         id="isHexSalt"
                                         formControlName="isHexSalt"
-                                  > Salt is in hex (only when salted hashes) {{brainenabled}}
+                                  > Salt is in hex (only when salted hashes)
                                 </span>
                               </td>
                           </div>
                         </div>
                         &nbsp;
-                        <div *ngif="brainenabled ===1">
+                        <div *ngIf="+brainenabled === 1">
+                          <hr>
+                          <h5>Hashcat Brain Enabled</h5>&nbsp;
                           <div class="form-group">
                             <div class="form-outline">
-                              <label for="gethashlistformat">Hashcat Brain</label>
-                              <td>
-
-                              <select
-                                    id='hashcatbrain'
-                                    class='form-select'
-                                    formControlName="useBrain"
-                                    #usebrain
-                                  >
-                                <!-- <option [ngValue]="false" [defaultSelected]=true>No</option> -->
-                                <option [ngValue]="true">Yes</option>
-                              </select>
-                            </div>
-                          </div>
-                          &nbsp;
-                          <div class="form-group">
-                            <div class="form-outline" *ngIf="usebrain.selectedIndex === usebrain.options.length - 1">
                               <label class="form-label requiredak" for="getbrainfeatures">Hashlist format</label>
+                                <fa-icon
+                                        placement="bottom"
+                                        ngbTooltip='You can disable this setting in Config > Server > General Settings'
+                                        container="body"
+                                        [icon]="faInfoCircle"
+                                        aria-hidden="true"
+                                >
+                                </fa-icon>
                               <td>
                                 <select
                                       type='number'
@@ -141,6 +134,7 @@
                               </div>
                             </div>
                           </div>
+                          <hr>
                           &nbsp;
                         </div>
                         <div class="form-group">

@@ -39,9 +39,7 @@ export const DEFAULT_CONFIG = {
   tasks:{
     priority: 0,
     maxAgents: 0,
-    chunkTime: 600,
     chunkSize: 0,
-    statusTimer: 5,
   },
   // File settings
   chunkSizeTUS: 5000,

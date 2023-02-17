@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { ActivatedRoute, Params } from '@angular/router';
 import { environment } from './../../../environments/environment';
 import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +9,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ConfigService } from '../../core/_services/config/config.service';
 import { CookieService } from '../../core/_services/shared/cookies.service';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
+import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+
 
 @Component({
   selector: 'app-server',
@@ -25,8 +28,10 @@ export class ServerComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private cookieService: CookieService,
+    private uicService: UIConfigService,
     private tooltipService: TooltipService,
     private route:ActivatedRoute,
+    private store: Store<{configList: {}}>
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -64,6 +69,8 @@ export class ServerComponent implements OnInit {
   gstip: any =[]
 
   ngOnInit(): void {
+
+    this.store.select('configList');
 
     this.route.data.subscribe(data => {
       switch (data['kind']) {
@@ -277,22 +284,23 @@ export class ServerComponent implements OnInit {
 
   autoSave(key: string, value: any, sw?: boolean, collap?: boolean){
     clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
-    this.isLoading = true;
-    let params = {'filter=item': key};
-    this.configService.getAllconfig(params).subscribe((result)=>{
-      let indexUpdate = result.values.find(obj => obj.item === key).configId;
-      let valueUpdate = result.values.find(obj => obj.item === key).value;
-      let arr = {'item': key, 'value':  this.checkSwitch(value, valueUpdate, sw)};
-      this.configService.updateConfig(indexUpdate, arr).subscribe((result)=>{
-        if(collap === true){
-        this.isLoading = false;
-        }else{
-          this.savedAlert();
-          this.ngOnInit();
-        }
+      this.timeout = setTimeout(() => {
+      this.isLoading = true;
+      let params = {'filter=item': key};
+      this.configService.getAllconfig(params).subscribe((result)=>{
+        let indexUpdate = result.values.find(obj => obj.item === key).configId;
+        let valueUpdate = result.values.find(obj => obj.item === key).value;
+        let arr = {'item': key, 'value':  this.checkSwitch(value, valueUpdate, sw)};
+        this.configService.updateConfig(indexUpdate, arr).subscribe((result)=>{
+          this.uicService.onUpdatingCheck(key);
+          if(collap === true){
+          this.isLoading = false;
+          }else{
+            this.savedAlert();
+            this.ngOnInit();
+          }
+        });
       });
-    });
    }, 1500);
   }
 
