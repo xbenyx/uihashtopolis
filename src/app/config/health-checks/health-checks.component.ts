@@ -11,7 +11,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { HealthcheckService } from '../../core/_services/config/healthcheck.service';
 import { HashtypeService } from '../../core/_services/hashtype.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-health-checks',
@@ -98,7 +98,7 @@ export class HealthChecksComponent implements OnInit {
     });
   });
 
-  this.uidateformat = this.uiService.getUIsettings()._timefmt;
+  this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
   this.dtOptions = {
     dom: 'Bfrtip',

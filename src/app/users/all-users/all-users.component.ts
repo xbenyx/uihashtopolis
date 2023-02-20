@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from './../../../environments/environment';
 
 import { UsersService } from '../../core/_services/users/users.service';
-import { UIConfigService } from '../../core/_services/shared/uiconfig.service';
+import { UIConfigService } from '../../core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-all-users',
@@ -56,7 +56,7 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
       this.dtTrigger.next(void 0);
     });
 
-    this.uidateformat = this.uiService.getUIsettings()._timefmt;
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     this.dtOptions = {
       dom: 'Bfrtip',

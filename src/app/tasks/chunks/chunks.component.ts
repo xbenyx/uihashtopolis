@@ -4,7 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { ChunkService } from '../../core/_services/chunks.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-chunks',
@@ -35,7 +35,7 @@ export class ChunksComponent implements OnInit {
       this.dtTrigger.next(void 0);
     });
 
-    this.uidateformat = this.uiService.getUIsettings()._timefmt;
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     this.dtOptions = {
       dom: 'Bfrtip',

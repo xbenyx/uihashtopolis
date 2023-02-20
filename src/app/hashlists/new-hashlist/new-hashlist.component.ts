@@ -13,7 +13,7 @@ import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { HashtypeService } from 'src/app/core/_services/hashtype.service';
 import { AccessGroupsService } from '../../core/_services/accessgroups.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { UploadTUSService } from '../../core/_services/files/files_tus.service';
 
 import { AccessGroup } from '../../core/_models/access-group';
@@ -61,7 +61,7 @@ export class NewHashlistComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
 
-    this.brainenabled = this.uiService.getUIsettings()._enablebrain;
+    this.brainenabled = this.uiService.getUIsettings('hashcatBrainEnable').value;
 
     this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
       this.accessgroup = agroups.values;

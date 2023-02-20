@@ -9,7 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { VoucherService } from '../../core/_services/agents/voucher.service';
 import { AgentBinService } from 'src/app/core/_services/config/agentbinary.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-new-agent',
@@ -76,7 +76,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       this.dtTrigger.next(void 0);
     });
 
-    this.uidateformat = this.uiService.getUIsettings()._timefmt;
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     this.dtOptions = {
       dom: 'Bfrtip',

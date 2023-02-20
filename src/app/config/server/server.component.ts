@@ -9,7 +9,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ConfigService } from '../../core/_services/config/config.service';
 import { CookieService } from '../../core/_services/shared/cookies.service';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 
 @Component({

@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 
 import { HealthcheckService } from '../../../core/_services/config/healthcheck.service';
 import { AgentsService } from '../../../core/_services/agents/agents.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-edit-health-checks',
@@ -69,7 +69,7 @@ export class EditHealthChecksComponent implements OnInit {
       this.isLoading = false;
     });
 
-    this.uidateformat = this.uiService.getUIsettings()._timefmt;
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     this.dtOptions = {
       dom: 'Bfrtip',

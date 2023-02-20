@@ -7,7 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { environment } from 'src/environments/environment';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 declare let $:any;
 
@@ -53,7 +53,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       this.dtTrigger.next(void 0);
     });
 
-    this.uidateformat = this.uiService.getUIsettings()._timefmt;
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     const self = this;
     this.dtOptions = {

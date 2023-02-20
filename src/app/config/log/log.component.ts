@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
 
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { LogentryService } from '../../core/_services/config/logentry.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class LogComponent implements OnInit {
         this.dtTrigger.next(void 0);
       });
 
-      this.uidateformat = this.uiService.getUIsettings()._timefmt;
+      this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
       this.dtOptions = {
         dom: 'Bfrtip',

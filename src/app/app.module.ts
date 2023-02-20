@@ -14,6 +14,8 @@ import { StoreModule } from '@ngrx/store';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MomentModule } from 'ngx-moment';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 // Todo PrimeNG
 
 /**
@@ -28,6 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 import { ErrorPageComponent } from './layout/error-page/error-page.component';
+import { TimeoutComponent } from './shared/alert/timeout/timeout.component';
 import { AuthInterceptorService } from './core/_interceptors/auth-interceptor.service';
 /**
  * App Modules, Reducers
@@ -58,6 +61,8 @@ import { configReducer } from './core/_store/config.reducer';
     ReactiveFormsModule,
     FormsModule,
     NgbModule,
+    MomentModule,
+    NgIdleKeepaliveModule.forRoot(),
     FontAwesomeModule,
     DataTablesModule,
     CommonModule,
@@ -69,6 +74,7 @@ import { configReducer } from './core/_store/config.reducer';
     StoreModule.forRoot({configList: configReducer})
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}, AppPreloadingStrategy],
+  entryComponents:[TimeoutComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

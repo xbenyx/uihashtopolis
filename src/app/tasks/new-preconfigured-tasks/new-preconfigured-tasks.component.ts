@@ -13,7 +13,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 declare let $:any;
 
@@ -161,10 +161,10 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
     this.createForm = new FormGroup({
       'taskName': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl(null || '#HL#', [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
+      'attackCmd': new FormControl(this.uiService.getUIsettings('hashlistAlias').value, [Validators.required, this.forbiddenChars(this.getBanChars())]),
       'maxAgents': new FormControl(null || this.maxAgents),
-      'chunkTime': new FormControl(null || this.uiService.getUIsettings()._chunkt),
-      'statusTimer': new FormControl(null || this.uiService.getUIsettings()._statimer),
+      'chunkTime': new FormControl(null || this.uiService.getUIsettings('chunktime').value),
+      'statusTimer': new FormControl(null || this.uiService.getUIsettings('statustimer').value),
       'priority': new FormControl(0),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),
@@ -254,12 +254,20 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   }
 
   onRemoveFChars(){
-    const forbidden = /[&*;$()\[\]{}'"\\|<>\/]/g;
     let currentCmd = this.createForm.get('attackCmd').value;
-    currentCmd = currentCmd.replace(forbidden,'');
+    currentCmd = currentCmd.replace(this.getBanChars(),'');
     this.createForm.patchValue({
       attackCmd: currentCmd
     });
+  }
+
+  getBanChars(){
+    var chars = this.uiService.getUIsettings('blacklistChars').value.replace(']', '\\]').replace('[', '\\[');
+    return new RegExp('['+chars+'\/]', "g")
+  }
+
+  getBanChar(){
+    return this.uiService.getUIsettings('blacklistChars').value;
   }
 
   // Path Color DOM value

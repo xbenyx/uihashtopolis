@@ -15,7 +15,7 @@ import { FilesService } from '../../core/_services/files/files.service';
 import { DataTableDirective } from 'angular-datatables';
 import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-new-tasks',
@@ -145,8 +145,12 @@ export class NewTasksComponent implements OnInit {
   }
 
   getBanChars(){
-    var chars = this.uiService.getUIsettings()._bchars.replace(']', '\\]').replace('[', '\\[');
+    var chars = this.uiService.getUIsettings('blacklistChars').value.replace(']', '\\]').replace('[', '\\[');
     return new RegExp('['+chars+'\/]', "g")
+  }
+
+  getBanChar(){
+    return this.uiService.getUIsettings('blacklistChars').value;
   }
 
   // Tooltips
@@ -241,11 +245,11 @@ export class NewTasksComponent implements OnInit {
       'taskName': new FormControl('', [Validators.required]),
       'notes': new FormControl(''),
       'hashlistId': new FormControl('', [Validators.required]),
-      'attackCmd': new FormControl(this.uiService.getUIsettings()._halias, [Validators.required, this.forbiddenChars(this.getBanChars())]),
+      'attackCmd': new FormControl(this.uiService.getUIsettings('hashlistAlias').value, [Validators.required, this.forbiddenChars(this.getBanChars())]),
       'priority': new FormControl(null || this.priority,[Validators.required, Validators.pattern("^[0-9]*$")]),
       'maxAgents': new FormControl(null || this.maxAgents),
-      'chunkTime': new FormControl(null || this.uiService.getUIsettings()._chunkt),
-      'statusTimer': new FormControl(null || this.uiService.getUIsettings()._statimer),
+      'chunkTime': new FormControl(null || this.uiService.getUIsettings('chunktime').value),
+      'statusTimer': new FormControl(null || this.uiService.getUIsettings('statustimer').value),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),
       'skipKeyspace': new FormControl(null || 0),
@@ -278,7 +282,7 @@ export class NewTasksComponent implements OnInit {
   }
 
   getValueBchars(): void {
-    this.uiService.getUIsettings()._bchars
+    this.uiService.getUIsettings('blacklistChars').value
   }
 
   async fetchData() {
@@ -317,7 +321,7 @@ export class NewTasksComponent implements OnInit {
 
   patchHashalias(){
     this.createForm.patchValue({
-      attackCmd:this.uiService.getUIsettings()._halias
+      attackCmd:this.uiService.getUIsettings('hashlistAlias').value
     });
   }
 

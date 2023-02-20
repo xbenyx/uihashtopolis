@@ -1,4 +1,4 @@
-export class UIConfig {
+export class IStorage {
   constructor(
     private _timefmt: string,
     private _enablebrain: number,
@@ -6,7 +6,8 @@ export class UIConfig {
     private _bchars: string,
     private _chunkt: string,
     private _statimer: string,
-    private _expires: number
+    private _timestamp: number,
+    private _expiresin: number,
   ) {}
 
 }
@@ -17,3 +18,4 @@ export class UIGConfig {
   ) {}
 
 }
+

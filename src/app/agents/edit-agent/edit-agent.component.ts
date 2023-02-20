@@ -7,7 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UsersService } from '../../core/_services/users/users.service';
-import { UIConfigService } from 'src/app/core/_services/shared/uiconfig.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-edit-agent',
@@ -76,7 +76,7 @@ export class EditAgentComponent implements OnInit {
       this.users = user.values;
     });
 
-    this.uidateformat = this.uiService.getUIsettings()._timefmt;
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
   }
 
