@@ -39,6 +39,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   // ToDo add model
   showagents: any = [];
 
+  private maxResults = environment.config.prodApiMaxResults
+
   constructor(
     private agentsService: AgentsService,
     private uiService: UIConfigService,
@@ -47,7 +49,9 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.agentsService.getAgents().subscribe((agents: any) => {
+    let params = {'maxResults': this.maxResults}
+
+    this.agentsService.getAgents(params).subscribe((agents: any) => {
       this.showagents = agents.values;
       // this.showagents.forEach(f => (f.checked = false));
       this.dtTrigger.next(void 0);

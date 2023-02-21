@@ -5,6 +5,8 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { FilterService } from 'src/app/core/_services/filter.service';
 import { environment } from 'src/environments/environment';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
+import { AgentStatService } from 'src/app/core/_services/agents/agentstats.service';
 
 @Component({
   selector: 'app-agent-status',
@@ -32,10 +34,18 @@ export class AgentStatusComponent implements OnInit {
   totalRecords = 0;
   pageSize = 20;
 
+  // stats
+  showstats: any[] = [];
+
+  private maxResults = environment.config.prodApiMaxResults
+  params = {'maxResults': this.maxResults}
+
   constructor(
     private agentsService: AgentsService,
+    private astatService: AgentStatService,
     private modalService: NgbModal,
-    private filterService: FilterService
+    private filterService: FilterService,
+    private uiService: UIConfigService
   ) { }
 
   get filteredCustomers() {
@@ -48,6 +58,7 @@ export class AgentStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAgentsPage(1);
+    this.getAgentStats();
   }
 
   pageChanged(page: number) {
@@ -55,11 +66,17 @@ export class AgentStatusComponent implements OnInit {
   }
 
   getAgentsPage(page: number) {
-    this.agentsService.getAgents().subscribe((agents: any) => {
+    this.agentsService.getAgents(this.params).subscribe((agents: any) => {
       this.showagents = this.filteredCustomers = agents.values;
       this.totalRecords = agents.total;
-      console.log(this.totalRecords)
     });
+  }
+
+  getAgentStats(){
+    this.astatService.getAstats(this.params).subscribe((stats: any) => {
+      this.showstats = stats.values;
+    });
+
   }
 
   // Filter
@@ -69,13 +86,29 @@ export class AgentStatusComponent implements OnInit {
         data = data.toUpperCase();
         const props = ['agentName', 'agentId'];
         this._filteredCustomers = this.filterService.filter<any>(this.showagents, data, props);
-        console.log(this._filteredCustomers)
     } else {
       this._filteredCustomers = this.showagents;
     }
   }
 
   // Modal Agent utilisation
+
+  getTemp1(){  // Temperature Config Setting
+    return this.uiService.getUIsettings('agentTempThreshold1').value;
+  }
+
+  getTemp2(){  // Temperature Config Setting
+    return this.uiService.getUIsettings('agentTempThreshold2').value;
+  }
+
+  getUtil1(){  // CPU Config Setting
+    return this.uiService.getUIsettings('agentUtilThreshold1').value;
+  }
+
+  getUtil2(){  // CPU Config Setting
+    return this.uiService.getUIsettings('agentUtilThreshold2').value;
+  }
+
   closeResult = '';
   open(content) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(

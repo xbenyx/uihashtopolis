@@ -39,7 +39,7 @@
                       <div class="pull-left card-body-left-ag">
                       </div>
                       <div class="pull-left card-body-right-ag">
-                          <div class="card-body-content-ag">
+                          <div class="card-body-content-ag" *ngFor="let a of showstats">
                             <fa-icon
                                     placement="bottom"
                                     (click)="open(device)"
@@ -82,15 +82,6 @@
       </div>
   </div>
 </div>
-<!-- Pagination -->
-<div class="align-items-right py-4">
-  <cm-pagination
-                [totalItems]="totalRecords"
-                [pageSize]="pageSize"
-                (pageChanged)="pageChanged($event)"
-  >
-  </cm-pagination>
-</div>
 <!-- Modal Device Utilisation -->
 <ng-template #device let-modal>
 	<div class="modal-header">
@@ -101,13 +92,13 @@
 			<div class="mb-3">
         <div class="row">
           <p>
-            <span style="color: #009933;">■</span> Device utilisation is good (> AddConfigThreshold %)
+            <span style="color: #009933;">■</span> Device utilisation is good (> {{ this.getUtil1() }} %)
           </p>
           <p>
-            <span style="color: #ff9900;">■</span> Device utilisation not ideal (<= AddConfigThreshold %)
+            <span style="color: #ff9900;">■</span> Device utilisation not ideal (<= {{ this.getUtil2() }} %)
           </p>
           <p>
-            <span style="color: #800000;">■</span> Device utilisation low (<= AddConfigThreshold %)
+            <span style="color: #800000;">■</span> Device utilisation low (<= {{ this.getUtil2() }} %)
           </p>
           <p>
             <span style="color: #CCCCCC;">■</span> Agent is not active
@@ -139,13 +130,13 @@
 			<div class="mb-3">
         <div class="row">
           <p>
-            <span style="color: #009933;">■</span> Device temperatures good (<= AddConfigThreshold°C)
+            <span style="color: #009933;">■</span> Device temperatures good ( <= {{ this.getTemp1() }})
           </p>
           <p>
-            <span style="color: #ff9900;">■</span> Device temperatures acceptable (<= AddConfigThreshold°C)
+            <span style="color: #ff9900;">■</span> Device temperatures acceptable ( <= {{ this.getTemp2() }})
           </p>
           <p>
-            <span style="color: #800000;">■</span> Device temperatures too high (> AddConfigThreshold°C)
+            <span style="color: #800000;">■</span> Device temperatures too high ( > {{ this.getTemp2() }})
           </p>
           <p>
             <span style="color: #CCCCCC;">■</span> Agent is not active
@@ -177,13 +168,13 @@
 			<div class="mb-3">
         <div class="row">
           <p>
-            <span style="color: #009933;">■</span> CPU utilisation is good (> AddConfigThreshold %)
+            <span style="color: #009933;">■</span> CPU utilisation is good (> {{ this.getUtil1() }} %)
           </p>
           <p>
-            <span style="color: #ff9900;">■</span> CPU utilisation not ideal (<= AddConfigThreshold %)
+            <span style="color: #ff9900;">■</span> CPU utilisation not ideal (<= {{ this.getUtil2() }} %)
           </p>
           <p>
-            <span style="color: #800000;">■</span> CPU utilisation low (<= AddConfigThreshold %)
+            <span style="color: #800000;">■</span> CPU utilisation low (<= {{ this.getUtil2() }} %)
           </p>
           <p>
             <span style="color: #CCCCCC;">■</span> Agent is not active
@@ -207,3 +198,12 @@
 </ng-template>
 
 
+<!-- Pagination -->
+<div class="align-items-right py-4">
+  <cm-pagination
+                [totalItems]="totalRecords"
+                [pageSize]="pageSize"
+                (pageChanged)="pageChanged($event)"
+  >
+  </cm-pagination>
+</div>
