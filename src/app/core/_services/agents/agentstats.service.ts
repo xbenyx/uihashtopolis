@@ -13,6 +13,12 @@ export class AgentStatService {
 
   constructor(private http: HttpClient) { }
 
+/**
+ * Returns all the agent stats
+ * @param routerParams - to include multiple options such as Max number or results or filtering
+ * @returns Raw Object
+**/
+
   getAstats(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -24,6 +30,13 @@ export class AgentStatService {
       catchError(this.handleError)
     );
   }
+
+/**
+ * Returns all the agent stats
+ * @param routerParams
+ * @returns
+**/
+
 
   private handleError ( err : HttpErrorResponse ) {
     if (err.error instanceof ErrorEvent){
