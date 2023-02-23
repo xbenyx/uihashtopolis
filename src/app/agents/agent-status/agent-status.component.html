@@ -26,7 +26,7 @@
 <br>
 <div class="container">
   <div class="row card-container-ag">
-      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of _filteredCustomers | sort:statusOrderBy:statusOrderByName">
+      <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let a of _filteredCustomers | sort:statusOrderBy:statusOrderByName ; let ind=index">
           <div class="card card-ag">
               <div class="card-header-ag">
                 <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
@@ -38,8 +38,9 @@
                   <div class="clearfix">
                       <div class="pull-left card-body-left-ag">
                       </div>
-                      <div class="pull-left card-body-right-ag">
-                          <div class="card-body-content-ag" *ngFor="let a of showstats">
+                      <div class="pull-left card-body-right-ag" >
+                        <div *ngFor="let st of filterResult1 ; let i=index">
+                          <div class="card-body-content-ag">
                             <fa-icon
                                     placement="bottom"
                                     (click)="open(device)"
@@ -49,6 +50,8 @@
                                     class="gray-light-ico"
                             ></fa-icon>
                             Data...
+                            {{ st.agentName}}
+                            <!-- {{ st.value | avg:st.value }} -->
                           </div>
                           <div class="card-body-content-ag">
                             <fa-icon
@@ -72,6 +75,7 @@
                             ></fa-icon>
                             Data...
                           </div>
+                        </div>
                       </div>
                   </div>
               </div>

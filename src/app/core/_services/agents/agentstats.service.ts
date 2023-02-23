@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Params } from '@angular/router';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { Observable, tap, catchError, throwError, Subject, take } from 'rxjs';
+
+import { ConfigService } from '../config/config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,12 @@ import { Observable, tap, catchError, throwError } from 'rxjs';
 export class AgentStatService {
 
   private endpoint = environment.config.prodApiEndpoint + '/ui/agentstats';
+  private maxResults = environment.config.prodApiMaxResults;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private configService:ConfigService
+    ) { }
 
 /**
  * Returns all the agent stats
@@ -32,10 +38,21 @@ export class AgentStatService {
   }
 
 /**
- * Returns all the agent stats
+ * Return agent stats
  * @param routerParams
  * @returns
 **/
+
+public userSubject: Subject<string> = new Subject();
+
+ getAgentTimeout(){
+  let params = {'maxResults': this.maxResults};
+  return this.configService.getAllconfig(params).pipe(take(1)).subscribe()
+
+  // this.configService.getAllconfig(params).subscribe((result)=>{
+  //   this.userSubject.next(result.values.find(obj => obj.item === 'agenttimeout').value);
+  // });
+  }
 
 
   private handleError ( err : HttpErrorResponse ) {

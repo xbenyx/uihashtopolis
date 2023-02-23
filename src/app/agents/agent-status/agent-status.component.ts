@@ -59,6 +59,7 @@ export class AgentStatusComponent implements OnInit {
   ngOnInit(): void {
     this.getAgentsPage(1);
     this.getAgentStats();
+    this.getDeviceTemp();
   }
 
   pageChanged(page: number) {
@@ -73,8 +74,10 @@ export class AgentStatusComponent implements OnInit {
   }
 
   getAgentStats(){
-    this.astatService.getAstats(this.params).subscribe((stats: any) => {
+    let paramsstat = {'maxResults': this.maxResults, 'filter': 'statType=1'}
+    this.astatService.getAstats(paramsstat).subscribe((stats: any) => {
       this.showstats = stats.values;
+      console.log(this.showstats)
     });
 
   }
@@ -89,6 +92,13 @@ export class AgentStatusComponent implements OnInit {
     } else {
       this._filteredCustomers = this.showagents;
     }
+  }
+
+  // Filter Agent Stats
+
+  filterResult1: any = this._filteredCustomers.filter(u=> u.statType == '1');
+  getDeviceTemp(){
+    console.log(this.astatService.getAgentTimeout())
   }
 
   // Modal Agent utilisation
