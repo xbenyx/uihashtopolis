@@ -77,9 +77,9 @@ export class AgentStatusComponent implements OnInit {
   getAgentStats(){
     let paramsstat = {'maxResults': this.maxResults}
     this.astatService.getAstats(paramsstat).subscribe((stats: any) => {
-      this.statTemp = stats.values.filter(u=> u.statType == '1');
-      this.statDevice = stats.values.filter(u=> u.statType == '2');
-      this.statCpu = stats.values.filter(u=> u.statType == '3');
+      this.statTemp = stats.values.filter(u=> u.statType == '1'); // filter Device Temperature
+      this.statDevice = stats.values.filter(u=> u.statType == '2'); // filter Device Utilization
+      this.statCpu = stats.values.filter(u=> u.statType == '3'); // filter CPU utilization
       console.log(this.statTemp)
     });
 

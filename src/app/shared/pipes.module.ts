@@ -14,6 +14,7 @@ import { FileSizePipe } from "../core/_pipes/file-size.pipe";
 import { FileTypePipe } from "../core/_pipes/file-type.pipe";
 import { FilterItemPipe } from "../core/_pipes/filter-item.pipe";
 import { MaximizePipe } from "../core/_pipes/maximize-object.pipe";
+import { AgentSColorPipe } from "../core/_pipes/agentstat-color.pipe";
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { MaximizePipe } from "../core/_pipes/maximize-object.pipe";
     SecondsToTimePipe,
     WarningColorPipe,
     StaticArrayPipe,
+    AgentSColorPipe,
     FilterItemPipe,
     ArraySortPipe,
     FileSizePipe,
@@ -40,6 +42,7 @@ import { MaximizePipe } from "../core/_pipes/maximize-object.pipe";
     SecondsToTimePipe,
     WarningColorPipe,
     StaticArrayPipe,
+    AgentSColorPipe,
     FilterItemPipe,
     ArraySortPipe,
     FileSizePipe,
