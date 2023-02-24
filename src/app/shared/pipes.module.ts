@@ -13,6 +13,7 @@ import { SearchPipe } from "../core/_pipes/filter-search.pipe";
 import { FileSizePipe } from "../core/_pipes/file-size.pipe";
 import { FileTypePipe } from "../core/_pipes/file-type.pipe";
 import { FilterItemPipe } from "../core/_pipes/filter-item.pipe";
+import { MaximizePipe } from "../core/_pipes/maximize-object.pipe";
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FilterItemPipe } from "../core/_pipes/filter-item.pipe";
     ArraySortPipe,
     FileSizePipe,
     FileTypePipe,
+    MaximizePipe,
     AveragePipe,
     SearchPipe,
   ],
@@ -42,6 +44,7 @@ import { FilterItemPipe } from "../core/_pipes/filter-item.pipe";
     ArraySortPipe,
     FileSizePipe,
     FileTypePipe,
+    MaximizePipe,
     AveragePipe,
     SearchPipe,
   ]

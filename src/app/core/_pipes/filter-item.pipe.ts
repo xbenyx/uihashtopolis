@@ -4,14 +4,14 @@ import {
 } from '@angular/core';
 
 /**
- * Transform bytes to a readable unit adding abbreviation units or long form
- * @param sizeB - The input number
- * @param longForm -The output unit abbreviation or long text
+ * Pipe to filter by Id
+ * @param key - The input column name
+ * @param value -The input id value
  * Usage:
  *   value | fileSize:Units
  * Example:
- *   {{ 1024 | fileSize:FILE_SIZE_UNITS }}
- * @returns 1KB
+ *   {{ Object | filterItem:'agentId':a.agentId }}
+ * @returns Filter by Id
 **/
 
 @Pipe({
@@ -19,15 +19,11 @@ import {
 })
 export class FilterItemPipe implements PipeTransform {
 
-  transform(value: any, filterString:string, id?: number) {
+  transform(list: any, key:string, value:number) {
     // use the id
     if(value === undefined  || value === null) return value;
 
-    console.log(value)
-
-    return value.filter(function(element) {
-        return element.name.toLowerCase().includes(filterString.toLocaleLowerCase());
-    })
+    return list.filter(i => i[key] === +value);
 }
 
 }
