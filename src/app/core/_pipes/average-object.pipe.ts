@@ -4,14 +4,14 @@ import {
 } from '@angular/core';
 
 /**
- * Transform bytes to a readable unit adding abbreviation units or long form
- * @param sizeB - The input number
- * @param longForm -The output unit abbreviation or long text
+ * This function takes the object access the key values annd returns the max value
+ * @param value - Object
+ * @param props -Column name
  * Usage:
- *   value | fileSize:Units
+ *   object | avg:'name'
  * Example:
- *   {{ 1024 | fileSize:FILE_SIZE_UNITS }}
- * @returns 1KB
+ *   {{ object | avg:'value' }}
+ * @returns number
 **/
 
 @Pipe({
@@ -19,19 +19,19 @@ import {
 })
 export class AveragePipe implements PipeTransform {
 
-  // transform(items: any[], attr: string): any {
-  //   return items.reduce((a, b) => a + b[attr], 0);
-  // }
+  transform(value: any[], props: string) {
+      if (value.length === 0) {
+        return 'No data';
+      }
 
-  transform(value: any[], prop: string) {
-    if (value.length === 0 || !prop) {
-      return 'No data';
+      var arr = [];
+
+      for(let i=0; i<value.length; i++){
+        arr.push(value[i][props]);
+      }
+      var max = Math.max(...arr)
+
+      return max;
+
     }
-
-    let arr = Object.values(value);
-    let max = Math.max(...arr);
-
-    return max;
-  }
-
 }

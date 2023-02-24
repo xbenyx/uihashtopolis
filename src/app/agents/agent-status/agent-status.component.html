@@ -39,8 +39,7 @@
                       <div class="pull-left card-body-left-ag">
                       </div>
                       <div class="pull-left card-body-right-ag" >
-                        <div *ngFor="let st of filterResult1 ; let i=index">
-                          <div class="card-body-content-ag">
+                          <div class="card-body-content-ag" *ngIf="statDevice | avg:'value' as result">
                             <fa-icon
                                     placement="bottom"
                                     (click)="open(device)"
@@ -49,11 +48,9 @@
                                     aria-hidden="true"
                                     class="gray-light-ico"
                             ></fa-icon>
-                            Data...
-                            {{ st.agentName}}
-                            <!-- {{ st.value | avg:st.value }} -->
+                            {{ result === 'No data'? result:result +'%' }}
                           </div>
-                          <div class="card-body-content-ag">
+                          <div class="card-body-content-ag" *ngIf="statTemp | avg:'value' as result">
                             <fa-icon
                                     placement="bottom"
                                     (click)="open(temperature)"
@@ -62,9 +59,9 @@
                                     aria-hidden="true"
                                     class="gray-light-ico"
                             ></fa-icon>
-                            Data...
+                            {{ result === 'No data'? result:result +'°' }}
                           </div>
-                          <div class="card-body-content-ag">
+                          <div class="card-body-content-ag" *ngIf="statCpu | avg:'value' as result">
                             <fa-icon
                                     placement="bottom"
                                     (click)="open(cpu)"
@@ -73,9 +70,8 @@
                                     aria-hidden="true"
                                     class="gray-light-ico"
                             ></fa-icon>
-                            Data...
+                            {{ result === 'No data'? result:result +'°' }}
                           </div>
-                        </div>
                       </div>
                   </div>
               </div>
@@ -202,12 +198,12 @@
 </ng-template>
 
 
-<!-- Pagination -->
-<div class="align-items-right py-4">
+<!-- Todo Fix Pagination -->
+<!-- <div class="align-items-right py-4">
   <cm-pagination
                 [totalItems]="totalRecords"
                 [pageSize]="pageSize"
                 (pageChanged)="pageChanged($event)"
   >
   </cm-pagination>
-</div>
+</div> -->

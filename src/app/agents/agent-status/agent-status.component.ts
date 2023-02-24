@@ -34,9 +34,6 @@ export class AgentStatusComponent implements OnInit {
   totalRecords = 0;
   pageSize = 20;
 
-  // stats
-  showstats: any[] = [];
-
   private maxResults = environment.config.prodApiMaxResults
   params = {'maxResults': this.maxResults}
 
@@ -59,7 +56,6 @@ export class AgentStatusComponent implements OnInit {
   ngOnInit(): void {
     this.getAgentsPage(1);
     this.getAgentStats();
-    this.getDeviceTemp();
   }
 
   pageChanged(page: number) {
@@ -73,11 +69,19 @@ export class AgentStatusComponent implements OnInit {
     });
   }
 
+  // stats
+  statDevice: any[] = [];
+  statTemp: any[] = [];
+  statCpu: any[] = [];
+
   getAgentStats(){
-    let paramsstat = {'maxResults': this.maxResults, 'filter': 'statType=1'}
+    let paramsstat = {'maxResults': this.maxResults}
+    // let paramsstat = {'maxResults': this.maxResults, 'filter': 'statType='+statType+''}
     this.astatService.getAstats(paramsstat).subscribe((stats: any) => {
-      this.showstats = stats.values;
-      console.log(this.showstats)
+      this.statTemp = stats.values.filter(u=> u.statType == '1');
+      this.statDevice = stats.values.filter(u=> u.statType == '2');
+      this.statCpu = stats.values.filter(u=> u.statType == '3');
+      console.log(this.statTemp)
     });
 
   }
@@ -96,10 +100,10 @@ export class AgentStatusComponent implements OnInit {
 
   // Filter Agent Stats
 
-  filterResult1: any = this._filteredCustomers.filter(u=> u.statType == '1');
-  getDeviceTemp(){
-    console.log(this.astatService.getAgentTimeout())
-  }
+  // filterResult1: any = this._filteredCustomers.filter(u=> u.statType == '1');
+  // getDeviceTemp(){
+  //   console.log(this.astatService.getAgentTimeout())
+  // }
 
   // Modal Agent utilisation
 
