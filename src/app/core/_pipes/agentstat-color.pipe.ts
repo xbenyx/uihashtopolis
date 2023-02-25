@@ -4,7 +4,8 @@ import {
 } from '@angular/core';
 
 /**
- * Returns different color depending on thresholds
+ * Returns different hex color depending on thresholds and Agent type
+ * 1 = Device Temperature, 2 = Device Utilizations, 3 = CPU utilization
  * @param value - The input number value
  * Usage:
  *   value | asColor
