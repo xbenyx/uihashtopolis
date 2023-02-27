@@ -54,8 +54,6 @@ import { AgentSColorPipe } from "../core/_pipes/agentstat-color.pipe";
 })
 export class PipesModule {}
 
-// AveragePipe
-
 
 
 
