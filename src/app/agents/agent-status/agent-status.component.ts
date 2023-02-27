@@ -98,6 +98,11 @@ export class AgentStatusComponent implements OnInit {
     }
   }
 
+  // Hover style
+  hoverListItem(opportunity) {
+    opportunity.listItemHovered = !opportunity.listItemHovered;
+  }
+
   // Modal Agent utilisation
 
   getTemp1(){  // Temperature Config Setting
@@ -137,6 +142,9 @@ export class AgentStatusComponent implements OnInit {
 			return `with: ${reason}`;
 		}
 	}
+
+  zone1 = { isHovered: false };
+  zone2 = { isHovered: false };
 
 
 

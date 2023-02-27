@@ -54,4 +54,13 @@
 
 .gray-light-ico:hover{
   color: rgb(177, 172, 172);
+  transform: scale(1.5);
+}
+
+.black-zoom-ico:hover{
+  transform: scale(1.5);
+}
+
+.highlight {
+  background-color: #999
 }

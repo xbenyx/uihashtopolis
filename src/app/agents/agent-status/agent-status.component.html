@@ -36,19 +36,18 @@
               </div>
               <div class="card-body">
                   <div class="clearfix">
-                      <div class="pull-left card-body-left-ag">
-                      </div>
-                      <div class="pull-left card-body-right-ag" >
+                      <div class="pull-left card-body-left-ag"></div>
+                      <div class="pull-left card-body-right-ag">
                           <div class="card-body-content-ag" *ngIf="statDevice | filterItem:'agentId':a.agentId | avg:'value' as result">
-                            <fa-icon
-                                    placement="bottom"
-                                    (click)="open(device)"
-                                    container="body"
-                                    [icon]="faDigitalTachograph"
-                                    aria-hidden="true"
-                                    class="gray-light-ico"
-                            ></fa-icon>
-                            {{ result === 'No data'? result:result +'%' }}
+                              <fa-icon
+                                      placement="bottom"
+                                      (click)="open(device)"
+                                      container="body"
+                                      [icon]="faDigitalTachograph"
+                                      aria-hidden="true"
+                                      [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1}"
+                              ></fa-icon>
+                              <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                             <div>
                               <!-- Modal Device Utilisation -->
                               <ng-template #device let-modal>
@@ -97,9 +96,10 @@
                                     container="body"
                                     [icon]="faTemperature0"
                                     aria-hidden="true"
+                                    [ngStyle]="{'color':result | asColor:this.getTemp1():this.getTemp2():2}"
                                     class="gray-light-ico"
                             ></fa-icon>
-                            {{ result === 'No data'? result:result +'°' }}
+                            <a underline>{{ result === 'No data'? result:result +'°' }}</a>
                             <div>
                               <!-- Modal Temperature -->
                               <ng-template #temperature let-modal>
@@ -150,7 +150,7 @@
                                     aria-hidden="true"
                                     class="gray-light-ico"
                             ></fa-icon>
-                            {{ result === 'No data'? result:result +'%' }}
+                            <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                             <div>
                               <!-- CPU Utilisation -->
                               <ng-template #cpu let-modal>
