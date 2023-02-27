@@ -2,6 +2,7 @@ import {
   PipeTransform,
   Pipe,
 } from '@angular/core';
+import { ASC } from '../_constants/agentsc.config';
 
 /**
  * Returns different hex color depending on thresholds and Agent type
@@ -22,13 +23,14 @@ export class AgentSColorPipe implements PipeTransform {
   transform(value: any, threshold1: number, threshold2: number, stattype: number ) {
     if(+value == 0)
       return '#FF0000';
-    if (+value > threshold1 && (stattype == 1 || stattype == 3))
-      return '#009933';
-    else if (+value > threshold2 && (stattype == 1 || stattype == 3))
+    if (+value > threshold1 && (stattype == ASC.GPU_TEMP || stattype == ASC.CPU_UTIL))
+      return console.log(ASC.CPU_UTIL)
+      // return '#009933';
+    else if (+value > threshold2 && (stattype == ASC.GPU_TEMP || stattype == ASC.CPU_UTIL))
       return '#ff9900';
-    if (+value <= threshold1 && stattype == 2)
+    if (+value <= threshold1 && stattype == ASC.GPU_UTIL)
       return '#009933';
-    else if (+value <= threshold2 && stattype == 2 )
+    else if (+value <= threshold2 && stattype == ASC.GPU_UTIL )
       return '#ff9900';
     else
       return '#800000';
