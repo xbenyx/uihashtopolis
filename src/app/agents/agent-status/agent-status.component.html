@@ -32,7 +32,7 @@
                 <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
                   <fa-icon [icon]="faEdit" aria-hidden="true" class="white-ico"></fa-icon>
                 </a>
-                  {{ a.agentName | shortenString:15 | lowercase | titlecase}}
+                <a underline>{{ a.agentName | shortenString:15 | lowercase | titlecase}} </a>
               </div>
               <div class="card-body">
                   <div class="clearfix">
@@ -45,6 +45,7 @@
                                       container="body"
                                       [icon]="faDigitalTachograph"
                                       aria-hidden="true"
+                                      hoverDashed
                                       [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1}"
                               ></fa-icon>
                               <a underline>{{ result === 'No data'? result:result +'%' }}</a>
@@ -96,8 +97,9 @@
                                     container="body"
                                     [icon]="faTemperature0"
                                     aria-hidden="true"
-                                    [ngStyle]="{'color':result | asColor:this.getTemp1():this.getTemp2():2}"
-                                    class="gray-light-ico"
+                                    hoverDashed
+                                    [ngStyle]="{'color': result | asColor:this.getTemp1():this.getTemp2():2}"
+
                             ></fa-icon>
                             <a underline>{{ result === 'No data'? result:result +'°' }}</a>
                             <div>
@@ -148,7 +150,8 @@
                                     container="body"
                                     [icon]="faMicrochip"
                                     aria-hidden="true"
-                                    class="gray-light-ico"
+                                    hoverDashed
+                                    [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3}"
                             ></fa-icon>
                             <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                             <div>

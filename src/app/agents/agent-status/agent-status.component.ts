@@ -99,9 +99,7 @@ export class AgentStatusComponent implements OnInit {
   }
 
   // Hover style
-  hoverListItem(opportunity) {
-    opportunity.listItemHovered = !opportunity.listItemHovered;
-  }
+
 
   // Modal Agent utilisation
 
