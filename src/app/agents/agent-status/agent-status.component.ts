@@ -1,6 +1,7 @@
 import { Component, OnInit, ComponentRef, Input } from '@angular/core';
 import { faDigitalTachograph, faMicrochip, faHomeAlt, faPlus, faUserSecret,faEye, faTemperature0, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ASC } from '../../core/_constants/agentsc.config';
 
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { FilterService } from 'src/app/core/_services/filter.service';
@@ -69,7 +70,7 @@ export class AgentStatusComponent implements OnInit {
     });
   }
 
-  // stats
+  // Agents Stats
   statDevice: any[] = [];
   statTemp: any[] = [];
   statCpu: any[] = [];
@@ -77,9 +78,9 @@ export class AgentStatusComponent implements OnInit {
   getAgentStats(){
     let paramsstat = {'maxResults': this.maxResults}
     this.astatService.getAstats(paramsstat).subscribe((stats: any) => {
-      this.statTemp = stats.values.filter(u=> u.statType == '1'); // filter Device Temperature
-      this.statDevice = stats.values.filter(u=> u.statType == '2'); // filter Device Utilization
-      this.statCpu = stats.values.filter(u=> u.statType == '3'); // filter CPU utilization
+      this.statTemp = stats.values.filter(u=> u.statType == ASC.GPU_TEMP); // filter Device Temperature
+      this.statDevice = stats.values.filter(u=> u.statType == ASC.GPU_UTIL); // filter Device Utilization
+      this.statCpu = stats.values.filter(u=> u.statType == ASC.CPU_UTIL); // filter CPU utilization
       console.log(this.statTemp)
     });
 
@@ -96,13 +97,6 @@ export class AgentStatusComponent implements OnInit {
       this._filteredCustomers = this.showagents;
     }
   }
-
-  // Filter Agent Stats
-
-  // filterResult1: any = this._filteredCustomers.filter(u=> u.statType == '1');
-  // getDeviceTemp(){
-  //   console.log(this.astatService.getAgentTimeout())
-  // }
 
   // Modal Agent utilisation
 

@@ -5,8 +5,7 @@ import {
 import { ASC } from '../_constants/agentsc.config';
 
 /**
- * Returns different hex color depending on thresholds and Agent type
- * 1 = Device Temperature, 2 = Device Utilizations, 3 = CPU utilization
+ * Returns different hex color depending on thresholds and Agent type (Device Temperature, Device Utilizations, CPU utilization)
  * @param value - The input number value
  * Usage:
  *   value | asColor
@@ -24,8 +23,7 @@ export class AgentSColorPipe implements PipeTransform {
     if(+value == 0)
       return '#FF0000';
     if (+value > threshold1 && (stattype == ASC.GPU_TEMP || stattype == ASC.CPU_UTIL))
-      return console.log(ASC.CPU_UTIL)
-      // return '#009933';
+      return '#009933';
     else if (+value > threshold2 && (stattype == ASC.GPU_TEMP || stattype == ASC.CPU_UTIL))
       return '#ff9900';
     if (+value <= threshold1 && stattype == ASC.GPU_UTIL)
