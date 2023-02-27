@@ -8,6 +8,7 @@ import { FilterService } from 'src/app/core/_services/filter.service';
 import { environment } from 'src/environments/environment';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { AgentStatService } from 'src/app/core/_services/agents/agentstats.service';
+import { CookieService } from 'src/app/core/_services/shared/cookies.service';
 
 @Component({
   selector: 'app-agent-status',
@@ -43,8 +44,22 @@ export class AgentStatusComponent implements OnInit {
     private astatService: AgentStatService,
     private modalService: NgbModal,
     private filterService: FilterService,
-    private uiService: UIConfigService
+    private uiService: UIConfigService,
+    private cookieService: CookieService
   ) { }
+
+  // View Menu
+
+  view: any;
+
+  setView(value: string){
+    this.cookieService.setCookie('asview', value, 365);
+    this.ngOnInit();
+  }
+
+  getView(){
+    return this.cookieService.getCookie('asview');
+  }
 
   get filteredCustomers() {
     return this._filteredCustomers;
@@ -55,6 +70,7 @@ export class AgentStatusComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.view = this.getView() || 0;
     this.getAgentsPage(1);
     this.getAgentStats();
   }
@@ -97,9 +113,6 @@ export class AgentStatusComponent implements OnInit {
       this._filteredCustomers = this.showagents;
     }
   }
-
-  // Hover style
-
 
   // Modal Agent utilisation
 

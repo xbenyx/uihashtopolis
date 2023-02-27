@@ -22,6 +22,19 @@
     </div>
   </div>
 </div>
+<!-- View Menu -->
+<div class="row">
+  <div class="col-md-10">
+      <div class="navbar">
+        <div *ngIf="view == 1">
+          <button class="btn btn-gray-800 font-small" #view (click)="setView(view.value)" [value]="0">Grid View</button>
+        </div>
+        <div *ngIf="view == 0">
+          <button class="btn btn-gray-800 font-small" #view (click)="setView(view.value)" [value]="1">Rack View</button>
+        </div>
+      </div>
+  </div>
+</div>
 <!-- Body -->
 <br>
 <div class="container">
@@ -46,14 +59,14 @@
                                       [icon]="faDigitalTachograph"
                                       aria-hidden="true"
                                       hoverDashed
-                                      [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1}"
+                                      [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1:a.isActive:a.lastTime}"
                               ></fa-icon>
                               <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                             <div>
                               <!-- Modal Device Utilisation -->
                               <ng-template #device let-modal>
                                 <div class="modal-header">
-                                  <h4 class="modal-title" id="modal-basic-title"><fa-icon [icon]="faDigitalTachograph" aria-hidden="true"></fa-icon> Device Utilisation - <span [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1}">&#9673;</span> {{ result === 'No data'? result:result +'%' }}</h4>
+                                  <h4 class="modal-title" id="modal-basic-title"><fa-icon [icon]="faDigitalTachograph" aria-hidden="true"></fa-icon> Device Utilisation - <span [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1:a.isActive:a.lastTime}">&#9673;</span> {{ result === 'No data'? result:result +'%' }}</h4>
                                 </div>
                                 <div class="modal-body">
                                   <form>
@@ -98,7 +111,7 @@
                                     [icon]="faTemperature0"
                                     aria-hidden="true"
                                     hoverDashed
-                                    [ngStyle]="{'color': result | asColor:this.getTemp1():this.getTemp2():2}"
+                                    [ngStyle]="{'color': result | asColor:this.getTemp1():this.getTemp2():2:a.isActive:a.lastTime}"
 
                             ></fa-icon>
                             <a underline>{{ result === 'No data'? result:result +'°' }}</a>
@@ -106,7 +119,7 @@
                               <!-- Modal Temperature -->
                               <ng-template #temperature let-modal>
                                 <div class="modal-header">
-                                  <h4 class="modal-title" id="modal-basic-title"><fa-icon [icon]="faTemperature0" aria-hidden="true"></fa-icon> Temperature - <span [ngStyle]="{'color':result | asColor:this.getTemp1():this.getTemp2():2}">&#9673;</span> {{ result === 'No data'? result:result +'°' }}</h4>
+                                  <h4 class="modal-title" id="modal-basic-title"><fa-icon [icon]="faTemperature0" aria-hidden="true"></fa-icon> Temperature - <span [ngStyle]="{'color':result | asColor:this.getTemp1():this.getTemp2():2:a.isActive:a.lastTime}">&#9673;</span> {{ result === 'No data'? result:result +'°' }}</h4>
                                 </div>
                                 <div class="modal-body">
                                   <form>
@@ -151,14 +164,14 @@
                                     [icon]="faMicrochip"
                                     aria-hidden="true"
                                     hoverDashed
-                                    [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3}"
+                                    [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3:a.isActive:a.lastTime}"
                             ></fa-icon>
                             <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                             <div>
                               <!-- CPU Utilisation -->
                               <ng-template #cpu let-modal>
                                 <div class="modal-header">
-                                  <h4 class="modal-title" id="modal-basic-title"><fa-icon [icon]="faMicrochip" aria-hidden="true"></fa-icon> CPU Utilisation - <span [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3}">&#9673;</span> {{ result === 'No data'? result:result +'%' }}</h4>
+                                  <h4 class="modal-title" id="modal-basic-title"><fa-icon [icon]="faMicrochip" aria-hidden="true"></fa-icon> CPU Utilisation - <span [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3:a.isActive:a.lastTime}">&#9673;</span> {{ result === 'No data'? result:result +'%' }}</h4>
                                 </div>
                                 <div class="modal-body">
                                   <form>

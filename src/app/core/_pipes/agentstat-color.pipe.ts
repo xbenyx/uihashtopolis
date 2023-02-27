@@ -3,6 +3,7 @@ import {
   Pipe,
 } from '@angular/core';
 import { ASC } from '../_constants/agentsc.config';
+import { UIConfigService } from '../_services/shared/storage.service';
 
 /**
  * Returns different hex color depending on thresholds and Agent type (Device Temperature, Device Utilizations, CPU utilization)
@@ -19,7 +20,12 @@ import { ASC } from '../_constants/agentsc.config';
 })
 export class AgentSColorPipe implements PipeTransform {
 
-  transform(value: any, threshold1: number, threshold2: number, stattype: number ) {
+  constructor( private uiService: UIConfigService) { }
+
+  transform(value: any, threshold1: number, threshold2: number, stattype: number, isActive: any, lastactivity: number) {
+
+    this.gettime()
+
     if(+value == 0)
       return '#FF0000';
     if (+value > threshold1 && (stattype == ASC.GPU_TEMP || stattype == ASC.CPU_UTIL))
@@ -33,4 +39,9 @@ export class AgentSColorPipe implements PipeTransform {
     else
       return '#800000';
   }
+
+  gettime(){
+    return this.uiService.getUIsettings('agenttimeout').value;
+  }
+
 }

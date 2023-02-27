@@ -33,7 +33,8 @@ export class UIConfigService {
     {name:'agentTempThreshold2'},
     {name:'agentUtilThreshold1'},
     {name:'agentUtilThreshold2'},
-    {name:'statustimer'}
+    {name:'statustimer'},
+    {name:'agenttimeout'}
   ];
   cexprity: number = 24*60*60; // Hours*minutes*Seconds
 
