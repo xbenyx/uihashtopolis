@@ -20,12 +20,15 @@ import { UIConfigService } from '../_services/shared/storage.service';
 })
 export class AgentSColorPipe implements PipeTransform {
 
-  constructor( private uiService: UIConfigService) { }
+  constructor(private uiService: UIConfigService) { }
 
   transform(value: any, threshold1: number, threshold2: number, stattype: number, isActive: any, lastactivity: number) {
-
-    this.gettime()
-
+    if (value === 'No data') {
+      if ((isActive == 1) && (Date.now() - lastactivity < this.gettime())) {
+        return "#42d4f4";
+      }
+      return "#CCCCCC";
+    }
     if(+value == 0)
       return '#FF0000';
     if (+value > threshold1 && (stattype == ASC.GPU_TEMP || stattype == ASC.CPU_UTIL))
