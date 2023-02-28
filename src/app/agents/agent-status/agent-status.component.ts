@@ -22,7 +22,7 @@ export class AgentStatusComponent implements OnInit {
   faHomeAlt=faHomeAlt;
   faPlus=faPlus;
   faUserSecret=faUserSecret;
-  faEdit=faEye;
+  faEye=faEye;
   faTemperature0=faTemperature0;
   faInfoCircle=faInfoCircle;
 
@@ -30,7 +30,7 @@ export class AgentStatusComponent implements OnInit {
   public statusOrderByName = environment.config.agents.statusOrderByName;
 
   showagents: any[] = [];
-  _filteredCustomers: any[] = [];
+  _filteresAgents: any[] = [];
   filterText: string = '';
 
   totalRecords = 0;
@@ -61,12 +61,12 @@ export class AgentStatusComponent implements OnInit {
     return this.cookieService.getCookie('asview');
   }
 
-  get filteredCustomers() {
-    return this._filteredCustomers;
+  get filteredAgents() {
+    return this._filteresAgents;
   }
 
-  set filteredCustomers(value: any[]) {
-    this._filteredCustomers = value;
+  set filteredAgents(value: any[]) {
+    this._filteresAgents = value;
   }
 
   ngOnInit(): void {
@@ -79,10 +79,15 @@ export class AgentStatusComponent implements OnInit {
     this.getAgentsPage(page);
   }
 
+  groupArr: any;
+
   getAgentsPage(page: number) {
     this.agentsService.getAgents(this.params).subscribe((agents: any) => {
-      this.showagents = this.filteredCustomers = agents.values;
+      this.showagents = this.filteredAgents = agents.values;
       this.totalRecords = agents.total;
+      this.groupArr = this.groupBy(this.showagents);
+      console.log(this.showagents)
+      console.log(this.groupArr)
     });
   }
 
@@ -97,7 +102,6 @@ export class AgentStatusComponent implements OnInit {
       this.statTemp = stats.values.filter(u=> u.statType == ASC.GPU_TEMP); // filter Device Temperature
       this.statDevice = stats.values.filter(u=> u.statType == ASC.GPU_UTIL); // filter Device Utilization
       this.statCpu = stats.values.filter(u=> u.statType == ASC.CPU_UTIL); // filter CPU utilization
-      console.log(this.statTemp)
     });
 
   }
@@ -108,10 +112,22 @@ export class AgentStatusComponent implements OnInit {
     if (data && this.showagents) {
         data = data.toUpperCase();
         const props = ['agentName', 'agentId'];
-        this._filteredCustomers = this.filterService.filter<any>(this.showagents, data, props);
+        this._filteresAgents = this.filterService.filter<any>(this.showagents, data, props);
     } else {
-      this._filteredCustomers = this.showagents;
+      this._filteresAgents = this.showagents;
     }
+  }
+
+  groupBy(arr: Array<any>){
+    if(!arr){
+       return null;
+    }
+    const list = arr.reduce(function (r,a){
+          r[a.agentName] = r[a.agentName] || [];
+          r[a.agentName].push(a);
+    return r;
+    },{});
+    return Object.keys(list).map(k => ({ k, value: list[k] }));
   }
 
   // Modal Agent utilisation
@@ -153,10 +169,6 @@ export class AgentStatusComponent implements OnInit {
 			return `with: ${reason}`;
 		}
 	}
-
-  zone1 = { isHovered: false };
-  zone2 = { isHovered: false };
-
 
 
 }
