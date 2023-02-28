@@ -222,21 +222,22 @@
 </div>
 
 <!-- Rack View -->
+
 <div class="container" *ngIf="view == 1">
   <div class="row card-container-ag">
-    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let gname of _filteresAgents | groupBy:'agentName' | sort:'asc':'agentName' ; let ind=index">
-        <div class="card card-ag">
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let gname of _filteresAgents | groupBy:'agentName' | sort:'asc':'agentName'">
+        <div class="card card-section">
             <div class="card-header-ag text-center">
               <a underline>{{ gname.k | shortenString:15 | lowercase | titlecase}} </a>
             </div>
-            <div class="card-body" *ngFor="let a of gname.value">
+            <div class="card-body" *ngFor="let a of gname.value ; let last=last">
               <div class="row">
-                <p><small><b>
+                <small><b>
                   <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
                     <fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon>
                   </a>
                   {{ a.agentName | shortenString:15 | lowercase | titlecase }}
-                </b></small></p>
+                </b></small>
                 <div class="col" *ngIf="statDevice | filterItem:'agentId':a.agentId | avg:'value' as result">
                   <fa-icon
                           placement="bottom"
@@ -247,6 +248,7 @@
                           hoverDashed
                           [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1:a.isActive:a.lastTime}"
                   ></fa-icon>
+                  <br>
                   <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                     <!-- Modal Device Utilisation -->
                     <ng-template #rackdevice let-modal>
@@ -298,6 +300,7 @@
                           [ngStyle]="{'color': result | asColor:this.getTemp1():this.getTemp2():2:a.isActive:a.lastTime}"
 
                   ></fa-icon>
+                  <br>
                   <a underline>{{ result === 'No data'? result:result +'°' }}</a>
                   <!-- Modal Temperature -->
                   <ng-template #racktemp let-modal>
@@ -348,6 +351,7 @@
                           hoverDashed
                           [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3:a.isActive:a.lastTime}"
                   ></fa-icon>
+                  <br>
                   <a underline>{{ result === 'No data'? result:result +'%' }}</a>
                   <!-- CPU Utilisation -->
                   <ng-template #rackcpu let-modal>
@@ -388,8 +392,8 @@
                     </div>
                   </ng-template>
                 </div>
+                <hr *ngIf="!last" class="mt-0 mb-0 break">
               </div>
-              <div *ngIf="gname.value.length-1"><hr></div>
             </div>
         </div>
     </div>

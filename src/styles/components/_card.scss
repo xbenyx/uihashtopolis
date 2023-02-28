@@ -59,3 +59,20 @@
 .highlight {
   background-color: #999
 }
+
+
+hr.break:after {
+  background: none repeat scroll 0% 0% #000;
+  content: "";
+  height: 10px;
+  left: 50%;
+  margin: -5px auto auto -5px;
+  position: absolute;
+  // transform: rotate(-45deg);
+  // width: 10px;
+  }
+
+/*
+  01- End
+*/
+
