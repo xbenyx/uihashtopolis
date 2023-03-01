@@ -37,23 +37,6 @@ export class AgentStatService {
     );
   }
 
-/**
- * Return agent stats
- * @param routerParams
- * @returns
-**/
-
-// public userSubject: Subject<string> = new Subject();
-
-//  getAgentTimeout(){
-//   let params = {'maxResults': this.maxResults};
-//   return this.configService.getAllconfig(params).pipe(take(1)).subscribe()
-
-//   // this.configService.getAllconfig(params).subscribe((result)=>{
-//   //   this.userSubject.next(result.values.find(obj => obj.item === 'agenttimeout').value);
-//   // });
-//   }
-
 
   private handleError ( err : HttpErrorResponse ) {
     if (err.error instanceof ErrorEvent){

@@ -2,6 +2,10 @@
           SECTION BUTTON
    ================================== */
 
+/*
+  01- Global
+*/
+
 .btn-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -132,3 +136,28 @@
   bottom:0px;
   margin-left:-50px;
 }
+
+/*
+  01- End
+*/
+
+/*
+  02- Button Page Settings icon fa Gear
+*/
+
+.fagearcust{
+  border:none;
+  background:#e7eaed;
+  padding:7px;
+  border-radius:25px;
+  color:black;
+}
+
+.fagearcust:hover{
+  color: rgb(177, 172, 172);
+}
+
+
+/*
+  02- End
+*/
