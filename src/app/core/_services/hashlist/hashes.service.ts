@@ -16,6 +16,12 @@ export class HashesService {
 
   constructor(private http: HttpClient) { }
 
+/**
+ * Get all the hashes
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns Object
+**/
+
   getAllhashes(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -23,26 +29,21 @@ export class HashesService {
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
+
+/**
+ * Get individial hash
+ * @param id - hash id
+ * @returns Object
+**/
 
   getHash(id: number):Observable<any> {
     return this.http.get(`${this.endpoint}/${id}`)
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
-  }
-
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
   }
 
 }

@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
-import { Params } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { setParameter } from '../buildparams';
-import { Observable, tap, catchError, throwError, Subject, take } from 'rxjs';
-
-import { ConfigService } from '../config/config.service';
+import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +11,13 @@ import { ConfigService } from '../config/config.service';
 export class AgentStatService {
 
   private endpoint = environment.config.prodApiEndpoint + '/ui/agentstats';
-  private maxResults = environment.config.prodApiMaxResults;
 
-  constructor(
-    private http: HttpClient,
-    private configService:ConfigService
-    ) { }
+  constructor(private http: HttpClient) { }
 
 /**
  * Returns all the agent stats
- * @param routerParams - to include multiple options such as Max number or results or filtering
- * @returns Raw Object
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns Object
 **/
 
   getAstats(routerParams?: Params):Observable<any> {
@@ -33,18 +27,8 @@ export class AgentStatService {
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
-  }
-
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
   }
 
 }
