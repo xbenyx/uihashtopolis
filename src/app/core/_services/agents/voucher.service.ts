@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Params } from '@angular/router';
+import { setParameter } from '../buildparams';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class VoucherService {
   getVouchers(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -47,16 +48,5 @@ export class VoucherService {
     }
     return throwError(() => err);
   }
-
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
-    }
-    return queryParams;
-  }
-
 
 }

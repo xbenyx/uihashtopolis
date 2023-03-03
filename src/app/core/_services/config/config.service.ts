@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { catchError, debounceTime, tap} from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
+import { catchError, debounceTime, tap} from 'rxjs/operators';
 import { map, Observable, throwError } from 'rxjs';
+import { setParameter } from '../buildparams';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 
 
@@ -18,7 +19,7 @@ export class ConfigService {
   getAllconfig(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -44,17 +45,5 @@ export class ConfigService {
     }
     return throwError(() => err);
   }
-
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
-    }
-    return queryParams;
-  }
-
-
 
 }

@@ -6,6 +6,7 @@ import { Observable, tap, catchError, throwError, retryWhen, shareReplay, timer,
 
 import { IPagedResults } from '../../_models/paged-results';
 import { IAgents } from '../../_models/agents';
+import { setParameter } from '../buildparams';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AgentsService {
   getAgents(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -68,16 +69,5 @@ export class AgentsService {
     }
     return throwError(() => err);
   }
-
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
-    }
-    return queryParams;
-  }
-
 
 }

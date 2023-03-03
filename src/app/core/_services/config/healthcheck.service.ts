@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Params } from '@angular/router';
-import { catchError, tap} from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
-import { map, Observable, throwError } from 'rxjs';
+import { catchError, tap} from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { setParameter } from '../buildparams';
+import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 
 import { HealthCheck, HealthCheckedAgents } from '../../_models/healthcheck';
 
@@ -19,7 +20,7 @@ export class HealthcheckService {
   getHealthChecks(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint + '/ui/healthchecks', {params: queryParams})
     .pipe(
@@ -66,16 +67,6 @@ export class HealthcheckService {
       console.log('Server Side Error: ', err);
     }
     return throwError(() => err);
-  }
-
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
-    }
-    return queryParams;
   }
 
 }

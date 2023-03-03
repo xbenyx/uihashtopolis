@@ -1,12 +1,11 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { ActivatedRoute, Params } from '@angular/router';
-import { environment } from './../../../../environments/environment';
 import { Observable, tap, catchError, throwError, retryWhen, delay, take } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { environment } from './../../../../environments/environment';
+import { setParameter } from '../buildparams';
+import { Injectable } from "@angular/core";
+import { Params } from '@angular/router';
 
 import { Filetype, UpdateFileType } from '../../_models/files';
-
-// import { environment } from '@env'; // Add environtment
 
 @Injectable({providedIn: 'root'})
 export class FilesService {
@@ -15,19 +14,10 @@ export class FilesService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
-  }
-
   getFiles(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
       if (routerParams) {
-          queryParams = this.setParameter(routerParams);
+          queryParams = setParameter(routerParams);
       }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -82,21 +72,14 @@ export class FilesService {
     );
   }
 
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
     }
-    return queryParams;
+    return throwError(() => err);
   }
-
-// ToDo: For mock up and test
-//   private path(path: string): string {
-//     return `${environment.api_url}${path}`;
-// }
-
 
 
 }

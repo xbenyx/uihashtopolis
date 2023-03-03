@@ -1,12 +1,13 @@
+import { HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import { environment } from './../../../../environments/environment';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import { catchError, tap} from 'rxjs/operators';
-import { map, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { setParameter } from '../buildparams';
 import { Params } from '@angular/router';
 
-import { environment } from './../../../../environments/environment';
 import { CreateUser } from '../../_models/user.model';
-import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -21,19 +22,10 @@ export class UsersService {
     @Inject(PLATFORM_ID) private platformId: Object
     ) { }
 
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
-  }
-
   getAllusers(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -84,14 +76,14 @@ export class UsersService {
     );
   }
 
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
     }
-    return queryParams;
+    return throwError(() => err);
   }
+
 
 }

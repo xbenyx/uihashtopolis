@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment';
 import { Observable, tap, catchError, throwError } from 'rxjs';
 
 import { BaseHashlist } from '../../_models/hashlist';
+import { setParameter } from '../buildparams';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +16,10 @@ export class HashesService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
-  }
-
   getAllhashes(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -44,14 +36,23 @@ export class HashesService {
     );
   }
 
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
+  // private setParameter(routerParams: Params): HttpParams {
+  //   let queryParams = new HttpParams();
+  //   for (const key in routerParams) {
+  //       if (routerParams.hasOwnProperty(key)) {
+  //           queryParams = queryParams.set(key, routerParams[key]);
+  //       }
+  //   }
+  //   return queryParams;
+  // }
+
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
     }
-    return queryParams;
+    return throwError(() => err);
   }
 
 }

@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
-import { catchError, tap} from 'rxjs/operators';
-import { map, Observable, throwError } from 'rxjs';
-import { Params } from '@angular/router';
-
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
+import { catchError, tap} from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { setParameter } from '../buildparams';
+import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +16,10 @@ export class NotifService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
-  }
-
   getAllnotif(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
-        queryParams = this.setParameter(routerParams);
+        queryParams = setParameter(routerParams);
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
@@ -60,14 +51,14 @@ export class NotifService {
     );
   }
 
-  private setParameter(routerParams: Params): HttpParams {
-    let queryParams = new HttpParams();
-    for (const key in routerParams) {
-        if (routerParams.hasOwnProperty(key)) {
-            queryParams = queryParams.set(key, routerParams[key]);
-        }
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
     }
-    return queryParams;
+    return throwError(() => err);
   }
+
 
 }
