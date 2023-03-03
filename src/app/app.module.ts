@@ -16,7 +16,6 @@ import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { MomentModule } from 'ngx-moment';
 import { NgModule } from '@angular/core';
-
 /**
  * App Pages Components
  *
@@ -31,7 +30,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
-
 /**
  * App Modules, Reducers
  *
@@ -41,7 +39,6 @@ import { DirectivesModule } from './shared/directives.module';
 import { configReducer } from './core/_store/config.reducer';
 import { PipesModule } from './shared/pipes.module';
 import { AuthModule } from './auth/auth.module';
-
 
 @NgModule({
   declarations: [
