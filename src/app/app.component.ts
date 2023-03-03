@@ -1,24 +1,25 @@
-import { isPlatformBrowser } from '@angular/common';
 import { Component,Inject,OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, Observable } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { filter } from 'rxjs';
 /**
  * Authentification Service, Cookies and Local Storage
  *
 **/
-import { AuthService } from './core/_services/auth.service';
-import { CookieService } from './core/_services/shared/cookies.service';
 import { UIConfigService } from './core/_services/shared/storage.service';
+import { CookieService } from './core/_services/shared/cookies.service';
+import { AuthService } from './core/_services/auth.service';
 
 /**
  * Idle watching
  *
 **/
+
+import { TimeoutComponent } from './shared/alert/timeout/timeout.component';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Idle, DEFAULT_INTERRUPTSOURCES } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TimeoutComponent } from './shared/alert/timeout/timeout.component';
 
 @Component({
   selector: 'app-root',
