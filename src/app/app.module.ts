@@ -22,6 +22,7 @@ import { NgModule } from '@angular/core';
 */
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 import { AuthInterceptorService } from './core/_interceptors/auth-interceptor.service';
+import { HttpErrorInterceptor } from './core/_interceptors/http-error.interceptor';
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { ErrorPageComponent } from './layout/error-page/error-page.component';
 import { TimeoutComponent } from './shared/alert/timeout/timeout.component';
@@ -70,7 +71,19 @@ import { AuthModule } from './auth/auth.module';
     NgIdleKeepaliveModule.forRoot(),
     StoreModule.forRoot({configList: configReducer})
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}, AppPreloadingStrategy],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    },
+    AppPreloadingStrategy
+  ],
   entryComponents:[TimeoutComponent],
   bootstrap: [AppComponent]
 })
