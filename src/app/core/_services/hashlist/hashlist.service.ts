@@ -23,24 +23,19 @@ export class ListsService {
     }
     return this.http.get(this.endpoint, {params: queryParams})
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
   getHashlist(id: number):Observable<any> {
     return this.http.get(`${this.endpoint}/${id}`)
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
   deleteHashlist(id: number):Observable<any> {
-    return this.http.delete(this.endpoint +'/'+ id)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.http.delete(this.endpoint +'/'+ id);
   }
 
   // ToFix, hashtypeid and format only accept integer, otherwise array only needs to be called hash
@@ -66,33 +61,22 @@ export class ListsService {
       isSecret: hash.isSecret
      })
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
   updateHashlist(hash: any): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + hash.hashTypeId, {description: hash.description})
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
   archiveHashlist(id: number): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + id, {isArchived: true})
     .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data))),
-      catchError(this.handleError)
+      tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
-  }
 }
