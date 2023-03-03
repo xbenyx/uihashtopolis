@@ -7,10 +7,14 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { User } from '../user.model';
 import { ValidationService } from '../../core/_services/validation.service';
+import { DateFormatPipe } from 'ngx-moment';
+import { DatePipe } from '@angular/common';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-edit-users',
-  templateUrl: './edit-users.component.html'
+  templateUrl: './edit-users.component.html',
+  providers: [DatePipe]
 })
 export class EditUsersComponent implements OnInit {
   editMode = false;
@@ -29,6 +33,7 @@ export class EditUsersComponent implements OnInit {
   usedUserNames = ['Admin', 'Guest'];
 
   user: any[];
+  uidateformat:any;
 
   allowEdit = false;
 
@@ -36,6 +41,8 @@ export class EditUsersComponent implements OnInit {
     private usersService: UsersService,
     private route:ActivatedRoute,
     private router: Router,
+    private uiService: UIConfigService,
+    private datePipe:DatePipe,
     ) { }
 
   updateForm = new FormGroup({
@@ -72,6 +79,8 @@ export class EditUsersComponent implements OnInit {
       this.isLoading = false;
       console.log(this.user);
     });
+
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     // This options bind the params in the same (it is a better option but depends on the API structure)
     // const id = +this.route.snapshot.params['id'];
@@ -163,14 +172,15 @@ export class EditUsersComponent implements OnInit {
 
   private initForm() {
     this.isLoading = true;
+
     if (this.editMode) {
       this.usersService.getUser(this.editedUserIndex).subscribe((result)=>{
       this.updateForm = new FormGroup({
         'userid': new FormControl(result['userId']),
         'username': new FormControl(result['username']),
         'email': new FormControl(result['email']),
-        'registered': new FormControl(result['registeredSince']),
-        'lastLogin': new FormControl(result['lastLoginDate']),
+        'registered': new FormControl(this.datePipe.transform(result['registeredSince'],this.uidateformat)),
+        'lastLogin': new FormControl(this.datePipe.transform(result['lastLoginDate'],this.uidateformat)),
         'groups': new FormControl(result['groups']),
         'updateData': new FormGroup({
           'rightGroupId': new FormControl(result['rightGroupId']),

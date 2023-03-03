@@ -27,7 +27,8 @@ export class EditHealthChecksComponent implements OnInit {
     private healthcheckService: HealthcheckService,
     private agentsService: AgentsService,
     private uiService: UIConfigService,
-    private route:ActivatedRoute) { }
+    private route:ActivatedRoute
+    ) { }
 
   public healthc: {
     attackCmd: string,
