@@ -3,9 +3,17 @@ import { Observable, retry, throwError, catchError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ErrorModalComponent } from '../../shared/alert/error/error.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor{
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private modalService: NgbModal
+    ) {}
+    modalRef = null;
+    modalErr = null;
     intercept(req: HttpRequest<any>, next: HttpHandler):
       Observable<HttpEvent<any>> {
         return next.handle(req)
@@ -14,16 +22,18 @@ export class HttpErrorInterceptor implements HttpInterceptor{
           catchError((error: HttpErrorResponse) => {
             let errmsg = '';
             if (error.error instanceof ErrorEvent) {
-              let err = error?.error.message || 'Unknown API error';
+              var err = error?.error.message || 'Unknown API error';
               errmsg = `Client Side Error: ${err}`;
             } else {
-              let err = error?.message || 'Unknown API error';
-              errmsg = `Server Side Error: ${error?.status}\nMessage: ${err}`;
+              var err = error?.message || 'Unknown API error';
+              errmsg = `Server Side Error: ${err}`;
             }
             if( error.status !== 404  && error?.status >= 300){
               this.router.navigate(['error'])
             }
-            window.alert(errmsg);
+            this.modalRef = this.modalService.open(ErrorModalComponent);
+            this.modalRef.componentInstance.status = error?.status;
+            this.modalRef.componentInstance.message = errmsg;
             return throwError(() => errmsg);
           })
         )
