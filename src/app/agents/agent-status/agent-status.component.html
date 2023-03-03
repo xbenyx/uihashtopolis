@@ -445,8 +445,14 @@
                       <span *ngIf="aa.isTrusted == 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
                       <span *ngIf="aa.isActive == 0" ><fa-icon [icon]="faPauseCircle" aria-hidden="true"></fa-icon></span>
                     </td>
-                    <td>{{ aa.agentId }}</td>
-                    <td>{{ aa.agentId }}</td>
+                    <td>
+                      Agent task? <br>
+                      Missing Agent Speeds API Call<br>
+                      Working on chunk (I can map)
+                    </td>
+                    <td>
+                      Task Assignments, missing?
+                    </td>
                     <td>
                       Action: {{ aa.lastAct }}<br>
                       Time: {{ aa.lastTime | date: uidateformat }}<br>

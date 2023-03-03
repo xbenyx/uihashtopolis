@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
 import { ChunkService } from '../../core/_services/chunks.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
@@ -19,6 +20,8 @@ export class ChunksComponent implements OnInit {
     private uiService: UIConfigService,
   ) { }
 
+  private maxResults = environment.config.prodApiMaxResults
+
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
 
@@ -29,9 +32,9 @@ export class ChunksComponent implements OnInit {
   public chunks: {chunkId: number,taskId: number,format: string,skip: number,length: number,agentId: number,dispatchTime: number,solveTime: number,checkpoint: number,progress: number,state: number,cracked: number,speed: number, isEdit: false}[] = [];
 
   ngOnInit(): void {
-
-    this.chunkService.getChunks().subscribe((hasht: any) => {
-      this.chunks = hasht.values;
+    let params = {'maxResults': this.maxResults}
+    this.chunkService.getChunks(params).subscribe((chunks: any) => {
+      this.chunks = chunks.values;
       this.dtTrigger.next(void 0);
     });
 

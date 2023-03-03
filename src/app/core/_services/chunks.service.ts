@@ -17,16 +17,11 @@ export class ChunkService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError ( err : HttpErrorResponse ) {
-    if (err.error instanceof ErrorEvent){
-      console.log('Client Side Error: ', err.error.message);
-    }else{
-      console.log('Server Side Error: ', err);
-    }
-    return throwError(() => err);
-  }
-
   getChunks(routerParams?: Params): Observable<BaseChunk[]> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = this.setParameter(routerParams);
+    }
     return this.http.get<BaseChunk[]>(this.endpoint,{params: routerParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data))),
@@ -49,6 +44,25 @@ export class ChunkService {
       tap(data => console.log('All: ', JSON.stringify(data))),
       catchError(this.handleError)
     );
+  }
+
+  private handleError ( err : HttpErrorResponse ) {
+    if (err.error instanceof ErrorEvent){
+      console.log('Client Side Error: ', err.error.message);
+    }else{
+      console.log('Server Side Error: ', err);
+    }
+    return throwError(() => err);
+  }
+
+  private setParameter(routerParams: Params): HttpParams {
+    let queryParams = new HttpParams();
+    for (const key in routerParams) {
+        if (routerParams.hasOwnProperty(key)) {
+            queryParams = queryParams.set(key, routerParams[key]);
+        }
+    }
+    return queryParams;
   }
 
 }
