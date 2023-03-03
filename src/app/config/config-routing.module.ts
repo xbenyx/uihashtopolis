@@ -1,19 +1,18 @@
 import { AuthGuard } from "../core/_guards/auth.guard";
-import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
 
+import { NewPreprocessorComponent } from "./engine/preprocessors/new-preprocessor/new-preprocessor.component";
+import { EditHealthChecksComponent } from "./health-checks/edit-health-checks/edit-health-checks.component";
+import { EditCrackersComponent } from "./engine/crackers/edit-crackers/edit-crackers.component";
+import { NewCrackersComponent } from "./engine/crackers/new-crackers/new-crackers.component";
+import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
+import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
+import { HealthChecksComponent } from "./health-checks/health-checks.component";
+import { CrackersComponent } from "./engine/crackers/crackers.component";
+import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { ServerComponent } from "./server/server.component";
 import { LogComponent } from "./log/log.component";
-import { HealthChecksComponent } from "./health-checks/health-checks.component";
-import { EditHealthChecksComponent } from "./health-checks/edit-health-checks/edit-health-checks.component";
-import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
-import { CrackersComponent } from "./engine/crackers/crackers.component";
-import { NewCrackersComponent } from "./engine/crackers/new-crackers/new-crackers.component";
-import { EditCrackersComponent } from "./engine/crackers/edit-crackers/edit-crackers.component";
-import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
-import { HashtypesComponent } from "./hashtypes/hashtypes.component";
-import { NewPreprocessorComponent } from "./engine/preprocessors/new-preprocessor/new-preprocessor.component";
-
 
 const routes: Routes = [
   {
