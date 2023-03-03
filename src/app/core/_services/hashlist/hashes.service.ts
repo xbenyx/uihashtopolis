@@ -12,7 +12,7 @@ import { BaseHashlist } from '../../_models/hashlist';
 })
 export class HashesService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/ui/hash';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/hashes';
 
   constructor(private http: HttpClient) { }
 
