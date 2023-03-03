@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Observable, tap, catchError, throwError, retryWhen, delay, take } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
+import { setParameter } from '../buildparams';
+import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { Observable, tap, catchError, throwError, retryWhen, shareReplay, timer, delayWhen, retry, debounce, delay, take } from 'rxjs';
 
 import { IPagedResults } from '../../_models/paged-results';
 import { IAgents } from '../../_models/agents';
-import { setParameter } from '../buildparams';
 
 @Injectable({
   providedIn: 'root'

@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { ActivatedRoute, Params } from '@angular/router';
 import { environment } from '../../../../environments/environment';
 import { Observable, tap, catchError, throwError } from 'rxjs';
+import { setParameter } from '../buildparams';
+import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 
 import { BaseHashlist } from '../../_models/hashlist';
-import { setParameter } from '../buildparams';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HashesService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/ui/hashes';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/hash';
 
   constructor(private http: HttpClient) { }
 
@@ -35,16 +35,6 @@ export class HashesService {
       catchError(this.handleError)
     );
   }
-
-  // private setParameter(routerParams: Params): HttpParams {
-  //   let queryParams = new HttpParams();
-  //   for (const key in routerParams) {
-  //       if (routerParams.hasOwnProperty(key)) {
-  //           queryParams = queryParams.set(key, routerParams[key]);
-  //       }
-  //   }
-  //   return queryParams;
-  // }
 
   private handleError ( err : HttpErrorResponse ) {
     if (err.error instanceof ErrorEvent){
