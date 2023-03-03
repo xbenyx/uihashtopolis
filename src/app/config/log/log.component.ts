@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { environment } from 'src/environments/environment';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { LogentryService } from '../../core/_services/config/logentry.service';
@@ -20,6 +21,8 @@ export class LogComponent implements OnInit {
 
   public logs: {logEntryId: number, issuer: string, issuerId: number, level: string, message: string, time: number}[] = [];
 
+  private maxResults = environment.config.prodApiMaxResults
+
   constructor(
     private logentryService: LogentryService,
     private uiService: UIConfigService,
@@ -28,7 +31,8 @@ export class LogComponent implements OnInit {
   ) { }
 
     ngOnInit(): void {
-      this.logentryService.getLogs().subscribe((log: any) => {
+      let params = {'maxResults': this.maxResults};
+      this.logentryService.getLogs(params).subscribe((log: any) => {
         this.logs = log.values;
         this.dtTrigger.next(void 0);
       });
