@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
-import { Observable, tap, catchError, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { setParameter } from '../buildparams';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 
 import { BaseHashlist} from '../../_models/hashlist';
 
@@ -16,6 +16,11 @@ export class ListsService {
 
   constructor(private http: HttpClient) { }
 
+/**
+ * Get all Hashlists
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns Object
+**/
   getAllhashlists(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -27,6 +32,11 @@ export class ListsService {
     );
   }
 
+/**
+ * Get individial hashlist by id
+ * @param id - Hashlist id
+ * @returns Object
+**/
   getHashlist(id: number):Observable<any> {
     return this.http.get(`${this.endpoint}/${id}`)
     .pipe(
@@ -34,11 +44,21 @@ export class ListsService {
     );
   }
 
+/**
+ * Delete individial by id
+ * @param id - id
+ * @returns Object
+**/
   deleteHashlist(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id);
   }
 
-  // ToFix, hashtypeid and format only accept integer, otherwise array only needs to be called hash
+/**
+ * Create Preprocessor
+ * @param arr - Fields
+ * @returns Object
+ * TODO FIX
+**/
   createHashlist(hash: any): Observable<BaseHashlist> {
     const str = hash.sourceData;
     const filename = str.replace("C:\\fakepath\\", "");
@@ -65,13 +85,24 @@ export class ListsService {
     );
   }
 
-  updateHashlist(hash: any): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + hash.hashTypeId, {description: hash.description})
+/**
+ * Update Hashlist
+ * @param id - preprocessor id
+ * @param arr - Fields
+ * @returns Object
+**/
+  updateHashlist(arr: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + arr.hashTypeId, {description: arr.description})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
+/**
+ * Archive Hashlist
+ * @param id - preprocessor id
+ * @returns Object
+**/
   archiveHashlist(id: number): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + id, {isArchived: true})
     .pipe(
