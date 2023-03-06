@@ -89,22 +89,26 @@ export class NewTasksComponent implements OnInit {
 
   // New checkbox
   filesFormArray: Array<any> = [];
-  onChange(fileId:number, fileType:number, fileName: string, $target: EventTarget) {
+  onChange(fileId:number, fileType:number, fileName: string, cmdAttk: number, $target: EventTarget) {
     const isChecked = (<HTMLInputElement>$target).checked;
-    if(isChecked) {
+    if(isChecked && cmdAttk === 0) {
         this.filesFormArray.push(fileId);
         this.OnChangeAttack(fileName, fileType);
         this.createForm.patchValue({files: this.filesFormArray });
-    } else {
-        let index = this.filesFormArray.indexOf(fileId);
-        this.filesFormArray.splice(index,1);
-        this.createForm.patchValue({files: this.filesFormArray});
-        this.OnChangeAttack(fileName, fileType, true);
+    } if (isChecked && cmdAttk === 1) {
+        this.OnChangeAttackPrep(fileName, fileType);
+    } if (!isChecked && cmdAttk === 0) {
+      let index = this.filesFormArray.indexOf(fileId);
+      this.filesFormArray.splice(index,1);
+      this.createForm.patchValue({files: this.filesFormArray});
+      this.OnChangeAttack(fileName, fileType, true);
+    } if (!isChecked && cmdAttk === 1) {
+      this.OnChangeAttackPrep(fileName, fileType, true);
     }
   }
 
   OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
-    if(onRemove == true){
+    if(onRemove === true){
         let currentCmd = this.createForm.get('attackCmd').value;
         let newCmd = item
         if (fileType === 1 ){newCmd = '-r '+ newCmd;}
@@ -125,6 +129,31 @@ export class NewTasksComponent implements OnInit {
         });
     }
   }
+
+  OnChangeAttackPrep(item: string, fileType: number, onRemove?: boolean){
+    if(onRemove === true){
+        let currentCmd = this.createForm.get('preprocessorCommand').value;
+        let newCmd = item
+        if (fileType === 1 ){newCmd = '-r '+ newCmd;}
+        newCmd = currentCmd.replace(newCmd,'');
+        newCmd = newCmd.replace(/^\s+|\s+$/g, "");
+        this.createForm.patchValue({
+          preprocessorCommand: newCmd
+        });
+    } else {
+        let currentCmd = this.createForm.get('preprocessorCommand').value;
+        let newCmd = item;
+        this.validateFile(newCmd);
+        if (fileType === 1 ){
+          newCmd = '-r '+ newCmd;
+        }
+        this.createForm.patchValue({
+          preprocessorCommand: currentCmd+' '+ newCmd
+        });
+    }
+  }
+
+  // preprocessorCommand
 
   validateFile(value){
     if(value.split('.').pop() == '7zip'){
