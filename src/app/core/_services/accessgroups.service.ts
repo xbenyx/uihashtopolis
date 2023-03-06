@@ -1,9 +1,11 @@
 import { environment } from './../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { setParameter } from './buildparams';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
 import { AccessGroup } from '../_models/access-group';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,12 @@ export class AccessGroupsService {
 
   constructor(private http: HttpClient) { }
 
-  getAccessGroups(): Observable<AccessGroup[]> {
-    return this.http.get<AccessGroup[]>(this.endpoint,{params: new HttpParams().set('maxResults', 3000)})
+  getAccessGroups(routerParams?: Params): Observable<AccessGroup[]> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = setParameter(routerParams);
+    }
+    return this.http.get<AccessGroup[]>(this.endpoint,{params: routerParams})
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );

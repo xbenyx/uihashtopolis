@@ -20,7 +20,7 @@ export class ChunksComponent implements OnInit {
     private uiService: UIConfigService,
   ) { }
 
-  private maxResults = environment.config.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
