@@ -161,3 +161,37 @@
 /*
   02- End
 */
+
+/*
+  03- Custom Checkbox color
+*/
+// Gray
+.form-check-input-gray:checked{
+  background-color: #343d49 !important;
+  border: 0;
+}
+
+.form-check-input-gray:focus, .label::after, label.form-check-label:focus, .form-check-input::after, .form-check-input:not(:disabled):not(.disabled):active:focus {
+  color: black;
+  outline: 0;
+  border: 0;
+  box-shadow: 0 0 0 0.1rem #1a232f !important;
+}
+
+// Violet
+.form-check-input-violet:checked{
+  background-color: #88315e !important;
+  border: 0;
+}
+
+.form-check-input-violet:focus, .label::after, label.form-check-label:focus, .form-check-input::after, .form-check-input:not(:disabled):not(.disabled):active:focus {
+  color: black;
+  outline: 0;
+  border: 0;
+  box-shadow: 0 0 0 0.1rem #5d2542 !important;
+}
+
+
+/*
+  03- End
+*/

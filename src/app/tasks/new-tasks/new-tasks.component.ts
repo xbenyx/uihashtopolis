@@ -1,21 +1,21 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener, ViewChild  } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faTrash, faInfoCircle, faLock } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
-import { Observable, Subject } from 'rxjs';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
-import { CrackerService } from '../../core/_services/config/cracker.service';
-import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
-import { FilesService } from '../../core/_services/files/files.service';
+import { ActivatedRoute, Params } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { FilesService } from '../../core/_services/files/files.service';
+import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
+import { CrackerService } from '../../core/_services/config/cracker.service';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
+import { ListsService } from '../../core/_services/hashlist/hashlist.service';
+import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
+import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
 
 @Component({
   selector: 'app-new-tasks',

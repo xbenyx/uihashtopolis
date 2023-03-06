@@ -438,7 +438,7 @@
                                             class='form-select'
                                             formControlName="usePreprocessor"
                                           >
-                                          <option [ngValue]="0" [defaultSelected]=true>No</option>
+                                          <option [ngValue]="false" [defaultSelected]=true>No</option>
                                           <option *ngFor="let p of prep" [ngValue]="p.preprocessorId">{{ p.name }}</option>
                                       </select>
                                   </div>
@@ -449,7 +449,10 @@
                                 &nbsp;
                                 <div class="form-group">
                                   <div class="form-outline">
-                                      <label class="form-label" for="getPreprocessorCommand">Preprocessor command</label>
+                                      <label class="form-label" for="getPreprocessorCommand">
+                                        Preprocessor command
+                                        <span *ngIf="createForm.controls['usePreprocessor'].value !== false" [ngStyle]="{'color':'#88315e'}">&#9673;</span>
+                                      </label>
                                       <textarea
                                             type='text'
                                             id="preprocessorCommand"
@@ -485,20 +488,39 @@
                       <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[0]">
                         <thead class="thead-light">
                           <tr>
-                              <th class="border-0 rounded-start rounded-end">File Name</th>
+                              <th class="border-0 rounded-start">
+                                T<a *ngIf="createForm.controls['usePreprocessor'].value !== false">|P
+                                  <fa-icon
+                                          placement="bottom"
+                                          ngbTooltip='T: Task, P: Preprocessor'
+                                          container="body"
+                                          [icon]="faInfoCircle"
+                                          aria-hidden="true"
+                                  >
+                                  </fa-icon>
+                                </a>
+                              </th>
+                              <th class="border-0 rounded-end">File Name</th>
                           </tr>
                           </thead>
                           <tbody>
                           <tr *ngFor="let f of allfiles | search:'0':'fileType'">
-                              <td *ngIf="f.isSecret == 1" class="width: 100px">
+                              <td>
                                 <form [formGroup]="createForm" novalidate>
+                                  <!-- Main attack checkbox -->
                                   <div class="form-check" >
-                                    <input class="form-check-input" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox" >
-                                    <label class="form-check-label" for="{{f.filename}}">
-                                        {{f.filename | shortenString:25 }}
-                                    </label>
+                                    <input class="form-check-input form-check-input-gray" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox"><a *ngIf="createForm.controls['usePreprocessor'].value !== false">T</a>
+                                  </div>
+                                  <!-- Preprocessor checkbox -->
+                                  <div  class="form-check" *ngIf="createForm.controls['usePreprocessor'].value !== false" >
+                                    <input class="form-check-input form-check-input-violet" (change)="onChange(f.fileId, f.fileType, f.filename, $event.target )" type="checkbox"><a>P</a>
                                   </div>
                                 </form>
+                              </td>
+                              <td *ngIf="f.isSecret == 1" class="width: 100px">
+                                <label class="form-check-label" for="{{f.filename}}">
+                                  {{f.filename | shortenString:25 }}
+                                </label>
                                 <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
                                 <fa-icon
                                         placement="bottom"
@@ -508,17 +530,17 @@
                                         aria-hidden="true"
                                 >
                                 </fa-icon>
-                              </td>
-                              <td *ngIf="f.isSecret == 0">{{ f.filename | shortenString:18 }}
-                                <fa-icon
-                                        placement="bottom"
-                                        ngbTooltip='Line Count:{{f.lineCount}}/ Size:{{ f.size | fileSize:false}}'
-                                        container="body"
-                                        [icon]="faInfoCircle"
-                                        aria-hidden="true"
-                                >
-                                </fa-icon>
-                              </td>
+                            </td>
+                            <td *ngIf="f.isSecret == 0">{{ f.filename | shortenString:18 }}
+                              <fa-icon
+                                      placement="bottom"
+                                      ngbTooltip='Line Count:{{f.lineCount}}/ Size:{{ f.size | fileSize:false}}'
+                                      container="body"
+                                      [icon]="faInfoCircle"
+                                      aria-hidden="true"
+                              >
+                              </fa-icon>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
