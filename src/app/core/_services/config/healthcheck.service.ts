@@ -73,7 +73,7 @@ export class HealthcheckService {
  * FIXME
 **/
   createHealthCheck(arr: any): Observable<HealthCheck[]> {
-    return this.http.post<any>(this.endpoint + '/ui/healthchecks', {checkType: +arr.checkType, hashtypeId: +arr.hashtypeId, crackerBinaryId: +arr.crackerBinaryId})
+    return this.http.post<any>(this.endpoint + '/ui/healthchecks', arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );

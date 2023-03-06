@@ -30,7 +30,7 @@ export class HealthChecksComponent implements OnInit {
   faEyeDropper=faEyeDropper;
 
   // Form create Health Check
-  signupForm: FormGroup;
+  createForm: FormGroup;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -76,7 +76,7 @@ export class HealthChecksComponent implements OnInit {
 
   ngOnInit(): void {
 
-  this.signupForm = new FormGroup({
+  this.createForm = new FormGroup({
     'checkType': new FormControl(0),
     'hashtypeId': new FormControl(null || 0, [Validators.required]),
     'crackerBinaryId': new FormControl('', [Validators.required])
@@ -175,12 +175,12 @@ export class HealthChecksComponent implements OnInit {
   }
 
   onSubmit(){
-    if (this.signupForm.valid) {
-      console.log(this.signupForm);
+    if (this.createForm.valid) {
+      console.log(this.createForm);
 
       this.isLoading = true;
 
-      this.healthcheckService.createHealthCheck(this.signupForm.value).subscribe((hasht: any) => {
+      this.healthcheckService.createHealthCheck(this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
         console.log(response);
         this.isLoading = false;
@@ -192,7 +192,7 @@ export class HealthChecksComponent implements OnInit {
             timer: 1500
           });
           this.isCollapsed = true; //Close button new hashtype
-          this.signupForm.reset(); // success, we reset form
+          this.createForm.reset(); // success, we reset form
           this.ngOnInit();
           this.rerender();  // rerender datatables
         },
