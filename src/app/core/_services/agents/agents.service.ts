@@ -22,7 +22,6 @@ export class AgentsService {
  * @param routerParams - to include multiple options such as Max number of results or filtering
  * @returns  Object
 **/
-
   getAgents(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -39,7 +38,6 @@ export class AgentsService {
  * @param id - agent id
  * @returns  Object
 **/
-
   getAgent(id: number):Observable<any> {
     return this.http.get(`${this.endpoint}/${id}`)
     .pipe(
@@ -52,7 +50,6 @@ export class AgentsService {
  * @param id - agent id
  * @returns Object
 **/
-
   deleteAgent(id: number): Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id)
     .pipe(
@@ -74,7 +71,6 @@ export class AgentsService {
  * @param arr - fields to be updated
  * @returns Object
 **/
-
   updateAgent(id: number, arr: any): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(

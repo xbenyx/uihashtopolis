@@ -89,7 +89,7 @@ export class HealthChecksComponent implements OnInit {
   let params = {'maxResults': this.maxResults};
 
   this.healthcheckService.getHealthChecks(params).subscribe((check: any) => {
-    this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
+    this.hashtypeService.getHashTypes(params).subscribe((hasht: any) => {
     this.mergedObjects = check.values.map(mainObject => {
       let matchObject = hasht.values.find(element => element.hashTypeId === mainObject.hashtypeId)
       return { ...mainObject, ...matchObject }

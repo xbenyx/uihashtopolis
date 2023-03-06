@@ -1,24 +1,20 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener  } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
-// import * as $ from "jquery"; //Fixes Test error but affects
-
 import { faMagnifyingGlass, faUpload, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from './../../../environments/environment';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
-
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { HashtypeService } from 'src/app/core/_services/hashtype.service';
 import { AccessGroupsService } from '../../core/_services/accessgroups.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { UploadTUSService } from '../../core/_services/files/files_tus.service';
-
 import { AccessGroup } from '../../core/_models/access-group';
 import { UploadFileTUS } from '../../core/_models/files';
-
 
 @Component({
   selector: 'app-new-hashlist',
@@ -47,6 +43,7 @@ export class NewHashlistComponent implements OnInit {
 
   // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
+  private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
      private hlService: ListsService,
@@ -92,7 +89,9 @@ export class NewHashlistComponent implements OnInit {
 
     this.uploadProgress = this.uploadService.uploadProgress; // TUS upload progress
 
-    this.hashtypeService.getHashTypes().subscribe((htypes: any) => {
+    let params = {'maxResults': this.maxResults};
+
+    this.hashtypeService.getHashTypes(params).subscribe((htypes: any) => {
       var self = this;
       var response = htypes.values;
       ($("#hashtype") as any).selectize({

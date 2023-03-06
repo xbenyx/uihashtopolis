@@ -1,14 +1,14 @@
 import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from './../../../environments/environment';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
-import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
 
 import { HashtypeService } from '../../core/_services/hashtype.service';
-
 
 @Component({
   selector: 'app-hashtypes',
@@ -29,6 +29,7 @@ export class HashtypesComponent implements OnInit {
 
   // Create Hashtype
   signupForm: FormGroup;
+  private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -57,8 +58,10 @@ export class HashtypesComponent implements OnInit {
       'isSlowHash': new FormControl(false)
     });
 
-    this.hashtypeService.getHashTypes().subscribe((hasht: any) => {
-      this.htypes = hasht.values;
+    let params = {'maxResults': this.maxResults};
+
+    this.hashtypeService.getHashTypes(params).subscribe((htypes: any) => {
+      this.htypes = htypes.values;
       this.dtTrigger.next(void 0);
     });
     this.dtOptions = {
