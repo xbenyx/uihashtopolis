@@ -13,7 +13,6 @@ export class HttpErrorInterceptor implements HttpInterceptor{
     private modalService: NgbModal
     ) {}
     modalRef = null;
-    modalErr = null;
     intercept(req: HttpRequest<any>, next: HttpHandler):
       Observable<HttpEvent<any>> {
         return next.handle(req)

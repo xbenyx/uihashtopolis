@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable, Output, EventEmitter } from "@angular/core";
-import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { BehaviorSubject, Subject, throwError, map, Observable, Observer  } from 'rxjs';
+import { BehaviorSubject, throwError, Observable } from 'rxjs';
 import { User } from '../_models/auth-user.model';
-import { Data, Router } from "@angular/router";
+import { catchError, tap } from 'rxjs/operators';
+import { Router } from "@angular/router";
 
 export interface AuthResponseData {
   token: string,
@@ -64,9 +64,9 @@ export class AuthService {
         this.tokenExpiration = setTimeout(() => {
           const userData: {_token: string, _expires: string, _username: string} = JSON.parse(localStorage.getItem('userData'));
           return this.http.post<AuthResponseData>(this.endpoint + '/refresh', {headers: new HttpHeaders({ Authorization: `Bearer ${userData._token}` })})
-          .pipe(catchError(this.handleError), tap(resData => {
-            this.handleAuthentication(resData.token, +resData.expires, userData._username);
-        }));
+                 .pipe(catchError(this.handleError), tap(resData => {
+                 this.handleAuthentication(resData.token, +resData.expires, userData._username);
+          }));
       }, expirationDuration);
     }
 
