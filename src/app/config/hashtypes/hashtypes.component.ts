@@ -28,7 +28,7 @@ export class HashtypesComponent implements OnInit {
   faInfoCircle=faInfoCircle;
 
   // Create Hashtype
-  signupForm: FormGroup;
+  createForm: FormGroup;
   private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective, {static: false})
@@ -51,7 +51,7 @@ export class HashtypesComponent implements OnInit {
 
     this.booleanopt = [{'value': 'true'},{'value': 'false'}];
 
-    this.signupForm = new FormGroup({
+    this.createForm = new FormGroup({
       'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), this.checkHashtypeExist.bind(this), Validators.minLength(1)]),
       'description': new FormControl('', [Validators.required, Validators.minLength(1)]),
       'isSalted': new FormControl(false),
@@ -142,12 +142,12 @@ export class HashtypesComponent implements OnInit {
   }
 
   onSubmit(): void{
-    if (this.signupForm.valid) {
-    console.log(this.signupForm);
+    if (this.createForm.valid) {
+    console.log(this.createForm);
 
     this.isLoading = true;
 
-    this.hashtypeService.createHashType(this.signupForm.value).subscribe((hasht: any) => {
+    this.hashtypeService.createHashType(this.createForm.value).subscribe((hasht: any) => {
       const response = hasht;
       console.log(response);
       this.isLoading = false;
@@ -174,11 +174,12 @@ export class HashtypesComponent implements OnInit {
         this.rerender();  // rerender datatables
       }
     );
-    this.signupForm.reset(); // success, we reset form
+    this.createForm.reset(); // success, we reset form
     }
   }
 
   onEdit(item: any){
+    // this.isCollapsed = false;
     this.htypes.forEach(element => {
       element.isEdit = false;
     });
@@ -202,7 +203,7 @@ export class HashtypesComponent implements OnInit {
   }
 
   onCancel(item: any){
-    this.rerender();  // Destroy and rerender table
+    // this.rerender();  // Destroy and rerender table
     item.isEdit = false;
   }
 
