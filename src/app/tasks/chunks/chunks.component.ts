@@ -5,6 +5,8 @@ import { Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { ChunkService } from '../../core/_services/chunks.service';
+import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
@@ -16,6 +18,8 @@ export class ChunksComponent implements OnInit {
   faEye=faEye;
 
   constructor(
+    private agentsService: AgentsService,
+    private tasksService: TasksService,
     private chunkService: ChunkService,
     private uiService: UIConfigService,
   ) { }
@@ -29,16 +33,31 @@ export class ChunksComponent implements OnInit {
   dtOptions: any = {};
   uidateformat:any;
 
-  public chunks: {chunkId: number,taskId: number,format: string,skip: number,length: number,agentId: number,dispatchTime: number,solveTime: number,checkpoint: number,progress: number,state: number,cracked: number,speed: number, isEdit: false}[] = [];
+  public chunks: {chunkId: number,taskId: number,format: string,skip: number,length: number,agentId: number,dispatchTime: number,solveTime: number,checkpoint: number,progress: number,state: number,cracked: number,speed: number, agentName: string, taskName: string, isEdit: false}[] = [];
 
   ngOnInit(): void {
-    let params = {'maxResults': this.maxResults};
-    this.chunkService.getChunks(params).subscribe((chunks: any) => {
-      this.chunks = chunks.values;
-      this.dtTrigger.next(void 0);
-    });
 
     this.uidateformat = this.uiService.getUIsettings('timefmt').value;
+
+    this.chunksInit();
+
+  }
+
+  chunksInit(){
+
+    let params = {'maxResults': this.maxResults};
+    this.chunkService.getChunks(params).subscribe((chunks: any) => {
+      this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
+      this.agentsService.getAgents(params).subscribe((agents: any) => {
+        this.chunks = chunks.values.map(mainObject => {
+          let matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)
+          let matchTObject = tasks.values.find(element => element.taskId === mainObject.taskId)
+          return { ...mainObject, ...matchAObject, ...matchTObject }
+        })
+        this.dtTrigger.next(void 0);
+        });
+      });
+    });
 
     this.dtOptions = {
       dom: 'Bfrtip',
@@ -91,7 +110,6 @@ export class ChunksComponent implements OnInit {
         ],
       }
     };
-
   }
 
 }

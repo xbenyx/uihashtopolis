@@ -200,7 +200,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
         let matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
         return { ...mainObject, ...matchObject }
       })
-      console.log(this.getchunks)
       this.dtTrigger.next(void 0);
     });
     });

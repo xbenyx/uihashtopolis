@@ -419,7 +419,7 @@
           <td *ngIf="gc.progress > 0">{{ gc.progress/100 }} %</td>
           <td *ngIf="!gc.progress">N/A</td>
           <td>
-            {{ gc.agentName }}
+            {{ gc.agentName | shortenString:15 | lowercase | titlecase }}
             <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',gc.agentId,'edit']" title="Edit Hashlist">
               <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
             </a>

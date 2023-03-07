@@ -40,13 +40,13 @@
                         <td *ngIf="c.progress > 0">{{ c.progress/100 }} %</td>
                         <td *ngIf="!c.progress">N/A</td>
                         <td>
-                          {{ c.taskId }}
+                          {{ c.taskName | shortenString:15 | lowercase | titlecase}}
                           <a class='btn-outline-gray-600 float-right' [routerLink]="['/tasks/show-tasks',c.taskId,'edit']" title="Edit Hashlist">
                             <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
                           </a>
                         </td>
                         <td>
-                          {{ c.agentId }}
+                          {{ c.agentName | shortenString:15 | lowercase | titlecase }}
                           <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',c.agentId,'edit']" title="Edit Hashlist">
                             <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
                           </a>
