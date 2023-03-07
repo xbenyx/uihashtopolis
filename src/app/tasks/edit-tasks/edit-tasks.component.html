@@ -401,7 +401,6 @@
           <th class="border-0">Length</th>
           <th class="border-0">Checkpoint</th>
           <th class="border-0">Progress</th>
-          <th class="border-0">Task</th>
           <th class="border-0">Agent</th>
           <th class="border-0">Dispatch time</th>
           <th class="border-0">Last activity</th>
@@ -420,13 +419,7 @@
           <td *ngIf="gc.progress > 0">{{ gc.progress/100 }} %</td>
           <td *ngIf="!gc.progress">N/A</td>
           <td>
-            {{ gc.taskId }}
-            <a class='btn-outline-gray-600 float-right' [routerLink]="['/tasks/show-tasks',gc.taskId,'edit']" title="Edit Hashlist">
-              <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
-            </a>
-          </td>
-          <td>
-            {{ gc.agentId }}
+            {{ gc.agentName }}
             <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',gc.agentId,'edit']" title="Edit Hashlist">
               <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
             </a>
