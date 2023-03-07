@@ -1,14 +1,16 @@
-import { Component, OnInit, OnDestroy, HostListener, ViewChild } from '@angular/core';
-import { faHomeAlt, faPlus, faTrash} from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { faHomeAlt, faEye } from '@fortawesome/free-solid-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Observable, Subject } from 'rxjs';
 
+import { ChunkService } from '../../core/_services/chunks.service';
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
-import { DataTableDirective } from 'angular-datatables';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 
 @Component({
   selector: 'app-edit-tasks',
@@ -21,11 +23,14 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   editedTask: any // Change to Model
 
   faHome=faHomeAlt;
+  faEye=faEye;
   isLoading = false;
 
   constructor(
     private tasksService: TasksService,
-    private route:ActivatedRoute,
+    private chunkService: ChunkService,
+    private route: ActivatedRoute,
+    private uiService:UIConfigService,
     private router: Router
   ) { }
 
@@ -38,14 +43,20 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  uidateformat:any;
 
-  ngOnInit(): void {
+  getchunks: any;
+
+  ngOnInit() {
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
+
     this.route.params
     .subscribe(
       (params: Params) => {
         this.editedTaskIndex = +params['id'];
         this.editMode = params['id'] != null;
         this.initForm();
+        this.assignChunksInit(this.editedTaskIndex);
       }
     );
 
@@ -70,55 +81,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
         'isSmall': new FormControl(''),
       }),
     });
-
-    this.dtOptions[0] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      autoWidth: false,
-      // destroy: true,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
-
-    this.dtOptions[1] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      destroy: true,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
-
-    this.dtOptions[2] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      destroy: true,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
 
   }
 
@@ -189,6 +151,66 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.isLoading = false;
     });
    }
+  }
+
+  attachFilesInit(id: number){
+    this.dtOptions[0] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      autoWidth: false,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+  }
+
+  assingAgentInit(id: number){
+    this.dtOptions[1] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
+  }
+
+  assignChunksInit(id: number){
+    let params = {'maxResults': this.maxResults};
+    this.chunkService.getChunks(params).subscribe((result: any)=>{
+      this.getchunks = result.values.filter(u=> u.taskId == id);
+      this.dtTrigger.next(void 0);
+    });
+
+    this.dtOptions[2] = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[]
+      }
+    }
   }
 
   // @HostListener allows us to also guard against browser refresh, close, etc.

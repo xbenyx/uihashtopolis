@@ -32,7 +32,7 @@ export class ChunksComponent implements OnInit {
   public chunks: {chunkId: number,taskId: number,format: string,skip: number,length: number,agentId: number,dispatchTime: number,solveTime: number,checkpoint: number,progress: number,state: number,cracked: number,speed: number, isEdit: false}[] = [];
 
   ngOnInit(): void {
-    let params = {'maxResults': this.maxResults}
+    let params = {'maxResults': this.maxResults};
     this.chunkService.getChunks(params).subscribe((chunks: any) => {
       this.chunks = chunks.values;
       this.dtTrigger.next(void 0);
