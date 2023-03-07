@@ -153,8 +153,6 @@ export class NewTasksComponent implements OnInit {
     }
   }
 
-  // preprocessorCommand
-
   validateFile(value){
     if(value.split('.').pop() == '7zip'){
       Swal.fire({
@@ -480,7 +478,6 @@ export class NewTasksComponent implements OnInit {
    }
   }
 
-
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -491,7 +488,6 @@ export class NewTasksComponent implements OnInit {
       });
     });
   }
-
 
   // @HostListener allows us to also guard against browser refresh, close, etc.
   @HostListener('window:beforeunload', ['$event'])
