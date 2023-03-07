@@ -21,7 +21,6 @@ export class HashesService {
  * @param routerParams - to include multiple options such as Max number of results or filtering
  * @returns Object
 **/
-
   getAllhashes(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -38,7 +37,6 @@ export class HashesService {
  * @param id - hash id
  * @returns Object
 **/
-
   getHash(id: number):Observable<any> {
     return this.http.get(`${this.endpoint}/${id}`)
     .pipe(

@@ -14,6 +14,11 @@ export class SuperTasksService {
 
   constructor(private http: HttpClient) { }
 
+/**
+ * Get all Supertasks
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns Object
+**/
   getAllsupertasks(routerParams?: Params):Observable<any> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -25,6 +30,11 @@ export class SuperTasksService {
     );
   }
 
+/**
+ * Get supertask by id
+ * @param id - id
+ * @returns Object
+**/
   getSupertask(id:number):Observable<any> {
     return this.http.get(this.endpoint +'/'+ id)
     .pipe(
@@ -32,10 +42,20 @@ export class SuperTasksService {
     );
   }
 
+/**
+ * Delete supertask
+ * @param id - id
+ * @returns Object
+**/
   deleteSupertask(id:number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id);
   }
 
+/**
+ * Create new supertask
+ * @param arr - fields
+ * @returns Object
+**/
   createSupertask(arr: any): Observable<any> {
     return this.http.post<any>(this.endpoint, arr)
     .pipe(
@@ -43,6 +63,12 @@ export class SuperTasksService {
     );
   }
 
+/**
+ * Update supertask
+ * @param id - id
+ * @param arr - fields to update
+ * @returns Object
+**/
   updateSupertask(id: number, arr: any): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
