@@ -198,16 +198,30 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     }
   }
 
-  // Calculations to get Keyspace searched,
+/**
+ * This function calculates Keyspace searched, Time Spent and Estimated Time
+ *
+**/
+  // Keyspace searched
   cprogress: any;
   tkeyspace: any;
   tusepreprocessor: any;
+  // Time Spent
+  ctimespent: any;
   timeCalc(chunks){
-      var cprogress = []
+      var cprogress = [];
+      var timespent = [];
+      var current = 0;
       for(let i=0; i < chunks.length; i++){
         cprogress.push(chunks[i].checkpoint - chunks[i].skip);
+        if(chunks[i].dispatchTime > current){
+          timespent.push(chunks[i].solveTime - chunks[i].dispatchTime);
+        } else if (chunks[i].solveTime > current) {
+          timespent.push(chunks[i].solveTime- current);
+        }
       }
       this.cprogress = cprogress.reduce((a, i) => a + i);
+      this.ctimespent = timespent.reduce((a, i) => a + i);
   }
 
   assignChunksInit(id: number){

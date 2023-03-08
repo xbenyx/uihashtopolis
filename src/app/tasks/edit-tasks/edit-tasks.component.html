@@ -304,7 +304,13 @@
                 <div class="form-outline">
                     <label class="form-label" for="getKeyspace">Time spent</label>
                     <td>
-                    Missing API
+                    <span class="pre input-group-text input-group-lg">
+                      <td>
+                      <div *ngIf="ctimespent">
+                        {{ ctimespent | sectotime }}
+                      </div>
+                      </td>
+                    </span>
                 </div>
               </div>
               &nbsp;
