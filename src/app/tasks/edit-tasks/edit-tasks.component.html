@@ -318,9 +318,21 @@
             <div class="col">
               <div class="form-group">
                 <div class="form-outline">
-                    <label class="form-label" for="getKeyspace">Estimated time</label>
-                    <td>
-                    Missing API
+                    <label class="form-label" for="getKeyspace">E.T.</label>
+                    <div *ngIf="tkeyspace != 0 && (cprogress/tkeyspace) != 0; else templatedash">
+                      <span class="pre input-group-text input-group-lg">
+                        <td>
+                         {{ (ctimespent/(cprogress/tkeyspace)-ctimespent) | percent }}
+                        </td>
+                      </span>
+                    </div>
+                    <ng-template #templatedash>
+                      <span class="pre input-group-text input-group-lg">
+                        <td>
+                          ---
+                        </td>
+                      </span>
+                    </ng-template>
                 </div>
               </div>
               &nbsp;
@@ -342,6 +354,7 @@
                 <label class="form-label" for="getTaskId">Hashlist</label>
                 <td>
                   Missing API
+                  <!-- GetFormat === 3 then Superhaslist else Hashlist -->
             </div>
           </div>
           &nbsp;
