@@ -3,6 +3,7 @@ import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { rerender } from '../../shared/utils/rendertable';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Observable, Subject } from 'rxjs';
@@ -13,7 +14,7 @@ import { AgentsService } from '../../core/_services/agents/agents.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { max } from 'moment';
+
 
 @Component({
   selector: 'app-edit-tasks',
