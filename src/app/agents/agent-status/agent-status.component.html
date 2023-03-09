@@ -454,7 +454,7 @@
                       <div *ngIf="aa.speed">at {{ aa.speed | fileSize:false }} H/s,<br></div>
                       <div *ngIf="aa.chunkId">working on chunk
                         {{ aa.chunkId }}
-                        <a [routerLink]="['/tasks/chunks',aa.taskId,'view']">
+                        <a [routerLink]="['/tasks/chunks',aa.chunkId,'view']">
                           <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
                         </a>
                       </div>

@@ -1,7 +1,7 @@
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -15,6 +15,8 @@ import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
   templateUrl: './chunks.component.html'
 })
 export class ChunksComponent implements OnInit {
+  editedChunkIndex: number;
+
   faPlus=faPlus;
   faEye=faEye;
 
@@ -50,6 +52,7 @@ export class ChunksComponent implements OnInit {
   chunkresults: Object;
 
   chunksInit(){
+    var paramchunk = {};
 
     this.route.data.subscribe(data => {
       switch (data['kind']) {
@@ -57,23 +60,32 @@ export class ChunksComponent implements OnInit {
         case 'chunks':
           this.chunkview = 0;
           this.chunkresults = this.maxResults;
+          paramchunk = {'maxResults': this.chunkresults };
         break;
 
         case 'chunks-view':
           this.chunkview = 1;
-          this.chunkresults = 100;
+          this.chunkresults = this.maxResults;
+          this.route.params
+          .subscribe(
+            (params: Params) => {
+              this.editedChunkIndex = +params['id'];
+            }
+          );
+          paramchunk = {'maxResults': this.chunkresults, 'filter': 'chunkId='+this.editedChunkIndex+''};
         break;
 
         case 'chunks-cAll':
           this.chunkview = 2;
           this.chunkresults = 10000;
+          paramchunk = {'maxResults': this.chunkresults };
         break;
 
       }
     });
 
     let params = {'maxResults': this.chunkresults};
-    this.chunkService.getChunks(params).subscribe((chunks: any) => {
+    this.chunkService.getChunks(paramchunk).subscribe((chunks: any) => {
       this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
       this.agentsService.getAgents(params).subscribe((agents: any) => {
         this.chunks = chunks.values.map(mainObject => {
