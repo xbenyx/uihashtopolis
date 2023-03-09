@@ -304,11 +304,9 @@
                 <div class="form-outline">
                     <label class="form-label" for="getKeyspace">Time spent</label>
                     <td>
-                    <span class="pre input-group-text input-group-lg">
+                    <span class="pre input-group-text input-group-lg" *ngIf="ctimespent">
                       <td>
-                        <div *ngIf="ctimespent">
                           {{ ctimespent | sectotime }}
-                        </div>
                       </td>
                     </span>
                 </div>
@@ -341,8 +339,11 @@
               <div class="form-group">
                 <div class="form-outline">
                     <label class="form-label" for="getKeyspace">Speed</label>
-                    <td>
-                    Missing API
+                    <span class="pre input-group-text input-group-lg" *ngIf="currenspeed">
+                      <td>
+                          {{ currenspeed | fileSize:false }}H/s
+                      </td>
+                    </span>
                 </div>
               </div>
               &nbsp;
@@ -487,7 +488,12 @@
           <td>{{ (gc.solveTime - gc.dispatchTime) | sectotime }}</td>
           <td>{{ gc.state | staticArray:'states' }}</td>
           <td>{{ gc.cracked }}</td>
-          <td>Reset</td>
+          <td>
+            <a>
+              <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Reset Chunk" (click)="onReset(gc.chunkId)">
+              <fa-icon [icon]="faEraser" aria-hidden="true"></fa-icon></a>
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>

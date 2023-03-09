@@ -16,6 +16,11 @@ export class ChunkService {
 
   constructor(private http: HttpClient) { }
 
+/**
+ * Returns all the Chunks
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns  Object
+**/
   getChunks(routerParams?: Params): Observable<BaseChunk[]> {
     let queryParams: Params = {};
     if (routerParams) {
@@ -27,6 +32,11 @@ export class ChunkService {
     );
   }
 
+/**
+ * Returns chunk by id
+ * @param id - id
+ * @returns  Object
+**/
   getChunk(id: number):Observable<any> {
     return this.http.get(`${this.endpoint}/${id}`)
     .pipe(
@@ -34,9 +44,15 @@ export class ChunkService {
     );
   }
 
-  updateChunk(arr: any): Observable<any> {
+/**
+ * Update chunk
+ * @param id - to include multiple options such as Max number of results or filtering
+ * @param arr - fields to update
+ * @returns  Object
+**/
+  updateChunk(id:number, arr: any): Observable<any> {
     console.log(arr);
-    return this.http.patch<number>(this.endpoint + '/' + arr.hashTypeId, arr)
+    return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );

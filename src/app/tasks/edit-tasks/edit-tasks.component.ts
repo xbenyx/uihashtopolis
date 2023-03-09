@@ -1,5 +1,5 @@
+import { faHomeAlt, faEye, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import { faHomeAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -25,8 +25,10 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   editedTaskIndex: number;
   editedTask: any // Change to Model
 
+  faEraser=faEraser;
   faHome=faHomeAlt;
   faEye=faEye;
+
   isLoading = false;
 
   constructor(
@@ -228,6 +230,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   // Chunk View
   chunkview: number;
   isactive: number = 0;
+  currenspeed: number = 0;
   chunkresults: Object;
   activechunks: Object;
 
@@ -264,12 +267,15 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       if(this.chunkview == 0){
         let chunktime = this.uiService.getUIsettings('chunktime').value;
         var resultArray = [];
+        var cspeed = [];
         for(let i=0; i < this.getchunks.length; i++){
           if(Date.now() - Math.max(this.getchunks[i].solveTime, this.getchunks[i].dispatchTime) < chunktime && this.getchunks[i].progress < 10000){
             this.isactive = 1;
+            cspeed.push(this.getchunks[i].speed);
             resultArray.push(this.getchunks[i]);
           }
         }
+        this.currenspeed = cspeed.reduce((a, i) => a + i);
         this.getchunks = resultArray;
       }
       this.dtTrigger.next(void 0);
@@ -291,6 +297,35 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       buttons:[]
       }
     }
+  }
+
+/**
+ * This function reset information in the selected chunk, sets to zero; Dispatch Time, Solve Time, Progress and State
+ *
+**/
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
+  onReset(id: number){
+    let reset = {'dispatchTime':0, 'solveTime':0, 'progress':0,'state':0};
+    this.chunkService.updateChunk(id, reset).subscribe(()=>{
+      Swal.fire({
+        title: "Chunk Reset!",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.ngOnInit();
+      this.rerender();
+    });
   }
 
   // @HostListener allows us to also guard against browser refresh, close, etc.
