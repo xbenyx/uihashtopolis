@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from "@angular/core";
 
 import { NewPreprocessorComponent } from "./engine/preprocessors/new-preprocessor/new-preprocessor.component";
+import { NewAgentBinariesComponent } from "./engine/agent-binaries/new-agent-binary/new-agent-binaries.component";
 import { EditHealthChecksComponent } from "./health-checks/edit-health-checks/edit-health-checks.component";
 import { EditCrackersComponent } from "./engine/crackers/edit-crackers/edit-crackers.component";
 import { NewCrackersComponent } from "./engine/crackers/new-crackers/new-crackers.component";
@@ -13,6 +14,7 @@ import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { ServerComponent } from "./server/server.component";
 import { LogComponent } from "./log/log.component";
+
 
 const routes: Routes = [
   {
@@ -86,6 +88,20 @@ const routes: Routes = [
           data: {
               kind: 'agent-binaries',
               breadcrumb: 'Engine > Agent-binaries'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'engine/agent-binaries/new-agent-binary',  component: NewAgentBinariesComponent,
+          data: {
+              kind: 'new-agent-binary',
+              breadcrumb: 'Engine > New Agent binary'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'engine/agent-binaries/:id/edit',  component: NewAgentBinariesComponent,
+          data: {
+              kind: 'edit-agent-binary',
+              breadcrumb: 'Engine > Edit Agent binary'
           },
           canActivate: [AuthGuard]},
         {

@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 
+import { NewAgentBinariesComponent } from "./engine/agent-binaries/new-agent-binary/new-agent-binaries.component";
 import { NewPreprocessorComponent } from './engine/preprocessors/new-preprocessor/new-preprocessor.component';
 import { EditHealthChecksComponent } from './health-checks/edit-health-checks/edit-health-checks.component';
 import { EditCrackersComponent } from './engine/crackers/edit-crackers/edit-crackers.component';
@@ -23,17 +24,18 @@ import { LogComponent } from "./log/log.component";
 
 @NgModule({
   declarations:[
-    ServerComponent,
-    LogComponent,
-    HealthChecksComponent,
-    AgentBinariesComponent,
-    CrackersComponent,
-    PreprocessorsComponent,
-    HashtypesComponent,
-    NewPreprocessorComponent,
+    NewAgentBinariesComponent,
     EditHealthChecksComponent,
+    NewPreprocessorComponent,
+    PreprocessorsComponent,
+    AgentBinariesComponent,
+    HealthChecksComponent,
     EditCrackersComponent,
-    NewCrackersComponent
+    NewCrackersComponent,
+    HashtypesComponent,
+    CrackersComponent,
+    ServerComponent,
+    LogComponent
   ],
   imports:[
     ReactiveFormsModule,

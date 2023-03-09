@@ -71,7 +71,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       this.vouchers = vouchers.values;
     });
 
-    this.agentBinService.getAgentBin().subscribe((bin: any) => {
+    this.agentBinService.getAgentBins().subscribe((bin: any) => {
       this.binaries = bin.values;
       this.dtTrigger.next(void 0);
     });
