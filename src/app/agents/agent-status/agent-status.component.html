@@ -446,9 +446,9 @@
                       <span *ngIf="aa.isActive == 0" ><fa-icon [icon]="faPauseCircle" aria-hidden="true"></fa-icon></span>
                     </td>
                     <td>
-                      Agent task? <br>
-                      Missing Agent Speeds API Call<br>
-                      Working on chunk (I can map)
+                      <a *ngIf="aa.taskId">Task: {{ aa.taskId }} ,</a>
+                      <div *ngIf="aa.speed">at {{ aa.speed | fileSize:false }} H/s,<br></div>
+                      <div *ngIf="aa.chunkId">working on chunk {{ aa.chunkId }}</div>
                     </td>
                     <td>
                       Task Assignments, missing?

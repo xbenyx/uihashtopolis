@@ -1,16 +1,17 @@
-import { Component, OnInit, ComponentRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { faDigitalTachograph, faMicrochip, faHomeAlt, faPlus, faUserSecret,faEye, faTemperature0, faInfoCircle, faServer, faUsers, faChevronDown, faLock, faPauseCircle} from '@fortawesome/free-solid-svg-icons';
 import { ModalDismissReasons, NgbModal, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
-import { ASC } from '../../core/_constants/agentsc.config';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 
-import { AgentsService } from '../../core/_services/agents/agents.service';
-import { FilterService } from 'src/app/core/_services/filter.service';
+import { ASC } from '../../core/_constants/agentsc.config';
 import { environment } from 'src/environments/environment';
+import { FilterService } from 'src/app/core/_services/filter.service';
+import { ChunkService } from 'src/app/core/_services/chunks.service';
+import { AgentsService } from '../../core/_services/agents/agents.service';
+import { CookieService } from 'src/app/core/_services/shared/cookies.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { AgentStatService } from 'src/app/core/_services/agents/agentstats.service';
-import { CookieService } from 'src/app/core/_services/shared/cookies.service';
-import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-agent-status',
@@ -57,17 +58,17 @@ export class AgentStatusComponent implements OnInit {
   }
 
   constructor(
-    private agentsService: AgentsService,
     private astatService: AgentStatService,
-    private modalService: NgbModal,
+    private offcanvasService: NgbOffcanvas,
+    private agentsService: AgentsService,
     private filterService: FilterService,
-    private uiService: UIConfigService,
     private cookieService: CookieService,
-    private offcanvasService: NgbOffcanvas
+    private chunkService: ChunkService,
+    private uiService: UIConfigService,
+    private modalService: NgbModal
   ) { }
 
   // View Menu
-
   view: any;
 
   setView(value: string){
@@ -112,9 +113,16 @@ export class AgentStatusComponent implements OnInit {
   getAgentsPage(page: number) {
     let params = {'maxResults': this.maxResults}
     this.agentsService.getAgents(params).subscribe((agents: any) => {
-      this.showagents = this.filteredAgents = agents.values;
+      var getData = agents.values;
       this.totalRecords = agents.total;
-      this.dtTrigger.next(void 0);
+      this.chunkService.getChunks(params).subscribe((chunks: any)=>{
+        this.showagents = this.filteredAgents = getData.map(mainObject => {
+        let matchObject = chunks.values.find(element => element.agentId === mainObject.agentId)
+        return { ...mainObject, ...matchObject }
+        })
+        console.log(this.showagents)
+        this.dtTrigger.next(void 0);
+      })
     });
   }
 
@@ -138,7 +146,7 @@ export class AgentStatusComponent implements OnInit {
     return time;
   }
 
-  // Filter
+  // On change filter
 
   filterChanged(data: string) {
     if (data && this.showagents) {
@@ -156,7 +164,7 @@ export class AgentStatusComponent implements OnInit {
     return this.uiService.getUIsettings('agentTempThreshold1').value;
   }
 
-  getTemp2(){  // Temperature Config Setting
+  getTemp2(){  // Temperature 2 Config Setting
     return this.uiService.getUIsettings('agentTempThreshold2').value;
   }
 
@@ -164,7 +172,7 @@ export class AgentStatusComponent implements OnInit {
     return this.uiService.getUIsettings('agentUtilThreshold1').value;
   }
 
-  getUtil2(){  // CPU Config Setting
+  getUtil2(){  // CPU 2 Config Setting
     return this.uiService.getUIsettings('agentUtilThreshold2').value;
   }
 
