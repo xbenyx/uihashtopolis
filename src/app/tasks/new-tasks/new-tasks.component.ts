@@ -68,17 +68,17 @@ export class NewTasksComponent implements OnInit {
     }[] = [];
 
   constructor(
-    private preTasksService: PreTasksService,
-    private taskService: TasksService,
-    private listsService:ListsService,
-    private route:ActivatedRoute,
-    private router: Router,
     private preprocessorService:PreprocessorService,
-    private filesService: FilesService,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private preTasksService: PreTasksService,
     private crackerService: CrackerService,
     private tooltipService: TooltipService,
     private uiService: UIConfigService,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private taskService: TasksService,
+    private listsService:ListsService,
+    private filesService: FilesService,
+    private route:ActivatedRoute,
+    private router: Router,
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults;

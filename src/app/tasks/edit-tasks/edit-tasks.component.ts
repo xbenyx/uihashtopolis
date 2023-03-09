@@ -13,6 +13,7 @@ import { AgentsService } from '../../core/_services/agents/agents.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
+import { max } from 'moment';
 
 @Component({
   selector: 'app-edit-tasks',
@@ -224,8 +225,34 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.ctimespent = timespent.reduce((a, i) => a + i);
   }
 
+  // Chunk View
+  chunkview: number;
+  isactive: number = 0;
+  chunkresults: Object;
+  activechunks: Object;
+
   assignChunksInit(id: number){
-    let params = {'maxResults': this.maxResults};
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'edit-task':
+          this.chunkview = 0;
+          this.chunkresults = this.maxResults;
+        break;
+
+        case 'edit-task-c100':
+          this.chunkview = 1;
+          this.chunkresults = 100;
+        break;
+
+        case 'edit-task-cAll':
+          this.chunkview = 2;
+          this.chunkresults = 6000;
+        break;
+
+      }
+    });
+    let params = {'maxResults': this.chunkresults};
     this.chunkService.getChunks(params).subscribe((result: any)=>{
       var getchunks = result.values.filter(u=> u.taskId == id);
       this.timeCalc(getchunks);
@@ -234,6 +261,17 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
         let matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
         return { ...mainObject, ...matchObject }
         })
+      if(this.chunkview == 0){
+        let chunktime = this.uiService.getUIsettings('chunktime').value;
+        var resultArray = [];
+        for(let i=0; i < this.getchunks.length; i++){
+          if(Date.now() - Math.max(this.getchunks[i].solveTime, this.getchunks[i].dispatchTime) < chunktime && this.getchunks[i].progress < 10000){
+            this.isactive = 1;
+            resultArray.push(this.getchunks[i]);
+          }
+        }
+        this.getchunks = resultArray;
+      }
       this.dtTrigger.next(void 0);
       });
     });

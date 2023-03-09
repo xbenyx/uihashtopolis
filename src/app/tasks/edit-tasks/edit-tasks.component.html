@@ -374,7 +374,10 @@
           </div>
          </form>
          <hr>
+         <div *ngIf="tkeyspace > 0">
          <h5>Visual Representation</h5>
+
+         </div>
         </div>
       </div>
    </div>
@@ -394,7 +397,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr >
+        <tr>
 
         </tr>
       </tbody>
@@ -425,9 +428,26 @@
       </tbody>
     </table>
 </div>
-<!-- Assigned Agents -->
+<!-- Dispatched Chunks -->
 &nbsp;&nbsp;
 <h2>Dispatched chunks</h2>
+<div [ngSwitch]="chunkview">
+  <div *ngSwitchCase="0">
+    <h5>Show Live Chunks</h5>
+    <button [routerLink]="['/tasks/show-tasks',editedTaskIndex,'edit','show-100-chunks']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Latest 100</button>
+    <button [routerLink]="['/tasks/show-tasks',editedTaskIndex,'edit','show-all-chunks']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show All</button>
+  </div>
+  <div *ngSwitchCase="1">
+    <h5>Show Latest 100 Chunks</h5>
+    <button [routerLink]="['/tasks/show-tasks',editedTaskIndex,'edit']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Live</button>
+    <button [routerLink]="['/tasks/show-tasks',editedTaskIndex,'edit','show-all-chunks']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show All</button>
+  </div>
+  <div *ngSwitchCase="2">
+    <h5>Show All Chunks</h5>
+    <button [routerLink]="['/tasks/show-tasks',editedTaskIndex,'edit']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Live</button>
+    <button [routerLink]="['/tasks/show-tasks',editedTaskIndex,'edit','show-100-chunks']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Latest 100</button>
+  </div>
+</div>
 <div class="table-responsive">
   &nbsp;
     <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[2]" [dtTrigger]="dtTrigger">
@@ -463,7 +483,7 @@
           </td>
           <td>{{ gc.dispatchTime*1000 | date: uidateformat }}</td>
           <td *ngIf="gc.solveTime === 0">(No acitivity)</td>
-          <td *ngIf="gc.solveTime > 0">{{ gc.solveTime*1000 | date: uidateformat }}</td>
+          <td *ngIf="gc.solveTime > 0"> {{ gc.solveTime*1000 | date: uidateformat }} </td>
           <td>{{ (gc.solveTime - gc.dispatchTime) | sectotime }}</td>
           <td>{{ gc.state | staticArray:'states' }}</td>
           <td>{{ gc.cracked }}</td>

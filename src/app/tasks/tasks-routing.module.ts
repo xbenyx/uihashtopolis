@@ -39,8 +39,21 @@ const routes: Routes = [
               kind: 'edit-task',
               breadcrumb: 'Edit Task'
           },
-          canActivate: [AuthGuard],
-          canDeactivate: [PendingChangesGuard]},
+          canActivate: [AuthGuard]},
+        {
+          path: 'show-tasks/:id/edit/show-100-chunks', component: EditTasksComponent,
+          data: {
+              kind: 'edit-task-c100',
+              breadcrumb: 'Edit Task > Show latest 100 chunks'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'show-tasks/:id/edit/show-all-chunks', component: EditTasksComponent,
+          data: {
+              kind: 'edit-task-cAll',
+              breadcrumb: 'Edit Task > Show All chunks'
+          },
+          canActivate: [AuthGuard]},
         {
           path: 'new-tasks', component: NewTasksComponent,
           data: {
