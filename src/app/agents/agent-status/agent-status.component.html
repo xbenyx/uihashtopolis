@@ -446,7 +446,7 @@
                       <span *ngIf="aa.isActive == 0" ><fa-icon [icon]="faPauseCircle" aria-hidden="true"></fa-icon></span>
                     </td>
                     <td>
-                      <a *ngIf="aa.taskId">Task: {{ aa.taskId }}
+                      <a *ngIf="aa.taskId">Task: {{ aa.taskName | shortenString:15 | lowercase | titlecase }}
                         <a [routerLink]="['/tasks/show-tasks/',aa.taskId,'edit']">
                           <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
                         </a>,

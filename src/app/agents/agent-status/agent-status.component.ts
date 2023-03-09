@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 import { ASC } from '../../core/_constants/agentsc.config';
 import { environment } from 'src/environments/environment';
+import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 import { FilterService } from 'src/app/core/_services/filter.service';
 import { ChunkService } from 'src/app/core/_services/chunks.service';
 import { AgentsService } from '../../core/_services/agents/agents.service';
@@ -63,6 +64,7 @@ export class AgentStatusComponent implements OnInit {
     private agentsService: AgentsService,
     private filterService: FilterService,
     private cookieService: CookieService,
+    private tasksService: TasksService,
     private chunkService: ChunkService,
     private uiService: UIConfigService,
     private modalService: NgbModal
@@ -112,16 +114,21 @@ export class AgentStatusComponent implements OnInit {
 
   getAgentsPage(page: number) {
     let params = {'maxResults': this.maxResults}
-    this.agentsService.getAgents(params).subscribe((agents: any) => {
-      var getData = agents.values;
-      this.totalRecords = agents.total;
-      this.chunkService.getChunks(params).subscribe((chunks: any)=>{
-        this.showagents = this.filteredAgents = getData.map(mainObject => {
-        let matchObject = chunks.values.find(element => element.agentId === mainObject.agentId)
-        return { ...mainObject, ...matchObject }
+    this.agentsService.getAgents(params).subscribe((a: any) => {
+      var getAData = a.values;
+      this.totalRecords = a.total;
+      this.chunkService.getChunks(params).subscribe((c: any)=>{
+        this.tasksService.getAlltasks(params).subscribe((t: any)=>{
+          var map = getAData.map(mainObject => {
+          let matchObjectAgents = c.values.find(e => e.agentId === mainObject.agentId)
+          return { ...mainObject, ...matchObjectAgents}
+          })
+          this.showagents = this.filteredAgents = map.map(mainObject => {
+            let matchObjectTask = t.values.find(e => e.taskId === mainObject.taskId)
+            return { ...mainObject, ...matchObjectTask}
+          })
+          this.dtTrigger.next(void 0);
         })
-        console.log(this.showagents)
-        this.dtTrigger.next(void 0);
       })
     });
   }
