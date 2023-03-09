@@ -4,10 +4,21 @@
         <p class="mb-0">Section to manage and view chunk activity.</p>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <a aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-          <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-            Show all chunks
-        </a>
+      <div [ngSwitch]="chunkview">
+        <div *ngSwitchCase="2">
+          <a  [routerLink]="['/tasks/chunks']" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+             View Less
+          </a>
+        </div>
+        <div *ngSwitchCase="0">
+          <a  [routerLink]="['/tasks/chunks', 'show-all-chunks']" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+              View all chunks
+          </a>
+        </div>
+      </div>
+
     </div>
 </div>
 <!-- Body -->

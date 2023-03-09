@@ -147,6 +147,20 @@ const routes: Routes = [
             breadcrumb: 'Chunks'
           },
           canActivate: [AuthGuard]},
+        {
+          path: 'chunks/:id/view', component: ChunksComponent,
+          data: {
+              kind: 'chunks-view',
+              breadcrumb: 'Chunks > View Chunk'
+          },
+          canActivate: [AuthGuard]},
+        {
+          path: 'chunks/show-all-chunks', component: ChunksComponent,
+          data: {
+              kind: 'chunks-cAll',
+              breadcrumb: 'Chunks > Show All chunks'
+          },
+          canActivate: [AuthGuard]},
         ]
      }
   ]

@@ -1,6 +1,7 @@
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -22,6 +23,7 @@ export class ChunksComponent implements OnInit {
     private tasksService: TasksService,
     private chunkService: ChunkService,
     private uiService: UIConfigService,
+    private route: ActivatedRoute,
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -43,9 +45,34 @@ export class ChunksComponent implements OnInit {
 
   }
 
+  // Chunk View
+  chunkview: number;
+  chunkresults: Object;
+
   chunksInit(){
 
-    let params = {'maxResults': this.maxResults};
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'chunks':
+          this.chunkview = 0;
+          this.chunkresults = this.maxResults;
+        break;
+
+        case 'chunks-view':
+          this.chunkview = 1;
+          this.chunkresults = 100;
+        break;
+
+        case 'chunks-cAll':
+          this.chunkview = 2;
+          this.chunkresults = 10000;
+        break;
+
+      }
+    });
+
+    let params = {'maxResults': this.chunkresults};
     this.chunkService.getChunks(params).subscribe((chunks: any) => {
       this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
       this.agentsService.getAgents(params).subscribe((agents: any) => {

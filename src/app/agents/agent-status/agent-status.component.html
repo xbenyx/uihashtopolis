@@ -446,9 +446,18 @@
                       <span *ngIf="aa.isActive == 0" ><fa-icon [icon]="faPauseCircle" aria-hidden="true"></fa-icon></span>
                     </td>
                     <td>
-                      <a *ngIf="aa.taskId">Task: {{ aa.taskId }} ,</a>
+                      <a *ngIf="aa.taskId">Task: {{ aa.taskId }}
+                        <a [routerLink]="['/tasks/show-tasks/',aa.taskId,'edit']">
+                          <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
+                        </a>,
+                      </a>
                       <div *ngIf="aa.speed">at {{ aa.speed | fileSize:false }} H/s,<br></div>
-                      <div *ngIf="aa.chunkId">working on chunk {{ aa.chunkId }}</div>
+                      <div *ngIf="aa.chunkId">working on chunk
+                        {{ aa.chunkId }}
+                        <a [routerLink]="['/tasks/chunks',aa.taskId,'view']">
+                          <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
+                        </a>
+                      </div>
                     </td>
                     <td>
                       Task Assignments, missing?
