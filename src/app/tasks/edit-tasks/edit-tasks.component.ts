@@ -41,7 +41,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   updateForm: FormGroup;
   color: string = '';
-  private maxResults = environment.config.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
