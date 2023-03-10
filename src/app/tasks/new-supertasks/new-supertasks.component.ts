@@ -19,10 +19,10 @@ export class NewSupertasksComponent implements OnInit {
   faMagnifyingGlass=faMagnifyingGlass;
 
   constructor(
-    private pretasksService: PreTasksService,
-    private supertaskService: SuperTasksService,
-    private router: Router,
     private _changeDetectorRef: ChangeDetectorRef,
+    private supertaskService: SuperTasksService,
+    private pretasksService: PreTasksService,
+    private router: Router
   ) { }
 
   createForm: FormGroup;
