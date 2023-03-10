@@ -44,40 +44,56 @@ export class HealthcheckService {
       tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
+/**
+ * Delete individial Health check by id
+ * @param id - Health check id
+ * @returns Object
+**/
+deleteHealthCheck(id: number):Observable<any> {
+  return this.http.delete(this.endpoint + '/ui/healthchecks' +'/'+ id);
+}
+
+/**
+* Create individial Health check
+* @param arr - Fields
+* @returns Object
+* FIXME
+**/
+createHealthCheck(arr: any): Observable<HealthCheck[]> {
+  return this.http.post<any>(this.endpoint + '/ui/healthchecks', arr)
+  .pipe(
+    tap(data => console.log('All: ', JSON.stringify(data)))
+  );
+}
+
+/**
+ * Get all Health Checks
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns Object
+**/
+   getHealthCheckedAgents(routerParams?: Params):Observable<any> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = setParameter(routerParams);
+    }
+    return this.http.get(this.endpoint + '/ui/healthcheckagents', {params: queryParams})
+    .pipe(
+      tap(data => console.log('All: ', JSON.stringify(data)))
+    );
+  }
 
 /**
  * Get healtch check Agent
  * @param id - Health check id
  * @returns Object
 **/
-  getHealthCheckedAgents(id: number):Observable<any> {
+  getHealthCheckedAgent(id: number):Observable<any> {
     return this.http.get(`${this.endpoint + '/ui/healthcheckagents'}/${id}`)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
 
-/**
- * Delete individial Health check by id
- * @param id - Health check id
- * @returns Object
-**/
-  deleteHealthCheck(id: number):Observable<any> {
-    return this.http.delete(this.endpoint + '/ui/healthchecks' +'/'+ id);
-  }
-
-/**
- * Create individial Health check
- * @param arr - Fields
- * @returns Object
- * FIXME
-**/
-  createHealthCheck(arr: any): Observable<HealthCheck[]> {
-    return this.http.post<any>(this.endpoint + '/ui/healthchecks', arr)
-    .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data)))
-    );
-  }
 
 
 }

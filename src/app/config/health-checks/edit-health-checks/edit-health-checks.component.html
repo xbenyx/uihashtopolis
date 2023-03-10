@@ -1,4 +1,5 @@
 <section>
+  &nbsp;
   <div class="container">
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
@@ -14,7 +15,7 @@
                             </td>
                           </span>
                         </div>
-                      </div>
+                      </div>&nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                           <label class="form-label" for="setname">Status</label>
@@ -50,20 +51,45 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <td class="text-align:center">{{ healthca['healthCheckAgentId'] }}</td>
+                  <tr  *ngFor="let ha of healthca">
+                    <td class="text-align:center">{{ ha.healthCheckAgentId }}</td>
                     <td>
-                      {{ healthca['agentId']  }}
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',healthca['agentId'],'edit']" data-toggle="tooltip" data-placement="top" title="Edit Agent">
+                      {{ ha.agentName | shortenString:15 | lowercase | titlecase }}
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',ha.agentId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit Agent">
                         <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
                       </a>
                     </td>
-                    <td>{{ healthca['status'] | HCstatus | lowercase | titlecase  }}</td>
-                    <td>{{ healthca['start']  }}</td>
-                    <td>{{ healthca['numGpus']  }}</td>
-                    <td>{{ healthca['cracked']  }}</td>
-                    <td>{{ healthca['errors']  }}</td>
+                    <td>{{ ha.status | HCstatus | lowercase | titlecase  }}</td>
+                    <td>
+                      <div *ngIf="ha.status != 0; else templateNA">
+                      {{ ha.start }}
+                      </div>
+                    </td>
+                    <td>
+                      <div *ngIf="ha.status != 0; else templateNA">
+                      {{ ha.numGpus }}
+                      </div>
+                    </td>
+                    <td>
+                      <div *ngIf="ha.status != 0; else templateNA">
+                      {{ ha.cracked }}
+                      </div>
+                    </td>
+                    <td>
+                      <div *ngIf="ha.status != 0; else templateNA">
+                      {{ ha.errors }}
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<!-- Template NA -->
+<ng-template #templateNA>
+    <td>
+      N/A
+    </td>
+</ng-template>
