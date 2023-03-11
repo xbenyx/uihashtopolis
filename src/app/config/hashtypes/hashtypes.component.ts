@@ -38,9 +38,7 @@ export class HashtypesComponent implements OnInit {
   dtOptions: any = {};
 
   constructor(
-    private hashtypeService: HashtypeService,
-    private route:ActivatedRoute,
-    private router:Router
+    private hashtypeService: HashtypeService
   ) { }
 
   public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
