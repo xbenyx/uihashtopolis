@@ -102,9 +102,8 @@
                                     class='form-select'
                                     formControlName="rightGroupId"
                                   >
-                                  <!-- <option *ngFor="let group of groups" [ngValue]="user['rightGroupId']">
-                                      {{group}}
-                                  </option> -->
+                                  <span *ngIf="!updateForm.errors?.['group'].valid && updateForm.errors?.['group'].touched" class="help-block" >Please select a group!</span>
+                                  <option *ngFor="let a of agp" [value]="a.rightGroupId">{{ a.groupName }}</option>
                               </select>
                         </div>
                         &nbsp;
@@ -122,7 +121,7 @@
                                 />
                             </div>
                       </div>
-                      <!-- <div class="form-check form-switch">
+                      <div class="form-check form-switch">
                         <label class="form-label" for="setpassword"></label>
                             <input
                                   type="checkbox"
@@ -133,7 +132,7 @@
                             <label *ngIf="user['isValid'] === false" class="form-label" for="isvalid">User Disabled</label>
                             <label *ngIf="user['isValid'] === true" class="form-label" for="isvalid">User Enabled</label>
                             &nbsp;&nbsp;
-                      </div> -->
+                      </div>
                     </div>
                    </div>
                    <button  class="btn btn-gray-800" type="submit" (ngSubmit)="onUpdateUser(user['userId'])">Update</button>

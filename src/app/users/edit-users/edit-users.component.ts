@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../core/_services/users/users.service';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faCalendar,faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { User } from '../user.model';
+import { environment } from 'src/environments/environment';
+import { UsersService } from '../../core/_services/users/users.service';
 import { ValidationService } from '../../core/_services/validation.service';
-import { DateFormatPipe } from 'ngx-moment';
-import { DatePipe } from '@angular/common';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
+import { AccessPermissionGroupsService } from 'src/app/core/_services/accesspermissiongroups.service';
 
 @Component({
   selector: 'app-edit-users',
@@ -27,9 +28,8 @@ export class EditUsersComponent implements OnInit {
   faEnvelope=faEnvelope;
   isLoading = false;
 
-  // We need to access groups using the API
-  groups = ['Admin', 'Standard User'];
-  // We need an array uf user names, so we do not create a duplicate name.
+  agp:any;
+  // ToDo checknames before.
   usedUserNames = ['Admin', 'Guest'];
 
   user: any[];
@@ -38,12 +38,15 @@ export class EditUsersComponent implements OnInit {
   allowEdit = false;
 
   constructor(
-    private usersService: UsersService,
-    private route:ActivatedRoute,
     private router: Router,
-    private uiService: UIConfigService,
     private datePipe:DatePipe,
+    private route:ActivatedRoute,
+    private usersService: UsersService,
+    private uiService: UIConfigService,
+    private apgService:AccessPermissionGroupsService
     ) { }
+
+  private maxResults = environment.config.prodApiMaxResults;
 
   updateForm = new FormGroup({
       'userid': new FormControl({value: '', disabled: true}),
@@ -60,6 +63,8 @@ export class EditUsersComponent implements OnInit {
   });
 
   ngOnInit(): void {
+
+    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     this.route.params
     .subscribe(
@@ -80,7 +85,12 @@ export class EditUsersComponent implements OnInit {
       console.log(this.user);
     });
 
-    this.uidateformat = this.uiService.getUIsettings('timefmt').value;
+    let params = {'maxResults': this.maxResults};
+    this.apgService.getAccPGroups(params).subscribe((agp: any) => {
+      this.agp = agp.values;
+    });
+
+
 
     // This options bind the params in the same (it is a better option but depends on the API structure)
     // const id = +this.route.snapshot.params['id'];
