@@ -313,7 +313,7 @@ export class NewTasksComponent implements OnInit {
   }
 
   async fetchData() {
-    let params = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
+    let params = {'maxResults': this.maxResults, 'filter': 'isArchived='+false+''}
     let params_prep = {'maxResults': this.maxResults }
     let params_crack = {'filter': 'crackerBinaryTypeId=1'};
     let params_f = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
