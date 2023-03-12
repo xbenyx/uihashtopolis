@@ -8,9 +8,9 @@ import {
  * Reusable pipe to get the file type edit route
  * @param value - The input id number linked with the file type
  * Usage:
- *   value | fileType
+ *   value | fileTypeEdit
  * Example:
- *   {{ 0 | fileType }}
+ *   {{ 0 | fileTypeEdit }}
  * @returns wordlist-edit
 **/
 
@@ -25,15 +25,15 @@ export class FileTypeEditPipe implements PipeTransform {
     transform(value: any) {
         switch(value) {
 
-            case "0":
+            case 0:
               'wordlist-edit';
             break;
 
-            case "1":
+            case 1:
               'rules-edit';
             break;
 
-            case "2":
+            case 2:
               'other-edit';
             break;
           }

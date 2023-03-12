@@ -163,6 +163,19 @@ export class EditPreconfiguredTasksComponent implements OnInit{
    }
   }
 
+  getFileEdit(value:any){
+    if(value == 0){
+      return 'wordlist-edit';
+    } if(value == 1){
+      return 'rules-edit';
+    } if(value == 2){
+      return 'other-edit';
+    } else{
+      return 'error';
+    }
+  }
+
+
     // @HostListener allows us to also guard against browser refresh, close, etc.
     @HostListener('window:beforeunload', ['$event'])
     unloadNotification($event: any) {
