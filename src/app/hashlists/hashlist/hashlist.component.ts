@@ -76,8 +76,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
 
       }
 
-    // let params = {'maxResults': this.maxResults, 'expand': 'hashType,accessGroup', 'filter': 'isArchived='+this.isArchived+''}
-    let params = {'maxResults': this.maxResults, 'expand': 'hashType,accessGroup'}
+    let params = {'maxResults': this.maxResults, 'expand': 'hashType,accessGroup', 'filter': 'isArchived='+this.isArchived+''}
 
     this.listsService.getAllhashlists(params).subscribe((list: any) => {
       this.allhashlists = list.values;
