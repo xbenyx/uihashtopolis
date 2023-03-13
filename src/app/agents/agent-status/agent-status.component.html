@@ -436,8 +436,8 @@
                   <tr *ngFor="let aa of _filteresAgents | sort:statusOrderBy:statusOrderByName">
                     <td>
                       {{ aa.agentId }}
-                      <a [routerLink]="['/agents/show-agents',aa.agentId,'edit']">
-                        <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
+                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',aa.agentId,'edit']">
+                        <small><fa-icon [icon]="faEye" aria-hidden="true" ></fa-icon></small>
                       </a>
                     </td>
                     <td>
@@ -447,15 +447,15 @@
                     </td>
                     <td>
                       <a *ngIf="aa.taskId">Task: {{ aa.taskName | shortenString:15 | lowercase | titlecase }}
-                        <a [routerLink]="['/tasks/show-tasks/',aa.taskId,'edit']">
-                          <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="['/tasks/show-tasks/',aa.taskId,'edit']">
+                          <small><fa-icon [icon]="faEye" aria-hidden="true" ></fa-icon></small>
                         </a>,
                       </a>
                       <div *ngIf="aa.speed">at {{ aa.speed | fileSize:false }} H/s,<br></div>
                       <div *ngIf="aa.chunkId">working on chunk
                         {{ aa.chunkId }}
-                        <a [routerLink]="['/tasks/chunks',aa.chunkId,'view']">
-                          <small><fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon></small>
+                        <a class='btn-outline-gray-600 float-right' [routerLink]="['/tasks/chunks',aa.chunkId,'view']">
+                          <small><fa-icon [icon]="faEye" aria-hidden="true"></fa-icon></small>
                         </a>
                       </div>
                     </td>

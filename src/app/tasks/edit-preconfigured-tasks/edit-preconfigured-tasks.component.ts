@@ -85,7 +85,6 @@ export class EditPreconfiguredTasksComponent implements OnInit{
 
     this.preTasksService.getAllPretasks(params).subscribe((pretasks: any) => {
       this.files = pretasks.values;
-      console.log(this.files)
       this.dtTrigger.next(void 0);
     });
 
@@ -174,7 +173,6 @@ export class EditPreconfiguredTasksComponent implements OnInit{
       return 'error';
     }
   }
-
 
     // @HostListener allows us to also guard against browser refresh, close, etc.
     @HostListener('window:beforeunload', ['$event'])

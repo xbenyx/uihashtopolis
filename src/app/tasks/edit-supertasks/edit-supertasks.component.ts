@@ -1,4 +1,4 @@
-import { faAlignJustify, faInfoCircle, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faInfoCircle, faMagnifyingGlass, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -21,8 +21,9 @@ export class EditSupertasksComponent implements OnInit {
   editedST: any // Change to Model
 
   isLoading = false;
-  faAlignJustify=faAlignJustify;
+  faEye=faEye;
   faInfoCircle=faInfoCircle;
+  faAlignJustify=faAlignJustify;
   faMagnifyingGlass=faMagnifyingGlass;
 
   constructor(
@@ -208,6 +209,13 @@ export class EditSupertasksComponent implements OnInit {
 
     this.supertaskService.getAllsupertasks(params).subscribe((result)=>{
          this.pretasks = result.values;
+         console.log(this.pretasks)
+
+        //  let paramspt = { 'maxResults': this.maxResults,'expand': 'pretaskFiles'}
+
+        //  this.pretasksService.getAllPretasks(paramspt).subscribe((pretasks: any) => {
+
+        // });
     });
 
     this.dtOptions[0] = {
