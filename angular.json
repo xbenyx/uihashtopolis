@@ -53,7 +53,9 @@
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/datatables.net-select/js/dataTables.select.js",
-              "node_modules/@selectize/selectize/dist/js/selectize.js"
+              "node_modules/@selectize/selectize/dist/js/selectize.js",
+              "src/assets/optparse/optparse.1.1.1.js",
+              "src/assets/optparse/optparse.hashtopolis.1.1.1.js"
             ]
           },
           "configurations": {
@@ -148,7 +150,9 @@
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
               "node_modules/datatables.net-buttons/js/buttons.print.js",
               "node_modules/datatables.net-select/js/dataTables.select.js",
-              "node_modules/@selectize/selectize/dist/js/selectize.js"
+              "node_modules/@selectize/selectize/dist/js/selectize.js",
+              "src/assets/optparse/optparse.1.1.1.js",
+              "src/assets/optparse/optparse.hashtopolis.1.1.1.js"
             ]
           }
         }
