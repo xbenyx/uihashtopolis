@@ -122,7 +122,7 @@ export class KeyspaceCalcPipe implements PipeTransform {
       if(mpow > 0 && options.attackType !== 3){
         return mpow;
       }else{
-        return [null]
+        return null
       }
   }
 }
