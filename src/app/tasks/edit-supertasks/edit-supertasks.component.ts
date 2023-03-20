@@ -212,7 +212,7 @@ export class EditSupertasksComponent implements OnInit {
     this.supertaskService.getAllsupertasks(params).subscribe((result)=>{
     this.pretasksService.getAllPretasks(paramspt).subscribe((pretasks: any) => {
       this.pretasks = result.values.map(mainObject => {
-          let matchAObject = pretasks.values.find(element => element.pretaskId === mainObject.pretasks[0].pretaskId)
+          let matchAObject = pretasks.values.find(element => element?.pretaskId === mainObject.pretasks[0]?.pretaskId)
           return { ...mainObject, ...matchAObject }
         })
         console.log(this.pretasks)
