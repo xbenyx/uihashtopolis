@@ -8,6 +8,7 @@ import {
  * @param value - Object
  * @param object - files object to extract line count
  * @param cmd - Attack
+ * @param attcktype - If true, returns attack type
  * Usage:
  *   object | keyspace:'objectname':'cmd'
  * Example:
@@ -24,7 +25,7 @@ declare var parser: any;
 
 export class KeyspaceCalcPipe implements PipeTransform {
 
-  transform(value: any[], name: string , cmd: any) {
+  transform(value: any[], name: string , cmd: any, attcktype?: boolean) {
       if (!cmd || !name) {
         return 'Wrong Command';
       }
@@ -118,14 +119,18 @@ export class KeyspaceCalcPipe implements PipeTransform {
                   let mask = posArg;
                   keyspace = maskToKeyspace(mask);
                   // return [keyspace, options.attackType]; // return also attack type
+                  if(attcktype == true){keyspace = options.attackType}
                   return [keyspace];
               }
           }
       }
       if(mpow > 0 && options.attackType !== 3){
+        if(attcktype == true){mpow = options.attackType}
         return mpow;
       }else{
-        return null
+        var result = null;
+        if(attcktype == true){result = options.attackType}
+        return result
       }
   }
 }
