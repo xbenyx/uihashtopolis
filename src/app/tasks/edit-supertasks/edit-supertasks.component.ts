@@ -1,4 +1,4 @@
-import { faAlignJustify, faInfoCircle, faMagnifyingGlass, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faAlignJustify, faInfoCircle, faMagnifyingGlass, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class EditSupertasksComponent implements OnInit {
 
   isLoading = false;
   faEye=faEye;
+  faTrash=faTrash;
   faInfoCircle=faInfoCircle;
   faAlignJustify=faAlignJustify;
   faMagnifyingGlass=faMagnifyingGlass;
