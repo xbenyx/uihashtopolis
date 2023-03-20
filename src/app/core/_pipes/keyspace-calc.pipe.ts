@@ -110,7 +110,7 @@ export class KeyspaceCalcPipe implements PipeTransform {
       }
 
       var keyspace: number;
-      if (options.attackType === 3 && !mpow) {
+      if (options.attackType === 3 && mpow >= 0) {
           // compute keyspace for bruteforce attacks
           for (var i = 0; i < options.posArgs.length; i++) {
               let posArg = options.posArgs[i];
