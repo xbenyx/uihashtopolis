@@ -22,22 +22,25 @@ import {
 })
 export class FileTypePipe implements PipeTransform {
 
-    transform(value: any) {
+    transform(value: any, edit?: boolean) {
+      var res = "";
         switch(value) {
 
-            case "0":
-              'Wordlist';
+            case 0:
+              res = 'Wordlist';
+              if(edit == true){res = 'wordlist-edit'}
             break;
 
-            case "1":
-              'Rules';
+            case 1:
+              res ='Rules';
+              if(edit == true){res = 'rules-edit'}
             break;
 
-            case "2":
-              'Other';
+            case 2:
+              res = 'Other';
+              if(edit == true){res = 'other-edit'}
             break;
           }
-          'Error'
+          return res;
   }
 }
-

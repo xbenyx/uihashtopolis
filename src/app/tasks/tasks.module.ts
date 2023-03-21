@@ -21,7 +21,6 @@ import { TasksRoutingModule } from "./tasks-routing.module";
 import { ChunksComponent } from "./chunks/chunks.component";
 import { PipesModule } from "../shared/pipes.module";
 
-
 @NgModule({
   declarations:[
     EditPreconfiguredTasksComponent,
