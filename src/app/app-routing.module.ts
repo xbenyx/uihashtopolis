@@ -51,10 +51,13 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes, {
+        RouterModule.forRoot(
+          appRoutes,
+          {
+          // enableTracing: false, // <-- debugging purposes only
           preloadingStrategy: AppPreloadingStrategy,
           relativeLinkResolution: 'corrected',
-          useHash: true  // Old browsers could have issues but can be fix setting useHash: true
+          // useHash: true  // Old browsers could have issues but can be fix setting useHash: true. Note if its enable will affect redirectURL after login
       })
     ],
     exports:[
