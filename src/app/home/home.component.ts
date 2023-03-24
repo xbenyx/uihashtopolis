@@ -125,8 +125,6 @@ export class HomeComponent implements OnInit {
     }
     var sum = arr.reduce((a, i) => a + i, 0);
 
-    console.log((1679588631+ 345_600_000) / 604_800_000);
-
     echarts.use([
       TitleComponent,
       TooltipComponent,
