@@ -7,6 +7,7 @@ import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
 import { TimeoutComponent } from "./alert/timeout/timeout.component";
 import { PaginationModule } from "./pagination/pagination.module";
 import { AlertComponent } from "./alert/alert.component";
+import { GraphsModule } from "./graphs/graphs.module";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule } from "@angular/forms";
 
@@ -21,6 +22,7 @@ import { FormsModule } from "@angular/forms";
     FilterTextboxModule,
     ColorPickerModule,
     PaginationModule,
+    GraphsModule,
     CommonModule,
     FormsModule,
     NgbModule
@@ -32,7 +34,8 @@ import { FormsModule } from "@angular/forms";
     PaginationModule,
     TimeoutComponent,
     AlertComponent,
+    GraphsModule,
     CommonModule
-  ]
+  ],
 })
 export class ComponentsModule {}

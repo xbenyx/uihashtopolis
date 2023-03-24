@@ -29,7 +29,6 @@ import { TimeoutComponent } from './shared/alert/timeout/timeout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
 import { AppComponent } from './app.component';
 /**
  * App Modules, Reducers
@@ -48,9 +47,7 @@ import { AuthModule } from './auth/auth.module';
     ErrorPageComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent,
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     BrowserAnimationsModule,
