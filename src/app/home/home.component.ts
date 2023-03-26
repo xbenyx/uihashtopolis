@@ -115,15 +115,32 @@ export class HomeComponent implements OnInit {
 
     let date_today = new Date();
     let first_day_of_the_week = new Date(date_today.setDate(date_today.getDate() - date_today.getDay() ));
-    let epochtime = first_day_of_the_week.setDate(first_day_of_the_week.getDate()).valueOf()/1000;
+    let epochtime = Math.round(first_day_of_the_week.setDate(first_day_of_the_week.getDate()).valueOf()/1000);
 
-    let filterdate = obj.filter(u=> (u.isCracked == true && u.timeCracked > epochtime ));
+    console.log(obj)
+
+    // let filterdate = obj.filter(u=> (u.isCracked == true && u.timeCracked > epochtime ));
+    let filterdate = obj.filter(u=> (u.isCracked == true ));
 
     var arr = [];
     for(let i=0; i < filterdate.length; i++){
-      arr.push(Math.floor((filterdate[i]['timeCracked']+ 345_600_000) / 604_800_000), Math.floor(filterdate[i]['timeCracked']% 86400 / 3600));
+      arr.push([new Date(filterdate[i]['timeCracked']* 1000).getDay(), Math.floor(filterdate[i]['timeCracked']% 86400 / 3600)]);
     }
-    var sum = arr.reduce((a, i) => a + i, 0);
+    var counts = arr.reduce((p, c) => {
+      var name = c[0];
+      if (!p.hasOwnProperty(name)) {
+        p[name] = 0;
+      }
+      p[name]++;
+      return p;
+    }, {});
+
+    console.log(counts);
+
+    var countsExtended = Object.keys(counts).map(k => {
+      return {name: k, count: counts[k]}; });
+
+      console.log(countsExtended)
 
     echarts.use([
       TitleComponent,
