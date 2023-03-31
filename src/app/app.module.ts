@@ -39,10 +39,12 @@ import { DirectivesModule } from './shared/directives.module';
 import { configReducer } from './core/_store/config.reducer';
 import { PipesModule } from './shared/pipes.module';
 import { AuthModule } from './auth/auth.module';
+import { ScrollYTopComponent } from './shared/scrollytop/scrollytop.component';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
+    ScrollYTopComponent,
     BreadcrumbComponent,
     ErrorPageComponent,
     HeaderComponent,

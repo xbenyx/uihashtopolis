@@ -11,7 +11,6 @@ import { GraphsModule } from "./graphs/graphs.module";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule } from "@angular/forms";
 
-
 @NgModule({
   declarations: [
     LoadingSpinnerComponent,

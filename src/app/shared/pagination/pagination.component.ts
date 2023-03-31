@@ -64,22 +64,23 @@ export class PaginationComponent implements OnInit {
     this.isVisible = false;
   }
 
-  getTotalPages() {
+  getTotalPages(startend?:number) {
+    if(startend === 3){
+      this.currentPage = 0;
+    } else if (startend === 4) {
+      this.currentPage = this.totalPages;
+    }
     if (this.currentPage < 1) {
       this.currentPage = 1;
     } else if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
     }
-    console.log(this.currentPage)
-    console.log(this.totalPages)
     let startPage: number, endPage: number;
     if (this.totalPages <= 10) {
-      // less than 10 total pages so show all
       startPage = 1;
       endPage = this.totalPages;
     } else {
-      // more than 10 total pages so calculate start and end pages
-      if (this.currentPage+1 <= 6) {
+      if (this.currentPage <= 6) {
         startPage = 1;
         endPage = 10;
       } else if (this.currentPage + 4 >= this.totalPages) {
@@ -101,13 +102,18 @@ export class PaginationComponent implements OnInit {
         if (page > 1) {
           page--;
         }
-    } else {
+    } else if(direction === 3){ // We use 3 to go to the first page
+      page = 1;
+    } else if(direction === 4){ // We use 4 to go to the last page
+      page = this.totalPages;
+    }
+    else {
         if (page < this.totalPages ) {
           page++;
       }
     }
-    this.getTotalPages();
     this.changePage(page, event);
+    this.getTotalPages(direction);
   }
 
   changePage(page: number, event?: MouseEvent) {
@@ -130,12 +136,12 @@ export class PaginationComponent implements OnInit {
       ending = start + this.pageSize-1,
       end = tlen-1;
 
-    if ( start >= end )
+    if (start >= end)
 		{
 			start = end - tlen;
 		}
 
-		if ( tlen === -1 || start < 0 )
+		if (tlen === -1 || start < 0)
 		{
 			start = 0;
 		}
