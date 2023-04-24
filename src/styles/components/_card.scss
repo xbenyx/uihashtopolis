@@ -6,6 +6,12 @@
   01- custom card grid
 */
 
+.overflowAuto {
+  overflow-x: hidden;
+  overflow-y: auto;
+/*   height: calc(100vh - 163px); */
+}
+
 .card-container-ag {
   width:95%;
 }
@@ -54,6 +60,7 @@
 
 .gray-light-ico:hover{
   color: rgb(177, 172, 172);
+  cursor: pointer;
 }
 
 .highlight {

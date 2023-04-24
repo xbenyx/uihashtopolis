@@ -163,8 +163,8 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       'taskName': new FormControl('', [Validators.required]),
       'attackCmd': new FormControl(this.uiService.getUIsettings('hashlistAlias').value, [Validators.required, this.forbiddenChars(this.getBanChars())]),
       'maxAgents': new FormControl(null || this.maxAgents),
-      'chunkTime': new FormControl(null || this.uiService.getUIsettings('chunktime').value),
-      'statusTimer': new FormControl(null || this.uiService.getUIsettings('statustimer').value),
+      'chunkTime': new FormControl(null || Number(this.uiService.getUIsettings('chunktime').value)),
+      'statusTimer': new FormControl(null || Number(this.uiService.getUIsettings('statustimer').value)),
       'priority': new FormControl(0),
       'color': new FormControl(''),
       'isCpuTask': new FormControl(null || false),
@@ -172,7 +172,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       'isSmall': new FormControl(null || false),
       'useNewBench': new FormControl(null || true),
       'isMaskImport': new FormControl(false),
-      'files': new FormControl('')
+      'files': new FormControl('' || [])
     });
 
     this.crackerService.getCrackerType().subscribe((crackers: any) => {

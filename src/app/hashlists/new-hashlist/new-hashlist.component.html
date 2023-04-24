@@ -1,8 +1,8 @@
-  <section>
+  <section>&nbsp;
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 d-flex align-items-center justify-content-center">
-                <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+                <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
                   <h2 class="h5 mb-4">Create Hashlist</h2><br>
                   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="row">
@@ -57,7 +57,7 @@
                                        class='form-select'
                                        formControlName="hashTypeId"
                                     >
-                                    <option value=""></option>
+                                    <option [value]="0"></option>
                                 </select>
                             </div>
                           </div>
@@ -142,7 +142,7 @@
                               <label class="form-label requiredak" for="gethashsource">Hash source</label>
                                 <td>
                                     <input class="form-check-input" type="radio" name="sourceType" (change)='ShowHideTypeFile("paste")' value="paste"  title="Pasting" formControlName="sourceType"> Paste<br>
-                                    <input class="form-check-input" type="radio" name="sourceType" (change)='ShowHideTypeFile("upload")' value="upload" title="Upload" checked="checked" formControlName="sourceType" ngDefaultControl> Upload<br>
+                                    <input class="form-check-input" type="radio" name="sourceType" (change)='ShowHideTypeFile("import")' value="import" title="Import" checked="checked" formControlName="sourceType" ngDefaultControl> Upload<br>
                                     <input class="form-check-input" type="radio" name="sourceType" (change)='ShowHideTypeFile("url")' value="url" title="Import" formControlName="sourceType"> Url download<br>
                                 </td>
                                 &nbsp;
@@ -192,25 +192,26 @@
                                 <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
                                 &nbsp;
                                 </div>
-                                <button class="btn btn-gray-800" (click)="onuploadFile(file.files);" >Upload</button>
+                                <a class="btn btn-gray-800" (click)="onuploadFile(file.files);" >Upload</a>
                                 <div *ngFor="let fileStatus of uploadProgress | async">
-                                     &nbsp;
-                                    <p>Uploading File: {{fileStatus.filename}}</p>
-                                    <progress
-                                    class="progress is-info"
-                                    color="primary"
-                                    mode="determinate"
-                                    [value]="fileStatus.progress"
-                                    >
-                                    </progress>
-                                    <p>Progress: {{fileStatus.progress}}%</p>
-                                    <!-- <button (click)="onuploadCancel(fileStatus.filename)" class="button is-danger">Cancel</button> -->
-                                    <div *ngIf="fileStatus.progress == 100">
-                                      <p>File Uploaded</p>
-                                    </div>
+                                  &nbsp;
+                                <p>Uploading File: {{fileStatus.filename}}</p>
+                                <progress
+                                class="progress is-info"
+                                color="primary"
+                                mode="determinate"
+                                [value]="fileStatus.progress"
+                                >
+                                </progress>
+                                <p>Progress: {{fileStatus.progress}}%</p>
+                                <!-- <button (click)="onuploadCancel(fileStatus.filename)" class="button is-danger">Cancel</button> -->
+                                <div *ngIf="fileStatus.progress == 100">
+                                  <p>File Uploaded</p>
+                                </div>
                                 </div>
 
-                                </tr>  <!-- end Upload -->
+                                </tr>
+                                <!-- end Upload -->
                                 <tr id="importLine" style="display: none;">
                                 <!-- Section removed -->
                                 </tr>
@@ -224,12 +225,8 @@
                           </div>
                         </div>
 
-                    <!-- <span *ngIf="!signupForm.valid && signupForm.touched" class="help-block" >Please complete all the form!</span><br> -->
-                    <!-- <button class="btn btn-gray-800" type="submit" [disabled]="!signupForm.valid">Create</button> -->
                     <button class="btn btn-gray-800" type="submit">Create</button>
-                  <!-- </tr> -->
               </form>
-              {{ signupForm.value | json }}
       </div>
     </div>
   </div>

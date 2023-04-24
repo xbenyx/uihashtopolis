@@ -81,6 +81,7 @@ export class ShowTasksComponent implements OnInit {
       destroy: true,
       select: {
         style: 'multi',
+        selector: 'tr>td:nth-child(1)'
         },
       buttons: {
           dom: {

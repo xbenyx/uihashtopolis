@@ -77,7 +77,7 @@ export class NewTasksComponent implements OnInit {
     private taskService: TasksService,
     private listsService:ListsService,
     private route:ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults;

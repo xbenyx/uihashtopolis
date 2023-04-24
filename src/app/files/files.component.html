@@ -56,42 +56,42 @@
     <div class="container">
       <div class="row justify-content-center">
           <div class="col-12 d-flex align-items-center justify-content-center">
-              <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
+              <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
 
                 <div class="files files-effect-scale files-theme boxtest">
-                  <input type="radio" name="files" checked  id="tab1" class="tab-content-first">
+                  <input type="radio" name="files" checked  id="tab1" class="tab-content-first" (change)='souceType("import")'>
                   <label for="tab1"><fa-icon [icon]="faUpload" aria-hidden="true"></fa-icon> Upload Files</label>
 
-                  <input type="radio" name="files" id="tab2" class="tab-content-2">
+                  <input type="radio" name="files" id="tab2" class="tab-content-2" (change)='souceType("inline")'>
                   <label for="tab2"><fa-icon [icon]="faDownload" aria-hidden="true"></fa-icon> Download URL</label>
                   <ul>
                     <li class="tab-content tab-content-first" >
                       <div class="row" >
-                        <form [formGroup]="createForm">
+                        <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                         <div class="col-sm">
                           <div class="form-group">
                             <label class="form-label requiredak" for="Associatedg">Associated Access Group</label>
-                            <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group" formControlName="accessGroupId">
-                              <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
+                            <select
+                                   type="number"
+                                   class='form-select'
+                                   formControlName="accessGroupId"
+                                    >
+                              <option *ngFor="let a of accessgroup" [ngValue]="a.accessGroupId">{{ a.groupName }}</option>
                             </select>
                           </div>
                         </div>
                         &nbsp;
-                          <tr id="uploadLine">  <!-- start Upload -->
+                          <tr id="uploadLine">
                            <div>
                               <input
                                     type="file"
                                     accept="/*"
                                     formControlName="sourceData"
+                                    [(ngModel)]="selectedFile"
                                     (change)="handleFileInput($event)"
                                     fileSelect directory #file
                               >
-                              <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
-                              &nbsp;
-                              <input
-                                    type="text"
-                                    formControlName="filename"
-                              >
+                              <!-- <span style="width: 100%;text-align: center" class="fileuploadspan"></span> -->
                             </div>
                             <div *ngFor="let fileStatus of uploadProgress | async">
                                  &nbsp;
@@ -108,10 +108,13 @@
                                   <p>File Uploaded</p>
                                 </div>
                             </div>
-                          </tr>  <!-- end Upload -->
+                          </tr>
                           &nbsp;
+                          <div class="col-sm" *ngIf="selectedFile!=''">
+                            <a class="btn btn-gray-800" (click)="onuploadFile(file.files);">Upload</a>
+                          </div>
                           <div class="col-sm">
-                                <button type="submit" class="btn btn-gray-800" (click)="onuploadFile(file.files);">Upload</button>
+                            <button type="submit" class="btn btn-gray-800">Save</button>
                           </div>
                       </form>
                       </div>
@@ -119,12 +122,30 @@
 
                     <li class="tab-content tab-content-2">
                       <div class="row">
-                        <form>
+                        <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+                        <div class="col-sm">
+                          <div class="form-group">
+                            <label class="form-label requiredak" for="setName">Name</label>
+                            <input
+                                    type='text'
+                                    id="filename"
+                                    class='form-control'
+                                    formControlName="filename"
+                            >
+                          </div>
+                        </div>
+                        &nbsp;
                         <div class="col-sm">
                           <div class="form-group">
                             <label class="form-label requiredak" for="Associatedg">Associated Access Group</label>
-                            <select  class='form-select' id='accessgroup' name="accessgroup" title="Access Group">
-                              <option *ngFor="let a of accessgroup" [value]="a.accessGroupId">{{ a.groupName }}</option>
+                            <select
+                                    type='number'
+                                    id="accessgroup"
+                                    class='form-select'
+                                    formControlName="accessGroupId"
+                            >
+                              <option [defaultSelected]=true>---</option>
+                              <option *ngFor="let a of accessgroup" [ngValue]="a.accessGroupId">{{ a.groupName }}</option>
                             </select>
                           </div>
                         </div>
@@ -136,12 +157,17 @@
                                   <span class="input-group-text">
                                     <fa-icon [icon]="faLink" aria-hidden="true"></fa-icon>
                                   </span>
-                                  <input type="text" name='urlimport' title="urlimport" class='form-control' id="urlimport"/>
+                                  <input
+                                        type="text"
+                                        id="urlimport"
+                                        class='form-control'
+                                        formControlName="sourceData"
+                                    >
                               </div>
                           </div>
                         </div>
                         <div class="col-sm">
-                          <!-- <button type="submit" class="btn btn-gray-800">Upload</button> -->
+                          <button type="submit" class="btn btn-gray-800">Save</button>
                         </div>
                       </form>
                       </div>

@@ -6,14 +6,14 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { ShowHideTypeFile } from '../../shared/utils/forms';
-import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { HashtypeService } from 'src/app/core/_services/hashtype.service';
 import { AccessGroupsService } from '../../core/_services/accessgroups.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { UploadTUSService } from '../../core/_services/files/files_tus.service';
+import { ListsService } from '../../core/_services/hashlist/hashlist.service';
+import { HashtypeService } from 'src/app/core/_services/hashtype.service';
+import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { AccessGroup } from '../../core/_models/access-group';
+import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { UploadFileTUS } from '../../core/_models/files';
 
 @Component({
@@ -75,10 +75,9 @@ export class NewHashlistComponent implements OnInit {
       'useBrain': new FormControl(+this.brainenabled=== 1? true:false),
       'brainFeatures': new FormControl(null || 3),
       'notes': new FormControl(''),
-      "sourceType": new FormControl('upload' || null),
+      "sourceType": new FormControl('import' || null),
       "sourceData": new FormControl(''),
       'hashCount': new FormControl(0),
-      'cracked': new FormControl(0),
       'isArchived': new FormControl(false),
       'isSecret': new FormControl(true),
     });
@@ -112,7 +111,6 @@ export class NewHashlistComponent implements OnInit {
         },
         render: {
           option: function (item, escape) {
-            console.log(item);
             return '<div  class="hashtype_selectize">' + escape(item.descrId) + '</div>';
           },
         },
@@ -132,7 +130,7 @@ export class NewHashlistComponent implements OnInit {
 
   OnChangeValue(value){
     this.signupForm.patchValue({
-      hashTypeId: value
+      hashTypeId: Number(value)
     });
     this._changeDetectorRef.detectChanges();
   }
@@ -146,7 +144,7 @@ export class NewHashlistComponent implements OnInit {
     const file = event.item(0)
     // const filename = `${new Date().getTime()}_${file.name}`;
     const filename = file.name;
-      console.log(`Uploading ${file.name} with size ${file.size} and type ${file.type}`);
+    console.log(`Uploading ${file.name} with size ${file.size} and type ${file.type}`);
     this.uploadService.uploadFile(file, filename);
   }
 
@@ -169,10 +167,10 @@ export class NewHashlistComponent implements OnInit {
     this.invalidFiles = fileList;
   }
 
-   /**
+  /**
    * Handle Input and return file size
    * @param event
-   */
+  */
 
   fileSizeValue = fileSizeValue;
 
@@ -193,11 +191,10 @@ export class NewHashlistComponent implements OnInit {
   /**
    * Create Hashlist
    *
-   */
+  */
 
   onSubmit(): void{
       if (this.signupForm.valid) {
-      console.log(this.signupForm.value);
 
       this.isLoading = true;
 
@@ -210,14 +207,10 @@ export class NewHashlistComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         });
-        this.router.navigate(['/hashlists/hashlist']);
+        this.signupForm.reset(); // success, we reset form
+        // this.router.navigate(['/hashlists/hashlist']);
       },
       errorMessage => {
-        // check error status code is 500, if so, do some action
-        // const exception = errorMessage.error.message.exception[0].message;
-        // const exception2 = errorMessage.error.message.exception['0'].message;
-        // console.log(exception);
-        // console.log(exception2);
         Swal.fire({
           title: "Oppss! Error",
           text: errorMessage.error.message,
@@ -226,22 +219,21 @@ export class NewHashlistComponent implements OnInit {
         });
       }
     );
-    // this.signupForm.reset(); // success, we reset form
     }
   }
 
-    // @HostListener allows us to also guard against browser refresh, close, etc.
-    @HostListener('window:beforeunload', ['$event'])
-    unloadNotification($event: any) {
-      if (!this.canDeactivate()) {
-        $event.returnValue = "IE and Edge Message";
-      }
+  // @HostListener allows us to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (!this.canDeactivate()) {
+      $event.returnValue = "IE and Edge Message";
     }
+  }
 
-    canDeactivate(): Observable<boolean> | boolean {
-      if (this.signupForm.valid) {
-      return false;
-      }
-      return true;
+  canDeactivate(): Observable<boolean> | boolean {
+    if (this.signupForm.valid) {
+    return false;
     }
+    return true;
+  }
 }

@@ -37,7 +37,8 @@ const routes: Routes = [
             breadcrumb: 'Edit Hashlist'
         },
         canActivate: [AuthGuard],
-        canDeactivate: [PendingChangesGuard]},
+        // canDeactivate: [PendingChangesGuard]
+      },
       {
         path: 'new-hashlist', component: NewHashlistComponent,
         data: {
@@ -45,7 +46,8 @@ const routes: Routes = [
             breadcrumb: 'New Hashlist'
         },
         canActivate: [AuthGuard],
-        canDeactivate: [PendingChangesGuard]},
+        // canDeactivate: [PendingChangesGuard]
+      },
       {
         path: 'superhashlist', component: SuperhashlistComponent,
         data: {
@@ -63,21 +65,21 @@ const routes: Routes = [
       {
         path: 'hashes/tasks/:id', component: HashesComponent,
         data: {
-            kind: 'task-hashes',
+            kind: 'taskhas',
             breadcrumb: 'Task Hashes'
         },
         canActivate: [AuthGuard]},
       {
         path: 'hashes/hashlist/:id', component: HashesComponent,
         data: {
-            kind: 'hashlist-hashes',
+            kind: 'hashlisthash',
             breadcrumb: 'Hashlist Hashes'
         },
         canActivate: [AuthGuard]},
       {
         path: 'hashes/chunks/:id', component: HashesComponent,
         data: {
-            kind: 'chunks-hashes',
+            kind: 'chunkshash',
             breadcrumb: 'Chunks Hashes'
         },
         canActivate: [AuthGuard]},

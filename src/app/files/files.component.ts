@@ -1,18 +1,18 @@
 import { faEdit, faTrash, faHomeAlt, faPlus, faUpload, faFileImport, faDownload, faPaperclip, faLink, faLock} from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert2/dist/sweetalert2.js'; //ToDo Change to a Common Module
-import { Subject, Observable } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { FormControl, FormGroup} from '@angular/forms';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, Observable } from 'rxjs';
+import { Buffer } from 'buffer';
 
-import { fileSizeValue, validateFileExt } from '../shared/utils/util';
-
-import { environment } from './../../environments/environment';
-import { FilesService } from '../core/_services/files/files.service';
 import { UploadTUSService } from '../core/_services/files/files_tus.service';
 import { AccessGroupsService } from '../core/_services/accessgroups.service';
+import { fileSizeValue, validateFileExt } from '../shared/utils/util';
+import { FilesService } from '../core/_services/files/files.service';
+import { environment } from './../../environments/environment';
 
 import { AccessGroup } from '../core/_models/access-group';
 import { Filetype } from '../core/_models/files';
@@ -53,11 +53,11 @@ export class FilesComponent implements OnInit {
   }[] = [];
 
   constructor(
-    private filesService: FilesService,
-    private http: HttpClient,
     private accessgroupService:AccessGroupsService,
+    private uploadService:UploadTUSService,
+    private filesService: FilesService,
     private route:ActivatedRoute,
-    private uploadService:UploadTUSService
+    private http: HttpClient
     ) { }
 
 // accessgroup: AccessGroup; //Use models when data structure is reliable
@@ -208,7 +208,7 @@ export class FilesComponent implements OnInit {
         isSecret: new FormControl(false),
         fileType: new FormControl(this.filterType),
         accessGroupId: new FormControl(''),
-        sourceType: new FormControl(''),
+        sourceType: new FormControl('import' || ''),
         sourceData: new FormControl(''),
       });
 
@@ -217,6 +217,77 @@ export class FilesComponent implements OnInit {
     });
 
   }
+
+  /**
+   * Create Hashlist
+   *
+  */
+
+    onSubmit(): void{
+      if (this.createForm.valid) {
+
+      // this.isLoading = true;
+
+      var form = this.onPrep(this.createForm.value);
+
+      console.log(form)
+
+      this.filesService.createFile(form).subscribe((hl: any) => {
+        // this.isLoading = false;
+        Swal.fire({
+          title: "Good job!",
+          text: "New File created!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.createForm.reset(); // success, we reset form
+        this.isCollapsed = true;
+        this.ngOnInit();
+        this.rerender();
+      },
+      errorMessage => {
+        Swal.fire({
+          title: "Oppss! Error",
+          text: errorMessage.error.message,
+          icon: "warning",
+          showConfirmButton: true
+        });
+      }
+    );
+    }
+  }
+
+  souceType(type: string){
+    this.createForm.patchValue({
+      filename: '',
+      accessGroupId: '',
+      sourceType:type,
+      sourceData:''
+    });
+  }
+
+  onPrep(obj: any){
+    var sourcadata;
+    var fname;
+    if(obj.sourceType == 'inline'){
+      fname = obj.filename;
+      sourcadata = Buffer.from(obj.sourceData).toString('base64');
+    }else{
+      sourcadata = this.fileName;
+      fname = this.fileName;
+    }
+    var res = {
+      "filename": fname,
+      "isSecret": obj.isSecret,
+      "fileType": obj.fileType,
+      "accessGroupId": obj.accessGroupId,
+      "sourceType": obj.sourceType,
+      "sourceData": sourcadata
+     }
+     return res;
+  }
+
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -244,6 +315,7 @@ export class FilesComponent implements OnInit {
 
   validateFileExt = validateFileExt;
 
+  selectedFile: '';
   fileGroup: number;
   fileToUpload: File | null = null;
   fileSize: any;

@@ -59,7 +59,7 @@ export class UsersService {
   }
 
   updateUser(arr: any, id?: number): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + id, arr)
+    return this.http.patch<number>(this.endpoint + '/' + id, arr.updateData)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );

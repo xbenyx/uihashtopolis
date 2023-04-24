@@ -12,7 +12,7 @@ import { AccessGroup } from '../_models/access-group';
 })
 export class AccessPermissionGroupsService {
 
-  private endpoint = environment.config.prodApiEndpoint + '/ui/accesspermissiongroups';
+  private endpoint = environment.config.prodApiEndpoint + '/ui/globalpermissiongroups';
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +31,22 @@ export class AccessPermissionGroupsService {
       tap(data => console.log('All: ', JSON.stringify(data)))
     );
   }
+
+/**
+ * Returns all the access group permissions
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns  Object
+**/
+getAccPGroup(id: number, routerParams?: Params): Observable<AccessGroup[]> {
+  let queryParams: Params = {};
+  if (routerParams) {
+      queryParams = setParameter(routerParams);
+  }
+  return this.http.get<AccessGroup[]>(this.endpoint +'/'+ id,{params: routerParams})
+  .pipe(
+    tap(data => console.log('All: ', JSON.stringify(data)))
+  );
+}
 
 /**
  * Delete by id
@@ -58,8 +74,8 @@ export class AccessPermissionGroupsService {
  * @param item - fields
  * @returns  Object
 **/
-  updateAccP(item: any): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + item.accessGroupId, {groupName: item.groupName})
+  updateAccP(id: number, arr: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + id, arr)
     .pipe(
       tap(data => console.log('All: ', JSON.stringify(data)))
     );
