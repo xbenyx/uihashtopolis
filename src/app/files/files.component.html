@@ -7,7 +7,7 @@
           </div>
           <div *ngSwitchCase="'rules'">
             <h2 class="h4">Rules</h2>
-            <p class="mb-0">Create/Manage your rules..</p>
+            <p class="mb-0">Create/Manage your rules.</p>
           </div>
           <div *ngSwitchCase="'other'">
             <h2 class="h4">Other</h2>
@@ -47,7 +47,7 @@
   </div>
   <!-- Body -->
   <!-- Import Files tabs -->
-  <button type="button" class="btn btn-sm btn-outline-gray-600" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles">
+  <button type="button" class="btn btn-sm btn-outline-gray-600" *ngIf="addFileAccess || addFileAccess == null"  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles">
   <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
   Add Files
   </button>
@@ -91,7 +91,8 @@
                                     (change)="handleFileInput($event)"
                                     fileSelect directory #file
                               >
-                              <!-- <span style="width: 100%;text-align: center" class="fileuploadspan"></span> -->
+                              <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
+                              <span style="width: 100%;text-align: center"><fa-icon [icon]="faFileUpload" class="btn btn-gray-800" title="Upload file" (click)="onuploadFile(file.files);" aria-hidden="true"></fa-icon></span>
                             </div>
                             <div *ngFor="let fileStatus of uploadProgress | async">
                                  &nbsp;
@@ -110,11 +111,9 @@
                             </div>
                           </tr>
                           &nbsp;
-                          <div class="col-sm" *ngIf="selectedFile!=''">
-                            <a class="btn btn-gray-800" (click)="onuploadFile(file.files);">Upload</a>
-                          </div>
+
                           <div class="col-sm">
-                            <button type="submit" class="btn btn-gray-800">Save</button>
+                            <button type="submit" class="btn btn-gray-800">Create</button>
                           </div>
                       </form>
                       </div>
@@ -167,7 +166,7 @@
                           </div>
                         </div>
                         <div class="col-sm">
-                          <button type="submit" class="btn btn-gray-800">Save</button>
+                          <button type="submit" class="btn btn-gray-800">Create</button>
                         </div>
                       </form>
                       </div>
@@ -227,7 +226,7 @@
                             <a class='btn-outline-gray-600' [routerLink]="['/files',f.fileId,'other-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-toggle="tooltip" data-placement="top" title="Edit">
                               <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
                             </a>
-                            <a class='btn-outline-gray-600 float-right'(click)="deleteFile(f.fileId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <a class='btn-outline-gray-600 float-right' (click)="deleteFile(f.fileId)" data-toggle="tooltip" data-placement="top" title="Delete">
                               <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
                             </a>
                           </div>

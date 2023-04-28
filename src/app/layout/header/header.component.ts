@@ -4,7 +4,7 @@ import { environment } from './../../../environments/environment';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../../core/_services/auth.service';
+import { AuthService } from '../../core/_services/access/auth.service';
 import { ThemeService } from 'src/app/core/_services/shared/theme.service';
 import { NotificationsBellService } from '../../core/_services/shared/notifbell.service';
 

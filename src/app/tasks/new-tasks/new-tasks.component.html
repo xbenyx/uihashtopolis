@@ -65,12 +65,11 @@
                             <label class="form-label requiredak" for="getattackCmd">Command line</label>
                             <fa-icon
                                     placement="bottom"
-                                    ngbTooltip="Use #HL# for hash list and assume all files in current directory.
-                                    If you have Linux agents, please mind the filename case sensitivity!
-                                    "
+                                    (click)="open(cheatsheet)"
                                     container="body"
                                     [icon]="faInfoCircle"
                                     aria-hidden="true"
+                            class="gray-light-ico"
                             >
                             </fa-icon>
                             <textarea
@@ -693,4 +692,8 @@
       </div>
    </div>
 </div>
+<!-- Cheat Sheet Utilisation -->
+<ng-template #cheatsheet let-modal>
+  <app-cheatsheet></app-cheatsheet>
+</ng-template>
 

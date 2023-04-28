@@ -1,10 +1,10 @@
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { setParameter } from './buildparams';
+import { setParameter } from '../buildparams';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
-import { AccessGroup } from '../_models/access-group';
+import { AccessGroup } from '../../_models/access-group';
 import { Params } from '@angular/router';
 
 @Injectable({

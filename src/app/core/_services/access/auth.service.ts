@@ -1,10 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { Injectable, Output, EventEmitter } from "@angular/core";
-import { environment } from '../../../environments/environment';
 import { BehaviorSubject, throwError, Observable, ReplaySubject } from 'rxjs';
-import { User } from '../_models/auth-user.model';
+import { environment } from '../../../../environments/environment';
+import { Injectable, Output, EventEmitter } from "@angular/core";
+import { User } from '../../_models/auth-user.model';
 import { catchError, tap } from 'rxjs/operators';
 import { Router } from "@angular/router";
+import { Buffer } from 'buffer';
 
 export interface AuthResponseData {
   token: string,
@@ -15,6 +16,7 @@ export interface AuthResponseData {
 export class AuthService {
 
     user = new BehaviorSubject<User>(null);
+    userId!: any;
     @Output() authChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
     isAuthenticated = false;
     private logged = new ReplaySubject<boolean>(1);
@@ -24,8 +26,11 @@ export class AuthService {
     private endpoint = environment.config.prodApiEndpoint + '/auth';
 
     constructor(
-      private http: HttpClient, private router: Router
-      ){}
+      private http: HttpClient,
+      private router: Router,
+      ){
+        this.userId = this.getUserId(this.token);
+      }
 
     autoLogin(){
         const userData: { _token: string, _expires: string} = JSON.parse(localStorage.getItem('userData'));
@@ -45,7 +50,7 @@ export class AuthService {
 
     logIn(username: string, password: string): Observable<any>{
         return this.http.post<AuthResponseData>(this.endpoint + '/token', {username: username, password: password},
-            {headers: new HttpHeaders({ 'Authorization': 'Basic '+window.btoa(username+':'+password) })})
+            {headers: new HttpHeaders({ 'Authorization': 'Basic '+ window.btoa(username+':'+password) })})
             .pipe(
               catchError(this.handleError),
               tap(resData => {
@@ -53,6 +58,23 @@ export class AuthService {
                   this.isAuthenticated = true;
                   this.userAuthChanged(true);
         }));
+    }
+
+    get token(): any {
+      if(!this.logged){
+        return true;
+      }else{
+        return  JSON.parse(localStorage.getItem('userData'))._token;
+      }
+    }
+
+    private getUserId(token: any){
+      if(!this.logged){
+        return true;
+      }else{
+      var b64string = Buffer.from(token.split('.')[1], 'base64');
+      return JSON.parse(b64string.toString()).userId
+      }
     }
 
     // With autologOut we use only the expiration date of the bearer token, approx. 2 hours
@@ -102,6 +124,7 @@ export class AuthService {
         this.logged.next(true);
         this.autologOut(expires) // Epoch time
         localStorage.setItem('userData', JSON.stringify(user));
+        this.userId = this.getUserId(token);
       }
 
     private handleError ( errorRes : HttpErrorResponse ) {

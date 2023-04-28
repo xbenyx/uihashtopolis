@@ -5,8 +5,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { environment } from 'src/environments/environment';
 import { UsersService } from '../core/_services/users/users.service';
-import { ValidationService } from '../core/_services/validation.service';
-import { AccessPermissionGroupsService } from '../core/_services/accesspermissiongroups.service';
+import { ValidationService } from '../core/_services/shared/validation.service';
+import { AccessPermissionGroupsService } from '../core/_services/access/accesspermissiongroups.service';
 
 @Component({
   selector: 'app-users',

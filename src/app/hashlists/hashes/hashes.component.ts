@@ -5,7 +5,7 @@ import { HashesService } from 'src/app/core/_services/hashlist/hashes.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ChunkService } from 'src/app/core/_services/chunks.service';
+import { ChunkService } from 'src/app/core/_services/tasks/chunks.service';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 import { ListsService } from 'src/app/core/_services/hashlist/hashlist.service';
 

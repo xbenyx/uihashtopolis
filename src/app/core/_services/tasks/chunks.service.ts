@@ -1,11 +1,11 @@
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { setParameter } from './buildparams';
+import { setParameter } from '../buildparams';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-import { BaseChunk } from '../_models/chunk';
+import { BaseChunk } from '../../_models/chunk';
 
 @Injectable({
   providedIn: 'root'

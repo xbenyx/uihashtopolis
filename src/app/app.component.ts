@@ -9,7 +9,7 @@ import { filter } from 'rxjs';
 **/
 import { UIConfigService } from './core/_services/shared/storage.service';
 import { CookieService } from './core/_services/shared/cookies.service';
-import { AuthService } from './core/_services/auth.service';
+import { AuthService } from './core/_services/access/auth.service';
 
 /**
  * Idle watching

@@ -190,24 +190,24 @@
                                       fileSelect directory #file
                                 >
                                 <span style="width: 100%;text-align: center" class="fileuploadspan"></span>
+                                <span style="width: 100%;text-align: center"><fa-icon [icon]="faFileUpload" class="btn btn-gray-800" title="Upload file" (click)="onuploadFile(file.files);" aria-hidden="true"></fa-icon></span>
                                 &nbsp;
                                 </div>
-                                <a class="btn btn-gray-800" (click)="onuploadFile(file.files);" >Upload</a>
                                 <div *ngFor="let fileStatus of uploadProgress | async">
                                   &nbsp;
                                 <p>Uploading File: {{fileStatus.filename}}</p>
                                 <progress
-                                class="progress is-info"
-                                color="primary"
-                                mode="determinate"
-                                [value]="fileStatus.progress"
+                                        class="progress is-info"
+                                        color="primary"
+                                        mode="determinate"
+                                        [value]="fileStatus.progress"
                                 >
                                 </progress>
                                 <p>Progress: {{fileStatus.progress}}%</p>
                                 <!-- <button (click)="onuploadCancel(fileStatus.filename)" class="button is-danger">Cancel</button> -->
-                                <div *ngIf="fileStatus.progress == 100">
-                                  <p>File Uploaded</p>
-                                </div>
+                                  <div *ngIf="fileStatus.progress == 100">
+                                    <p>File Uploaded</p>
+                                  </div>
                                 </div>
 
                                 </tr>

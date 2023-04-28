@@ -1,11 +1,11 @@
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { setParameter } from './buildparams';
+import { setParameter } from '../buildparams';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Params } from '@angular/router';
 
-import { AccessGroup } from '../_models/access-group';
+import { AccessGroup } from '../../_models/access-group';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +42,7 @@ getAccPGroup(id: number, routerParams?: Params): Observable<AccessGroup[]> {
   if (routerParams) {
       queryParams = setParameter(routerParams);
   }
-  return this.http.get<AccessGroup[]>(this.endpoint +'/'+ id,{params: routerParams})
+  return this.http.get<AccessGroup[]>(`${this.endpoint}/${id}`,{params: routerParams})
   .pipe(
     tap(data => console.log('All: ', JSON.stringify(data)))
   );

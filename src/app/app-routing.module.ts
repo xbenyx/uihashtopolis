@@ -47,6 +47,7 @@ const appRoutes: Routes = [
       data: { preload: false, delay: false }
     },
     {path: 'error', component: ErrorPageComponent, data:{message: 'Page Not Found!'} ,canActivate: [AuthGuard] },
+    {path: 'access-denied', component: ErrorPageComponent, data:{message: 'Sorry, You are not allowed to access this page!'} ,canActivate: [AuthGuard] },
     {path: 'not-found', component: PageNotFoundComponent ,canActivate: [AuthGuard] },
     {path: '**', redirectTo: 'not-found'}  // Note: Always the last route
   ];

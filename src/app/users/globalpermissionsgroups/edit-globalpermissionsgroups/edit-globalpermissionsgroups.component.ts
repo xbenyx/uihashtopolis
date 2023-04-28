@@ -8,7 +8,7 @@ import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 
-import { AccessPermissionGroupsService } from 'src/app/core/_services/accesspermissiongroups.service';
+import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
 
 @Component({
   selector: 'app-edit-globalpermissionsgroups',
@@ -71,7 +71,6 @@ export class EditGlobalpermissionsgroupsComponent implements OnInit {
       'viewFileAccess': new FormControl(''),
       'manageFileAccess': new FormControl(''),
       'addFileAccess': new FormControl(''),
-      'crackerBinaryAccess': new FormControl(''),
       'serverConfigAccess': new FormControl(''),
       'userConfigAccess': new FormControl(''),
       'manageAccessGroupAccess': new FormControl('')
@@ -142,7 +141,6 @@ export class EditGlobalpermissionsgroupsComponent implements OnInit {
         'viewFileAccess': new FormControl(result['viewFileAccess']),
         'manageFileAccess': new FormControl(result['manageFileAccess']),
         'addFileAccess': new FormControl(result['addFileAccess']),
-        'crackerBinaryAccess': new FormControl(result['crackerBinaryAccess']),
         'serverConfigAccess': new FormControl(result['serverConfigAccess']),
         'userConfigAccess': new FormControl(result['userConfigAccess']),
         'manageAccessGroupAccess': new FormControl(result['manageAccessGroupAccess'])

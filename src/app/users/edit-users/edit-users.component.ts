@@ -8,9 +8,9 @@ import { DatePipe } from '@angular/common';
 import { User } from '../user.model';
 import { environment } from 'src/environments/environment';
 import { UsersService } from '../../core/_services/users/users.service';
-import { ValidationService } from '../../core/_services/validation.service';
+import { ValidationService } from '../../core/_services/shared/validation.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { AccessPermissionGroupsService } from 'src/app/core/_services/accesspermissiongroups.service';
+import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
 
 @Component({
   selector: 'app-edit-users',

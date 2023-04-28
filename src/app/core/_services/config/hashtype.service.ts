@@ -1,7 +1,7 @@
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Hashtype } from '../_models/hashtype';
-import { setParameter } from './buildparams';
+import { Hashtype } from '../../_models/hashtype';
+import { setParameter } from '../buildparams';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Observable, tap } from 'rxjs';

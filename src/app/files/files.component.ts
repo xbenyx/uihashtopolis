@@ -1,22 +1,23 @@
-import { faEdit, faTrash, faHomeAlt, faPlus, faUpload, faFileImport, faDownload, faPaperclip, faLink, faLock} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faHomeAlt, faPlus, faUpload, faFileImport, faDownload, faPaperclip, faLink, faLock, faFileUpload} from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { FormControl, FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
 import { Buffer } from 'buffer';
 
 import { UploadTUSService } from '../core/_services/files/files_tus.service';
-import { AccessGroupsService } from '../core/_services/accessgroups.service';
+import { AccessGroupsService } from '../core/_services/access/accessgroups.service';
 import { fileSizeValue, validateFileExt } from '../shared/utils/util';
 import { FilesService } from '../core/_services/files/files.service';
 import { environment } from './../../environments/environment';
 
+import { UsersService } from '../core/_services/users/users.service';
 import { AccessGroup } from '../core/_models/access-group';
-import { Filetype } from '../core/_models/files';
 import { UploadFileTUS } from '../core/_models/files';
+import { Filetype } from '../core/_models/files';
 
 declare let $:any;
 
@@ -27,13 +28,15 @@ declare let $:any;
 
 export class FilesComponent implements OnInit {
   public isCollapsed = true;
-  faTrash=faTrash;
-  faHome=faHomeAlt;
-  faPlus=faPlus;
-  faUpload=faUpload;
+
   faFileImport=faFileImport;
-  faDownload=faDownload;
+  faFileUpload=faFileUpload;
   faPaperclip=faPaperclip;
+  faDownload=faDownload;
+  faUpload=faUpload;
+  faHome=faHomeAlt;
+  faTrash=faTrash;
+  faPlus=faPlus;
   faLink=faLink;
   faLock=faLock;
   faEdit=faEdit;
@@ -57,7 +60,9 @@ export class FilesComponent implements OnInit {
     private uploadService:UploadTUSService,
     private filesService: FilesService,
     private route:ActivatedRoute,
-    private http: HttpClient
+    private users: UsersService,
+    private http: HttpClient,
+    private router: Router
     ) { }
 
 // accessgroup: AccessGroup; //Use models when data structure is reliable
@@ -81,6 +86,27 @@ export class FilesComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.setAccessPermissions();
+
+  }
+
+  // Set permissions
+  viewFileAccess: any;
+  manageFileAccess: any;
+  addFileAccess: any;
+
+  setAccessPermissions(){
+    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+        this.viewFileAccess = perm.globalPermissionGroup.permissions.viewFileAccess;
+        this.manageFileAccess = perm.globalPermissionGroup.permissions.manageFileAccess;
+        this.addFileAccess = perm.globalPermissionGroup.permissions.addFileAccess;
+
+        this.loadFiles();
+
+    });
+  }
+
+  loadFiles(){
     this.route.data.subscribe(data => {
       switch (data['kind']) {
 
@@ -215,11 +241,11 @@ export class FilesComponent implements OnInit {
       this.uploadProgress = this.uploadService.uploadProgress; //Uploading File using tus protocol
 
     });
-
   }
 
+
   /**
-   * Create Hashlist
+   * Create File
    *
   */
 
@@ -338,43 +364,53 @@ export class FilesComponent implements OnInit {
   }
 
   deleteFile(id: number){
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
-      },
-      buttonsStyling: false
-    })
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Once deleted, it can not be recovered!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: '#4B5563',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    })
-    .then((result) => {
-      if (result.isConfirmed) {
-        this.filesService.deleteFile(id).subscribe(() => {
-          Swal.fire(
-            "File has been deleted!",
-            {
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500
+    if(this.manageFileAccess || typeof this.manageFileAccess == 'undefined'){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Once deleted, it can not be recovered!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#4B5563',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.filesService.deleteFile(id).subscribe(() => {
+            Swal.fire(
+              "File has been deleted!",
+              {
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.ngOnInit();
+            this.rerender();  // rerender datatables
           });
-          this.ngOnInit();
-          this.rerender();  // rerender datatables
-        });
-      } else {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'No worries, your File is safe!',
-          'error'
-        )
-      }
-    });
+        } else {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'No worries, your File is safe!',
+            'error'
+          )
+        }
+      });
+    }else{
+      Swal.fire({
+        title: "ACTION DENIED",
+        text: "Please contact your Administrator.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
   }
 
   // Bulk Actions
@@ -397,6 +433,7 @@ export class FilesComponent implements OnInit {
   }
 
   onDeleteBulk(){
+    if(this.manageFileAccess || typeof this.manageFileAccess == 'undefined'){
     const self = this;
     let selectionnum = this.onSelectedFiles();
     let sellen = selectionnum.length;
@@ -414,20 +451,39 @@ export class FilesComponent implements OnInit {
       );
      });
    self.onDone(sellen);
+  }else{
+    Swal.fire({
+      title: "ACTION DENIED",
+      text: "Please contact your Administrator.",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }
   }
 
   onUpdateBulk(value: any){
-    const self = this;
-    let selectionnum = this.onSelectedFiles();
-    let sellen = selectionnum.length;
-    // let edit = {fileType: value};
-    selectionnum.forEach(function (id) {
-      Swal.fire('Updating...'+sellen+' File(s)...Please wait')
-      Swal.showLoading()
-    self.filesService.updateBulkFile(id, value).subscribe(
-    );
-   });
-  self.onDone(sellen);
+    if(this.manageFileAccess || typeof this.manageFileAccess == 'undefined'){
+      const self = this;
+      let selectionnum = this.onSelectedFiles();
+      let sellen = selectionnum.length;
+      // let edit = {fileType: value};
+      selectionnum.forEach(function (id) {
+        Swal.fire('Updating...'+sellen+' File(s)...Please wait')
+        Swal.showLoading()
+      self.filesService.updateBulkFile(id, value).subscribe(
+      );
+    });
+    self.onDone(sellen);
+  }else{
+    Swal.fire({
+      title: "ACTION DENIED",
+      text: "Please contact your Administrator.",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 2000
+    })
+  }
   }
 
   onDone(value?: any){

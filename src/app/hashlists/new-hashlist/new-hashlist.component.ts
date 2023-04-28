@@ -1,20 +1,22 @@
 import { Component, OnInit, ChangeDetectionStrategy ,ChangeDetectorRef, HostListener  } from '@angular/core';
-import { faMagnifyingGlass, faUpload, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faUpload, faInfoCircle, faFileUpload } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AccessGroupsService } from '../../core/_services/accessgroups.service';
+import { AccessGroupsService } from '../../core/_services/access/accessgroups.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { UploadTUSService } from '../../core/_services/files/files_tus.service';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { HashtypeService } from 'src/app/core/_services/hashtype.service';
+import { HashtypeService } from 'src/app/core/_services/config/hashtype.service';
+import { UsersService } from 'src/app/core/_services/users/users.service';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { AccessGroup } from '../../core/_models/access-group';
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { UploadFileTUS } from '../../core/_models/files';
+
 
 @Component({
   selector: 'app-new-hashlist',
@@ -28,6 +30,7 @@ export class NewHashlistComponent implements OnInit {
   */
   isLoading = false;
   faUpload=faUpload;
+  faFileUpload=faFileUpload;
   faInfoCircle=faInfoCircle;
   faMagnifyingGlass=faMagnifyingGlass;
 
@@ -52,6 +55,7 @@ export class NewHashlistComponent implements OnInit {
      private uploadService:UploadTUSService,
      private uiService: UIConfigService,
      private hlService: ListsService,
+     private users: UsersService,
      private router: Router
      ) { }
 
@@ -82,6 +86,15 @@ export class NewHashlistComponent implements OnInit {
       'isSecret': new FormControl(true),
     });
 
+  }
+
+  // Set permissions
+  createHashlistAccess: any;
+
+  setAccessPermissions(){
+    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+        this.createHashlistAccess = perm.globalPermissionGroup.permissions.createHashlistAccess;
+    });
   }
 
   ngAfterViewInit() {
@@ -194,6 +207,7 @@ export class NewHashlistComponent implements OnInit {
   */
 
   onSubmit(): void{
+      if(this.createHashlistAccess || typeof this.createHashlistAccess == 'undefined'){
       if (this.signupForm.valid) {
 
       this.isLoading = true;
@@ -219,6 +233,15 @@ export class NewHashlistComponent implements OnInit {
         });
       }
     );
+    }
+    }else{
+      Swal.fire({
+        title: "ACTION DENIED",
+        text: "Please contact your Administrator.",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 2000
+      })
     }
   }
 

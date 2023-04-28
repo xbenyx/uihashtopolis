@@ -6,7 +6,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
-import { AccessPermissionGroupsService } from 'src/app/core/_services/accesspermissiongroups.service';
+import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
+import { UsersService } from 'src/app/core/_services/users/users.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -38,10 +39,14 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
 
     constructor(
       private gpg: AccessPermissionGroupsService,
+      private users: UsersService,
       private router: Router
     ) { }
 
     ngOnInit(): void {
+
+      this.setAccessPermissions();
+
       this.signupForm = new FormGroup({
         'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
       });
@@ -106,6 +111,12 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
         }
       };
 
+    }
+
+    setAccessPermissions(){
+      this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+         console.log(perm.globalPermissionGroup)
+      });
     }
 
     rerender(): void {

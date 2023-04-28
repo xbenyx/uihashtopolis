@@ -360,22 +360,11 @@
       <ngb-accordion #acc="ngbAccordion" >
         <ngb-panel>
           <ng-template ngbPanelTitle>
-            <span><b>Other</b></span>
+            <span><b>Configuration</b></span>
           </ng-template>
           <ng-template ngbPanelContent>
             <div class="form-outline">
-              <label class="form-label display-col" for="setcrackerBinaryAccess">Configure Cracker Binaries</label>
-              <select
-                    id='crackerBinaryAccess'
-                    class='form-select'
-                    formControlName="crackerBinaryAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-            <div class="form-outline">
-              <label class="form-label display-col" for="setServerConfigAccess">Access Server Configuration</label>
+              <label class="form-label display-col" for="setServerConfigAccess">Access Configuration</label>
               <select
                     id='serverConfigAccess'
                     class='form-select'
