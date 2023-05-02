@@ -1,8 +1,11 @@
 {
-  "/api/*": {
+  "/api": {
       "target": "https://crackz.one/api/v2",
       "secure": false,
       "changeOrigin": true,
-      "logLevel": "debug"
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/api": ""
+      }
   }
 }
