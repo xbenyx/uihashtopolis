@@ -1,18 +1,4 @@
-# Development
 
-This document describes the process for running this application in your local environtment.
-
-# UI-Hashtopolis
-
-**UI-Hashtopolis** is a free and open-source platform used for managing "guessing" password tools. It's written in **typescript** using the Angular framework.
-
-# Development Status
-
-We will have a beta soon.
-
-# Screenshots
-
-<!-- ![Hashtopolis - Animated gif demo](demo/intro1.gif) -->
 
 # INSTALLING & RUNNING
 
@@ -39,33 +25,7 @@ Notes:
 
 4. Run `docker run -p 80:80 hashtopolis-client`
 
-## Build the Docker UI Image
 
-1. Run `docker-compose build nginx`.
-
-2. Tag the image with your Docker Hub repo name:
-
-    ```bash
-    docker tag nginx-uihashtopolis <YOUR_DOCKER_HUB_NAME>/nginx-uihashtopolis
-    ```
-
-3. Push the image to Docker Hub:
-
-    ```bash
-    docker push <YOUR_DOCKER_HUB_NAME>/nginx-uihashtopolis
-    ```
-
-# Installation and compiling with Nodejs || Angular
-
-1. Install the latest LTS version of Node.js from https://nodejs.org.
-
-2. Clone the project or download the .zip (Before continuing read "**Config Global Settings**")
-
-3. Go to the folder then: Run `npm install` to install app dependencies
-
-4. Run `ng build --watch` to build and bundle the code. Once compiled you can find the code in the `/dist` folder.
-
-5. Run `npm start` to launch the App, alternative if you have installed Angular just run `ng server`
 
 # Config Global Settings
 
