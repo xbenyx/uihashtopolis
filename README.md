@@ -1,5 +1,5 @@
 # Status
-We are working on the beta release.
+We are working on the beta release. **Please do not use yet**.
 
 # Introduction
 

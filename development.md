@@ -1,4 +1,4 @@
-# Installing Hashtopolis Server using Windows
+# Installing Hashtopolis Server using Windows 10/11
 
 1. Install the prerequisites [link](https://github.com/hashtopolis/server/wiki/Development-environment)
 2. Go to the windows store and install Ubuntu
@@ -14,4 +14,4 @@
 * Run `code`
 5. Open Hashtopolis Server, go to .devcontainer and open Remote Containers (Vscode plugin)
 
-
+# Installing Hashtopolis Server in Ubuntu
