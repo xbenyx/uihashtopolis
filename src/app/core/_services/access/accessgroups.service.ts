@@ -16,33 +16,44 @@ export class AccessGroupsService {
 
   constructor(private http: HttpClient) { }
 
+/**
+ * Returns all access group permissions
+ * @param routerParams - to include multiple options such as Max number of results or filtering
+ * @returns  Object
+**/
   getAccessGroups(routerParams?: Params): Observable<AccessGroup[]> {
     let queryParams: Params = {};
     if (routerParams) {
         queryParams = setParameter(routerParams);
     }
     return this.http.get<AccessGroup[]>(this.endpoint,{params: routerParams})
-    .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data)))
-    );
   }
 
+/**
+ * Delete by id
+ * @param id - id
+ * @returns  Object
+**/
   deleteAccessGroups(id: number):Observable<any> {
     return this.http.delete(this.endpoint +'/'+ id);
   }
 
+/**
+ * Create
+ * @param item - fields
+ * @returns  Object
+**/
   createAccessGroups(item: any): Observable<AccessGroup[]> {
     return this.http.post<any>(this.endpoint, item)
-    .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data)))
-    );
   }
 
+/**
+ * Update
+ * @param item - fields
+ * @returns  Object
+**/
   updateAccessGroups(item: any): Observable<any> {
     return this.http.patch<number>(this.endpoint + '/' + item.accessGroupId, {groupName: item.groupName})
-    .pipe(
-      tap(data => console.log('All: ', JSON.stringify(data)))
-    );
   }
 
 }
