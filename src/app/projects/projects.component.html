@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <h2 class="h4">Projects</h2>
+      <p class="mb-0">Section to manage and create custom projects.</p>
+  </div>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <a routerLink="./new-project" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+      <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+        New Project
+    </a>
+  </div>
+</div>
+<button class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button>
+<!-- body -->
+<div class="card border-0 shadow mb-4">
+  <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+              <thead class="thead-light">
+                <tr>
+                    <th class="border-0 rounded-start">ID</th>
+                    <th class="border-0">Project Title</th>
+                    <th class="border-0">Project Code</th>
+                    <th class="border-0">Role</th>
+                    <th class="border-0">Performance</th>
+                    <th class="border-0">Start Date</th>
+                    <th class="border-0">Deadline</th>
+                    <th class="border-0">Status</th>
+                    <th class="border-0 rounded-end">Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let p of projects">
+                    <td class="text-align:center">{{p.taskId}}</td>
+                    <td>{{p.taskName}}</td>
+                    <td>{{p.attackCmd}}</td>
+                    <td>
+                      <span class="ui-label-inner inline-flex whitespace-nowrap items-center px-2 py-0.5 rounded-md text-xs font-medium text-white capitalize badge my-0" style="background-color: rgb(16, 185, 129);">
+                        {{p.attackCmd}}
+                      </span>
+                    </td>
+                    <td>{{p.statusTimer}}</td>
+                    <td>{{p.statusTimer}}</td>
+                    <td>{{p.crackerBinaryTypeId}}</td>
+                    <td>
+                      <span class="ui-label-inner inline-flex whitespace-nowrap items-center px-2 py-0.5 rounded-md text-xs font-medium text-white capitalize badge my-0" style="background-color: rgb(16, 185, 129);">
+                        {{getStatus(p.crackerBinaryId)}}
+                      </span>
+                    </td>
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>. . .</button>
+                        <div ngbDropdownMenu>
+                          <button ngbDropdownItem  data-toggle="tooltip" data-placement="top" title="Edit">
+                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                          </button>
+                          <button ngbDropdownItem  data-toggle="tooltip" data-placement="top" title="Copy to Task">
+                            <fa-icon aria-hidden="true"></fa-icon> Duplicate Project
+                          </button>
+                          <button ngbDropdownItem  data-toggle="tooltip" data-placement="top" title="Copy to Pretask">
+                            <fa-icon  aria-hidden="true"></fa-icon>  Status
+                          </button>
+                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Archive">
+                            <fa-icon aria-hidden="true"></fa-icon> Archive
+                          </button>
+                          <div class="dropdown-divider"></div>
+                          <button ngbDropdownItem  data-toggle="tooltip" data-placement="top" title="Delete">
+                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- body End -->

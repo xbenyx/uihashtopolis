@@ -12,6 +12,11 @@ const appRoutes: Routes = [
       data: { preload: true, delay: false }
     },
     {
+      path: 'projects',
+      loadChildren: () => import('./projects/projects.module').then(m => m.ProjectsModule),
+      data: { preload: true, delay: false }
+    },
+    {
       path: 'agents',
       loadChildren: () => import('./agents/agent.module').then(m => m.AgentsModule),
       data: { preload: true, delay: false }
