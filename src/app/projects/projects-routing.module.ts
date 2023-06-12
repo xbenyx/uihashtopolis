@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ProjectsComponent } from "./projects.component";
 import { EditProjectComponent } from "./edit-project/edit-project.component";
-import { NewProjectComponent } from "./new-project/new-project.component";
 
 const routes: Routes = [
   {
@@ -15,13 +14,6 @@ const routes: Routes = [
         data: {
             kind: 'projects',
             breadcrumb: 'Projects'
-        },
-        canActivate: [AuthGuard]},
-      {
-        path: 'new-project',  component: NewProjectComponent,
-        data: {
-            kind: 'new-project',
-            breadcrumb: 'New Project'
         },
         canActivate: [AuthGuard]},
       {

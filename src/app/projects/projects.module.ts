@@ -7,7 +7,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DataTablesModule } from "angular-datatables";
 
 import { EditProjectComponent } from "./edit-project/edit-project.component";
-import { NewProjectComponent } from "./new-project/new-project.component";
 import { ProjectsRoutingModule } from "./projects-routing.module";
 import { ProjectsComponent } from "./projects.component";
 
@@ -15,7 +14,6 @@ import { ProjectsComponent } from "./projects.component";
 @NgModule({
   declarations:[
     ProjectsComponent,
-    NewProjectComponent,
     EditProjectComponent
   ],
   imports:[

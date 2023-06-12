@@ -6,16 +6,19 @@ import { Subject } from 'rxjs';
 
 // Report Import
 import { ReportService } from '../core/_services/config/report.service';
-import { ReportConfig } from '../shared/defines/logobase64';
+// import { ReportConfig } from '../shared/defines/logobase64';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { InputFiles, Report } from './report';
 import pdfMake from 'pdfmake/build/pdfmake';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html'
 })
+
+
 export class ProjectsComponent implements OnInit {
   public isCollapsed = true;
   faHome=faHomeAlt;
@@ -34,7 +37,8 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private projectService:ProjectService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -146,12 +150,12 @@ export class ProjectsComponent implements OnInit {
   async renderPDF(id: number){
     this.projectService.getProject(id).subscribe((proj: any) => {
       this.project = proj.values;
-      console.log(this.project[0].project_id);
+      console.log(this.project);
     });
 
-    this.reportService.getConfReport().subscribe((conf: any) => {
-      this.confreport = conf;
-    });
+    // this.reportService.getConfReport().subscribe((conf: any) => {
+    //   this.confreport = conf;
+    // });
 
     var isHeaderAlt:number = 0; // Vairaible for log; O use alternative logo, 1 use hashtopolis logo
 
@@ -163,7 +167,7 @@ export class ProjectsComponent implements OnInit {
         },
       pageSize: 'A4',
       pageMargins: [40, 80, 40, 60],
-      userPassword: this.project[0].project_report_pass,
+      userPassword: 555,
       ownerPassword: 'hashtoadmin',
       permissions: {
         printing: 'highResolution', //'lowResolution'
@@ -174,23 +178,23 @@ export class ProjectsComponent implements OnInit {
         contentAccessibility: true,
         documentAssembly: true
       },
-      header: function(page) {
-        if (page != 1 && isHeaderAlt == 1){
-            return { columns: [{
-                image: ReportConfig.LOGORED
-                ,width: 130
-                ,margin: [25, 15 , 0, 0]
-              }]}
-                }
-        else if (page != 1 && isHeaderAlt == 0){
-            return { columns: [{
-                image: ReportConfig.LOGOALT
-                ,width: 180
-                ,margin: [25, 15 , 0, 0]
-              }]}
-                }
-          else return false;
-      },
+      // header: function(page) {
+      //   if (page != 1 && isHeaderAlt == 1){
+      //       return { columns: [{
+      //           image: ReportConfig.LOGORED
+      //           ,width: 130
+      //           ,margin: [25, 15 , 0, 0]
+      //         }]}
+      //           }
+      //   else if (page != 1 && isHeaderAlt == 0){
+      //       return { columns: [{
+      //           image: ReportConfig.LOGOALT
+      //           ,width: 180
+      //           ,margin: [25, 15 , 0, 0]
+      //         }]}
+      //           }
+      //     else return false;
+      // },
       footer: function(currentPage, pageCount) {
           return {
               margin:10,
@@ -208,13 +212,13 @@ export class ProjectsComponent implements OnInit {
               ]
           };
       },
-      background: {
-          image: await this.getBase64ImageFromURL("../../assets/img/backgroung.png"), width: 600, margin: [0, 520 , 0, 0]
-        },
+      // background: {
+      //     image: await this.getBase64ImageFromURL("../../assets/img/backgroung.png"), width: 600, margin: [0, 520 , 0, 0]
+      //   },
       content: [
         {
-            // image: await this.getBase64ImageFromURL("../../assets/img/letterhead.png"),
-            image: await this.getBase64ImageFromURL("../../assets/img/header_2.png"),
+            image: await this.getBase64ImageFromURL("../../assets/img/letterhead.png"),
+            // image: await this.getBase64ImageFromURL("../../assets/img/header_2.png"),
             width: 600,
             alignment: 'center',
             margin: [0, -100 , 0, 0],
@@ -235,7 +239,7 @@ export class ProjectsComponent implements OnInit {
         {
           columns: [
             {
-              text: this.confreport[0].info_cover_body_1,
+              text: 'this.confreport[0].info_cover_body_1',
               color: '#00275b',
               bold: true,
               fontSize: 14,
@@ -247,7 +251,7 @@ export class ProjectsComponent implements OnInit {
         {
           columns: [
             {
-              text: this.confreport[0].info_cover_body_2,
+              text: 'this.confreport[0].info_cover_body_2',
               color: '#00275b',
               bold: true,
               fontSize: 14,
@@ -259,7 +263,7 @@ export class ProjectsComponent implements OnInit {
         {
           columns: [
             {
-              text: this.project[0].reference,
+              text: 'this.project[0].reference',
               color: '#00275b',
               bold: true,
               fontSize: 14,
@@ -271,7 +275,7 @@ export class ProjectsComponent implements OnInit {
         {
           columns: [
             {
-              text: this.confreport[0].info_cover_body_3,
+              text: 'this.confreport[0].info_cover_body_3',
               color: '#00275b',
               bold: true,
               fontSize: 14,
@@ -284,7 +288,7 @@ export class ProjectsComponent implements OnInit {
         {
           columns: [
             {
-              text: this.confreport[0].info_cover_body_4,
+              text: 'this.confreport[0].info_cover_body_4',
               color: '#00275b',
               bold: true,
               fontSize: 14,
@@ -296,7 +300,7 @@ export class ProjectsComponent implements OnInit {
         {
           columns: [
             {
-              text: this.confreport[0].info_cover_body_5,
+              text: 'this.confreport[0].info_cover_body_5',
               color: '#00275b',
               bold: true,
               fontSize: 14,
@@ -323,7 +327,7 @@ export class ProjectsComponent implements OnInit {
           body: [
             [
               {
-                text: this.confreport[0].info_cover_footer_1,
+                text: 'this.confreport[0].info_cover_footer_1',
                 color: '#aaaaab',
                 border: [true, true, false, true],
                 margin: [30, 10, 10, 5],
@@ -331,7 +335,7 @@ export class ProjectsComponent implements OnInit {
                 alignment: 'center',
               },
               {
-                text: this.confreport[0].info_cover_footer_2,
+                text: 'this.confreport[0].info_cover_footer_2',
                 border: [false, true, false, true],
                 color: '#aaaaab',
                 margin: [70, 10, 10, 5],
@@ -339,7 +343,7 @@ export class ProjectsComponent implements OnInit {
                 alignment: 'center',
               },
               {
-                text: this.confreport[0].info_cover_footer_3,
+                text: 'this.confreport[0].info_cover_footer_3',
                 border: [false, true, true, true],
                 color: '#aaaaab',
                 margin: [70, 10, 10, 5],
@@ -625,5 +629,28 @@ export class ProjectsComponent implements OnInit {
 
     });}
   // End Render PDF
+
+    // Modal Information
+    closeResult = '';
+    open(content) {
+      this.modalService.open(content, { size: 'xl' }).result.then(
+        (result) => {
+          this.closeResult = `Closed with: ${result}`;
+        },
+        (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        },
+      );
+    }
+
+    private getDismissReason(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return `with: ${reason}`;
+      }
+    }
 
 }

@@ -4,7 +4,7 @@
       <p class="mb-0">Section to manage and create custom projects.</p>
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
-    <a routerLink="./new-project" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+    <a (click)="open(newproject)" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
       <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
         New Project
     </a>
@@ -41,7 +41,12 @@
                     </td>
                     <td>{{p.statusTimer}}</td>
                     <td>{{p.statusTimer}}</td>
-                    <td>{{p.crackerBinaryTypeId}}</td>
+                    <td>
+                      {{p.crackerBinaryTypeId}}
+                      <a>
+                        <button type="submit" class='btn' data-toggle="tooltip" data-placement="top" title="Generate PDF" (click)="renderPDF(p.crackerBinaryTypeId)"><fa-icon [icon]="faFilePdf" aria-hidden="true"></fa-icon></button>
+                      </a>
+                    </td>
                     <td>
                       <span class="ui-label-inner inline-flex whitespace-nowrap items-center px-2 py-0.5 rounded-md text-xs font-medium text-white capitalize badge my-0" style="background-color: rgb(16, 185, 129);">
                         {{getStatus(p.crackerBinaryId)}}
@@ -77,3 +82,24 @@
     </div>
 </div>
 <!-- body End -->
+
+
+<ng-template #newproject let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Cheat Sheet</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <div class="row">
+
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Create</button>
+  </div>
+
+</ng-template>
