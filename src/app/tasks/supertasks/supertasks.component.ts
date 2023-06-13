@@ -51,7 +51,6 @@ export class SupertasksComponent implements OnInit {
       pageLength: 10,
       stateSave: true,
       responsive: true,
-      select: true,
       buttons: []
     };
 

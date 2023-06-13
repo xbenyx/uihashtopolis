@@ -64,6 +64,7 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
       pageLength: 10,
       stateSave: true,
       select: true,
+      responsive: true,
       buttons: {
         dom: {
           button: {

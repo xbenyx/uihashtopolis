@@ -20,7 +20,6 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(this.url).subscribe(res => {
       this.gitInfo = res;
-      console.log(this.gitInfo)
     });
   }
 
