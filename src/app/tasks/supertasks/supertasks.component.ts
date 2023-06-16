@@ -1,17 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { SuperTasksService } from '../../core/_services/tasks/supertasks.sevice';
-import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash, faPlus, faAdd } from '@fortawesome/free-solid-svg-icons';
-import { environment } from './../../../environments/environment';
-import { Subject } from 'rxjs';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { SuperTasksService } from '../../core/_services/tasks/supertasks.sevice';
+import { environment } from './../../../environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 // declare var $: any;
 @Component({
   selector: 'app-supertasks',
   templateUrl: './supertasks.component.html'
 })
+@PageTitle(['Show SuperTasks'])
 export class SupertasksComponent implements OnInit {
 
   faEdit=faEdit;

@@ -1,4 +1,3 @@
-&nbsp;
 <section class="bg-soft d-flex align-items-center">
   <div class="container">
       <div class="row justify-content-center">
@@ -8,15 +7,12 @@
                       <h1 class="mb-0 h3">Sign In</h1>
                   </div>
                   <!-- Handle authentification Error -->
-                  <!-- <div class="alert alert-danger" *ngIf="errorRes">
-                      <p>{{ errorRes }}</p>
-                  </div> -->
                   <app-alert [message]="errorRes" *ngIf="errorRes" (close)="onHandleError()"></app-alert>
                   <!-- End of Handle authentification Error -->
                   <div *ngIf="isLoading" style="text-align: center;">
                       <app-loading-spinner></app-loading-spinner>
                   </div>
-                  <form  #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" class="mt-5">
+                  <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading" class="mt-5">
                       <div class="form-group mb-0">
                           <label for="inputUsername">User Name</label>
                           <div class="input-group">
@@ -30,11 +26,18 @@
                       <div class="form-group">
                           <div class="form-group mb-0">
                               <label for="password">Password</label>
-                              <div class="input-group">
+                              <div class="input-group input-icon-container">
                                   <span class="input-group-text">
                                     <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
                                   </span>
-                                  <input type="password" class="form-control" id="inputPassword" placeholder="Password" ngModel name="password" autocomplete="on" required>
+                                  <input [type]="showPasswordOnPress ? 'text' : 'password'" class="form-control pwd-control" id="inputPassword" placeholder="Enter Password" ngModel name="password" autocomplete="on" passToggle required>
+                                  <div
+                                    (mousedown)="showPasswordOnPress = !showPasswordOnPress"
+                                    (mouseup)="showPasswordOnPress = !showPasswordOnPress"
+                                    >
+                                    <fa-icon alt="show" [icon]="faEye" aria-hidden="true" *ngIf="showPasswordOnPress"></fa-icon>
+                                    <fa-icon alt="hide" [icon]="faEyeSlash" aria-hidden="true" *ngIf="!showPasswordOnPress"></fa-icon>
+                                  </div>
                               </div>
                           </div>
                           &nbsp;
@@ -48,13 +51,10 @@
                       </div>
                   </form>
                   <div class='alert alert-info row justify-content-center closesys'>
-                    This is a private closed system. If you need access you need to contact an admin of this page and
-                    ask for creating an account.
+                    This is a private closed system. If you need access you need to contact an admin.
                   </div>
               </div>
           </div>
       </div>
   </div>
 </section>
-
-

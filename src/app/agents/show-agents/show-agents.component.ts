@@ -9,6 +9,7 @@ import {Subject} from 'rxjs';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 declare let $:any;
 
@@ -16,6 +17,7 @@ declare let $:any;
   selector: 'app-show-agents',
   templateUrl: './show-agents.component.html'
 })
+@PageTitle(['Show Agents'])
 export class ShowAgentsComponent implements OnInit, OnDestroy {
 
   faArrowCircleDown=faArrowCircleDown;

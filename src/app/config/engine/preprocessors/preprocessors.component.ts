@@ -1,17 +1,20 @@
+import { faHomeAlt, faPlus, faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash, faEdit} from '@fortawesome/free-solid-svg-icons';
-import { PreprocessorService } from '../../../core/_services/config/preprocessors.service';
-import { Router } from '@angular/router';
-import { environment } from './../../../../environments/environment';
-import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+
+import { PreprocessorService } from '../../../core/_services/config/preprocessors.service';
+import { environment } from './../../../../environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-preprocessors',
   templateUrl: './preprocessors.component.html'
 })
+@PageTitle(['Show Preprocessors'])
 export class PreprocessorsComponent implements OnInit {
   public isCollapsed = true;
   faHome=faHomeAlt;

@@ -1,16 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
 import { faEdit, faTrash,faFileImport, faFileExport, faPlus, faLock } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
-import { Subject } from 'rxjs';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Subject } from 'rxjs';
 
 import { SuperHashlistService } from 'src/app/core/_services/hashlist/superhashlist.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-superhashlist',
   templateUrl: './superhashlist.component.html'
 })
+@PageTitle(['Show SuperHashlist'])
 export class SuperhashlistComponent implements OnInit {
   faEdit=faEdit;
   faLock=faLock;

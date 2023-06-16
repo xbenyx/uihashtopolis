@@ -1,13 +1,14 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
-import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 declare let $:any;
 
@@ -15,8 +16,9 @@ declare let $:any;
   selector: 'app-hashlist',
   templateUrl: './hashlist.component.html'
 })
-
+@PageTitle(['Show Hashlists'])
 export class HashlistComponent implements OnInit, OnDestroy {
+
   faEdit=faEdit;
   faTrash=faTrash;
   faLock=faLock;
@@ -55,7 +57,8 @@ export class HashlistComponent implements OnInit, OnDestroy {
   constructor(
     private listsService: ListsService,
     private route:ActivatedRoute,
-    private users: UsersService
+    private users: UsersService,
+    private router: Router
     ) { }
 
   isArchived: boolean;
@@ -164,6 +167,17 @@ export class HashlistComponent implements OnInit, OnDestroy {
                     }
                   }
                ]
+          },
+          {
+            text: !this.isArchived? 'Show Archived':'Show Live',
+            action: function () {
+              if(!self.isArchived) {
+                self.router.navigate(['hashlists/archived']);
+              }
+              if(self.isArchived){
+                self.router.navigate(['hashlists/hashlist']);
+              }
+            }
           },
           {
             extend: 'colvis',

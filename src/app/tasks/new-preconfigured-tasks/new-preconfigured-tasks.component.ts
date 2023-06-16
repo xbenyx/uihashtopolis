@@ -14,7 +14,9 @@ import { CrackerService } from '../../core/_services/config/cracker.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 import { FilesService } from '../../core/_services/files/files.service';
+import { colorpicker } from '../../core/_constants/settings.config';
 import { FileTypePipe } from 'src/app/core/_pipes/file-type.pipe';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 declare let $:any;
 
@@ -22,6 +24,7 @@ declare let $:any;
   selector: 'app-new-preconfigured-tasks',
   templateUrl: './new-preconfigured-tasks.component.html'
 })
+@PageTitle(['New Preconfigured Tasks'])
 export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   @ViewChild('cmdAttack', {static: true}) cmdAttack: any;
   // Loader
@@ -52,6 +55,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   createForm: FormGroup
   crackertype: any
   color: string = '#fff'
+  colorpicker=colorpicker;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;

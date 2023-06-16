@@ -5,6 +5,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { AgentsService } from '../../../core/_services/agents/agents.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { HealthcheckService } from '../../../core/_services/config/healthcheck.service';
@@ -13,6 +14,7 @@ import { HealthcheckService } from '../../../core/_services/config/healthcheck.s
   selector: 'app-edit-health-checks',
   templateUrl: './edit-health-checks.component.html'
 })
+@PageTitle(['Edit Health Checks'])
 export class EditHealthChecksComponent implements OnInit {
   editedHealthCIndex: number;
 

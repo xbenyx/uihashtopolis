@@ -1,7 +1,6 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
-      <h2 class="h4">Hashlist</h2>
-      <p class="mb-0">Section to manage and create hashlists.</p>
+      <h2 class="h4">Hashlists</h2>
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
       <a routerLink="/hashlists/new-hashlist" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
@@ -11,14 +10,6 @@
   </div>
 </div>
 <!-- Body -->
-<div [ngSwitch]="whichView">
-  <div *ngSwitchCase="'live'">
-    <button [routerLink]="['../','archived']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Archived</button>
-  </div>
-  <div *ngSwitchCase="'archived'">
-    <button [routerLink]="['../','hashlist']" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">Show Live</button>
-  </div>
-</div>
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
         <div class="table-responsive">
@@ -31,7 +22,7 @@
                   <th class="border-0">Format</th>
                   <th class="border-0">Cracked</th>
                   <th class="border-0">Pre-cracked</th>
-                  <th class="border-0 rounded-end">Action</th>
+                  <th class="border-0 rounded-end"></th>
               </tr>
               </thead>
               <tbody>
@@ -61,17 +52,23 @@
                       <fa-icon [icon]="faFileImport" aria-hidden="true"></fa-icon>
                    </a>
                   </td>
-                  <td>
-                   <a class='btn-outline-gray-600 float-right' [routerLink]="[list.hashlistId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                      <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                   </a>
-                   <a class='btn-outline-gray-600 float-right' (click)="onArchive(list.hashlistId)" data-toggle="tooltip" data-placement="top" title="Archive">
-                      <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon>
-                   </a>
-                   <a class='btn-outline-gray-600 float-right' (click)="onDelete(list.hashlistId)" data-toggle="tooltip" data-placement="top" title="Delete">
-                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                   </a>
-                </td>
+                  <td class="overflow-hidden">
+                    <div ngbDropdown container="body">
+                      <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
+                      <div ngbDropdownMenu>
+                        <button ngbDropdownItem [routerLink]="[list.hashlistId,'edit']" data-placement="top" title="Edit">
+                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                        </button>
+                        <button ngbDropdownItem (click)="onArchive(list.hashlistId)" data-placement="top" title="Archive">
+                          <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon> Archive
+                        </button>
+                        <div class="dropdown-divider"></div>
+                        <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(list.hashlistId)">
+                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </td>
               </tr>
               </tbody>
             </table>

@@ -7,11 +7,13 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { CrackerService } from '../../../../core/_services/config/cracker.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-new-crackers',
   templateUrl: './new-crackers.component.html'
 })
+@PageTitle(['New Crackers'])
 export class NewCrackersComponent implements OnInit {
 
   // Loader

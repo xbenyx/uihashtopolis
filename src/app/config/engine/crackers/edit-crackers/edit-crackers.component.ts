@@ -5,11 +5,13 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { CrackerService } from '../../../../core/_services/config/cracker.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-edit-crackers',
   templateUrl: './edit-crackers.component.html'
 })
+@PageTitle(['Edit Crackers'])
 export class EditCrackersComponent implements OnInit {
   editMode = false;
   editedCrackervIndex: number;

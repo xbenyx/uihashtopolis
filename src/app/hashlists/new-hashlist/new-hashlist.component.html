@@ -74,42 +74,49 @@
                       &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
-                            <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
-                            <td>
-                              <select
-                                     type='number'
-                                     id='hashlistformat'
-                                     class='form-select'
-                                     formControlName="format"
-                                     string-number
-                                  >
-                                  <option [ngValue]="0" [defaultSelected]=true>Text file</option>
-                                  <option [ngValue]="1">HCCAPX file / PMKID hash</option>
-                                  <option [ngValue]="2">Binary file (single hash)</option>
-                              </select>
-                              <span class="position-relative top-50 start-50">
-                                <br>
-                                <input
-                                      type="checkbox"
-                                      id="separator"
-                                      formControlName="isSalted"
-                                > Salted hashes, separator:
-                                <input
-                                      type="text"
-                                      class='form-control form-control-mini'
-                                      formControlName="separator"
-                                      value=";"
+                          <label class="form-label requiredak" for="gethashlistformat">Hashlist format</label>
+                          <td>
+                            <select
+                                    type='number'
+                                    id='hashlistformat'
+                                    class='form-select'
+                                    formControlName="format"
+                                    string-number
                                 >
-                              </span>
-                              <span class="position-relative top-50 start-50">
-                                <br>
-                                <input
-                                      type="checkbox"
-                                      id="isHexSalt"
-                                      formControlName="isHexSalt"
-                                > Salt is in hex (only when salted hashes)
-                              </span>
-                            </td>
+                                <option [ngValue]="0" [defaultSelected]=true>Text file</option>
+                                <option [ngValue]="1">HCCAPX file / PMKID hash</option>
+                                <option [ngValue]="2">Binary file (single hash)</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-outline">
+                          <span>
+                            <br>
+                            <input
+                                  type="checkbox"
+                                  id="separator"
+                                  formControlName="isSalted"
+                            > Salted hashes, separator:
+                            <input
+                                  type="text"
+                                  class='form-control form-control-mini'
+                                  formControlName="separator"
+                                  value=";"
+                            >
+                          </span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="form-outline">
+                          <span>
+                            <br>
+                            <input
+                                  type="checkbox"
+                                  id="isHexSalt"
+                                  formControlName="isHexSalt"
+                            > Salt is in hex (only when salted hashes)
+                          </span>
                         </div>
                       </div>
                       &nbsp;

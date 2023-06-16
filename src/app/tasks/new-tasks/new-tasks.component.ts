@@ -9,21 +9,24 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { FilesService } from '../../core/_services/files/files.service';
-import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
-import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
+import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
+import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
-import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
+import { UsersService } from 'src/app/core/_services/users/users.service';
+import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
+import { FilesService } from '../../core/_services/files/files.service';
+import { colorpicker } from '../../core/_constants/settings.config';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-new-tasks',
   templateUrl: './new-tasks.component.html',
   changeDetection: ChangeDetectionStrategy.Default
 })
+@PageTitle(['New Task'])
 export class NewTasksComponent implements OnInit {
   // Loader
   isLoading = false;
@@ -37,7 +40,8 @@ export class NewTasksComponent implements OnInit {
   faTrash=faTrash;
   faInfoCircle=faInfoCircle;
   faLock=faLock;
-  color: string = '#fff'
+  color: string = '#fff';
+  colorpicker=colorpicker;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;

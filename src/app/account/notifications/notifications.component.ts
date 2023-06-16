@@ -8,12 +8,13 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { NotifService } from '../../core/_services/users/notifications.service';
 import { AgentsService } from '../../core/_services/agents/agents.service';
-
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html'
 })
+@PageTitle(['Notifications'])
 export class NotificationsComponent implements OnInit {
   // Loader
   isLoading = false;

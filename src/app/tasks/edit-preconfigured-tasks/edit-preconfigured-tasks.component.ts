@@ -3,19 +3,21 @@ import { faHomeAlt, faPlus, faTrash, faInfoCircle, faEye, faLock} from '@fortawe
 import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { environment } from './../../../environments/environment';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
-import { Pretask } from '../../core/_models/pretask';
 import { UsersService } from 'src/app/core/_services/users/users.service';
-
+import { colorpicker } from '../../core/_constants/settings.config';
+import { environment } from './../../../environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { Pretask } from '../../core/_models/pretask';
 
 @Component({
   selector: 'app-edit-preconfigured-tasks',
   templateUrl: './edit-preconfigured-tasks.component.html'
 })
+@PageTitle(['Edit Preconfigured Tasks'])
 export class EditPreconfiguredTasksComponent implements OnInit{
 
   editMode = false;
@@ -39,6 +41,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
 
   pretask: any = [];
   color: string = '';
+  colorpicker=colorpicker;
   updateForm: FormGroup
   private maxResults = environment.config.prodApiMaxResults
 

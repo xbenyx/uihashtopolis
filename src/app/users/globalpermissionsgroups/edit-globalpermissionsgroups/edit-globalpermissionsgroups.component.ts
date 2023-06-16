@@ -9,11 +9,13 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 
 import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-edit-globalpermissionsgroups',
   templateUrl: './edit-globalpermissionsgroups.component.html'
 })
+@PageTitle(['Edit Global Permissions'])
 export class EditGlobalpermissionsgroupsComponent implements OnInit {
   editMode = false;
   editedGPGIndex: number;

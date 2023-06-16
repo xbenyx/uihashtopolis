@@ -1,19 +1,19 @@
 import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from './../../../environments/environment';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { HashtypeService } from '../../core/_services/config/hashtype.service';
+import { environment } from './../../../environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-hashtypes',
   templateUrl: './hashtypes.component.html'
 })
+@PageTitle(['Show Hashtypes'])
 export class HashtypesComponent implements OnInit {
   // Loader
   isLoading = false;

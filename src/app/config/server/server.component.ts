@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ActivatedRoute, Params } from '@angular/router';
-import { environment } from './../../../environments/environment';
 import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { environment } from './../../../environments/environment';
+import { ActivatedRoute, Params } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { ConfigService } from '../../core/_services/config/config.service';
 import { CookieService } from '../../core/_services/shared/cookies.service';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
@@ -16,6 +17,7 @@ import { dateFormat, serverlog, proxytype } from '../../core/_constants/settings
   selector: 'app-server',
   templateUrl: './server.component.html'
 })
+@PageTitle(['Settings'])
 export class ServerComponent implements OnInit {
 
   faHome=faHomeAlt;

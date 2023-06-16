@@ -5,18 +5,20 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { User } from '../user.model';
-import { environment } from 'src/environments/environment';
-import { UsersService } from '../../core/_services/users/users.service';
+import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
 import { ValidationService } from '../../core/_services/shared/validation.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
+import { UsersService } from '../../core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { environment } from 'src/environments/environment';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-edit-users',
   templateUrl: './edit-users.component.html',
   providers: [DatePipe]
 })
+@PageTitle(['Edit User'])
 export class EditUsersComponent implements OnInit {
   editMode = false;
   editedUserIndex: number;

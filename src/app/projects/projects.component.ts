@@ -1,24 +1,23 @@
 import { faHomeAlt, faPlus, faTrash, faEdit, faFilePdf} from '@fortawesome/free-solid-svg-icons';
 import { ProjectService } from '../core/_services/projects/projects.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-
-// Report Import
-import { ReportService } from '../core/_services/config/report.service';
-// import { ReportConfig } from '../shared/defines/logobase64';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { InputFiles, Report } from './report';
 import pdfMake from 'pdfmake/build/pdfmake';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+
+import { ReportService } from '../core/_services/config/report.service';
+// import { ReportConfig } from '../shared/defines/logobase64';
+import { PageTitle } from '../core/_decorators/autotitle';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html'
 })
-
-
+@PageTitle(['Show Projects'])
 export class ProjectsComponent implements OnInit {
   public isCollapsed = true;
   faHome=faHomeAlt;

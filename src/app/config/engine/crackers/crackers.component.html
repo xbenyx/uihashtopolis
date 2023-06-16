@@ -3,7 +3,6 @@
 
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Crackers</h2>
-      <p>Section to manage agent binaries.</p>
       <div class="btn-group ms-2 ms-3">
         <button type="button" routerLink="../agent-binaries" class="btn btn-sm btn-outline-gray-600">Agent Binaries</button>
         <button type="button" routerLink="../crackers" class="btn btn-sm btn-outline-gray-600-select">Crackers</button>
@@ -14,7 +13,7 @@
   <div class="btn-toolbar mb-2 mb-md-0">
     <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
       <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-        New Binary
+        New Cracker
     </a>
   </div>
 </div>
@@ -72,13 +71,19 @@
                         {{ ver.version }}
                       </p>
                     </td>
-                    <td>
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="[type.crackerBinaryTypeId,'new']" data-toggle="tooltip" data-placement="top" title="Add version/binary">
-                        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-                     </a>
-                     <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(type.crackerBinaryTypeId)">
-                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                     </a>
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
+                        <div ngbDropdownMenu>
+                          <button ngbDropdownItem [routerLink]="[type.crackerBinaryTypeId,'new']" data-placement="top" title="Edit">
+                            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon> Add version/binary
+                          </button>
+                          <div class="dropdown-divider"></div>
+                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(type.crackerBinaryTypeId)">
+                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                          </button>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

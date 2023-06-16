@@ -7,7 +7,6 @@
       <h2 class="h4">New Tasks</h2>
       <div [ngSwitch]="whichView">
         <div *ngSwitchCase="'create'">
-          <p class="mb-0">Section to create a new task.</p>
         </div>
         <div *ngSwitchCase="'edit'">
           <p class="mb-0">Data Copied From Pretask ID {{editedIndex}}</p>
@@ -22,18 +21,38 @@
               <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
                 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                   <div class="row">
-                      <div class="form-group">
-                          <div class="form-outline">
-                              <label class="form-label requiredak" for="getname">Name</label>
-                              <input
-                                    type='text'
-                                    id="taskname"
-                                    class='form-control'
-                                    formControlName="taskName"
-                              >
+                      <div class="row g-3">
+                        <div class="col-md-9">
+                          <div class="form-group">
+                              <div class="form-outline">
+                                  <label class="form-label requiredak" for="getname">Name</label>
+                                  <input
+                                        type='text'
+                                        id="taskname"
+                                        class='form-control'
+                                        formControlName="taskName"
+                                  >
+                              </div>
                           </div>
+                          &nbsp;
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <div class="form-outline">
+                                <label class="form-label" for="getcolor">Color</label>
+                                  <input
+                                      class="form-control"
+                                      [(colorPicker)]="color"
+                                      (colorPickerChange)="OnChangeValue($event)"
+                                      [style.background]="color"
+                                      [value]="color"
+                                      [cpPresetColors]="colorpicker"
+                                      formControlName="color"/>
+                            </div>
+                          </div>
+                          &nbsp;
+                        </div>
                       </div>
-                      &nbsp;
                       <div class="form-group">
                         <div class="form-outline">
                             <label class="form-label" for="getTasknotes">Task notes</label>
@@ -121,20 +140,6 @@
                             </div>
                           </div>
                           &nbsp;
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getcolor">Task Color Identifier</label>
-                            <div class="input-group-text w-50 mx-auto">
-                              <input type='text' class="form-control"
-                                  [(colorPicker)]="color" cpWidth='230px' cpHeight="100px"
-                                  [cpOKButton]="true"
-                                  [cpSaveClickOutside]="false"
-                                  [cpOKButtonClass]= "'btn btn-primary btn-xs'"
-                                  (colorPickerChange)="OnChangeValue($event)"
-                                  [style.background]="color" [value]="color" formControlName="color"/>
-                          </div>
                         </div>
                       </div>
                       &nbsp;

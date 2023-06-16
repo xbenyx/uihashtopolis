@@ -3,7 +3,6 @@
 
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Agent Binaries</h2>
-      <p>Section to manage agent binaries.</p>
       <div class="btn-group ms-2 ms-3">
         <button type="button" routerLink="../agent-binaries" class="btn btn-sm btn-outline-gray-600-select">Agent Binaries</button>
         <button type="button" routerLink="../crackers" class="btn btn-sm btn-outline-gray-600">Crackers</button>
@@ -31,7 +30,7 @@
                     <th class="border-0">Filename</th>
                     <th class="border-0">Current Version</th>
                     <th class="border-0">Update Track</th>
-                    <th class="border-0 rounded-end">Action</th>
+                    <th class="border-0 rounded-end"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,13 +41,19 @@
                     <td>{{ b.filename }}</td>
                     <td>{{ b.version }}</td>
                     <td>{{ b.updateTrack }}</td>
-                    <td>
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="[b.agentBinaryId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                      </a>
-                      <a class='btn-outline-gray-600 float-right' data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(b.agentBinaryId)">
-                        <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                      </a>
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
+                        <div ngbDropdownMenu>
+                          <button ngbDropdownItem [routerLink]="[b.agentBinaryId,'edit']" data-placement="top" title="Edit">
+                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                          </button>
+                          <div class="dropdown-divider"></div>
+                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(b.agentBinaryId)">
+                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                          </button>
+                        </div>
+                      </div>
                     </td>
                 </tr>
                 </tbody>

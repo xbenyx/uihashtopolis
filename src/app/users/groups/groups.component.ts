@@ -7,14 +7,15 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
-
 import { AccessGroupsService } from '../../core/_services/access/accessgroups.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html'
 })
+@PageTitle(['Show Groups'])
 export class GroupsComponent implements OnInit {
     // Loader
     isLoading = false;

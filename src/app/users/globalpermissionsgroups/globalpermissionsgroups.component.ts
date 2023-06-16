@@ -9,11 +9,13 @@ import { Subject } from 'rxjs';
 import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
 import { environment } from 'src/environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-globalpermissionsgroups',
   templateUrl: './globalpermissionsgroups.component.html'
 })
+@PageTitle(['Show Global Permissions'])
 export class GlobalpermissionsgroupsComponent implements OnInit {
     // Loader
     isLoading = false;

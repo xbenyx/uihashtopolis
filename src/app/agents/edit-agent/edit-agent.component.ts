@@ -13,11 +13,13 @@ import { ChunkService } from 'src/app/core/_services/tasks/chunks.service';
 import { AgentsService } from '../../core/_services/agents/agents.service';
 import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
 import { UsersService } from '../../core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-edit-agent',
   templateUrl: './edit-agent.component.html'
 })
+@PageTitle(['Edit Agent'])
 export class EditAgentComponent implements OnInit {
   editMode = false;
   editedAgentIndex: number;

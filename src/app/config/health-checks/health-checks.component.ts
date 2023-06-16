@@ -2,22 +2,24 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRe
 import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faEdit, faTrash, faEyeDropper} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { environment } from './../../../environments/environment';
-import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { HealthcheckService } from '../../core/_services/config/healthcheck.service';
+import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { HashtypeService } from '../../core/_services/config/hashtype.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
-import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
+import { environment } from './../../../environments/environment';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-health-checks',
   templateUrl: './health-checks.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
+@PageTitle(['Show Health Checks'])
 export class HealthChecksComponent implements OnInit {
   // Loader
   isLoading = false;

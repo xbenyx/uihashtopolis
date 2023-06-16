@@ -21,11 +21,14 @@ import { AgentsService } from '../../core/_services/agents/agents.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
 import { ChunkService } from '../../core/_services/tasks/chunks.service';
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { colorpicker } from '../../core/_constants/settings.config';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-edit-tasks',
   templateUrl: './edit-tasks.component.html'
 })
+@PageTitle(['Edit Task'])
 export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   editMode = false;
@@ -53,6 +56,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   updateForm: FormGroup;
   color: string = '';
+  colorpicker=colorpicker;
   private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective)

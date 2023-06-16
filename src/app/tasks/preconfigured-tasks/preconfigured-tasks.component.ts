@@ -6,11 +6,13 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 
 import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-preconfigured-tasks',
   templateUrl: './preconfigured-tasks.component.html'
 })
+@PageTitle(['Show Preconfigured Task'])
 export class PreconfiguredTasksComponent implements OnInit {
   faFileImport=faFileImport;
   faFileExport=faFileExport;

@@ -15,17 +15,17 @@ import { UploadTUSService } from '../../core/_services/files/files_tus.service';
 import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { AccessGroup } from '../../core/_models/access-group';
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { UploadFileTUS } from '../../core/_models/files';
-
-
 
 @Component({
   selector: 'app-new-hashlist',
   templateUrl: './new-hashlist.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+@PageTitle(['New Hashlist'])
 export class NewHashlistComponent implements OnInit {
   /**
    * Fa Icons

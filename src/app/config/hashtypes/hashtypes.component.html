@@ -1,7 +1,6 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Hashtypes</h2>
-      <p class="mb-0">Section to manage and create hashtypes.</p>
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
       <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
@@ -112,7 +111,7 @@
                     <th class="border-0">Description</th>
                     <th class="border-0">Salted</th>
                     <th class="border-0">Slow Hash</th>
-                    <th class="border-0 rounded-end">Action</th>
+                    <th class="border-0 rounded-end"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -122,13 +121,21 @@
                         <td *ngIf="!h.isEdit">{{ h.description }}</td>
                         <td *ngIf="!h.isEdit">{{ h.isSalted == 1 ? "Yes" : "No" }}</td>
                         <td *ngIf="!h.isEdit">{{ h.isSlowHash == 1 ? "Yes" : "No" }}</td>
-                        <td *ngIf="!h.isEdit">
-                          <a class='btn-outline-gray-600 float-right' (click)="onEdit(h)" data-toggle="tooltip" data-placement="top" title="Edit">
-                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                          </a>
-                          <a class='btn-outline-gray-600 float-right' (click)="onDelete(h.hashTypeId)" data-toggle="tooltip" data-placement="top" title="Delete">
-                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                          </a>
+                        <td *ngIf="!h.isEdit" class="overflow-hidden">
+
+                          <div *ngIf="!h.isEdit" ngbDropdown container="body">
+                            <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
+                            <div ngbDropdownMenu>
+                              <button ngbDropdownItem (click)="onEdit(h)" data-placement="top" title="Edit">
+                                <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon> Edit
+                              </button>
+                              <div class="dropdown-divider"></div>
+                              <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(h.hashTypeId)">
+                                <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon> Delete
+                              </button>
+                            </div>
+                          </div>
+
                         </td>
                         <!-- Normal View end  -->
                         <!-- Edit view -->

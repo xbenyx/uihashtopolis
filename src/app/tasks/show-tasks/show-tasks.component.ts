@@ -10,6 +10,7 @@ import { CookieService } from 'src/app/core/_services/shared/cookies.service';
 import { ChunkService } from 'src/app/core/_services/tasks/chunks.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 declare let $:any;
 
@@ -17,6 +18,7 @@ declare let $:any;
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html'
 })
+@PageTitle(['Show Tasks'])
 export class ShowTasksComponent implements OnInit {
   faPauseCircle=faPauseCircle;
   faFileImport=faFileImport;
@@ -99,10 +101,14 @@ export class ShowTasksComponent implements OnInit {
       buttons: {
           dom: {
             button: {
+              tag: 'i',
               className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
             }
           },
       buttons: [
+        {
+          text: '<i class="fas fa-download"></i>',
+        },
         {
           extend: 'collection',
           text: 'Export',
@@ -167,16 +173,27 @@ export class ShowTasksComponent implements OnInit {
                     self.onUpdateBulk(edit);
                   }
                 },
-                {
-                  text: 'Assign to Project (under construction)',
-                  autoClose: true,
-                  enabled: !this.isArchived,
-                  action: function ( e, dt, node, config ) {
-                    const title = 'Assign to Project'
-                    self.onModalProject(title)
-                  }
-                },
+                // {
+                //   text: 'Assign to Project (under construction)',
+                //   autoClose: true,
+                //   enabled: !this.isArchived,
+                //   action: function ( e, dt, node, config ) {
+                //     const title = 'Assign to Project'
+                //     self.onModalProject(title)
+                //   }
+                // },
              ]
+        },
+        {
+          text: !this.isArchived? 'Show Archived':'Show Live',
+          action: function () {
+            if(!self.isArchived) {
+              self.router.navigate(['tasks/show-tasks-archived']);
+            }
+            if(self.isArchived){
+              self.router.navigate(['tasks/show-tasks']);
+            }
+          }
         },
         {
           extend: 'colvis',

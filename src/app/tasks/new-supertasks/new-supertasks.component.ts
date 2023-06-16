@@ -8,12 +8,14 @@ import { Router } from '@angular/router';
 import { SuperTasksService } from 'src/app/core/_services/tasks/supertasks.sevice';
 import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-new-supertasks',
   templateUrl: './new-supertasks.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+@PageTitle(['New SuperTask'])
 export class NewSupertasksComponent implements OnInit {
   isLoading = false;
   faFile=faFile;

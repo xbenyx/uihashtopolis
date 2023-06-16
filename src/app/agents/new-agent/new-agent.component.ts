@@ -12,11 +12,13 @@ import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { VoucherService } from '../../core/_services/agents/voucher.service';
 import { CrackerService } from '../../core/_services/config/cracker.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-new-agent',
   templateUrl: './new-agent.component.html'
 })
+@PageTitle(['New Agent'])
 export class NewAgentComponent implements OnInit, OnDestroy {
   // Loader
   isLoading = false;

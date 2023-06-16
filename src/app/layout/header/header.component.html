@@ -39,7 +39,7 @@
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" [routerLinkActive]="['active']" *ngIf="isAuthentificated">
           <div ngbDropdownToggle id="dropdownAgents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faServer" aria-hidden="true"></fa-icon>
-            Agents
+             Agents
           </div>
           <div ngbDropdownMenu (mouseout)='onMouseLeave(drop)' class="dropdown-menu top-cat-sub" aria-labelledby="dropdownAgents">
             <a class="dropdown-item" routerLink="agents/show-agents" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Show Agents</a>
@@ -175,7 +175,7 @@
             <fa-icon class="dropdown-icon" [icon]="faExchange" aria-hidden="true"></fa-icon>
               Normal Width
           </a>
-          <a class="dropdown-item align-items-center" href="https://discord.com/channels/419123475538509844/419123475538509846">
+          <a class="dropdown-item align-items-center" href="https://discord.com/channels/419123475538509844/419123475538509846" target="_blank" rel="noopener">
             <fa-icon class="dropdown-icon" [icon]="faQuestionCircle" aria-hidden="true"></fa-icon>
               Support
           </a>

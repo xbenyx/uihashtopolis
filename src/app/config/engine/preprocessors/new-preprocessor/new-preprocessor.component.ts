@@ -4,11 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { PreprocessorService } from '../../../../core/_services/config/preprocessors.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-new-preprocessor',
   templateUrl: './new-preprocessor.component.html'
 })
+@PageTitle(['Preprocessor'])
 export class NewPreprocessorComponent implements OnInit {
 
   editMode = false;

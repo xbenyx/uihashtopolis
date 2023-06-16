@@ -1,17 +1,19 @@
+import { faHomeAlt, faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { faHomeAlt, faPlus, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { DataTableDirective } from 'angular-datatables';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { AgentBinService } from '../../../core/_services/config/agentbinary.service';
-import { DataTableDirective } from 'angular-datatables';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-agent-binaries',
   templateUrl: './agent-binaries.component.html'
 })
+@PageTitle(['Show Agent Binaries'])
 export class AgentBinariesComponent implements OnInit {
   public isCollapsed = true;
   faHome=faHomeAlt;
@@ -25,12 +27,12 @@ export class AgentBinariesComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
-
   public binaries: {agentBinaryId: number, type: string, version: string, operatingSystems: string, filename: string, updateTrack: string, updateAvailable: string}[] = [];
 
   constructor(
     private agentBinService: AgentBinService,
-    private route:ActivatedRoute, private router:Router
+    private route:ActivatedRoute,
+    private router:Router
   ) { }
 
   ngOnInit(): void {

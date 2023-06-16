@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { SuperTasksService } from 'src/app/core/_services/tasks/supertasks.sevice';
 import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
 import { UsersService } from 'src/app/core/_services/users/users.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 declare var options: any;
 declare var defaultOptions: any;
@@ -19,6 +20,7 @@ declare var parser: any;
   selector: 'app-edit-supertasks',
   templateUrl: './edit-supertasks.component.html'
 })
+@PageTitle(['Edit SuperTasks'])
 export class EditSupertasksComponent implements OnInit {
 
   editMode = false;

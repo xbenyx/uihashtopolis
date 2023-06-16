@@ -1,7 +1,6 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
   <div class="d-block mb-4 mb-md-0">
       <h2 class="h4">Health check</h2>
-      <p class="mb-0">Health checks can be used to check if all agents are working properly. Note that a health check won't be finished until all registered agents report back their results.</p>
   </div>
   <div class="btn-toolbar mb-2 mb-md-0">
       <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
@@ -92,7 +91,7 @@
                     <th class="border-0">Created</th>
                     <th class="border-0">Type</th>
                     <th class="border-0">Status</th>
-                    <th class="border-0 rounded-end">Action</th>
+                    <th class="border-0 rounded-end"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -101,13 +100,19 @@
                     <td>{{ h.time*1000 | date: uidateformat }}</td>
                     <td>Brute-Force ({{ h.description }})</td>
                     <td>{{ h.status | HCstatus | lowercase | titlecase }}</td>
-                    <td>
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="[h.healthCheckId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon>
-                     </a>
-                     <a class='btn-outline-gray-600 float-right' (click)="onDelete(h.healthCheckId)" data-toggle="tooltip" data-placement="top" title="Delete">
-                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                     </a>
+                    <td class="overflow-hidden">
+                      <div ngbDropdown container="body">
+                        <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
+                        <div ngbDropdownMenu>
+                          <button ngbDropdownItem [routerLink]="[h.healthCheckId,'edit']" data-placement="top" title="Edit">
+                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                          </button>
+                          <div class="dropdown-divider"></div>
+                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(h.healthCheckId)">
+                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                          </button>
+                        </div>
+                      </div>
                     </td>
                 </tr>
                 </tbody>

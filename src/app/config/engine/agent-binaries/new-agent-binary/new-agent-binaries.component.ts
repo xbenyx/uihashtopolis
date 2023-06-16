@@ -7,12 +7,13 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { AgentBinService } from '../../../../core/_services/config/agentbinary.service';
-
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
 
 @Component({
   selector: 'app-agent-binaries',
   templateUrl: './new-agent-binaries.component.html'
 })
+@PageTitle(['Agent Binary'])
 export class NewAgentBinariesComponent implements OnInit {
 
   editMode = false;
