@@ -54,7 +54,7 @@ const appRoutes: Routes = [
     {path: 'error', component: ErrorPageComponent, data:{message: 'Page Not Found!'} ,canActivate: [AuthGuard] },
     {path: 'access-denied', component: ErrorPageComponent, data:{message: 'Sorry, You are not allowed to access this page!'} ,canActivate: [AuthGuard] },
     {path: 'not-found', component: PageNotFoundComponent ,canActivate: [AuthGuard] },
-    {path: '**', redirectTo: 'not-found'}  // Note: Always the last route
+    {path: '**', redirectTo: 'not-found'}  // Note: Always the last route. Don't change position.
   ];
 
 @NgModule({
@@ -62,10 +62,10 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
           appRoutes,
           {
-          // enableTracing: false, // <-- debugging purposes only
+          // enableTracing: false, // <-- Debugging purposes only
           preloadingStrategy: AppPreloadingStrategy,
           relativeLinkResolution: 'corrected',
-          useHash: true  // Old browsers could have issues but can be fix setting useHash: true. Note if its enable will affect redirectURL after login
+          useHash: true  // Old browsers could have issues but can be fixed setting useHash: true. Note: if its enabled it will affect redirectURL after login
       })
     ],
     exports:[

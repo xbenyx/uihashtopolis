@@ -47,16 +47,16 @@ export class AppComponent implements OnInit{
   theme: string;
 
   constructor(
-    private authService: AuthService,
     private cookieService: CookieService,
     private uicService:UIConfigService,
-    private router: Router,
-    private metaTitle: Title,
-    private meta: Meta,
-    private idle: Idle,
-    private keepalive: Keepalive,
+    private authService: AuthService,
     private modalService: NgbModal,
     private themes: ThemeService,
+    private keepalive: Keepalive,
+    private metaTitle: Title,
+    private router: Router,
+    private meta: Meta,
+    private idle: Idle,
     @Inject(PLATFORM_ID) private platformId: Object
     ){
       this.theme = this.themes.theme;

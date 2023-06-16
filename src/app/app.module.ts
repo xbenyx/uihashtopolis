@@ -6,16 +6,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppPreloadingStrategy } from './core/app_preloading_strategy';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Injector, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { MomentModule } from 'ngx-moment';
-import { NgModule } from '@angular/core';
 /**
  * App Pages Components
  *
@@ -72,6 +72,7 @@ import { AuthModule } from './auth/auth.module';
     StoreModule.forRoot({configList: configReducer})
   ],
   providers: [
+    Title,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
@@ -88,5 +89,12 @@ import { AuthModule } from './auth/auth.module';
   entryComponents:[TimeoutComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  static injector: Injector;
+  constructor(
+    injector: Injector
+  ){
+    AppModule.injector = injector;
+  }
+}
 
