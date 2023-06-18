@@ -106,9 +106,9 @@ export class ShowTasksComponent implements OnInit {
             }
           },
       buttons: [
-        {
-          text: '<i class="fas fa-download"></i>',
-        },
+        // {
+        //   text: '<i class="fas fa-download"></i>',
+        // },
         {
           extend: 'collection',
           text: 'Export',
