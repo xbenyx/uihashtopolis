@@ -2,16 +2,12 @@
   <app-loading-spinner></app-loading-spinner>
 </div>
 <!-- Header -->
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-  <div class="d-block mb-4 mb-md-0">
-      <h2 class="h4">New Tasks</h2>
-      <div [ngSwitch]="whichView">
-        <div *ngSwitchCase="'create'">
-        </div>
-        <div *ngSwitchCase="'edit'">
-          <p class="mb-0">Data Copied From Pretask ID {{editedIndex}}</p>
-        </div>
-      </div>
+<div [ngSwitch]="whichView">
+  <div *ngSwitchCase="'create'">
+    <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
+  </div>
+  <div *ngSwitchCase="'edit'">
+    <app-page-title [title]="sTitle + editedIndex" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
   </div>
 </div>
 <!-- New Task End-->

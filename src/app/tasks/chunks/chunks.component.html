@@ -1,24 +1,10 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-    <div class="d-block mb-4 mb-md-0">
-        <h2 class="h4">Chunks</h2>
-    </div>
-    <div class="btn-toolbar mb-2 mb-md-0">
-      <div [ngSwitch]="chunkview">
-        <div *ngSwitchCase="2">
-          <a  [routerLink]="['/tasks/chunks']" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-             View Less
-          </a>
-        </div>
-        <div *ngSwitchCase="0">
-          <a  [routerLink]="['/tasks/chunks', 'show-all-chunks']" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-              View all chunks
-          </a>
-        </div>
-      </div>
-
-    </div>
+<div [ngSwitch]="chunkview">
+  <div *ngSwitchCase="2">
+    <app-page-title [title]="pTitle" [buttontitle]="sbuttontitle" [buttonlink]="sbuttonlink" [subbutton]="subbutton"></app-page-title>
+  </div>
+  <div *ngSwitchCase="0">
+    <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
+  </div>
 </div>
 <!-- Body -->
 <div class="card border-0 shadow mb-4">

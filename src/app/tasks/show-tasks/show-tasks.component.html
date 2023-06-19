@@ -1,19 +1,9 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-  <div class="d-block mb-4 mb-md-0">
-    <div [ngSwitch]="whichView">
-      <div *ngSwitchCase="'live'">
-        <h2 class="h4">Tasks</h2>
-      </div>
-      <div *ngSwitchCase="'archived'">
-        <h2 class="h4">Archived Tasks</h2>
-      </div>
-    </div>
+<div [ngSwitch]="whichView">
+  <div *ngSwitchCase="'live'">
+    <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
   </div>
-  <div class="btn-toolbar mb-2 mb-md-0">
-      <a routerLink="/tasks/new-tasks" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-          New Task
-      </a>
+  <div *ngSwitchCase="'archived'">
+    <app-page-title [title]="sTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
   </div>
 </div>
 <!-- Body -->

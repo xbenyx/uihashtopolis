@@ -3,8 +3,8 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { interval, Subject, Subscription } from 'rxjs';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { CookieService } from 'src/app/core/_services/shared/cookies.service';
 import { ChunkService } from 'src/app/core/_services/tasks/chunks.service';
@@ -20,6 +20,14 @@ declare let $:any;
 })
 @PageTitle(['Show Tasks'])
 export class ShowTasksComponent implements OnInit {
+
+  // Title Page
+  pTitle = "Tasks";
+  sTitle = "Archived Tasks";
+  buttontitle = "New Task";
+  buttonlink = "/tasks/new-tasks";
+  subbutton = true;
+
   faPauseCircle=faPauseCircle;
   faFileImport=faFileImport;
   faFileExport=faFileExport;

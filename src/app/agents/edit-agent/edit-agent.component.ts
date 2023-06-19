@@ -44,7 +44,7 @@ export class EditAgentComponent implements OnInit {
     private chunkService: ChunkService,
     private tasksService:TasksService,
     private route:ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) { }
 
   updateForm: FormGroup

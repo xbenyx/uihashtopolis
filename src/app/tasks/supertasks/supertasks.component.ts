@@ -17,6 +17,13 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 @PageTitle(['Show SuperTasks'])
 export class SupertasksComponent implements OnInit {
 
+  // Title Page
+  pTitle = "Supertasks";
+  buttontitle = "New Supertasks";
+  buttonlink = "/tasks/new-supertasks";
+  subbutton = true;
+
+
   faEdit=faEdit;
   faTrash=faTrash;
   faPlus=faPlus;

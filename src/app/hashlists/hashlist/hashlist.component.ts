@@ -19,6 +19,12 @@ declare let $:any;
 @PageTitle(['Show Hashlists'])
 export class HashlistComponent implements OnInit, OnDestroy {
 
+  // Title Page
+  pTitle = "Hashlists";
+  buttontitle = "New Hashlist";
+  buttonlink = "/hashlists/new-hashlist";
+  subbutton = true;
+
   faEdit=faEdit;
   faTrash=faTrash;
   faLock=faLock;

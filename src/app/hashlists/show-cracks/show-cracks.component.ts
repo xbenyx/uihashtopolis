@@ -15,6 +15,13 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show Cracks'])
 export class ShowCracksComponent implements OnInit {
+
+  // Title Page
+  pTitle = "Cracks";
+  buttontitle = "";
+  buttonlink = "";
+  subbutton = false;
+
   faPlus=faPlus;
 
   @ViewChild(DataTableDirective, {static: false})

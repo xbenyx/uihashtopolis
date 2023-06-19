@@ -17,6 +17,15 @@ import { environment } from 'src/environments/environment';
 })
 @PageTitle(['Show Chunks'])
 export class ChunksComponent implements OnInit {
+
+  // Title Page
+  pTitle = "Chunks";
+  buttontitle = "View all chunks";
+  sbuttontitle = "View less";
+  buttonlink = "/tasks/chunks/show-all-chunks";
+  sbuttonlink = "/tasks/chunks";
+  subbutton = true;
+
   editedChunkIndex: number;
 
   faPlus=faPlus;

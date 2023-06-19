@@ -28,6 +28,14 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['New Task'])
 export class NewTasksComponent implements OnInit {
+
+  // Title Page
+  pTitle = "New Task";
+  sTitle = "Data Copied From Pretask ID ";
+  buttontitle = "";
+  buttonlink = "";
+  subbutton = false;
+
   // Loader
   isLoading = false;
   // Config

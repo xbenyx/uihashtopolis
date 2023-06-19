@@ -14,6 +14,13 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show SuperHashlist'])
 export class SuperhashlistComponent implements OnInit {
+
+  // Title Page
+  pTitle = "SuperHashList";
+  buttontitle = "New SuperHashList";
+  buttonlink = "/hashlists/new-superhashlist";
+  subbutton = true;
+
   faEdit=faEdit;
   faLock=faLock;
   faTrash=faTrash;

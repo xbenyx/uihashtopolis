@@ -14,6 +14,13 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show Preconfigured Task'])
 export class PreconfiguredTasksComponent implements OnInit {
+
+  // Title Page
+  pTitle = "Preconfigured Tasks";
+  buttontitle = "New";
+  buttonlink = "/tasks/new-preconfigured-tasks";
+  subbutton = true;
+
   faFileImport=faFileImport;
   faFileExport=faFileExport;
   faBookmark=faBookmark;

@@ -16,6 +16,12 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 @PageTitle(['Show Users'])
 export class AllUsersComponent  implements OnInit, OnDestroy {
 
+  // Title Page
+  pTitle = "Users";
+  buttontitle = "New User";
+  buttonlink = "/users";
+  subbutton = true;
+
   faHome=faHomeAlt;
   faTrash=faTrash;
   faEdit=faEdit;

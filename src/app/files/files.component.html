@@ -1,43 +1,13 @@
 <div [ngSwitch]="whichView">
-    <div *ngSwitchCase="'wordlist'">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div class="d-block mb-4 mb-md-0">
-          <h2 class="h4">WordLists</h2>
-        </div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <a routerLink="/files/wordlist/new-wordlist" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-              New Wordlist
-          </a>
-        </div>
-      </div>
-    </div>
-    <div *ngSwitchCase="'rules'">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div class="d-block mb-4 mb-md-0">
-          <h2 class="h4">Rules</h2>
-        </div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <a routerLink="/files/rules/new-rule" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-              New Rule
-          </a>
-        </div>
-      </div>
-    </div>
-    <div *ngSwitchCase="'other'">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-        <div class="d-block mb-4 mb-md-0">
-          <h2 class="h4">Other</h2>
-        </div>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <a routerLink="/files/other/new-other" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-              New Other
-          </a>
-        </div>
-      </div>
-    </div>
+  <div *ngSwitchCase="'wordlist'">
+    <app-page-title [title]="wTitle" [buttontitle]="wbuttontitle" [buttonlink]="wbuttonlink" [subbutton]="wsubbutton"></app-page-title>
+  </div>
+  <div *ngSwitchCase="'rules'">
+    <app-page-title [title]="rTitle" [buttontitle]="rbuttontitle" [buttonlink]="rbuttonlink" [subbutton]="rsubbutton"></app-page-title>
+  </div>
+  <div *ngSwitchCase="'other'">
+    <app-page-title [title]="oTitle" [buttontitle]="obuttontitle" [buttonlink]="obuttonlink" [subbutton]="osubbutton"></app-page-title>
+  </div>
 </div>
 <!-- Files Table -->
 <div class="card border-0 shadow mb-4">

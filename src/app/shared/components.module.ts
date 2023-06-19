@@ -3,17 +3,18 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector.component";
 import { HexconvertorComponent } from "./utils/hexconvertor/hexconvertor.component";
 import { CheatsheetComponent } from "./alert/cheatsheet/cheatsheet.component";
 import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
 import { SwitchThemeModule } from "./switch-theme/switch-theme.module";
 import { TimeoutComponent } from "./alert/timeout/timeout.component";
 import { PaginationModule } from "./pagination/pagination.module";
+import { PageTitleModule } from "./page-title/page-title.module";
 import { AlertComponent } from "./alert/alert.component";
 import { GraphsModule } from "./graphs/graphs.module";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule } from "@angular/forms";
-import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector
     SwitchThemeModule,
     ColorPickerModule,
     PaginationModule,
+    PageTitleModule,
     GraphsModule,
     CommonModule,
     FormsModule,
@@ -44,6 +46,7 @@ import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector
     ColorPickerModule,
     PaginationModule,
     TimeoutComponent,
+    PageTitleModule,
     AlertComponent,
     GraphsModule,
     CommonModule

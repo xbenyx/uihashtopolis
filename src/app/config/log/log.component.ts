@@ -19,6 +19,13 @@ declare var _fnReDraw;
 })
 @PageTitle(['Show Logs'])
 export class LogComponent implements OnInit {
+
+  // Title Page
+  pTitle = "Logs";
+  buttontitle = "";
+  buttonlink = "";
+  subbutton = false;
+
   faHome=faHomeAlt;
 
   @ViewChild(DataTableDirective, {static: false})

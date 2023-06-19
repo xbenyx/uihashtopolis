@@ -25,6 +25,20 @@ declare let $:any;
 @PageTitle(['Show Files'])
 export class FilesComponent implements OnInit {
 
+  // Title Page
+  wTitle = "WordLists";
+  wbuttontitle = "New WordList";
+  wbuttonlink = "/files/wordlist/new-wordlist";
+  wsubbutton = true;
+  rTitle = "Rules";
+  rbuttontitle = "New Rule";
+  rbuttonlink = "/files/rules/new-rule";
+  rsubbutton = true;
+  oTitle = "Other";
+  obuttontitle = "New Other";
+  obuttonlink = "/files/other/new-other";
+  osubbutton = true;
+
   isLoading= false;
   faTrash=faTrash;
   faPlus=faPlus;
