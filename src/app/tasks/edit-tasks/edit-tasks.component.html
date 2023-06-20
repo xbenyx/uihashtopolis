@@ -386,25 +386,23 @@
 </div>
 <!-- Attached Files -->
 &nbsp;&nbsp;
-<section>
-<h2>Attached Files</h2>
-<div class="table-responsive">
-  &nbsp;
-    <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[0]">
-      <thead class="thead-light">
-        <tr>
-            <th class="border-0 rounded-start">ID</th>
-            <th class="border-0">File Name</th>
-            <th class="border-0 rounded-end">Size</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
+<app-table>
+  <h2 class="h5 mb-4">Attached Files</h2><br>
+  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[0]">
+    <thead class="thead-light">
+      <tr>
+          <th class="border-0 rounded-start">ID</th>
+          <th class="border-0">File Name</th>
+          <th class="border-0 rounded-end">Size</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
 
-        </tr>
-      </tbody>
-    </table>
-</div>
+      </tr>
+    </tbody>
+  </table>
+</app-table>
 <!-- Task speed -->
 <div>&nbsp;&nbsp;
   <h2>Task Speed</h2>
@@ -416,29 +414,28 @@
 </div>
 <!-- Assigned Agents -->
 &nbsp;&nbsp;
-<h2>Assigned agents</h2>
-<div class="table-responsive">
-  &nbsp;
-    <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[1]">
-      <thead class="thead-light">
-        <tr>
-            <th class="border-0 rounded-start">ID</th>
-            <th class="border-0">Name</th>
-            <th class="border-0">Benchmark</th>
-            <th class="border-0">Keyspace searched</th>
-            <th class="border-0">Time spent</th>
-            <th class="border-0">Cracked</th>
-            <th class="border-0">Last activity</th>
-            <th class="border-0 rounded-end">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr >
+<app-table>
+  <h2 class="h5 mb-4">Assigned agents</h2><br>
+  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[1]">
+    <thead class="thead-light">
+      <tr>
+          <th class="border-0 rounded-start">ID</th>
+          <th class="border-0">Name</th>
+          <th class="border-0">Benchmark</th>
+          <th class="border-0">Keyspace searched</th>
+          <th class="border-0">Time spent</th>
+          <th class="border-0">Cracked</th>
+          <th class="border-0">Last activity</th>
+          <th class="border-0 rounded-end">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr >
 
-        </tr>
-      </tbody>
-    </table>
-</div>
+      </tr>
+    </tbody>
+  </table>
+</app-table>
 <!-- Dispatched Chunks -->
 &nbsp;&nbsp;
 <h2>Dispatched chunks</h2>
@@ -508,4 +505,4 @@
       </tbody>
     </table>
 </div>
-</section>
+

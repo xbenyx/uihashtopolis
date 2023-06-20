@@ -10,76 +10,71 @@
   </div>
 </div>
 <!-- Files Table -->
-<div class="card border-0 shadow mb-4">
-  <div class="card-body">
-    <div class="table-responsive">
-      &nbsp;
-        <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-          <thead class="thead-light">
-            <tr>
-                <th class="border-0 rounded-start">ID</th>
-                <th class="border-0">File</th>
-                <th class="border-0">Size</th>
-                <th class="border-0">Line Count</th>
-                <th class="border-0">Access Group</th>
-                <th class="border-0 rounded-end"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let f of allfiles">
-                <td>{{ f.fileId }}</td>
-                <td *ngIf="f.isSecret == 1">{{ f.filename }} <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></td>
-                <td *ngIf="f.isSecret == 0">{{ f.filename }}</td>
-                <td>{{ f.size | fileSize:false }}</td>
-                <td>{{ f.lineCount }}</td>
-                <td>{{ f.accessGroup.groupName }}</td>
-                <td>
-                  <div [ngSwitch]="whichView">
-                    <div *ngSwitchCase="'wordlist'">
-                      <td class="overflow-hidden">
-                        <app-button-actions>
-                          <button ngbDropdownItem [routerLink]="['/files',f.fileId,'wordlist-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-placement="top" title="Edit">
-                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                          </button>
-                          <div class="dropdown-divider"></div>
-                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)" >
-                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                          </button>
-                        </app-button-actions>
-                      </td>
-                    </div>
-                    <div *ngSwitchCase="'rules'">
-                      <td class="overflow-hidden">
-                        <app-button-actions>
-                          <button ngbDropdownItem [routerLink]="['/files',f.fileId,'rules-edit']"[queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-placement="top" title="Edit">
-                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                          </button>
-                          <div class="dropdown-divider"></div>
-                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)" >
-                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                          </button>
-                        </app-button-actions>
-                      </td>
-                    </div>
-                    <div *ngSwitchCase="'other'">
-                      <td class="overflow-hidden">
-                        <app-button-actions>
-                          <button ngbDropdownItem [routerLink]="['/files',f.fileId,'other-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}"  data-placement="top" title="Edit">
-                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                          </button>
-                          <div class="dropdown-divider"></div>
-                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)" >
-                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                          </button>
-                        </app-button-actions>
-                      </td>
-                    </div>
-                  </div>
+<app-table>
+  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead class="thead-light">
+      <tr>
+          <th class="border-0 rounded-start">ID</th>
+          <th class="border-0">File</th>
+          <th class="border-0">Size</th>
+          <th class="border-0">Line Count</th>
+          <th class="border-0">Access Group</th>
+          <th class="border-0 rounded-end"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let f of allfiles">
+          <td>{{ f.fileId }}</td>
+          <td *ngIf="f.isSecret == 1">{{ f.filename }} <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></td>
+          <td *ngIf="f.isSecret == 0">{{ f.filename }}</td>
+          <td>{{ f.size | fileSize:false }}</td>
+          <td>{{ f.lineCount }}</td>
+          <td>{{ f.accessGroup.groupName }}</td>
+          <td>
+            <div [ngSwitch]="whichView">
+              <div *ngSwitchCase="'wordlist'">
+                <td class="overflow-hidden">
+                  <app-button-actions>
+                    <button ngbDropdownItem [routerLink]="['/files',f.fileId,'wordlist-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-placement="top" title="Edit">
+                      <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)" >
+                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                    </button>
+                  </app-button-actions>
                 </td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-  </div>
-</div>
+              </div>
+              <div *ngSwitchCase="'rules'">
+                <td class="overflow-hidden">
+                  <app-button-actions>
+                    <button ngbDropdownItem [routerLink]="['/files',f.fileId,'rules-edit']"[queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}" data-placement="top" title="Edit">
+                      <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)" >
+                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                    </button>
+                  </app-button-actions>
+                </td>
+              </div>
+              <div *ngSwitchCase="'other'">
+                <td class="overflow-hidden">
+                  <app-button-actions>
+                    <button ngbDropdownItem [routerLink]="['/files',f.fileId,'other-edit']" [queryParams]="{allowEdit: +f.fileId === 2 ? '1' : '0'}"  data-placement="top" title="Edit">
+                      <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="deleteFile(f.fileId)" >
+                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                    </button>
+                  </app-button-actions>
+                </td>
+              </div>
+            </div>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+</app-table>
 

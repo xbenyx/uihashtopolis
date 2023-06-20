@@ -20,6 +20,12 @@ declare let $:any;
 @PageTitle(['Show Agents'])
 export class ShowAgentsComponent implements OnInit, OnDestroy {
 
+  // Title Page
+  pTitle = "Show Agents";
+  buttontitle = "New Agent";
+  buttonlink = "/agents/new-agent";
+  subbutton = true;
+
   faArrowCircleDown=faArrowCircleDown;
   faCheckCircle=faCheckCircle;
   faPauseCircle=faPauseCircle;

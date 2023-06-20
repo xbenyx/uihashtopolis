@@ -64,42 +64,38 @@
   &nbsp;&nbsp;
 </div>
 <!-- Table Notifications -->
-<div class="card border-0 shadow mb-4">
-  <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-              <thead class="thead-light">
-                <tr>
-                    <th class="border-0 rounded-start">ID</th>
-                    <th class="border-0">Active</th>
-                    <th class="border-0">Trigger action</th>
-                    <th class="border-0">Applied To</th>
-                    <th class="border-0">Called Notification</th>
-                    <th class="border-0">Receiver</th>
-                    <th class="border-0 rounded-end">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let n of Allnotif">
-                    <td class="text-align:center">{{ n.notificationSettingId }}</td>
-                    <td>{{ n.isActive == true ? "Yes" : "No" }}</td>
-                    <td>{{ n.action }}</td>
-                    <td>
-                      {{ n.objectId }}
-                      <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',n.objectId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit Agent">
-                        <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
-                      </a>
-                    </td>
-                    <td>{{ n.notification }}</td>
-                    <td><code>{{ n.receiver }}</code></td>
-                    <td>
-                     <a class='btn-outline-gray-600 float-right' (click)="onDelete(n.notificationSettingId)" data-toggle="tooltip" data-placement="top" title="Delete">
-                      <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-                     </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+<app-table>
+  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead class="thead-light">
+      <tr>
+          <th class="border-0 rounded-start">ID</th>
+          <th class="border-0">Active</th>
+          <th class="border-0">Trigger action</th>
+          <th class="border-0">Applied To</th>
+          <th class="border-0">Called Notification</th>
+          <th class="border-0">Receiver</th>
+          <th class="border-0 rounded-end">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let n of Allnotif">
+          <td class="text-align:center">{{ n.notificationSettingId }}</td>
+          <td>{{ n.isActive == true ? "Yes" : "No" }}</td>
+          <td>{{ n.action }}</td>
+          <td>
+            {{ n.objectId }}
+            <a class='btn-outline-gray-600 float-right' [routerLink]="['/agents/show-agents',n.objectId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit Agent">
+              <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
+            </a>
+          </td>
+          <td>{{ n.notification }}</td>
+          <td><code>{{ n.receiver }}</code></td>
+          <td>
+            <a class='btn-outline-gray-600 float-right' (click)="onDelete(n.notificationSettingId)" data-toggle="tooltip" data-placement="top" title="Delete">
+            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+            </a>
+          </td>
+      </tr>
+      </tbody>
+  </table>
+</app-table>

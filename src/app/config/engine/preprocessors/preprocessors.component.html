@@ -17,38 +17,33 @@
   </div>
 </div>
 <!-- Body -->
-<div class="card border-0 shadow mb-4">
-  <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-              <thead class="thead-light">
-                <tr>
-                    <th class="border-0 rounded-start">Preprocessor ID</th>
-                    <th class="border-0">Name</th>
-                    <th class="border-0 rounded-end"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let p of preproc">
-                    <td class="text-align:center">{{ p.preprocessorId }}</td>
-                    <td>{{ p.name | lowercase | titlecase }}</td>
-                    <td class="overflow-hidden">
-                      <app-button-actions>
-                        <button ngbDropdownItem [routerLink]="[p.preprocessorId,'edit']" data-placement="top" title="Edit">
-                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                        </button>
-                        <div class="dropdown-divider"></div>
-                        <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(p.preprocessorId)">
-                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                        </button>
-                      </app-button-actions>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
+<app-table>
+  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <thead class="thead-light">
+      <tr>
+          <th class="border-0 rounded-start">Preprocessor ID</th>
+          <th class="border-0">Name</th>
+          <th class="border-0 rounded-end"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of preproc">
+          <td class="text-align:center">{{ p.preprocessorId }}</td>
+          <td>{{ p.name | lowercase | titlecase }}</td>
+          <td class="overflow-hidden">
+            <app-button-actions>
+              <button ngbDropdownItem [routerLink]="[p.preprocessorId,'edit']" data-placement="top" title="Edit">
+                <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+              </button>
+              <div class="dropdown-divider"></div>
+              <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(p.preprocessorId)">
+                <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+              </button>
+            </app-button-actions>
+          </td>
+      </tr>
+      </tbody>
+  </table>
+</app-table>
 
 

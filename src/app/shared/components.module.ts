@@ -7,7 +7,7 @@ import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector
 import { HexconvertorComponent } from "./utils/hexconvertor/hexconvertor.component";
 import { CheatsheetComponent } from "./alert/cheatsheet/cheatsheet.component";
 import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
-import { TableModule } from "./table/button-actions/table-actions.module";
+import { TableModule } from "./table/table-actions.module";
 import { SwitchThemeModule } from "./switch-theme/switch-theme.module";
 import { TimeoutComponent } from "./alert/timeout/timeout.component";
 import { PaginationModule } from "./pagination/pagination.module";
@@ -16,6 +16,7 @@ import { AlertComponent } from "./alert/alert.component";
 import { GraphsModule } from "./graphs/graphs.module";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule } from "@angular/forms";
+import { GridModule } from "./grid-containers/grid.module";
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { FormsModule } from "@angular/forms";
     CommonModule,
     FormsModule,
     TableModule,
+    GridModule,
     NgbModule
   ],
   exports: [
@@ -52,7 +54,8 @@ import { FormsModule } from "@angular/forms";
     AlertComponent,
     GraphsModule,
     CommonModule,
-    TableModule
+    TableModule,
+    GridModule
   ],
 })
 export class ComponentsModule {}
