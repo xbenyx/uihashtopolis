@@ -7,16 +7,17 @@ import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector
 import { HexconvertorComponent } from "./utils/hexconvertor/hexconvertor.component";
 import { CheatsheetComponent } from "./alert/cheatsheet/cheatsheet.component";
 import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
-import { TableModule } from "./table/table-actions.module";
 import { SwitchThemeModule } from "./switch-theme/switch-theme.module";
 import { TimeoutComponent } from "./alert/timeout/timeout.component";
 import { PaginationModule } from "./pagination/pagination.module";
 import { PageTitleModule } from "./page-title/page-title.module";
+import { GridModule } from "./grid-containers/grid.module";
+import { TableModule } from "./table/table-actions.module";
 import { AlertComponent } from "./alert/alert.component";
+import { ButtonsModule } from "./buttons/buttons.module";
 import { GraphsModule } from "./graphs/graphs.module";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule } from "@angular/forms";
-import { GridModule } from "./grid-containers/grid.module";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { GridModule } from "./grid-containers/grid.module";
     ColorPickerModule,
     PaginationModule,
     PageTitleModule,
+    ButtonsModule,
     GraphsModule,
     CommonModule,
     FormsModule,
@@ -52,6 +54,7 @@ import { GridModule } from "./grid-containers/grid.module";
     TimeoutComponent,
     PageTitleModule,
     AlertComponent,
+    ButtonsModule,
     GraphsModule,
     CommonModule,
     TableModule,

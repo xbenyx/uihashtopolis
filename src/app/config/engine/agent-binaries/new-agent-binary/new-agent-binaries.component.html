@@ -13,59 +13,43 @@
               </div>
               <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                 <div class="row">
-                    <div class="form-group">
-                      <div class="form-outline">
-                        <label class="form-label" for="settype">Type</label>
-                        <input
-                              type='text'
-                              id="type"
-                              class='form-control'
-                              formControlName="type"
+                    <grid-form-input [name]="'Type'" [labelclass]="'requiredak'">
+                      <input
+                            type='text'
+                            id="type"
+                            class='form-control'
+                            formControlName="type"
+                      >
+                    </grid-form-input>
+                    <grid-form-input [name]="'Operating Systems'">
+                      <input
+                            type='text'
+                            id="operatingSystems"
+                            class='form-control'
+                            formControlName="operatingSystems"
+                      >
+                    </grid-form-input>
+                    <grid-form-input [name]="'Version'">
+                      <input
+                            type='text'
+                            id="version"
+                            class='form-control'
+                            formControlName="version"
+                      >
+                    </grid-form-input>
+                    <grid-form-input [name]="'Update Track'">
+                      <select
+                            id="updateTrack"
+                            class="form-select"
+                            formControlName="updateTrack"
                         >
-                      </div>
-                    </div>
-                    &nbsp;
-                    <div class="form-group">
-                      <div class="form-outline">
-                        <label class="form-label" for="setOperatingSystems">Operating Systems</label>
-                        <input
-                              type='text'
-                              id="operatingSystems"
-                              class='form-control'
-                              formControlName="operatingSystems"
-                         >
-                      </div>
-                    </div>
-                    &nbsp;
-                    <div class="form-group">
-                      <div class="form-outline">
-                        <label class="form-label" for="setVersion">Version</label>
-                        <input
-                              type='text'
-                              id="version"
-                              class='form-control'
-                              formControlName="version"
-                        >
-                      </div>
-                    </div>
-                    &nbsp;
-                    <div class="form-group">
-                      <div class="form-outline">
-                        <label class="form-label" for="setUpdateTrack">Update Track</label>
-                        <select
-                              id="updateTrack"
-                              class="form-select"
-                              formControlName="updateTrack"
-                          >
-                          <option value="release">Release</option>
-                          <option value="stable" selected>Stable</option>
-                        </select>
-                      </div>
-                    </div>
-                    &nbsp;
+                        <option value="release">Release</option>
+                        <option value="stable" selected>Stable</option>
+                      </select>
+                    </grid-form-input>
                   </div>
-                <button  class="btn btn-gray-800" type="submit">Update</button>
-           </form>
+                <button-submit [name]="'Update'"></button-submit>
+            </form>
     </div>
   </div>
 </div>

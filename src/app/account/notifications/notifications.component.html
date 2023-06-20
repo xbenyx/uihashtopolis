@@ -19,42 +19,26 @@
                 <h2 class="h5 mb-4">Create Notification</h2><br>
                 <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
                     <div class="row">
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label requiredak" for="setaction">Trigger Action</label>
-                            <select name="action" class='form-select' title="action" formControlName="action"> allowedActions
-                              <option *ngFor="let alla of allowedActions">{{ alla }}</option>
-                            </select>
-                          </div>
-                        </div>
-                        &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label requiredak" for="sethashtypeId">Agent</label>
-                            <select name="hashtypeId" class='form-select' title="hashtypeId" formControlName="actionFilter">
-                              <option *ngFor="let a of showagents" [value]="a.agentId">{{ a.agentName }}</option>
-                            </select>
-                          </div>
-                        </div>
-                        &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label requiredak" for="setnotification">Notification</label>
-                            <select name="notification" class='form-select' title="notification">
-                              <!-- <option *ngFor="let b of binaries" >{{ b.type }}</option> -->
-                            </select>
-                          </div>
-                        </div>
-                        &nbsp;
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label requiredak" for="setreceiver">Receiver</label>
-                            <input type='text' id="receiver" class="form-control" formControlName="receiver"/>
-                          </div>
-                        </div>
-                        &nbsp;
-                      <button class="btn btn-gray-800" type="submit">Create</button>
-                      </div>
+                      <grid-form-input [name]="'Trigger Action'" [labelclass]="'requiredak'">
+                        <select name="action" class='form-select' title="action" formControlName="action">
+                          <option *ngFor="let alla of allowedActions">{{ alla }}</option>
+                        </select>
+                      </grid-form-input>
+                      <grid-form-input [name]="'Agent'" [labelclass]="'requiredak'">
+                        <select name="hashtypeId" class='form-select' title="hashtypeId" formControlName="actionFilter">
+                          <option *ngFor="let a of showagents" [value]="a.agentId">{{ a.agentName }}</option>
+                        </select>
+                      </grid-form-input>
+                      <grid-form-input [name]="'Notification'" [labelclass]="'requiredak'">
+                        <select name="notification" class='form-select' title="notification">
+                          <!-- <option *ngFor="let b of binaries" >{{ b.type }}</option> -->
+                        </select>
+                      </grid-form-input>
+                      <grid-form-input [name]="'Receiver'" [labelclass]="'requiredak'">
+                        <input type='text' id="receiver" class="form-control" formControlName="receiver"/>
+                      </grid-form-input>
+                     <button-submit [name]="'Create'"></button-submit>
+                    </div>
               </form>
         </div>
       </div>

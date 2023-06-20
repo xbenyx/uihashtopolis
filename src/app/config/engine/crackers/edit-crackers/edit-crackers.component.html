@@ -16,53 +16,37 @@
               <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
                 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
-                      <div class="form-group">
-                          <div class="form-outline">
-                              <label class="form-label" for="getbinaryName">Binary Base Name</label>
-                              <div class="input-group">
-                                <input
-                                      type='text'
-                                      id="binaryName"
-                                      class='form-control'
-                                      formControlName="binaryName"
-                                >
-                              </div>
-                          </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getversion">Binary Version</label>
-                            <div class="input-group">
-                              <input
-                                     type='text'
-                                     id="version"
-                                     class='form-control'
-                                     formControlName="version"
-                              >
-                            </div>
+                      <grid-form-input [name]="'Binary Base Name'">
+                        <input
+                              type='text'
+                              id="binaryName"
+                              class='form-control'
+                              formControlName="binaryName"
+                        >
+                      </grid-form-input>
+                      <grid-form-input [name]="'Binary Version'">
+                        <input
+                              type='text'
+                              id="version"
+                              class='form-control'
+                              formControlName="version"
+                      >
+                      </grid-form-input>
+                      <grid-form-input [name]="'Download URL'">
+                        <div class="input-group">
+                          <span class="input-group-text">
+                            <fa-icon [icon]="faDownload" aria-hidden="true"></fa-icon>
+                          </span>
+                          <input
+                                 type='text'
+                                 id="downloadUrl"
+                                 class='form-control'
+                                 formControlName="downloadUrl"
+                          >
                         </div>
-                      </div>
-                      &nbsp;
-                      <div class="form-group">
-                        <div class="form-outline">
-                            <label class="form-label" for="getdownloadUrl">Download URL</label>
-                            <div class="input-group">
-                              <span class="input-group-text">
-                                <fa-icon [icon]="faDownload" aria-hidden="true"></fa-icon>
-                              </span>
-                              <input
-                                     type='text'
-                                     id="downloadUrl"
-                                     class='form-control'
-                                     formControlName="downloadUrl"
-                              >
-                            </div>
-                        </div>
-                      </div>
-                      &nbsp;
+                      </grid-form-input>
                     </div>
-                  <button class="btn btn-gray-800" type="submit">Update</button>
+                  <button-submit [name]="'Update'"></button-submit>
                   &nbsp;
                   <button  class="btn btn-danger" type="submit" (ngSubmit)="onDelete()">Delete User</button>
             </form>

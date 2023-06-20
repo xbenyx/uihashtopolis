@@ -25,17 +25,13 @@
                 <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
                 <h2 class="h5 mb-4">Create Binary</h2><br>
                   <form (ngSubmit)="onSubmit()">
-                      <div class="form-group">
-                        <div class="form-outline">
-                          <label class="form-label" for="getuserid">Cracker Type Name</label>
-                          <select  class='form-select' name="name" title="Name">
-                            <option value="hashcat">Hashcat</option>
-                            <option value="generic">Generic Cracker</option>
-                          </select>
-                          &nbsp;
-                        </div>
-                  </div>
-              <button  class="btn btn-gray-800 align-items-center" type="submit" >Create</button>
+                    <grid-form-input [name]="'Cracker Type Name'">
+                      <select  class='form-select' name="name" title="Name">
+                        <option value="hashcat">Hashcat</option>
+                        <option value="generic">Generic Cracker</option>
+                      </select>
+                    </grid-form-input>
+                    <button-submit [name]="'Create'"></button-submit>
           </form>
         </div>
       </div>
