@@ -71,18 +71,15 @@
                       </p>
                     </td>
                     <td class="overflow-hidden">
-                      <div ngbDropdown container="body">
-                        <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                        <div ngbDropdownMenu>
-                          <button ngbDropdownItem [routerLink]="[type.crackerBinaryTypeId,'new']" data-placement="top" title="Edit">
-                            <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon> Add version/binary
-                          </button>
-                          <div class="dropdown-divider"></div>
-                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(type.crackerBinaryTypeId)">
-                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                          </button>
-                        </div>
-                      </div>
+                      <app-button-actions>
+                        <button ngbDropdownItem [routerLink]="[type.crackerBinaryTypeId,'new']" data-placement="top" title="Edit">
+                          <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon> Add version/binary
+                        </button>
+                        <div class="dropdown-divider"></div>
+                        <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(type.crackerBinaryTypeId)">
+                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                        </button>
+                      </app-button-actions>
                     </td>
                   </tr>
                 </tbody>

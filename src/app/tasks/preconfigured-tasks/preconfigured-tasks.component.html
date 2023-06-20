@@ -29,24 +29,21 @@
                   <td>{{ ptask.priority }}</td>
                   <td>{{ ptask.maxAgents }}</td>
                   <td>
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                      <div ngbDropdownMenu>
-                        <button ngbDropdownItem [routerLink]="[ptask.pretaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
-                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                        </button>
-                        <button ngbDropdownItem [routerLink]="[ptask.pretaskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
-                          <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon> Copy to Pretask
-                        </button>
-                        <button ngbDropdownItem [routerLink]="['/tasks/new-tasks',ptask.pretaskId,'copypretask']" data-toggle="tooltip" data-placement="top" title="Copy to task">
-                          <fa-icon [icon]="faCopy" aria-hidden="true"></fa-icon> Copy to task
-                        </button>
-                        <div class="dropdown-divider"></div>
-                        <button ngbDropdownItem (click)="onDelete(ptask.pretaskId)" data-toggle="tooltip" data-placement="top" title="Delete">
-                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                        </button>
-                      </div>
-                    </div>
+                    <app-button-actions>
+                      <button ngbDropdownItem [routerLink]="[ptask.pretaskId,'edit']" data-toggle="tooltip" data-placement="top" title="Edit">
+                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                      </button>
+                      <button ngbDropdownItem [routerLink]="[ptask.pretaskId,'copy']" data-toggle="tooltip" data-placement="top" title="Copy to pretask">
+                        <fa-icon [icon]="faBookmark" aria-hidden="true"></fa-icon> Copy to Pretask
+                      </button>
+                      <button ngbDropdownItem [routerLink]="['/tasks/new-tasks',ptask.pretaskId,'copypretask']" data-toggle="tooltip" data-placement="top" title="Copy to task">
+                        <fa-icon [icon]="faCopy" aria-hidden="true"></fa-icon> Copy to task
+                      </button>
+                      <div class="dropdown-divider"></div>
+                      <button ngbDropdownItem (click)="onDelete(ptask.pretaskId)" data-toggle="tooltip" data-placement="top" title="Delete">
+                        <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                      </button>
+                    </app-button-actions>
                   </td>
                 </tr>
               </tbody>

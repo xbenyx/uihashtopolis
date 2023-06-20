@@ -66,18 +66,15 @@
                     </td>
                     <td>TD.Access groups</td>
                     <td class="overflow-hidden">
-                      <div ngbDropdown container="body">
-                        <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                        <div ngbDropdownMenu>
-                          <button ngbDropdownItem [routerLink]="[agent.agentId,'edit']" data-placement="top" title="Edit">
-                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                          </button>
-                          <div class="dropdown-divider"></div>
-                          <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(agent.agentId)">
-                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                          </button>
-                        </div>
-                      </div>
+                      <app-button-actions>
+                        <button ngbDropdownItem [routerLink]="[agent.agentId,'edit']" data-placement="top" title="Edit">
+                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                        </button>
+                        <div class="dropdown-divider"></div>
+                        <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(agent.agentId)">
+                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                        </button>
+                      </app-button-actions>
                     </td>
                   </tr>
                 </tbody>

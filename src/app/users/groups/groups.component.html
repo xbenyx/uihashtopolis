@@ -62,26 +62,25 @@
                       </td>
                       <td class="overflow-hidden">
 
-                        <div *ngIf="!a.isEdit" ngbDropdown container="body">
-                          <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                          <div ngbDropdownMenu>
+                        <div *ngIf="!a.isEdit">
+                          <app-button-actions>
                             <button ngbDropdownItem (click)="onEdit(a)" data-placement="top" title="Edit">
                               <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon> Edit
                             </button>
                             <div class="dropdown-divider"></div>
                             <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete"  (click)="onDelete(a.accessGroupId)">
-                              <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon> Delete
+                              <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
                             </button>
-                          </div>
+                          </app-button-actions>
                         </div>
 
                         <div *ngIf="a.isEdit">
-                          <a class='btn-outline-gray-600 float-right' (click)="onSave(a)" data-toggle="tooltip" data-placement="top" title="Update">
-                              <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon>
-                          </a>
-                          <a class='btn-outline-gray-600 float-right' (click)="onCancel(a)" data-toggle="tooltip" data-placement="top" title="Cancel">
-                              <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon>
-                          </a>
+                            <a class='btn-outline-gray-600 float-right' (click)="onSave(a)" data-toggle="tooltip" data-placement="top" title="Update">
+                                <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon>
+                            </a>
+                            <a class='btn-outline-gray-600 float-right' (click)="onCancel(a)" data-toggle="tooltip" data-placement="top" title="Cancel">
+                                <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon>
+                            </a>
                         </div>
 
                       </td>

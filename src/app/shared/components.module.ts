@@ -7,6 +7,7 @@ import { HashtypeDetectorComponent } from "./hashtype-detector/hashtype-detector
 import { HexconvertorComponent } from "./utils/hexconvertor/hexconvertor.component";
 import { CheatsheetComponent } from "./alert/cheatsheet/cheatsheet.component";
 import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
+import { TableModule } from "./table/button-actions/table-actions.module";
 import { SwitchThemeModule } from "./switch-theme/switch-theme.module";
 import { TimeoutComponent } from "./alert/timeout/timeout.component";
 import { PaginationModule } from "./pagination/pagination.module";
@@ -34,6 +35,7 @@ import { FormsModule } from "@angular/forms";
     GraphsModule,
     CommonModule,
     FormsModule,
+    TableModule,
     NgbModule
   ],
   exports: [
@@ -49,7 +51,8 @@ import { FormsModule } from "@angular/forms";
     PageTitleModule,
     AlertComponent,
     GraphsModule,
-    CommonModule
+    CommonModule,
+    TableModule
   ],
 })
 export class ComponentsModule {}

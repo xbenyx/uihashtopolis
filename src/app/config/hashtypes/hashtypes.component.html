@@ -123,9 +123,8 @@
                         <td *ngIf="!h.isEdit">{{ h.isSlowHash == 1 ? "Yes" : "No" }}</td>
                         <td *ngIf="!h.isEdit" class="overflow-hidden">
 
-                          <div *ngIf="!h.isEdit" ngbDropdown container="body">
-                            <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                            <div ngbDropdownMenu>
+                          <div *ngIf="!h.isEdit">
+                            <app-button-actions>
                               <button ngbDropdownItem (click)="onEdit(h)" data-placement="top" title="Edit">
                                 <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon> Edit
                               </button>
@@ -133,7 +132,7 @@
                               <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(h.hashTypeId)">
                                 <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon> Delete
                               </button>
-                            </div>
+                            </app-button-actions>
                           </div>
 
                         </td>

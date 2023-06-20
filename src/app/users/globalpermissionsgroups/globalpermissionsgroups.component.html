@@ -69,18 +69,15 @@
                       <td class="text-align:center">{{ a.name | lowercase | titlecase }}</td>
                       <td class="text-align:center">{{ a.user.length }}</td>
                       <td class="overflow-hidden">
-                        <div ngbDropdown container="body">
-                          <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                          <div ngbDropdownMenu>
-                            <button ngbDropdownItem [routerLink]="['/users/global-permissions-groups/',a.id,'edit']" data-placement="top" title="Edit">
-                              <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                            </button>
-                            <div *ngIf="a.user.length == 0" class="dropdown-divider"></div>
-                            <button *ngIf="a.user.length == 0" ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(a.id)">
-                              <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                            </button>
-                          </div>
-                        </div>
+                        <app-button-actions>
+                          <button ngbDropdownItem [routerLink]="['/users/global-permissions-groups/',a.id,'edit']" data-placement="top" title="Edit">
+                            <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                          </button>
+                          <div *ngIf="a.user.length == 0" class="dropdown-divider"></div>
+                          <button *ngIf="a.user.length == 0" ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(a.id)">
+                            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                          </button>
+                        </app-button-actions>
                       </td>
                   </tr>
                 </tbody>

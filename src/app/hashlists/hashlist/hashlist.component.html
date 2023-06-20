@@ -43,21 +43,18 @@
                    </a>
                   </td>
                   <td class="overflow-hidden">
-                    <div ngbDropdown container="body">
-                      <button type="button" class="btn btn-sm btn-gray-800 btn-sm" ngbDropdownToggle>Actions</button>
-                      <div ngbDropdownMenu>
-                        <button ngbDropdownItem [routerLink]="[list.hashlistId,'edit']" data-placement="top" title="Edit">
-                          <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
-                        </button>
-                        <button ngbDropdownItem (click)="onArchive(list.hashlistId)" data-placement="top" title="Archive">
-                          <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon> Archive
-                        </button>
-                        <div class="dropdown-divider"></div>
-                        <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(list.hashlistId)">
-                          <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
-                        </button>
-                      </div>
-                    </div>
+                    <app-button-actions>
+                      <button ngbDropdownItem [routerLink]="[list.hashlistId,'edit']" data-placement="top" title="Edit">
+                        <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                      </button>
+                      <button ngbDropdownItem (click)="onArchive(list.hashlistId)" data-placement="top" title="Archive">
+                        <fa-icon [icon]="faArchive" aria-hidden="true"></fa-icon> Archive
+                      </button>
+                      <div class="dropdown-divider"></div>
+                      <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(list.hashlistId)">
+                        <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                      </button>
+                    </app-button-actions>
                   </td>
               </tr>
               </tbody>
