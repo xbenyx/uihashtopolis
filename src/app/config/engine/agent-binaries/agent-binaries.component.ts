@@ -15,6 +15,7 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show Agent Binaries'])
 export class AgentBinariesComponent implements OnInit {
+
   public isCollapsed = true;
   faHome=faHomeAlt;
   faPlus=faPlus;

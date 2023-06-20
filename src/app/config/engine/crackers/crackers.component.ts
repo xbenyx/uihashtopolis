@@ -13,6 +13,7 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show Crackers'])
 export class CrackersComponent implements OnInit, OnDestroy {
+
   public isCollapsed = true;
   faEdit=faEdit;
   faTrash=faTrash;
