@@ -10,7 +10,7 @@ import { FilterTextboxModule } from "./filter-textbox/filter-textbox.module";
 import { SwitchThemeModule } from "./switch-theme/switch-theme.module";
 import { TimeoutComponent } from "./alert/timeout/timeout.component";
 import { PaginationModule } from "./pagination/pagination.module";
-import { PageTitleModule } from "./page-title/page-title.module";
+import { PageTitleModule } from "./page-headers/page-title.module";
 import { GridModule } from "./grid-containers/grid.module";
 import { TableModule } from "./table/table-actions.module";
 import { AlertComponent } from "./alert/alert.component";

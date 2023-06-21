@@ -4,7 +4,19 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-title',
-  templateUrl: './page-title.component.html'
+  template: `
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+  <div class="d-block mb-4 mb-md-0">
+      <h2 class="h4">{{ title }}</h2>
+  </div>
+  <div *ngIf="subbutton" class="btn-toolbar mb-2 mb-md-0">
+      <a (click)="redirect()" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+          {{ buttontitle }}
+      </a>
+  </div>
+</div>
+  `
 })
 export class PageTitleComponent  {
 
