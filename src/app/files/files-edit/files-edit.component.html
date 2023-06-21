@@ -3,7 +3,7 @@
 </div>
 <!-- Body Edit Files -->
 <grid-main [class]="'fmxw-500'">
-  <h2 class="h5 mb-4">Edit</h2><br>
+  <app-page-subtitle [subtitle]="'Edit'"></app-page-subtitle>
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
     <grid-form-input [name]="'ID'">
       <input

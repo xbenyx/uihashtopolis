@@ -1,5 +1,5 @@
 <grid-main [class]="'fmxw-800'">
-  <h2 class="h5 mb-4">How to add a new Agent?</h2>
+  <app-page-subtitle [subtitle]="'How to add a new Agent?'"></app-page-subtitle>
   <ol class="list-group list-group-numbered">
     <li class="list-group-item">In clients, download the file and run it</li>
     <li class="list-group-item">Generate voucher to link with agent (Used vouchers are automatically deleted)</li>
@@ -20,7 +20,7 @@
   </ol>
 </grid-main>
 <!-- Clients section -->
-<h2 class="h5 mb-4">Clients</h2>
+<app-page-subtitle [subtitle]="'Clients'"></app-page-subtitle>
 <div class="card border-0 shadow mb-4">
   <div class="card-body">
         <table class="table table-centered table-nowrap mb-0 rounded" datatable>
@@ -68,7 +68,7 @@
   </div>
 <!-- Create Voucher -->
 <grid-main [class]="'fmxw-800'">
-  <h2 class="h5 mb-4">Vouchers</h2>
+  <app-page-subtitle [subtitle]="'Vouchers'"></app-page-subtitle>
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
     <grid-form-input [name]="'User Name'" [labelclass]="'requiredak'">
       <input

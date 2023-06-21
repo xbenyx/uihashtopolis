@@ -1,10 +1,10 @@
 <grid-main [class]="'fmxw-500'">
   <div [ngSwitch]="whichView">
     <div *ngSwitchCase="'create'">
-      <h2 class="h5 mb-4">Create Binary</h2><br>
+      <app-page-subtitle [subtitle]="'Create Binary'"></app-page-subtitle>
     </div>
     <div *ngSwitchCase="'edit'">
-      <h2 class="h5 mb-4">Edit Binary</h2><br>
+      <app-page-subtitle [subtitle]="'Edit Binary'"></app-page-subtitle>
     </div>
   </div>
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">

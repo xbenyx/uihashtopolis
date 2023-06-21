@@ -1,5 +1,5 @@
 <grid-main [class]="'fmxw-500'">
-  <h2 class="h5 mb-4">New Binary Version</h2><br>
+  <app-page-subtitle [subtitle]="'New Binary Version'"></app-page-subtitle>
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
         <grid-form-input [name]="'Binary Base Name'" [tooltip]="'Which needs to be called on the client without os-dependent extension'">
           <input

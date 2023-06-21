@@ -4,7 +4,7 @@
 <!-- <h2 *ngIf="!allowEdit">You are not allowed to edit! Talk with your administrator.</h2>
 <div *ngIf="allowEdit"> -->
 <grid-main [class]="'fmxw-500'">
-  <h2 class="h5 mb-4">User Profile</h2><br>
+  <app-page-subtitle [subtitle]="'User Profile'"></app-page-subtitle>
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
       <div class="row">
             <grid-form-input [name]="'User ID'">
@@ -79,7 +79,7 @@
                     formControlName="globalPermissionGroup"
               >
             </grid-form-input>
-            <h2 class="h5 my-4">Update Settings</h2>
+            <app-page-subtitle [subtitle]="'Update Settings'"></app-page-subtitle>
             <div formGroupName="updateData">
             <grid-form-input [name]="'Set users right group'">
               <select

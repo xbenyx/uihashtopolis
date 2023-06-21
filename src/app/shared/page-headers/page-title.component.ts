@@ -15,6 +15,9 @@ import { Router } from '@angular/router';
           {{ buttontitle }}
       </a>
   </div>
+  <div *ngIf="usetoggle" class="btn-toolbar mb-2 mb-md-0">
+     <div #content><ng-content></ng-content></div>
+  </div>
 </div>
   `
 })
@@ -26,6 +29,7 @@ export class PageTitleComponent  {
   @Input() buttontitle?: any;
   @Input() buttonlink?: any;
   @Input() subbutton?: boolean;
+  @Input() usetoggle?: boolean;
 
   constructor(
     private router: Router

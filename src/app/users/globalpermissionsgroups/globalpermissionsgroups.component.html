@@ -1,18 +1,13 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-  <div class="d-block mb-4 mb-md-0">
-      <h2 class="h4">Global Permission Group</h2>
-  </div>
-  <div class="btn-toolbar mb-2 mb-md-0">
-      <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-        <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-          New Global Permission Group
-      </a>
-  </div>
-</div>
+<app-page-title [title]="'Global Permission Group'" [subbutton]="false" [usetoggle]="true">
+  <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+    <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+      New Global Permission Group
+  </a>
+</app-page-title>
 <!-- Create Create Global Permission Group -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <grid-main [class]="'fmxw-500'">
-    <h2 class="h5 mb-4">New Global Permission Group</h2><br>
+    <app-page-subtitle [subtitle]="'New Global Permission Group'"></app-page-subtitle>
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <grid-form-input [name]="'Name'" [labelclass]="'requiredak'">

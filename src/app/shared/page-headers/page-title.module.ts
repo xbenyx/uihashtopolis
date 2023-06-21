@@ -1,4 +1,5 @@
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PageSubTitleComponent } from './page-subtitle.component';
 import { PageTitleComponent } from './page-title.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,10 +12,12 @@ import { NgModule } from '@angular/core';
     FontAwesomeModule
   ],
   exports: [
-    PageTitleComponent
+    PageTitleComponent,
+    PageSubTitleComponent
   ],
   declarations: [
-    PageTitleComponent
+    PageTitleComponent,
+    PageSubTitleComponent
   ]
 })
 export class PageTitleModule { }

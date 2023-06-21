@@ -2,19 +2,19 @@
   <div class="d-block mb-4 mb-md-0">
       <div [ngSwitch]="whichView">
         <div *ngSwitchCase="'agent'">
-          <h2 class="h4">Agent Settings</h2>
+          <app-page-subtitle [subtitle]="'Agent Settings'"></app-page-subtitle>
         </div>
         <div *ngSwitchCase="'task-chunk'">
-          <h2 class="h4">Task/Chunk Settings</h2>
+          <app-page-subtitle [subtitle]="'Task/Chunk Settings'"></app-page-subtitle>
         </div>
         <div *ngSwitchCase="'hch'">
-          <h2 class="h4">Hashes/Cracks/Hashlist Settings</h2>
+          <app-page-subtitle [subtitle]="'Hashes/Cracks/Hashlist Settings'"></app-page-subtitle>
         </div>
         <div *ngSwitchCase="'notif'">
-          <h2 class="h4">Notification Settings</h2>
+          <app-page-subtitle [subtitle]="'Notification Settings'"></app-page-subtitle>
         </div>
         <div *ngSwitchCase="'gs'">
-          <h2 class="h4">General Settings</h2>
+          <app-page-subtitle [subtitle]="'General Settings'"></app-page-subtitle>
         </div>
       </div>
   </div>

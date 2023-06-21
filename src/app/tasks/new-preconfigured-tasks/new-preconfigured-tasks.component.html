@@ -6,7 +6,7 @@
   <div class="d-block mb-4 mb-md-0">
     <div [ngSwitch]="whichView">
       <div *ngSwitchCase="'create'">
-        <h2 class="h5 mb-4">New Preconfigured Tasks</h2><br>
+        <app-page-subtitle [subtitle]="'New Preconfigured Tasks'"></app-page-subtitle>
       </div>
       <div *ngSwitchCase="'edit'">
         <h2 class="h5 mb-4">New Preconfigured Tasks <small>(Copied From Pretask ID {{editedIndex}})</small></h2>
