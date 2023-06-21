@@ -19,13 +19,14 @@
                 <h2 class="h5 mb-4">Create Access Group</h2><br>
                   <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
                     <div class="row">
-                        <div class="form-group">
-                          <div class="form-outline">
-                            <label class="form-label requiredak" for="groupName">Access Group Name</label>
-                            <input  type='text' name='groupName' title="Group Name" class='form-control' id="groupName" formControlName="groupName">
-                          </div>
-                        </div>
-                        &nbsp;
+                        <grid-form-input [name]="'Access Group Name'" [labelclass]="'requiredak'">
+                          <input
+                                type='text'
+                                id="groupName"
+                                class='form-control'
+                                formControlName="groupName"
+                          >
+                        </grid-form-input>
                         <button-submit [name]="'Create'"></button-submit>
                       </div>
                 </form>

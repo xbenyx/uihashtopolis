@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
                 container="body"
                 [icon]="faInfoCircle"
                 aria-hidden="true"
+                class="gray-light-ico display-col"
                 *ngIf="tooltip"
         >
         </fa-icon>

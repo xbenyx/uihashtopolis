@@ -11,19 +11,15 @@
               <h2 class="h5 mb-4">User Profile</h2><br>
               <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
-                        <div class="form-group">
-                            <div class="form-outline">
-                              <label class="form-label" for="getId" >User ID</label>
-                              <input
-                                    type='number'
-                                    id="id"
-                                    class='form-control'
-                                    formControlName="id"
-                              >
-                            </div>
-                        </div>
-                        &nbsp;
-                        <div class="form-outline">
+                        <grid-form-input [name]="'User ID'">
+                          <input
+                                type='number'
+                                id="id"
+                                class='form-control'
+                                formControlName="id"
+                          >
+                        </grid-form-input>
+                        <div class="form-outline form-input-custom">
                           <label class="form-label" for="getName">User Name</label>
                               <div class="input-group">
                                   <span class="input-group-text">
@@ -37,8 +33,7 @@
                                   />
                               </div>
                         </div>
-                        &nbsp;
-                        <div class="form-outline">
+                        <div class="form-outline form-input-custom">
                           <label class="form-label" for="getemail">Email</label>
                               <div class="input-group">
                                   <span class="input-group-text">
@@ -52,8 +47,7 @@
                                   />
                               </div>
                         </div>
-                        &nbsp;
-                        <div class="form-outline">
+                        <div class="form-outline form-input-custom">
                           <label class="form-label" for="getcreationdate">Creation date</label>
                               <div class="input-group">
                                 <span class="input-group-text">
@@ -67,8 +61,7 @@
                                 />
                               </div>
                         </div>
-                        &nbsp;
-                        <div class="form-outline">
+                        <div class="form-outline form-input-custom">
                           <label class="form-label" for="getlastlogin">Last login</label>
                               <div class="input-group">
                                 <span class="input-group-text">
@@ -82,32 +75,28 @@
                                 />
                               </div>
                         </div>
-                        &nbsp;
-                        <div class="form-outline">
-                          <label class="form-label" for="updatemembergroup">Member of groups</label>
-                              <input
-                                    type='text'
-                                    id="globalPermissionGroup"
-                                    class='form-control'
-                                    formControlName="globalPermissionGroup"
-                              />
-                        </div>
+                        <grid-form-input [name]="'Member of groups'" [labelclass]="'requiredak'">
+                          <input
+                                type='text'
+                                id="globalPermissionGroup"
+                                class='form-control'
+                                formControlName="globalPermissionGroup"
+                          >
+                        </grid-form-input>
                         <h2 class="h5 my-4">Update Settings</h2>
                         <div formGroupName="updateData">
-                        <div class="form-outline">
-                          <label class="form-label" for="updateGlobalPermissionGroupId">Set users right group</label>
-                              <select
-                                    type='number'
-                                    id="globalPermissionGroupId"
-                                    class='form-select'
-                                    formControlName="globalPermissionGroupId"
-                                  >
-                                  <span *ngIf="!updateForm.errors?.['globalPermissionGroupId'].valid && updateForm.errors?.['globalPermissionGroupId'].touched" class="help-block" >Please select a group!</span>
-                                  <option *ngFor="let a of agp" [ngValue]="a.id">{{ a.name }}</option>
-                              </select>
-                        </div>
-                        &nbsp;
-                        <div class="form-outline mb-4">
+                        <grid-form-input [name]="'Set users right group'">
+                          <select
+                                type='number'
+                                id="globalPermissionGroupId"
+                                class='form-select'
+                                formControlName="globalPermissionGroupId"
+                              >
+                              <span *ngIf="!updateForm.errors?.['globalPermissionGroupId'].valid && updateForm.errors?.['globalPermissionGroupId'].touched" class="help-block" >Please select a group!</span>
+                              <option *ngFor="let a of agp" [ngValue]="a.id">{{ a.name }}</option>
+                          </select>
+                        </grid-form-input>
+                        <div class="form-outline mb-4 form-input-custom">
                           <label class="form-label" for="setpassword">Set password</label>
                             <div class="input-group">
                                 <span class="input-group-text">
@@ -122,7 +111,7 @@
                                 <!-- formControlName="setPassword" -->
                             </div>
                       </div>
-                      <div class="form-check form-switch">
+                      <div class="form-check form-switch form-input-custom">
                         <label class="form-label" for="setpassword"></label>
                             <input
                                   type="checkbox"

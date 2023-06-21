@@ -6,29 +6,24 @@
               <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
               <h2 class="h5 mb-4">Create User</h2><br>
               <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-                  <div class="form-group">
-                    <label for="setName">User Name</label>
+                  <grid-form-input [name]="'User Name'" [labelclass]="'requiredak'">
                     <input
                           type='text'
                           id="name"
                           class='form-control'
                           formControlName="name"
-                     >
-                  </div>
+                    >
+                  </grid-form-input>
                   <span *ngIf="createForm.get('name').invalid && createForm.get('name').touched" class="help-block">User already exist!</span>
-                  &nbsp;
-                  <div class="form-group">
-                    <label for="setemail">Email</label>
+                  <grid-form-input [name]="'Email'" [labelclass]="'requiredak'">
                     <input
                            type='email'
                            id="email"
                            class='form-control'
                            formControlName="email"
                      >
-                  </div>
-                  &nbsp;
-                  <div class="form-group">
-                    <label for="setGlobalPermissionGroupId">Access Permission Group</label>
+                  </grid-form-input>
+                  <grid-form-input [name]="'Access Permission Group'" [labelclass]="'requiredak'">
                     <select
                           type='number'
                           id="globalPermissionGroupId"
@@ -37,9 +32,8 @@
                           >
                          <option *ngFor="let a of agp" [ngValue]="a.id">{{ a.name }}</option>
                     </select>
-                  </div>
+                  </grid-form-input>
                   <!-- <span *ngIf="!createForm.valid && (createForm.touched || createForm.dirty)" class="help-block" >Please complete all the form!</span> -->
-                  <br>
                   <button-submit [name]="'Create'"></button-submit>
               </form>
          </div>
