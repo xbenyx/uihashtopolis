@@ -23,6 +23,10 @@ import { AccessGroupsService } from '../../core/_services/access/accessgroups.se
 @PageTitle(['Edit Hashlist'])
 export class EditHashlistComponent implements OnInit {
 
+  // Title Page
+  pTitle = "Edit HashList";
+  subbutton = false;
+
   editMode = false;
   editedHashlistIndex: number;
   editedHashlist: any // Change to Model

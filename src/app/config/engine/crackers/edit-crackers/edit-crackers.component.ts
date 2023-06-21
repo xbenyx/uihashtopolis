@@ -13,6 +13,7 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Edit Crackers'])
 export class EditCrackersComponent implements OnInit {
+
   editMode = false;
   editedCrackervIndex: number;
   crackerV: any // Change to Model

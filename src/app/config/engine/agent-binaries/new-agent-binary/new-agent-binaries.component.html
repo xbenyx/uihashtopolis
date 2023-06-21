@@ -1,56 +1,49 @@
-<!-- New Agent Binary -->
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 d-flex align-items-center justify-content-center">
-            <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-              <div [ngSwitch]="whichView">
-                <div *ngSwitchCase="'create'">
-                  <h2 class="h5 mb-4">Create Binary</h2><br>
-                </div>
-                <div *ngSwitchCase="'edit'">
-                  <h2 class="h5 mb-4">Edit Binary</h2><br>
-                </div>
-              </div>
-              <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-                <div class="row">
-                    <grid-form-input [name]="'Type'" [labelclass]="'requiredak'">
-                      <input
-                            type='text'
-                            id="type"
-                            class='form-control'
-                            formControlName="type"
-                      >
-                    </grid-form-input>
-                    <grid-form-input [name]="'Operating Systems'">
-                      <input
-                            type='text'
-                            id="operatingSystems"
-                            class='form-control'
-                            formControlName="operatingSystems"
-                      >
-                    </grid-form-input>
-                    <grid-form-input [name]="'Version'">
-                      <input
-                            type='text'
-                            id="version"
-                            class='form-control'
-                            formControlName="version"
-                      >
-                    </grid-form-input>
-                    <grid-form-input [name]="'Update Track'">
-                      <select
-                            id="updateTrack"
-                            class="form-select"
-                            formControlName="updateTrack"
-                        >
-                        <option value="release">Release</option>
-                        <option value="stable" selected>Stable</option>
-                      </select>
-                    </grid-form-input>
-                  </div>
-                <button-submit [name]="'Update'"></button-submit>
-            </form>
+<grid-main [class]="'fmxw-500'">
+  <div [ngSwitch]="whichView">
+    <div *ngSwitchCase="'create'">
+      <h2 class="h5 mb-4">Create Binary</h2><br>
+    </div>
+    <div *ngSwitchCase="'edit'">
+      <h2 class="h5 mb-4">Edit Binary</h2><br>
     </div>
   </div>
-</div>
-
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <grid-form-input [name]="'Type'" [labelclass]="'requiredak'">
+          <input
+                type='text'
+                id="type"
+                class='form-control'
+                formControlName="type"
+          >
+        </grid-form-input>
+        <grid-form-input [name]="'Operating Systems'">
+          <input
+                type='text'
+                id="operatingSystems"
+                class='form-control'
+                formControlName="operatingSystems"
+          >
+        </grid-form-input>
+        <grid-form-input [name]="'Version'">
+          <input
+                type='text'
+                id="version"
+                class='form-control'
+                formControlName="version"
+          >
+        </grid-form-input>
+        <grid-form-input [name]="'Update Track'">
+          <select
+                id="updateTrack"
+                class="form-select"
+                formControlName="updateTrack"
+            >
+            <option value="release">Release</option>
+            <option value="stable" selected>Stable</option>
+          </select>
+        </grid-form-input>
+      </div>
+    <button-submit [name]="'Update'"></button-submit>
+  </form>
+</grid-main>

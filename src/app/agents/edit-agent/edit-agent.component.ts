@@ -21,6 +21,11 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Edit Agent'])
 export class EditAgentComponent implements OnInit {
+
+  // Title Page
+  pTitle = "Agent Details";
+  subbutton = false;
+
   editMode = false;
   editedAgentIndex: number;
   editedAgent: any // Change to Model
