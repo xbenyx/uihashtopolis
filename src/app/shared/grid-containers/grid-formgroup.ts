@@ -1,5 +1,5 @@
-import { faEdit, faCopy, faBookmark, faArchive, faTrash  }  from '@fortawesome/free-solid-svg-icons';
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { faInfoCircle  }  from '@fortawesome/free-solid-svg-icons';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +8,15 @@ import { Router } from '@angular/router';
 <div class="form-group">
   <div class="form-outline form-input-custom">
       <label class="form-label {{labelclass}}" for={{name}} >{{name}}</label>
+        <fa-icon
+                placement="bottom"
+                ngbTooltip='{{tooltip}}'
+                container="body"
+                [icon]="faInfoCircle"
+                aria-hidden="true"
+                *ngIf="tooltip"
+        >
+        </fa-icon>
       <div #content><ng-content></ng-content></div>
   </div>
 </div>
@@ -15,11 +24,18 @@ import { Router } from '@angular/router';
 })
 export class GridFormInputComponent  {
 
+  faInfoCircle=faInfoCircle;
+
   @Input() name?: any;
   @Input() labelclass?: any;
+  @Input() tooltip?: any;
+
+  tooltio: any;
 
   constructor(
     private router: Router
   ) { }
 
 }
+
+
