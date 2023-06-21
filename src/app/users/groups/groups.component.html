@@ -11,33 +11,23 @@
 </div>
 <!-- Create Access Group -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <section>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 d-flex align-items-center justify-content-center">
-                <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <h2 class="h5 mb-4">Create Access Group</h2><br>
-                  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                    <div class="row">
-                        <grid-form-input [name]="'Access Group Name'" [labelclass]="'requiredak'">
-                          <input
-                                type='text'
-                                id="groupName"
-                                class='form-control'
-                                formControlName="groupName"
-                          >
-                        </grid-form-input>
-                        <button-submit [name]="'Create'"></button-submit>
-                      </div>
-                </form>
-           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  &nbsp;&nbsp;
+  <grid-main [class]="'fmxw-500'">
+    <h2 class="h5 mb-4">Create Access Group</h2><br>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <grid-form-input [name]="'Access Group Name'" [labelclass]="'requiredak'">
+              <input
+                    type='text'
+                    id="groupName"
+                    class='form-control'
+                    formControlName="groupName"
+              >
+            </grid-form-input>
+            <button-submit [name]="'Create'"></button-submit>
+          </div>
+    </form>
+  </grid-main>
 </div>
-<!-- End Create Access Group -->
 <!-- Body -->
 <app-table>
   <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">

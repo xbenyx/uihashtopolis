@@ -11,41 +11,32 @@
 </div>
 <!-- New Notification -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <section>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 d-flex align-items-center justify-content-center">
-                <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                <h2 class="h5 mb-4">Create Notification</h2><br>
-                <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-                    <div class="row">
-                      <grid-form-input [name]="'Trigger Action'" [labelclass]="'requiredak'">
-                        <select name="action" class='form-select' title="action" formControlName="action">
-                          <option *ngFor="let alla of allowedActions">{{ alla }}</option>
-                        </select>
-                      </grid-form-input>
-                      <grid-form-input [name]="'Agent'" [labelclass]="'requiredak'">
-                        <select name="hashtypeId" class='form-select' title="hashtypeId" formControlName="actionFilter">
-                          <option *ngFor="let a of showagents" [value]="a.agentId">{{ a.agentName }}</option>
-                        </select>
-                      </grid-form-input>
-                      <grid-form-input [name]="'Notification'" [labelclass]="'requiredak'">
-                        <select name="notification" class='form-select' title="notification">
-                          <!-- <option *ngFor="let b of binaries" >{{ b.type }}</option> -->
-                        </select>
-                      </grid-form-input>
-                      <grid-form-input [name]="'Receiver'" [labelclass]="'requiredak'">
-                        <input type='text' id="receiver" class="form-control" formControlName="receiver"/>
-                      </grid-form-input>
-                     <button-submit [name]="'Create'"></button-submit>
-                    </div>
-              </form>
+  <grid-main [class]="'fmxw-500'">
+    <h2 class="h5 mb-4">Create Notification</h2><br>
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <grid-form-input [name]="'Trigger Action'" [labelclass]="'requiredak'">
+            <select name="action" class='form-select' title="action" formControlName="action">
+              <option *ngFor="let alla of allowedActions">{{ alla }}</option>
+            </select>
+          </grid-form-input>
+          <grid-form-input [name]="'Agent'" [labelclass]="'requiredak'">
+            <select name="hashtypeId" class='form-select' title="hashtypeId" formControlName="actionFilter">
+              <option *ngFor="let a of showagents" [value]="a.agentId">{{ a.agentName }}</option>
+            </select>
+          </grid-form-input>
+          <grid-form-input [name]="'Notification'" [labelclass]="'requiredak'">
+            <select name="notification" class='form-select' title="notification">
+              <!-- <option *ngFor="let b of binaries" >{{ b.type }}</option> -->
+            </select>
+          </grid-form-input>
+          <grid-form-input [name]="'Receiver'" [labelclass]="'requiredak'">
+            <input type='text' id="receiver" class="form-control" formControlName="receiver"/>
+          </grid-form-input>
+          <button-submit [name]="'Create'"></button-submit>
         </div>
-      </div>
-    </div>
-  </div>
-  </section>
-  &nbsp;&nbsp;
+    </form>
+  </grid-main>
 </div>
 <!-- Table Notifications -->
 <app-table>

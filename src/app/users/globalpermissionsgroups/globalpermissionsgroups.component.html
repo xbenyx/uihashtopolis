@@ -11,33 +11,23 @@
 </div>
 <!-- Create Create Global Permission Group -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <section>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-12 d-flex align-items-center justify-content-center">
-          <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-            <h2 class="h5 mb-4">New Global Permission Group</h2><br>
-            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <grid-form-input [name]="'Name'" [labelclass]="'requiredak'">
-                  <input
-                        type='text'
-                        id="name"
-                        class='form-control'
-                        formControlName="name"
-                  >
-                </grid-form-input>
-                <button-submit [name]="'Create'"></button-submit>
-              </div>
-            </form>
-          </div>
-        </div>
+  <grid-main [class]="'fmxw-500'">
+    <h2 class="h5 mb-4">New Global Permission Group</h2><br>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <grid-form-input [name]="'Name'" [labelclass]="'requiredak'">
+          <input
+                type='text'
+                id="name"
+                class='form-control'
+                formControlName="name"
+          >
+        </grid-form-input>
+        <button-submit [name]="'Create'"></button-submit>
       </div>
-    </div>
-  </section>
-&nbsp;&nbsp;
+    </form>
+  </grid-main>
 </div>
-<!-- End Create Global Permission Group -->
 <!-- Table -->
 <div class="card border-0 shadow mb-4">
   <div class="card-body">

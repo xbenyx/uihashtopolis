@@ -20,6 +20,10 @@ import { Pretask } from '../../core/_models/pretask';
 @PageTitle(['Edit Preconfigured Tasks'])
 export class EditPreconfiguredTasksComponent implements OnInit{
 
+  // Title Page
+  pTitle = "Edit Preconfigured Tasks";
+  subbutton = false;
+
   editMode = false;
   editedPretaskIndex: number;
   editedPretask: any // Change to Model
