@@ -69,11 +69,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSub = this.authService.user
         .subscribe(user => {
           this.isAuthentificated = !!user;
-    });
-
-    // this.notificationbService.getNoficationsBell().subscribe((nb: any) => {
-    //   this.notifbell = nb;
-    // });
+     });
 
   }
 

@@ -7,12 +7,10 @@ import { Subject } from 'rxjs';
 @Component({
   selector: 'app-table',
   template: `
-<div class="card border-0 shadow mb-4">
-  <div class="card-body">
-      <div class="table-responsive">
+<div class="card shadow">
+  <div class="card-body table-responsive">
       <div #content><ng-content></ng-content></div>
-      </div>
-    </div>
+  </div>
 </div>
   `
 })

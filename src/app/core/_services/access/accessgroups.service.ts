@@ -30,6 +30,15 @@ export class AccessGroupsService {
   }
 
 /**
+ * Returns an specific agent
+ * @param id - agent id
+ * @returns  Object
+**/
+  getAccessGroup(id: number):Observable<any> {
+    return this.http.get(`${this.endpoint}/${id}`)
+  }
+
+/**
  * Delete by id
  * @param id - id
  * @returns  Object

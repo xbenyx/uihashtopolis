@@ -10,7 +10,27 @@
   height: 35px;
   line-height: 35px;
 }
+@media (min-width: 481px) and (max-width: 768px){
+  .top-cat {
+    // font-weight: 700;
+    // cursor: pointer;
+    // position: relative;
+    // display: inline-block;
+    // background-color: #F9F9F9;
+    // font-size: 14px;
+    // height: 40px;
+    // line-height: 40px;
+    // margin: 12px 12px 0 0;
+    // padding: 2px 20px;
+    // border-radius: 100px;
+    // text-decoration: none;
+    color: #3434e0;
+    // width: auto;
+  }
 
+}
+
+@media (min-width: 769px){
 .top-cat {
   font-weight: 700;
   cursor: pointer;
@@ -27,11 +47,18 @@
   color: #353539;
   width: auto;
 }
+}
 
 .top-cat:hover {
-  color: #3260a0;
+  // color: #3260a0;
   border-color: #4B5563;
 }
+
+.top-cat:active {
+  // color: #3260a0;
+  border-color: #4B5563;
+}
+
 
 .top-cat-selected {
   color: #3260a0;

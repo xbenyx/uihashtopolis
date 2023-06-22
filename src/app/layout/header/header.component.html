@@ -35,9 +35,9 @@
    <span class="navbar-toggler-icon"></span>
  </button>
 	<div id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-toggler mr-auto">
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" [routerLinkActive]="['active']" *ngIf="isAuthentificated">
-          <div ngbDropdownToggle id="dropdownAgents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div ngbDropdownToggle id="dropdownAgents" routerLink="agents/show-agents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faServer" aria-hidden="true"></fa-icon>
              Agents
           </div>
@@ -50,7 +50,7 @@
           <a class="nav-link" routerLinkActive="active" routerLink="projects/" *ngIf="isAuthentificated">Projects</a>
         </li> -->
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
-          <div ngbDropdownToggle id="dropdownTasks" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div ngbDropdownToggle id="dropdownTasks" routerLink="tasks/show-tasks" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faTasks" aria-hidden="true"></fa-icon>
             Tasks
           </div>
@@ -66,7 +66,7 @@
           </div>
         </li>
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
-          <div ngbDropdownToggle id="dropdownHashlists" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div ngbDropdownToggle id="dropdownHashlists" routerLink="hashlists/hashlist" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faDatabase" aria-hidden="true"></fa-icon>
             Hashlists
           </div>
@@ -80,7 +80,7 @@
           </div>
         </li>
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
-          <div ngbDropdownToggle id="dropdownFiles" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div ngbDropdownToggle id="dropdownFiles" routerLink="files/wordlist"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faFileArchive" aria-hidden="true"></fa-icon>
             Files
           </div>
@@ -91,21 +91,20 @@
           </div>
         </li>
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
-          <div ngbDropdownToggle id="dropdownConfig" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div ngbDropdownToggle id="dropdownConfig" routerLink="config/agent" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faCogs" aria-hidden="true"></fa-icon>
               Config
           </div>
           <div ngbDropdownMenu (mouseout)='onMouseLeave(drop)' class="dropdown-menu top-cat-sub" aaria-labelledby="dropdownConfig">
+          <a class="dropdown-item" routerLink="config/agent" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Settings</a>
           <a class="dropdown-item" routerLink="config/engine/agent-binaries" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Engines</a>
           <a class="dropdown-item" routerLink="config/hashtypes" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Hashtypes</a>
           <a class="dropdown-item" routerLink="config/health-checks" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Health Checks</a>
-          <div role="separator" class="dropdown-divider my-1"></div>
           <a class="dropdown-item" routerLink="config/log" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Log</a>
-          <a class="dropdown-item" routerLink="config/agent" [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['active']">Settings</a>
           </div>
         </li>
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" routerLinkActive="active" *ngIf="isAuthentificated">
-          <div ngbDropdownToggle id="dropdownUsers" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <div ngbDropdownToggle id="dropdownUsers" routerLink="users/all-users" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faUserGroup" aria-hidden="true"></fa-icon>
               Users
           </div>
@@ -166,7 +165,7 @@
             <fa-icon class="dropdown-icon" [icon]="faInbox" aria-hidden="true"></fa-icon>
               Notifications
           </a>
-          <app-switch-theme></app-switch-theme>
+          <app-switch-theme class="point"></app-switch-theme>
           <a *ngIf="storedWidthScreentheme === 'true'" class="dropdown-item align-items-center point" (click)="switchScreen()">
             <fa-icon class="dropdown-icon" [icon]="faArrowsH" aria-hidden="true"></fa-icon>
               Full Width
@@ -180,7 +179,7 @@
               Support
           </a>
           <div role="separator" class="dropdown-divider my-1"></div>
-          <a class="dropdown-item align-items-center" (click)="onLogOut()">
+          <a class="dropdown-item align-items-center point" (click)="onLogOut()">
             <fa-icon class="dropdown-icon text-danger" [icon]="faPowerOff" aria-hidden="true"></fa-icon>
               Logout
           </a>

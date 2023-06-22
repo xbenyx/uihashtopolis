@@ -82,315 +82,169 @@
     <div class="col-12 d-flex align-items-center justify-content-center">
       <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
         <form [formGroup]="agentForm">
-          <div class="row">
-            <h3>Agent Settings</h3>&nbsp;
-               <h5><u>Activity / Registration</u></h5>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="SetAgenttimeout">Delay before considering an agent as inactive(or timed out)</label>
-                      <span *ngIf="atip.agenttimeout">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agenttimeout}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
+            <h5 class="form-input-custom"><u>Activity / Registration</u></h5>
+            <grid-form-input [name]="'Delay before considering an agent as inactive(or timed out)'" [tooltip]="atip.agenttimeout">
+            <td>
+              <input
+                    type='number'
+                    id="agenttimeout"
+                    class='form-control'
+                    formControlName="agenttimeout"
+                    #agenttimeout
+                    (change)="autoSave('agenttimeout',agenttimeout.value)"
+              >
+            </grid-form-input>
+            <grid-form-input [name]="'Delay before considering an issued chunk as inactive'" [tooltip]="atip.benchtime">
+            <td>
+              <input
+                    type='number'
+                    id="benchtime"
+                    class='form-control'
+                    formControlName="benchtime"
+                    #benchtime
+                    (change)="autoSave('benchtime',benchtime.value)"
+              >
+            </grid-form-input>
+            <grid-form-input [name]="'Frequency of the agent reporting about a task to the server'" [tooltip]="atip.statustimer">
+            <td>
+              <input
+                    type='number'
+                    id="statustimer"
+                    class='form-control'
+                    formControlName="statustimer"
+                    #statustimer
+                    (change)="autoSave('statustimer',statustimer.value)"
+              >
+            </grid-form-input>
+            <grid-form-input [name]="'Time during which util and temperature data are retained on the server'" [tooltip]="atip.agentDataLifetime">
+            <td>
+              <input
+                    type='number'
+                    id="agentDataLifetime"
+                    class='form-control'
+                    formControlName="agentDataLifetime"
+                    #agentDataLifetime
+                    (change)="autoSave('agentDataLifetime',agentDataLifetime.value)"
+              >
+            </grid-form-input>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <grid-form-input [name]="'Hide agents IP information'" [tooltip]="atip.hideIpInfo">
+                <td>
+                  <div class="form-check form-switch">
                       <input
-                            type='number'
-                            id="agenttimeout"
-                            class='form-control'
-                            formControlName="agenttimeout"
-                            #agenttimeout
-                            (change)="autoSave('agenttimeout',agenttimeout.value)"
+                            type="checkbox"
+                            id="hideIpInfo"
+                            class="form-check-input"
+                            formControlName="hideIpInfo"
+                            #hideIpInfo
+                            (change)="autoSave('hideIpInfo',hideIpInfo.value, true)"
                       >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="SetBenchtime">Delay before considering an issued chunk as inactive</label>
-                      <span *ngIf="atip.benchtime">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.benchtime}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="benchtime"
-                            class='form-control'
-                            formControlName="benchtime"
-                            #benchtime
-                            (change)="autoSave('benchtime',benchtime.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setStatustimer">Frequency of the agent reporting about a task to the server</label>
-                      <span *ngIf="atip.statustimer">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.statustimer}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="statustimer"
-                            class='form-control'
-                            formControlName="statustimer"
-                            #statustimer
-                            (change)="autoSave('statustimer',statustimer.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentDataLifetime">Time during which util and temperature data are retained on the server</label>
-                      <span *ngIf="atip.agentDataLifetime">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentDataLifetime}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="agentDataLifetime"
-                            class='form-control'
-                            formControlName="agentDataLifetime"
-                            #agentDataLifetime
-                            (change)="autoSave('agentDataLifetime',agentDataLifetime.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="row g-3">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <div class="form-outline">
-                          <label class="form-label" for="setHideIpInfo">Hide agent's IP information</label>
-                          <span *ngIf="atip.hideIpInfo">
-                            <fa-icon
-                                    placement="bottom"
-                                    ngbTooltip='{{atip.hideIpInfo}}'
-                                    container="body"
-                                    [icon]="faInfoCircle"
-                                    aria-hidden="true"
-                            >
-                            </fa-icon>
-                          </span>
-                          <td>
-                          <div class="form-check form-switch">
-                              <input
-                                    type="checkbox"
-                                    id="hideIpInfo"
-                                    class="form-check-input"
-                                    formControlName="hideIpInfo"
-                                    #hideIpInfo
-                                    (change)="autoSave('hideIpInfo',hideIpInfo.value, true)"
-                              >
-                          </div>
-                        </div>&nbsp;
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="form-group">
-                        <div class="form-outline">
-                          <label class="form-label" for="setVoucherDeletion">Voucher(s) can be used to register multiple agents</label>
-                          <span *ngIf="atip.voucherDeletion">
-                            <fa-icon
-                                    placement="bottom"
-                                    ngbTooltip='{{atip.voucherDeletion}}'
-                                    container="body"
-                                    [icon]="faInfoCircle"
-                                    aria-hidden="true"
-                            >
-                            </fa-icon>
-                          </span>
-                          <td>
-                          <div class="form-check form-switch">
-                              <input
-                                    type="checkbox"
-                                    id="voucherDeletion"
-                                    class="form-check-input"
-                                    formControlName="voucherDeletion"
-                                    #voucherDeletion
-                                    (change)="autoSave('voucherDeletion',voucherDeletion.value, true)"
-                              >
-                          </div>
-                        </div>&nbsp;
-                      </div>
-                    </div>
                   </div>
-                  <hr>
-                  <h5><u>Graphical Feedback</u></h5>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentStatLimit">Maximum number of data points in agent (gpu) graphs</label>
-                      <span *ngIf="atip.agentStatLimit">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentStatLimit}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="agentStatLimit"
-                            class='form-control'
-                            formControlName="agentStatLimit"
-                            #agentStatLimit
-                            (change)="autoSave('agentStatLimit',agentStatLimit.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentStatTension">Draw straigth lines in agent data graph instead of bezier curves</label>
-                      <span *ngIf="atip.agentStatTension">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentStatTension}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <select
-                            type='number'
-                            id='agentStatTension'
-                            class='form-select'
-                            formControlName="agentStatTension"
-                            #agentStatTension
-                            (change)="autoSave('agentStatTension',agentStatTension.value)"
-                        >
-                          <option value="0">Straight lines</option>
-                          <option value="1">Bezier curves</option>
-                      </select>
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentTempThreshold1">Temperature threshold above which an agent is displayed in <a style="color:orange;">orange</a> in the status page</label>
-                      <span *ngIf="atip.agentTempThreshold1">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentTempThreshold1}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="agentTempThreshold1"
-                            class='form-control'
-                            formControlName="agentTempThreshold1"
-                            #agentTempThreshold1
-                            (change)="autoSave('agentTempThreshold1',agentTempThreshold1.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentTempThreshold2">Temperature threshold above which an agent is displayed in <a style="color:red;">red</a> in the status page</label>
-                      <span *ngIf="atip.agentTempThreshold2">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentTempThreshold2}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="agentTempThreshold2"
-                            class='form-control'
-                            formControlName="agentTempThreshold2"
-                            #agentTempThreshold2
-                            (change)="autoSave('agentTempThreshold2',agentTempThreshold2.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentUtilThreshold1">Util threshold below which an agent is displayed in <a style="color:orange;">orange</a> in the status page</label>
-                      <span *ngIf="atip.agentUtilThreshold1">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentUtilThreshold1}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="agentUtilThreshold1"
-                            class='form-control'
-                            formControlName="agentUtilThreshold1"
-                            #agentUtilThreshold1
-                            (change)="autoSave('agentUtilThreshold1',agentUtilThreshold1.value)"
-                      >
-                    </div>
-                  </div>&nbsp;
-                  <div class="form-group">
-                    <div class="form-outline">
-                      <label class="form-label" for="setAgentUtilThreshold2">Util threshold below which an agent is displayed in <a style="color:red;">red</a> in the status page</label>
-                      <span *ngIf="atip.agentUtilThreshold2">
-                        <fa-icon
-                                placement="bottom"
-                                ngbTooltip='{{atip.agentUtilThreshold2}}'
-                                container="body"
-                                [icon]="faInfoCircle"
-                                aria-hidden="true"
-                        >
-                        </fa-icon>
-                      </span>
-                      <td>
-                      <input
-                            type='number'
-                            id="agentUtilThreshold2"
-                            class='form-control'
-                            formControlName="agentUtilThreshold2"
-                            #agentUtilThreshold2
-                            (change)="autoSave('agentUtilThreshold2',agentUtilThreshold2.value)"
-                      >
-                    </div>
-                  </div>
-                  &nbsp;&nbsp;
-             </div>
-            <!-- <button  class="btn btn-gray-800" type="submit">Save</button> -->
+                </grid-form-input>
+              </div>
+          <div class="col-md-8">
+            <grid-form-input [name]="'Voucher(s) can be used to register multiple agents'" [tooltip]="atip.voucherDeletion">
+              <td>
+                <div class="form-check form-switch">
+                    <input
+                          type="checkbox"
+                          id="voucherDeletion"
+                          class="form-check-input"
+                          formControlName="voucherDeletion"
+                          #voucherDeletion
+                          (change)="autoSave('voucherDeletion',voucherDeletion.value, true)"
+                    >
+                </div>
+              </grid-form-input>
+          </div>
+          </div>
+          <hr>
+          <h5 class="form-input-custom"><u>Graphical Feedback</u></h5>
+          <grid-form-input [name]="'Maximum number of data points in agent (gpu) graphs'" [tooltip]="atip.agentStatLimit">
+            <td>
+              <input
+                    type='number'
+                    id="agentStatLimit"
+                    class='form-control'
+                    formControlName="agentStatLimit"
+                    #agentStatLimit
+                    (change)="autoSave('agentStatLimit',agentStatLimit.value)"
+              >
+          </grid-form-input>
+          <grid-form-input [name]="'Draw straigth lines in agent data graph instead of bezier curves'" [tooltip]="atip.agentStatTension">
+            <td>
+              <select
+                    type='number'
+                    id='agentStatTension'
+                    class='form-select'
+                    formControlName="agentStatTension"
+                    #agentStatTension
+                    (change)="autoSave('agentStatTension',agentStatTension.value)"
+                >
+                  <option value="0">Straight lines</option>
+                  <option value="1">Bezier curves</option>
+              </select>
+          </grid-form-input>
+          <grid-form-input [name]="'Temperature threshold above which an agent is displayed in orange in the status page'" [tooltip]="atip.agentTempThreshold1">
+            <td>
+              <input
+                    type='number'
+                    id="agentTempThreshold1"
+                    class='form-control'
+                    formControlName="agentTempThreshold1"
+                    #agentTempThreshold1
+                    (change)="autoSave('agentTempThreshold1',agentTempThreshold1.value)"
+              >
+          </grid-form-input>
+          <grid-form-input [name]="'Temperature threshold above which an agent is displayed in red in the status page'" [tooltip]="atip.agentTempThreshold2">
+            <td>
+              <input
+                    type='number'
+                    id="agentTempThreshold2"
+                    class='form-control'
+                    formControlName="agentTempThreshold2"
+                    #agentTempThreshold2
+                    (change)="autoSave('agentTempThreshold2',agentTempThreshold2.value)"
+              >
+          </grid-form-input>
+          <grid-form-input [name]="'Util threshold below which an agent is displayed in orange in the status page'" [tooltip]="atip.agentUtilThreshold1">
+            <td>
+              <input
+                    type='number'
+                    id="agentUtilThreshold1"
+                    class='form-control'
+                    formControlName="agentUtilThreshold1"
+                    #agentUtilThreshold1
+                    (change)="autoSave('agentUtilThreshold1',agentUtilThreshold1.value)"
+              >
+          </grid-form-input>
+          <grid-form-input [name]="'Util threshold below which an agent is displayed in red in the status page'" [tooltip]="atip.agentUtilThreshold2">
+            <td>
+              <input
+                    type='number'
+                    id="agentUtilThreshold2"
+                    class='form-control'
+                    formControlName="agentUtilThreshold2"
+                    #agentUtilThreshold2
+                    (change)="autoSave('agentUtilThreshold2',agentUtilThreshold2.value)"
+              >
+          </grid-form-input>
+
+          <!-- <div *ngFor="let item of modelAgentActivity">
+            <grid-form-input [name]="item.label" [tooltip]='atip.agentUtilThreshold2'>
+              <td>
+                <input
+                      type='number'
+                      id={{item.formcontrol}}
+                      class='form-control'
+                      formControlName={{item.formcontrol}}
+                      #val
+                      (change)="autoSave(item.formcontrol,val.value)"
+                >
+            </grid-form-input>
+
+          </div> -->
           </form>
         </div>
       </div>

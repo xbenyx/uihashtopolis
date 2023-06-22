@@ -193,6 +193,53 @@ export class ServerComponent implements OnInit {
     });
   }
 
+  modelAgentActivity = [
+    {
+      type: "number",
+      formcontrol: "agenttimeout",
+      label: "Delay before considering an agent as inactive(or timed out)",
+    },
+    {
+      type: "number",
+      formcontrol: "benchtime",
+      label: "Delay before considering an issued chunk as inactive",
+    },
+    {
+      type: "number",
+      formcontrol: "statustimer",
+      label: "Frequency of the agent reporting about a task to the server",
+    },
+    {
+      type: "number",
+      formcontrol: "agentDataLifetime",
+      label: "Time during which util and temperature data are retained on the server",
+    },
+    {
+      type: "checkbox",
+      formcontrol: "hideIpInfo",
+      label: "Hide agents IP information",
+    },
+    {
+      type: "checkbox",
+      formcontrol: "voucherDeletion",
+      label: "Voucher(s) can be used to register multiple agents",
+    }
+  ];
+
+
+  // sectiontwo: [
+  //   {
+  //     type: "number",
+  //     formcontrol: "agentStatLimit",
+  //     label: "Maximum number of data points in agent (gpu) graphs",
+  //   },
+  //   {
+  //     type: "number",
+  //     formcontrol: "agentStatTension",
+  //     label: "Draw straigth lines in agent data graph instead of bezier curves",
+  //   },
+  // ]
+
   private initTCForm() {
     this.isLoading = true;
     let params = {'maxResults': this.maxResults}

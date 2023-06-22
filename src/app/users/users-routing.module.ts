@@ -10,6 +10,7 @@ import { AllUsersComponent } from "./all-users/all-users.component";
 import { GroupsComponent } from "./groups/groups.component";
 import { UsersGuard } from "../core/_guards/users.guard";
 import { UsersComponent } from "./users.component";
+import { CUGroupComponent } from "./groups/cu-group/cu-group.component";
 
 const routes: Routes = [
   {
@@ -55,6 +56,20 @@ const routes: Routes = [
           data: {
               kind: 'access-groups',
               breadcrumb: 'Access Groups'
+          },
+          canActivate: [AuthGuard,AccessGroupsGuard]},
+        {
+          path: 'access-groups/new', component: CUGroupComponent,
+          data: {
+              kind: 'new-access-groups',
+              breadcrumb: 'New Access Group'
+          },
+          canActivate: [AuthGuard,AccessGroupsGuard]},
+        {
+          path: 'access-groups/:id/edit', component: CUGroupComponent,
+          data: {
+              kind: 'edit-access-groups',
+              breadcrumb: 'Edit Access Group'
           },
           canActivate: [AuthGuard,AccessGroupsGuard]},
         ]
