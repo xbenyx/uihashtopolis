@@ -35,7 +35,7 @@
    <span class="navbar-toggler-icon"></span>
  </button>
 	<div id="navbarSupportedContent" [ngClass]="{'collapse': collapsed, 'navbar-collapse': true}">
-        <ul class="navbar-toggler mr-auto">
+        <ul class="nav navbar-nav mr-auto">
         <li ngbDropdown #drop="ngbDropdown" (mouseover)='onMouseEnter(drop)' (mouseout)='onMouseLeave(drop)' class="top-cat nav-item dropdown show" [routerLinkActive]="['active']" *ngIf="isAuthentificated">
           <div ngbDropdownToggle id="dropdownAgents" routerLink="agents/show-agents" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <fa-icon class="dropdown-icon" [icon]="faServer" aria-hidden="true"></fa-icon>
