@@ -61,8 +61,8 @@ export class AccessGroupsService {
  * @param item - fields
  * @returns  Object
 **/
-  updateAccessGroups(item: any): Observable<any> {
-    return this.http.patch<number>(this.endpoint + '/' + item.accessGroupId, {groupName: item.groupName})
+  updateAccessGroups(id:number, val: any): Observable<any> {
+    return this.http.patch<number>(this.endpoint + '/' + id, val)
   }
 
 }

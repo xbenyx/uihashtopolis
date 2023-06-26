@@ -1,8 +1,8 @@
 <grid-main [class]="'fmxw-500'">
-  <app-page-subtitle [subtitle]="'Create Access Group'"></app-page-subtitle>
+  <app-page-subtitle [subtitle]="'Access Group'"></app-page-subtitle>
     <form [formGroup]="Form" (ngSubmit)="onSubmit()">
       <div class="row">
-          <grid-form-input [name]="'Access Group Name'" [labelclass]="'requiredak'">
+          <grid-form-input [name]="'Name'" [labelclass]="'requiredak'">
             <input
                   type='text'
                   id="groupName"
@@ -10,7 +10,14 @@
                   formControlName="groupName"
             >
           </grid-form-input>
-          <button-submit [name]="'Create'"></button-submit>
+          <div [ngSwitch]="whichView">
+            <div *ngSwitchCase="'create'">
+              <button-submit [name]="'Create'"></button-submit>
+            </div>
+            <div *ngSwitchCase="'edit'">
+              <button-submit [name]="'Update'"></button-submit>
+            </div>
+          </div>
         </div>
   </form>
 </grid-main>

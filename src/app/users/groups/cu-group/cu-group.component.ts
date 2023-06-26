@@ -69,49 +69,57 @@ export class CUGroupComponent implements OnInit {
   }
   }
 
-  onSave(item: any){
+  onUpdate(item: any){
     console.log(item);
-    this.accessgroupService.updateAccessGroups(item).subscribe((hasht: any) => {
-      this.isLoading = false;
-      this.ngOnInit();  // reload ngOnInit
-      Swal.fire({
-        title: "Updated!",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500
-      });
-    });
+
   }
 
   onSubmit(): void{
     if (this.Form.valid) {
-    console.log(this.Form.value);
 
     this.isLoading = true;
 
-    this.accessgroupService.createAccessGroups(this.Form.value).subscribe((agroup: any) => {
-      this.isLoading = false;
-      Swal.fire({
-        title: "Good job!",
-        text: "New HashList created!",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.ngOnInit();
-    },
-    errorMessage => {
-      // check error status code is 500, if so, do some action
-      Swal.fire({
-        title: "Oppss! Error",
-        text: "Access Group was not created, please try again!",
-        icon: "warning",
-        showConfirmButton: true
-      });
-      this.ngOnInit();
+    switch (this.whichView) {
+
+      case 'create':
+        this.accessgroupService.createAccessGroups(this.Form.value).subscribe((agroup: any) => {
+          this.isLoading = false;
+          Swal.fire({
+            title: "Good job!",
+            text: "New Group created!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.router.navigate(['/users/access-groups']);
+        },
+        errorMessage => {
+          Swal.fire({
+            title: "Oppss! Error",
+            text: "Access Group was not created, please try again!",
+            icon: "warning",
+            showConfirmButton: true
+          });
+          this.ngOnInit();
+        }
+      );
+      break;
+
+      case 'edit':
+        const id = +this.route.snapshot.params['id'];
+        this.accessgroupService.updateAccessGroups(id,this.Form.value).subscribe((hasht: any) => {
+          this.isLoading = false;
+          this.ngOnInit();  // reload ngOnInit
+          Swal.fire({
+            title: "Updated!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.router.navigate(['/users/access-groups']);
+        });
+      break;
     }
-  );
-  this.Form.reset(); // success, we reset form
   }
 }
 

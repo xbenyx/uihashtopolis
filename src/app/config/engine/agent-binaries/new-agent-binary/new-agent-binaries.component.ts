@@ -32,7 +32,8 @@ export class NewAgentBinariesComponent implements OnInit {
 
   constructor(
     private agentBinService: AgentBinService,
-    private route:ActivatedRoute, private router:Router
+    private route:ActivatedRoute,
+    private router:Router
   ) { }
 
   // Create or Edit Binary
