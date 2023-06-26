@@ -86,7 +86,7 @@
                                 <ng-template ngbPanelContent>
                                   <div class="row">
                                     <div class="col">
-                                      <grid-form-input [name]="'Chunk size'" [tooltip]="'Measure is in seconds time'">
+                                      <grid-form-input [name]="'Chunk size'" [tooltip]="'Measure is in seconds time'" [labelclass]="'display-col'">
                                         <input
                                               type='number'
                                               id="chunkTime"
@@ -97,7 +97,7 @@
                                       </grid-form-input>
                                     </div>
                                     <div class="col">
-                                      <grid-form-input [name]="'Status timer'" [tooltip]="'Measure is in seconds time'">
+                                      <grid-form-input [name]="'Status timer'" [tooltip]="'Measure is in seconds time'" [labelclass]="'display-col'">
                                         <input
                                               type='number'
                                               id="statusTimer"
@@ -110,7 +110,7 @@
                                   </div>
                                   <div class="row">
                                     <div class="col">
-                                      <grid-form-input [name]="'Benchmark Type'" [tooltip]="'Only applies to Hashcat. If binary type generic is selected this benchmark option will be ignored'">
+                                      <grid-form-input [name]="'Benchmark Type'" [tooltip]="'Only applies to Hashcat. If binary type generic is selected this benchmark option will be ignored'" [labelclass]="'display-col'">
                                         <select
                                                 type='number'
                                                 id="useNewBench"
@@ -123,7 +123,7 @@
                                       </grid-form-input>
                                     </div>
                                     <div class="col">
-                                      <grid-form-input [name]="'Binary type'" [tooltip]="'The task will run using the binary type selected.'">
+                                      <grid-form-input [name]="'Binary type'" [tooltip]="'The task will run using the binary type selected.'" [labelclass]="'display-col'">
                                         <select
                                                 type='number'
                                                 id='crackerBinaryTypeId'
@@ -138,7 +138,7 @@
                                   </div>
                                   <div class="row">
                                     <div class="col">
-                                      <grid-form-input [name]="'CPU only'" [tooltip]="'The task will work only with CPU agents assigned'">
+                                      <grid-form-input [name]="'CPU only'" [tooltip]="'The task will work only with CPU agents assigned'" [labelclass]="'display-col'">
                                         <select
                                               id='isCpuTask'
                                               class='form-select'
@@ -150,7 +150,7 @@
                                       </grid-form-input>
                                     </div>
                                     <div class="col">
-                                      <grid-form-input [name]="'Small task'" [tooltip]="'Only one agent gets assigned to it.'">
+                                      <grid-form-input [name]="'Small task'" [tooltip]="'Only one agent gets assigned to it.'" [labelclass]="'display-col'">
                                         <select
                                               id='isSmall'
                                               class='form-select'

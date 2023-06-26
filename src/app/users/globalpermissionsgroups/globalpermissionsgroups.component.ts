@@ -1,5 +1,4 @@
 import { faHomeAlt, faPlus, faTrash, faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -20,8 +19,6 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     // Loader
     isLoading = false;
     // Form attributtes
-    signupForm: FormGroup;
-    public isCollapsed = true;
     faInfoCircle=faInfoCircle;
     faHome=faHomeAlt;
     faPlus=faPlus;
@@ -49,9 +46,6 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
 
       this.setAccessPermissions();
 
-      this.signupForm = new FormGroup({
-        'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      });
       let params = {'maxResults': this.maxResults , 'expand': 'user'}
       this.gpg.getAccPGroups(params).subscribe((gpg: any) => {
         this.Allgpg = gpg.values;
@@ -131,40 +125,6 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
         });
       });
     }
-
-    onSubmit(): void{
-      if (this.signupForm.valid) {
-      console.log(this.signupForm.value);
-
-      this.isLoading = true;
-
-      this.gpg.createAccP(this.signupForm.value).subscribe((agroup: any) => {
-        this.isLoading = false;
-        Swal.fire({
-          title: "Good job!",
-          text: "Global Permission Group created!",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.ngOnInit();
-        this.rerender();  // rerender datatables
-        this.isCollapsed = true; //Close button
-      },
-      errorMessage => {
-        // check error status code is 500, if so, do some action
-        Swal.fire({
-          title: "Oppss! Error",
-          text: "Global Permission Group was not created, please try again!",
-          icon: "warning",
-          showConfirmButton: true
-        });
-        this.ngOnInit();
-      }
-    );
-    this.signupForm.reset(); // success, we reset form
-    }
-  }
 
   onDelete(id: number){
     const swalWithBootstrapButtons = Swal.mixin({
