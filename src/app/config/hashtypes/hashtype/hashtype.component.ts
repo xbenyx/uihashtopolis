@@ -1,31 +1,35 @@
-import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { AccessGroupsService } from 'src/app/core/_services/access/accessgroups.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { HashtypeService } from 'src/app/core/_services/config/hashtype.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
-  selector: 'app-cu-group',
-  templateUrl: './cu-group.component.html'
+  selector: 'app-hashtype',
+  templateUrl: './hashtype.component.html'
 })
-@PageTitle(['Group'])
-export class CUGroupComponent implements OnInit {
+@PageTitle(['Hashtype'])
+export class HashtypeComponent implements OnInit {
   // Loader
   isLoading = false;
-  // Create or Edit Binary
+  // Create or Edit Hashtype
   whichView: string;
   editMode = false;
   editedIndex: number;
 
   constructor(
-    private accessgroupService: AccessGroupsService,
+    private hashtypeService: HashtypeService,
     private route:ActivatedRoute,
     private router:Router
   ) { }
 
+  // Create Hashtype
   Form = new FormGroup({
-    'groupName': new FormControl('', [Validators.required, Validators.minLength(1)]),
+    'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), Validators.minLength(1)]),
+    'description': new FormControl('', [Validators.required, Validators.minLength(1)]),
+    'isSalted': new FormControl(false),
+    'isSlowHash': new FormControl(false)
   });
 
   ngOnInit(): void {
@@ -41,11 +45,11 @@ export class CUGroupComponent implements OnInit {
     this.route.data.subscribe(data => {
       switch (data['kind']) {
 
-        case 'new-access-groups':
+        case 'new-hashtype':
           this.whichView = 'create';
         break;
 
-        case 'edit-access-groups':
+        case 'edit-hashtype':
           this.whichView = 'edit';
           this.isLoading = true;
           this.initForm();
@@ -60,54 +64,55 @@ export class CUGroupComponent implements OnInit {
   private initForm() {
     this.isLoading = true;
     if (this.editMode) {
-    this.accessgroupService.getAccessGroup(this.editedIndex).subscribe((result)=>{
+    this.hashtypeService.getHashtype(this.editedIndex).subscribe((result)=>{
       this.Form = new FormGroup({
-        'groupName': new FormControl(result['groupName']),
+        'hashTypeId': new FormControl({value: result['hashTypeId'], disabled: true} ),
+        'description': new FormControl(result['description']),
+        'isSalted': new FormControl(result['isSalted']),
+        'isSlowHash': new FormControl(result['isSlowHash']),
       });
       this.isLoading = false;
     });
   }
   }
 
-  onUpdate(item: any){
-    console.log(item);
-
-  }
-
   onSubmit(): void{
     if (this.Form.valid) {
+    console.log(this.Form);
 
     this.isLoading = true;
 
     switch (this.whichView) {
 
       case 'create':
-        this.accessgroupService.createAccessGroups(this.Form.value).subscribe((agroup: any) => {
-          this.isLoading = false;
+      this.hashtypeService.createHashType(this.Form.value).subscribe((hasht: any) => {
+        const response = hasht;
+        console.log(response);
+        this.isLoading = false;
           Swal.fire({
             title: "Good job!",
-            text: "New Group created!",
+            text: "New Hashtype created!",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
           });
-          this.router.navigate(['/users/access-groups']);
+          this.router.navigate(['/config/hashtypes']);
         },
         errorMessage => {
+          // check error status code is 500, if so, do some action
           Swal.fire({
-            title: "Oppss! Error",
-            text: "Access Group was not created, please try again!",
+            title: "Error!",
+            text: "Hastype was not created, please try again!",
             icon: "warning",
             showConfirmButton: true
           });
-          this.ngOnInit();
         }
       );
       break;
 
       case 'edit':
         const id = +this.route.snapshot.params['id'];
-        this.accessgroupService.updateAccessGroups(id,this.Form.value).subscribe((hasht: any) => {
+        this.hashtypeService.updateHashType(id,this.Form.value).subscribe((hasht: any) => {
           this.isLoading = false;
           Swal.fire({
             title: "Updated!",
@@ -115,7 +120,7 @@ export class CUGroupComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
-          this.router.navigate(['/users/access-groups']);
+          this.router.navigate(['/config/hashtypes']);
         });
       break;
     }

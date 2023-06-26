@@ -16,6 +16,7 @@ import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { ServerComponent } from "./server/server.component";
 import { ConfigGuard } from "../core/_guards/config.guard";
 import { LogComponent } from "./log/log.component";
+import { HashtypeComponent } from "./hashtypes/hashtype/hashtype.component";
 
 const routes: Routes = [
   {
@@ -61,6 +62,20 @@ const routes: Routes = [
           data: {
               kind: 'hashtypes',
               breadcrumb: 'Hashtypes'
+          },
+          canActivate: [AuthGuard,ConfigGuard]},
+        {
+          path: 'hashtypes/new',  component: HashtypeComponent,
+          data: {
+              kind: 'new-hashtype',
+              breadcrumb: 'New Hashtype'
+          },
+          canActivate: [AuthGuard,ConfigGuard]},
+        {
+          path: 'hashtypes/:id/edit',  component: HashtypeComponent,
+          data: {
+              kind: 'edit-hashtype',
+              breadcrumb: 'Edit Hashtype'
           },
           canActivate: [AuthGuard,ConfigGuard]},
         {

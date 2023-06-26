@@ -1,5 +1,4 @@
 import { faHomeAlt, faPlus, faTrash, faEdit, faSave, faCancel, faInfoCircle} from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -17,8 +16,7 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 export class HashtypesComponent implements OnInit {
   // Loader
   isLoading = false;
-  // Form attributtes
-  public isCollapsed = true;
+
   faHome=faHomeAlt;
   faPlus=faPlus;
   faTrash=faTrash;
@@ -27,8 +25,6 @@ export class HashtypesComponent implements OnInit {
   faCancel=faCancel;
   faInfoCircle=faInfoCircle;
 
-  // Create Hashtype
-  createForm: FormGroup;
   private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective, {static: false})
@@ -41,20 +37,9 @@ export class HashtypesComponent implements OnInit {
     private hashtypeService: HashtypeService
   ) { }
 
-  public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number, isEdit: false}[] = [];
-
-  booleanopt: any;
+  public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number}[] = [];
 
   ngOnInit(): void {
-
-    this.booleanopt = [{'value': 'true'},{'value': 'false'}];
-
-    this.createForm = new FormGroup({
-      'hashTypeId': new FormControl('', [Validators.required,Validators.pattern("^[0-9]*$"), this.checkHashtypeExist.bind(this), Validators.minLength(1)]),
-      'description': new FormControl('', [Validators.required, Validators.minLength(1)]),
-      'isSalted': new FormControl(false),
-      'isSlowHash': new FormControl(false)
-    });
 
     let params = {'maxResults': this.maxResults};
 
@@ -129,80 +114,6 @@ export class HashtypesComponent implements OnInit {
         this.dtTrigger['new'].next();
       });
     });
-  }
-
-  // Not implemented - ToDo
-  checkHashtypeExist(control: FormControl): {[s: string]: boolean}{
-    if(this.htypes.indexOf(control.value) !== -1){
-      return {'hashtypeIsUsed': true};
-    }
-    return null as any;
-  }
-
-  onSubmit(): void{
-    if (this.createForm.valid) {
-    console.log(this.createForm);
-
-    this.isLoading = true;
-
-    this.hashtypeService.createHashType(this.createForm.value).subscribe((hasht: any) => {
-      const response = hasht;
-      console.log(response);
-      this.isLoading = false;
-        Swal.fire({
-          title: "Good job!",
-          text: "New Hashtype created!",
-          icon: "success",
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.ngOnInit();
-        this.rerender();  // rerender datatables
-        this.isCollapsed = true; //Close button new hashtype
-      },
-      errorMessage => {
-        // check error status code is 500, if so, do some action
-        Swal.fire({
-          title: "Error!",
-          text: "Hastype was not created, please try again!",
-          icon: "warning",
-          showConfirmButton: true
-        });
-        this.ngOnInit();
-        this.rerender();  // rerender datatables
-      }
-    );
-    this.createForm.reset(); // success, we reset form
-    }
-  }
-
-  onEdit(item: any){
-    // this.isCollapsed = false;
-    this.htypes.forEach(element => {
-      element.isEdit = false;
-    });
-    item.isEdit = true;
-  }
-
-  onSave(item: any){
-    console.log(item);
-    this.hashtypeService.updateHashType(item).subscribe((hasht: any) => {
-      this.isLoading = false;
-      Swal.fire({
-        title: "Updated!",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500
-      });
-    });
-    this.ngOnInit();  // reload ngOnInit
-    this.rerender();  // Destroy and rerender table
-    item.isEdit = false; //Change Edit status to false
-  }
-
-  onCancel(item: any){
-    // this.rerender();  // Destroy and rerender table
-    item.isEdit = false;
   }
 
   onDelete(id: number){

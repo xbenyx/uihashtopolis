@@ -23,6 +23,7 @@ import { ServerComponent } from "./server/server.component";
 import { PipesModule } from "../shared/pipes.module";
 import { LogComponent } from "./log/log.component";
 import { NewHealthChecksComponent } from './health-checks/new-health-checks/new-health-checks.component';
+import { HashtypeComponent } from './hashtypes/hashtype/hashtype.component';
 
 @NgModule({
   declarations:[
@@ -39,7 +40,8 @@ import { NewHealthChecksComponent } from './health-checks/new-health-checks/new-
     CrackersComponent,
     ServerComponent,
     LogComponent,
-    NewHealthChecksComponent
+    NewHealthChecksComponent,
+    HashtypeComponent
   ],
   imports:[
     ReactiveFormsModule,

@@ -1,62 +1,5 @@
-<app-page-title [title]="'Hashtypes'" [subbutton]="false" [usetoggle]="true">
-  <a  (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-    <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-      New Hashtype
-  </a>
-</app-page-title>
-<!-- New Hashtype -->
-<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <grid-main [class]="'fmxw-500'">
-    <app-page-subtitle [subtitle]="'Create Hashtype'"></app-page-subtitle>
-    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-      <grid-form-input [name]="'Hashtype'" [tooltip]="'ie. Hashcat -m'" [labelclass]="'requiredak'">
-        <input
-              type='number'
-              id="hashtype"
-              class='form-control'
-              formControlName="hashTypeId"
-              validateInputNumber
-        >
-        <span *ngIf="!createForm.errors?.['hashTypeId'].valid && createForm.errors?.['hashTypeId'].touched" class="help-block" >
-          <span *ngIf="createForm.errors?.['hashtypeIsUsed']" >This name is already in use!</span>
-          <span *ngIf="createForm.errors?.['required']" >This field is required!</span>
-        </span>
-      </grid-form-input>
-      <grid-form-input [name]="'Description'" [labelclass]="'requiredak'">
-        <input
-              type='text'
-              id="description"
-              class='form-control'
-              formControlName="description"
-        >
-      </grid-form-input>
-      <grid-form-input [name]="'Salted'" [tooltip]="'Only if there is a separate salt value'">
-        <td>
-          <select
-                class='form-select'
-                id="isSalted"
-                formControlName="isSalted"
-            >
-            <option [ngValue]="true" [defaultSelected]=true>No</option>
-            <option [ngValue]="false">Yes</option>
-          </select>
-      </grid-form-input>
-      <grid-form-input [name]="'Slow Hash'">
-        <td>
-          <select
-                class='form-select'
-                id="isSlowHash"
-                formControlName="isSlowHash"
-            >
-            <option [ngValue]="true" [defaultSelected]=true>No</option>
-            <option [ngValue]="false">Yes</option>
-          </select>
-      </grid-form-input>
-      <button-submit [name]="'Create'"></button-submit>
-    </form>
-  </grid-main>
-</div>
-<!-- Body -->
+<app-page-title [title]="'Hashtypes'" [buttontitle]="'New Hashtype'" [buttonlink]="'/config/hashtypes/new'" [subbutton]="true"></app-page-title>
+<!-- Table -->
 <app-table>
   <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead class="thead-light">
@@ -71,56 +14,22 @@
       <tbody>
         <tr *ngFor="let h of htypes; let i = index">
             <td class="text-align:center">{{ h.hashTypeId }}</td>
-              <!-- Normal View -->
-              <td *ngIf="!h.isEdit">{{ h.description }}</td>
-              <td *ngIf="!h.isEdit">{{ h.isSalted == 1 ? "Yes" : "No" }}</td>
-              <td *ngIf="!h.isEdit">{{ h.isSlowHash == 1 ? "Yes" : "No" }}</td>
-              <td *ngIf="!h.isEdit" class="overflow-hidden">
-                <div *ngIf="!h.isEdit">
-                  <app-button-actions>
-                    <button ngbDropdownItem (click)="onEdit(h)" data-placement="top" title="Edit">
-                      <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon> Edit
-                    </button>
-                    <div class="dropdown-divider"></div>
-                    <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(h.hashTypeId)">
-                      <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon> Delete
-                    </button>
-                  </app-button-actions>
-                </div>
-              </td>
-              <!-- Edit view -->
-              <td *ngIf="h.isEdit">
-                <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="h.description"
-                      >
-              </td>
-              <td *ngIf="h.isEdit">
-                <select
-                        class='form-select'
-                        [(ngModel)]="h.isSalted"
-                    >
-                    <option *ngFor="let b of booleanopt" [value]="b.value">{{ b.value == 'false'? 'No':'Yes' }}</option>
-                </select>
-              </td>
-              <td *ngIf="h.isEdit">
-                <select
-                      class='form-select'
-                      [(ngModel)]="h.isSlowHash"
-                    >
-                    <option *ngFor="let b of booleanopt" [value]="b.value">{{ b.value == 'false'? 'No':'Yes' }}</option>
-                </select>
-              </td>
-              <td *ngIf="h.isEdit">
-                <a class='btn-outline-gray-600 float-right' (click)="onSave(h)" data-toggle="tooltip" data-placement="top" title="Update">
-                  <fa-icon [icon]="faSave" aria-hidden="true"></fa-icon>
-                </a>
-                <a class='btn-outline-gray-600 float-right' (click)="onCancel(h)" data-toggle="tooltip" data-placement="top" title="Cancel">
-                  <fa-icon [icon]="faCancel" aria-hidden="true"></fa-icon>
-                </a>
-              </td>
-            <!-- Edit view end -->
+            <td>{{ h.description }}</td>
+            <td>{{ h.isSalted == 0 ? "Yes" : "No" }}</td>
+            <td>{{ h.isSlowHash == 0 ? "Yes" : "No" }}</td>
+            <td class="overflow-hidden">
+              <div>
+                <app-button-actions>
+                  <button ngbDropdownItem [routerLink]="[h.hashTypeId,'edit']" data-placement="top" title="Edit">
+                    <fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon> Edit
+                  </button>
+                  <div class="dropdown-divider"></div>
+                  <button ngbDropdownItem data-toggle="tooltip" data-placement="top" title="Delete" (click)="onDelete(h.hashTypeId)">
+                    <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon> Delete
+                  </button>
+                </app-button-actions>
+              </div>
+            </td>
         </tr>
       </tbody>
   </table>
