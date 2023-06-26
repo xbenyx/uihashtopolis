@@ -17,6 +17,7 @@ import { HealthChecksComponent } from "./health-checks/health-checks.component";
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { ComponentsModule } from "../shared/components.module";
+import { SettingsMenuComponent } from "./server/settings-menu";
 import { ConfigRoutingModule } from "./config-routing.module";
 import { ServerComponent } from "./server/server.component";
 import { PipesModule } from "../shared/pipes.module";
@@ -31,6 +32,7 @@ import { LogComponent } from "./log/log.component";
     AgentBinariesComponent,
     HealthChecksComponent,
     EditCrackersComponent,
+    SettingsMenuComponent,
     NewCrackersComponent,
     HashtypesComponent,
     CrackersComponent,

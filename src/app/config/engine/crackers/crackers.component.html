@@ -1,21 +1,14 @@
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
-  <div class="btn-toolbar mb-2 mb-md-0">
-  <div class="d-block mb-4 mb-md-0">
-     <app-page-subtitle [subtitle]="'Crackers'"></app-page-subtitle>
-      <div class="btn-group ms-2 ms-3">
-        <button type="button" routerLink="../agent-binaries" class="btn btn-sm btn-outline-gray-600">Agent Binaries</button>
-        <button type="button" routerLink="../crackers" class="btn btn-sm btn-outline-gray-600-select">Crackers</button>
-        <button type="button" routerLink="../preprocessors" class="btn btn-sm btn-outline-gray-600">Preprocessors</button>
-      </div>
-    </div>
-  </div>
-  <div class="btn-toolbar mb-2 mb-md-0">
-    <a (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-      <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-        New Cracker
-    </a>
-  </div>
+<app-page-title [title]="'Crackers'" [buttontitle]="'New Cracker'" [buttonlink]="'/config/engine/crackers/new-cracker'" [subbutton]="true"></app-page-title>
+<div class="btn-group">
+  <button type="button" routerLink="../agent-binaries" class="btn btn-sm btn-outline-gray-600">Agent Binaries</button>
+  <button type="button" routerLink="../crackers" class="btn btn-sm btn-outline-gray-600-select">Crackers</button>
+  <button type="button" routerLink="../preprocessors" class="btn btn-sm btn-outline-gray-600">Preprocessors</button>
 </div>
+
+<a (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+  <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
+    New Cracker
+</a>
 <!-- New Cracker -->
 <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <grid-main [class]="'fmxw-500'">
