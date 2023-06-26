@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
 import { faHomeAlt, faPlus, faEdit, faTrash, faEyeDropper} from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
@@ -24,15 +23,11 @@ export class HealthChecksComponent implements OnInit {
   // Loader
   isLoading = false;
   // Form attributtes
-  public isCollapsed = true;
   faHome=faHomeAlt;
   faPlus=faPlus;
   faTrash=faTrash;
   faEdit=faEdit;
   faEyeDropper=faEyeDropper;
-
-  // Form create Health Check
-  createForm: FormGroup;
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
@@ -44,14 +39,11 @@ export class HealthChecksComponent implements OnInit {
   constructor(
     private healthcheckService: HealthcheckService,
     private hashtypeService: HashtypeService,
-    private crackerService: CrackerService,
     private uiService: UIConfigService,
     // private _changeDetectorRef: ChangeDetectorRef,
     private route:ActivatedRoute,
-    private router:Router) { }
-
-  crackertype: any = [];
-  crackerversions: any = [];
+    private router:Router
+  ) { }
 
   public healthc: {
     attackCmd: string,
@@ -77,16 +69,6 @@ export class HealthChecksComponent implements OnInit {
   public mergedObjects: any
 
   ngOnInit(): void {
-
-  this.createForm = new FormGroup({
-    'checkType': new FormControl(0),
-    'hashtypeId': new FormControl(null || 0, [Validators.required]),
-    'crackerBinaryId': new FormControl('', [Validators.required])
-  });
-
-  this.crackerService.getCrackerType().subscribe((crackers: any) => {
-    this.crackertype = crackers.values;
-  });
 
   let params = {'maxResults': this.maxResults};
 
@@ -161,13 +143,6 @@ export class HealthChecksComponent implements OnInit {
 
   }
 
-  onChangeBinary(id: string){
-    let params = {'filter': 'crackerBinaryTypeId='+id+''};
-    this.crackerService.getCrackerBinaries(params).subscribe((crackers: any) => {
-      this.crackerversions = crackers.values;
-    });
-  }
-
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -177,41 +152,6 @@ export class HealthChecksComponent implements OnInit {
         this.dtTrigger['new'].next();
       });
     });
-  }
-
-  onSubmit(){
-    if (this.createForm.valid) {
-      console.log(this.createForm);
-
-      this.isLoading = true;
-
-      this.healthcheckService.createHealthCheck(this.createForm.value).subscribe((hasht: any) => {
-        const response = hasht;
-        console.log(response);
-        this.isLoading = false;
-          Swal.fire({
-            title: "Good job!",
-            text: "New Health Check created!",
-            icon: "success",
-            showConfirmButton: false,
-            timer: 1500
-          });
-          this.isCollapsed = true; //Close button new hashtype
-          this.createForm.reset(); // success, we reset form
-          this.ngOnInit();
-          this.rerender();  // rerender datatables
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Health Check was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
-        }
-      );
-    }
   }
 
   onDelete(id: number){

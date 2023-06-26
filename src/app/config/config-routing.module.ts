@@ -5,6 +5,7 @@ import { NgModule } from "@angular/core";
 import { NewPreprocessorComponent } from "./engine/preprocessors/new-preprocessor/new-preprocessor.component";
 import { NewAgentBinariesComponent } from "./engine/agent-binaries/new-agent-binary/new-agent-binaries.component";
 import { EditHealthChecksComponent } from "./health-checks/edit-health-checks/edit-health-checks.component";
+import { NewHealthChecksComponent } from "./health-checks/new-health-checks/new-health-checks.component";
 import { EditCrackersComponent } from "./engine/crackers/edit-crackers/edit-crackers.component";
 import { NewCrackersComponent } from "./engine/crackers/new-crackers/new-crackers.component";
 import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
@@ -74,6 +75,13 @@ const routes: Routes = [
           data: {
               kind: 'health-checks',
               breadcrumb: 'Health Checks'
+          },
+          canActivate: [AuthGuard,ConfigGuard]},
+        {
+          path: 'health-checks/new',  component: NewHealthChecksComponent,
+          data: {
+              kind: 'new-health-checks',
+              breadcrumb: 'New Health Checks'
           },
           canActivate: [AuthGuard,ConfigGuard]},
         {

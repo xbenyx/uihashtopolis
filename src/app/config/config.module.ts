@@ -22,6 +22,7 @@ import { ConfigRoutingModule } from "./config-routing.module";
 import { ServerComponent } from "./server/server.component";
 import { PipesModule } from "../shared/pipes.module";
 import { LogComponent } from "./log/log.component";
+import { NewHealthChecksComponent } from './health-checks/new-health-checks/new-health-checks.component';
 
 @NgModule({
   declarations:[
@@ -37,7 +38,8 @@ import { LogComponent } from "./log/log.component";
     HashtypesComponent,
     CrackersComponent,
     ServerComponent,
-    LogComponent
+    LogComponent,
+    NewHealthChecksComponent
   ],
   imports:[
     ReactiveFormsModule,
