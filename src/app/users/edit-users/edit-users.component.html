@@ -15,62 +15,58 @@
                     formControlName="id"
               >
             </grid-form-input>
-            <div class="form-outline form-input-custom">
-              <label class="form-label" for="getName">User Name</label>
-                  <div class="input-group">
-                      <span class="input-group-text">
-                        <fa-icon [icon]="faUser" aria-hidden="true"></fa-icon>
-                      </span>
-                      <input
-                            type='text'
-                            id="name"
-                            class='form-control'
-                            formControlName="name"
-                      />
-                  </div>
-            </div>
-            <div class="form-outline form-input-custom">
-              <label class="form-label" for="getemail">Email</label>
-                  <div class="input-group">
-                      <span class="input-group-text">
-                        <fa-icon [icon]="faEnvelope" aria-hidden="true"></fa-icon>
-                      </span>
-                      <input
-                            type='text'
-                            id="email"
-                            class='form-control'
-                            formControlName="email"
-                      />
-                  </div>
-            </div>
-            <div class="form-outline form-input-custom">
-              <label class="form-label" for="getcreationdate">Creation date</label>
-                  <div class="input-group">
-                    <span class="input-group-text">
-                      <fa-icon [icon]="faCalendar" aria-hidden="true"></fa-icon>
-                    </span>
-                    <input
-                          type="text"
-                          id="registered"
-                          class='form-control'
-                          formControlName="registered"
-                    />
-                  </div>
-            </div>
-            <div class="form-outline form-input-custom">
-              <label class="form-label" for="getlastlogin">Last login</label>
-                  <div class="input-group">
-                    <span class="input-group-text">
-                      <fa-icon [icon]="faCalendar" aria-hidden="true"></fa-icon>
-                    </span>
-                    <input
-                          type="text"
-                          id="lastLogin"
-                          class='form-control'
-                          formControlName="lastLogin"
-                    />
-                  </div>
-            </div>
+            <grid-form-input [name]="'User Name'">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faUser" aria-hidden="true"></fa-icon>
+                </span>
+                <input
+                      type='text'
+                      id="name"
+                      class='form-control'
+                      formControlName="name"
+                />
+              </div>
+            </grid-form-input>
+            <grid-form-input [name]="'Email'">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faEnvelope" aria-hidden="true"></fa-icon>
+                </span>
+                <input
+                      type='text'
+                      id="email"
+                      class='form-control'
+                      formControlName="email"
+                />
+              </div>
+            </grid-form-input>
+            <grid-form-input [name]="'Creation date'">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faCalendar" aria-hidden="true"></fa-icon>
+                </span>
+                <input
+                      type="text"
+                      id="registered"
+                      class='form-control'
+                      formControlName="registered"
+                />
+              </div>
+            </grid-form-input>
+            <grid-form-input [name]="'Last login'">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <fa-icon [icon]="faCalendar" aria-hidden="true"></fa-icon>
+                </span>
+                <input
+                      type="text"
+                      id="lastLogin"
+                      class='form-control'
+                      formControlName="lastLogin"
+                />
+              </div>
+            </grid-form-input>
             <grid-form-input [name]="'Member of groups'" [labelclass]="'requiredak'">
               <input
                     type='text'
