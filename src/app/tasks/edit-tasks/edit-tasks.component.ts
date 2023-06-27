@@ -135,7 +135,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
         const response = tasks;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "Task updated!",
             icon: "success",
             showConfirmButton: false,
@@ -143,15 +143,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
           });
           this.updateForm.reset(); // success, we reset form
           this.router.navigate(['tasks/show-tasks']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Task was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

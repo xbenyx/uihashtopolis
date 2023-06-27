@@ -63,22 +63,13 @@ export class UsersComponent implements OnInit {
         const response = user;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New User created!",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
           });
           this.router.navigate(['users/all-users']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "User was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

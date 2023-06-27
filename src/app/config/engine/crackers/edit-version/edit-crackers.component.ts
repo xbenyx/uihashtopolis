@@ -55,7 +55,7 @@ export class EditCrackersComponent implements OnInit {
         const response = ck;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "Agent updated!",
             icon: "success",
             showConfirmButton: false,
@@ -63,15 +63,6 @@ export class EditCrackersComponent implements OnInit {
           });
           this.updateForm.reset(); // success, we reset form
           this.router.navigate(['config/engine/crackers']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Agent was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }
@@ -80,8 +71,8 @@ export class EditCrackersComponent implements OnInit {
   onDelete(){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: 'btn',
+        cancelButton: 'btn'
       },
       buttonsStyling: false
     })
@@ -89,16 +80,17 @@ export class EditCrackersComponent implements OnInit {
       title: "Are you sure?",
       text: "Once deleted, it can not be recovered!",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
-      confirmButtonColor: '#4B5563',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '#8A8584',
+      confirmButtonColor: '#C53819',
       confirmButtonText: 'Yes, delete it!'
     })
     .then((result) => {
       if (result.isConfirmed) {
         this.crackerService.deleteCrackerBinary(this.editedCrackervIndex).subscribe(() => {
           Swal.fire(
-            "Voucher has been deleted!",
+            "Cracker has been deleted!",
             {
             icon: "success",
             showConfirmButton: false,
@@ -107,11 +99,13 @@ export class EditCrackersComponent implements OnInit {
           this.router.navigate(['config/engine/crackers']);
         });
       } else {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'No worries, your Version is safe!',
-          'error'
-        )
+        swalWithBootstrapButtons.fire({
+          title: "Cancelled",
+          text: "Your Cracker is safe!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     });
   }

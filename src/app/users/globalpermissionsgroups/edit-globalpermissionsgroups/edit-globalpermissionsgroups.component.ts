@@ -90,7 +90,7 @@ export class EditGlobalpermissionsgroupsComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "Permission Updated!",
             icon: "success",
             showConfirmButton: false,
@@ -98,15 +98,6 @@ export class EditGlobalpermissionsgroupsComponent implements OnInit {
           });
           this.updateForm.reset();
           this.router.navigate(['/users/global-permissions-groups']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Permission not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

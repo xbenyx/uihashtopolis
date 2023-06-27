@@ -58,7 +58,7 @@ export class NewCrackersComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New Version created!",
             icon: "success",
             showConfirmButton: false,
@@ -66,15 +66,6 @@ export class NewCrackersComponent implements OnInit {
           });
           this.createForm.reset(); // success, we reset form
           this.router.navigate(['/config/engine/crackers']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Version was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

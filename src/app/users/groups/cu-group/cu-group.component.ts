@@ -80,22 +80,13 @@ export class CUGroupComponent implements OnInit {
         this.accessgroupService.createAccessGroups(this.Form.value).subscribe((agroup: any) => {
           this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New Group created!",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
           });
           this.router.navigate(['/users/access-groups']);
-        },
-        errorMessage => {
-          Swal.fire({
-            title: "Oppss! Error",
-            text: "Access Group was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
-          this.ngOnInit();
         }
       );
       break;

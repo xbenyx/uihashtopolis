@@ -19,7 +19,7 @@ export class NewCrackerComponent implements OnInit {
 
   onSubmit(){
     Swal.fire({
-      title: "Good job!",
+      title: "Success",
       text: "New Cracker created!",
       icon: "success",
       button: "Close",

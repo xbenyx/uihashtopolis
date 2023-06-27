@@ -39,23 +39,13 @@ export class NewGlobalpermissionsgroupsComponent implements OnInit {
     this.gpg.createAccP(this.createForm.value).subscribe((agroup: any) => {
       this.isLoading = false;
       Swal.fire({
-        title: "Good job!",
+        title: "Success",
         text: "Global Permission Group created!",
         icon: "success",
         showConfirmButton: false,
         timer: 1500
       });
       this.router.navigate(['/users/global-permissions-groups']);
-    },
-    errorMessage => {
-      // check error status code is 500, if so, do some action
-      Swal.fire({
-        title: "Oppss! Error",
-        text: "Global Permission Group was not created, please try again!",
-        icon: "warning",
-        showConfirmButton: true
-      });
-      this.ngOnInit();
     }
   );
   this.createForm.reset(); // success, we reset form

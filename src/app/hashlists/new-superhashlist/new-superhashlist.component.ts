@@ -111,7 +111,7 @@ export class NewSuperhashlistComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New SuperHashList created!",
             icon: "success",
             showConfirmButton: false,
@@ -119,15 +119,6 @@ export class NewSuperhashlistComponent implements OnInit {
           });
           this.createForm.reset(); // success, we reset form
           this.router.navigate(['hashlists/superhashlist']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "SuperHashList was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

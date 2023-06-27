@@ -88,22 +88,13 @@ export class NewPreprocessorComponent implements OnInit {
             const response = prep;
             this.isLoading = false;
               Swal.fire({
-                title: "Good job!",
+                title: "Success",
                 text: "New Preprocessor created!",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 1500
               });
               this.router.navigate(['config/engine/preprocessors']);
-            },
-            errorMessage => {
-              // check error status code is 500, if so, do some action
-              Swal.fire({
-                title: "Error!",
-                text: "Preprocessor was not created, please try again!",
-                icon: "warning",
-                showConfirmButton: true
-              });
             }
           );
         break;
@@ -115,22 +106,13 @@ export class NewPreprocessorComponent implements OnInit {
             const response = prep;
             this.isLoading = false;
               Swal.fire({
-                title: "Good job!",
+                title: "Success",
                 text: "New Preprocessor created!",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 1500
               });
               this.router.navigate(['config/engine/preprocessors']);
-            },
-            errorMessage => {
-              // check error status code is 500, if so, do some action
-              Swal.fire({
-                title: "Error!",
-                text: "Preprocessor was not created, please try again!",
-                icon: "warning",
-                showConfirmButton: true
-              });
             }
           );
         break;

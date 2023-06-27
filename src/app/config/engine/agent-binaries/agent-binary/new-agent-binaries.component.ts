@@ -92,22 +92,13 @@ export class NewAgentBinariesComponent implements OnInit {
             const response = prep;
             this.isLoading = false;
               Swal.fire({
-                title: "Good job!",
+                title: "Success",
                 text: "New Agent Binary created!",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 1500
               });
               this.router.navigate(['config/engine/agent-binaries']);
-            },
-            errorMessage => {
-              // check error status code is 500, if so, do some action
-              Swal.fire({
-                title: "Error!",
-                text: "New Binary was not created, please try again!",
-                icon: "warning",
-                showConfirmButton: true
-              });
             }
           );
         break;
@@ -119,22 +110,13 @@ export class NewAgentBinariesComponent implements OnInit {
             const response = prep;
             this.isLoading = false;
               Swal.fire({
-                title: "Good job!",
+                title: "Success",
                 text: "Agent Binary updated!",
                 icon: "success",
                 showConfirmButton: false,
                 timer: 1500
               });
               this.router.navigate(['config/engine/agent-binaries']);
-            },
-            errorMessage => {
-              // check error status code is 500, if so, do some action
-              Swal.fire({
-                title: "Error!",
-                text: "New Binary was not created, please try again!",
-                icon: "warning",
-                showConfirmButton: true
-              });
             }
           );
         break;

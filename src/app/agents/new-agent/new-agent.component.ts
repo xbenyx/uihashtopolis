@@ -119,8 +119,8 @@ export class NewAgentComponent implements OnInit, OnDestroy {
     if(this.manageAgentAccess || typeof this.manageAgentAccess == 'undefined'){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: 'btn',
+        cancelButton: 'btn'
       },
       buttonsStyling: false
     })
@@ -128,9 +128,10 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       title: "Are you sure?",
       text: "Once deleted, it can not be recovered!",
       icon: "warning",
+      reverseButtons: true,
       showCancelButton: true,
-      confirmButtonColor: '#4B5563',
-      cancelButtonColor: '#d33',
+      cancelButtonColor: '#8A8584',
+      confirmButtonColor: '#C53819',
       confirmButtonText: 'Yes, delete it!'
     })
     .then((result) => {
@@ -147,11 +148,13 @@ export class NewAgentComponent implements OnInit, OnDestroy {
           this.rerender();  // rerender datatables
         });
       } else {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'No worries, your Voucher is safe!',
-          'error'
-        )
+        swalWithBootstrapButtons.fire({
+          title: "Cancelled",
+          text: "Your Voucher is safe!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     });
     }else{
@@ -175,7 +178,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New Voucher created!",
             icon: "success",
             showConfirmButton: false,
@@ -183,15 +186,6 @@ export class NewAgentComponent implements OnInit, OnDestroy {
           });
           this.ngOnInit();
           this.rerender();  // rerender datatables
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Voucher was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

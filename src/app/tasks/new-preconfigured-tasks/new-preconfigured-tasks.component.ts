@@ -304,22 +304,13 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
         const response = pret;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New PreTask created!",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
           });
           this.createForm.reset(); // success, we reset form
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "PreTask was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

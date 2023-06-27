@@ -88,22 +88,13 @@ export class HashtypeComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New Hashtype created!",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
           });
           this.router.navigate(['/config/hashtypes']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Hastype was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
       break;

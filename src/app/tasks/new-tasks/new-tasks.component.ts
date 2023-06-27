@@ -449,7 +449,7 @@ export class NewTasksComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New Task created!",
             icon: "success",
             showConfirmButton: false,
@@ -458,15 +458,6 @@ export class NewTasksComponent implements OnInit {
           this.createForm.reset(); // success, we reset form
           this.router.navigate(['tasks/show-tasks']);
           // this.router.navigate(['config/engine/crackers']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Task was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

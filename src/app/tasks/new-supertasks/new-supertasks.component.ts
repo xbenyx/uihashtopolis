@@ -113,7 +113,7 @@ export class NewSupertasksComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "New Supertask created!",
             icon: "success",
             showConfirmButton: false,
@@ -121,15 +121,6 @@ export class NewSupertasksComponent implements OnInit {
           });
           this.createForm.reset(); // success, we reset form
           this.router.navigate(['tasks/supertasks']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Supertask was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

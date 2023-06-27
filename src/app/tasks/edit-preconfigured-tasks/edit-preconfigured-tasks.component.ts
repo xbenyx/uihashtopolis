@@ -126,7 +126,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "Pretask updated!",
             icon: "success",
             showConfirmButton: false,
@@ -134,15 +134,6 @@ export class EditPreconfiguredTasksComponent implements OnInit{
           });
           this.updateForm.reset(); // success, we reset form
           this.router.navigate(['tasks/preconfigured-tasks']);
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Pretask was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

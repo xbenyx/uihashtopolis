@@ -222,21 +222,13 @@ export class NewHashlistComponent implements OnInit {
       this.hlService.createHashlist(res).subscribe((hl: any) => {
         this.isLoading = false;
         Swal.fire({
-          title: "Good job!",
+          title: "Success",
           text: "New HashList created!",
           icon: "success",
           showConfirmButton: false,
           timer: 1500
         });
         this.router.navigate(['/hashlists/hashlist']);
-      },
-      errorMessage => {
-        Swal.fire({
-          title: "Oppss! Error",
-          text: errorMessage.error.message,
-          icon: "warning",
-          showConfirmButton: true
-        });
       }
     );
     }

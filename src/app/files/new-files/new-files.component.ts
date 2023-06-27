@@ -83,7 +83,7 @@ export class NewFilesComponent implements OnInit {
     this.filesService.createFile(form).subscribe((hl: any) => {
       this.isLoading = false;
       Swal.fire({
-        title: "Good job!",
+        title: "Success",
         text: "New File created!",
         icon: "success",
         showConfirmButton: false,
@@ -94,14 +94,6 @@ export class NewFilesComponent implements OnInit {
       // this.ngOnInit();
       // this.rerender();
       window.location.reload();
-    },
-    errorMessage => {
-      Swal.fire({
-        title: "Oppss! Error",
-        text: errorMessage.error.message,
-        icon: "warning",
-        showConfirmButton: true
-      });
     }
   );
   }

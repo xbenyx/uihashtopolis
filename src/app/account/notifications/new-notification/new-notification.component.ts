@@ -75,22 +75,13 @@ export class NewNotificationComponent implements OnInit {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success!",
             text: "New Notification created!",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
           });
           this.ngOnInit();
-        },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Notification was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
         }
       );
     }

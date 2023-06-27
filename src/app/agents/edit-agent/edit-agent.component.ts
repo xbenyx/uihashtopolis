@@ -166,7 +166,7 @@ export class EditAgentComponent implements OnInit {
         const response = agent;
         this.isLoading = false;
           Swal.fire({
-            title: "Good job!",
+            title: "Success",
             text: "Agent updated!",
             icon: "success",
             showConfirmButton: false,
@@ -175,15 +175,6 @@ export class EditAgentComponent implements OnInit {
           this.updateForm.reset(); // success, we reset form
           this.router.navigate(['agents/show-agents']);
         },
-        errorMessage => {
-          // check error status code is 500, if so, do some action
-          Swal.fire({
-            title: "Error!",
-            text: "Agent was not created, please try again!",
-            icon: "warning",
-            showConfirmButton: true
-          });
-        }
       );
     }
     }else{
