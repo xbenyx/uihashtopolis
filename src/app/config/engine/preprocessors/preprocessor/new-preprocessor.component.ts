@@ -86,7 +86,6 @@ export class NewPreprocessorComponent implements OnInit {
           this.preprocessorService.createPreprocessor(this.updateForm.value)
           .subscribe((prep: any) => {
             const response = prep;
-            console.log(response);
             this.isLoading = false;
               Swal.fire({
                 title: "Good job!",
@@ -114,7 +113,6 @@ export class NewPreprocessorComponent implements OnInit {
           this.preprocessorService.updateHashType(id,this.updateForm.value)
           .subscribe((prep: any) => {
             const response = prep;
-            console.log(response);
             this.isLoading = false;
               Swal.fire({
                 title: "Good job!",

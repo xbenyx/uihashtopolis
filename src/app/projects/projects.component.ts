@@ -149,7 +149,6 @@ export class ProjectsComponent implements OnInit {
   async renderPDF(id: number){
     this.projectService.getProject(id).subscribe((proj: any) => {
       this.project = proj.values;
-      console.log(this.project);
     });
 
     // this.reportService.getConfReport().subscribe((conf: any) => {

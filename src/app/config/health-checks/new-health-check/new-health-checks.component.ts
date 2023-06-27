@@ -50,13 +50,11 @@ export class NewHealthChecksComponent implements OnInit {
 
   onSubmit(){
     if (this.createForm.valid) {
-      console.log(this.createForm);
 
       this.isLoading = true;
 
       this.healthcheckService.createHealthCheck(this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

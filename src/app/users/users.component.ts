@@ -61,7 +61,6 @@ export class UsersComponent implements OnInit {
 
       this.usersService.createUser(this.createForm.value).subscribe((user: any) => {
         const response = user;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

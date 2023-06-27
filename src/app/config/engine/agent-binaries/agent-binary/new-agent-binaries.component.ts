@@ -90,7 +90,6 @@ export class NewAgentBinariesComponent implements OnInit {
           this.agentBinService.createAgentBin(this.updateForm.value)
           .subscribe((prep: any) => {
             const response = prep;
-            console.log(response);
             this.isLoading = false;
               Swal.fire({
                 title: "Good job!",
@@ -118,7 +117,6 @@ export class NewAgentBinariesComponent implements OnInit {
           this.agentBinService.updateAgentBin(id,this.updateForm.value)
           .subscribe((prep: any) => {
             const response = prep;
-            console.log(response);
             this.isLoading = false;
               Swal.fire({
                 title: "Good job!",

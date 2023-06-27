@@ -97,7 +97,6 @@ export class EditAgentComponent implements OnInit {
     this.agentsService.getAgent(id).subscribe((agent: any) => {
       this.showagent = agent;
       this.isLoading = false;
-      console.log(this.showagent);
     });
 
     this.usersService.getAllusers().subscribe((user: any) => {
@@ -165,7 +164,6 @@ export class EditAgentComponent implements OnInit {
 
       this.agentsService.updateAgent(this.editedAgentIndex,this.updateForm.value).subscribe((agent: any) => {
         const response = agent;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

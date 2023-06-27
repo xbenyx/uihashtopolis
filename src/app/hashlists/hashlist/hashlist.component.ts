@@ -322,7 +322,6 @@ onDeleteBulk(){
   let selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
   let sellen = selectionnum.length;
   let errors = [];
-  console.log(selectionnum)
   selectionnum.forEach(function (value) {
     Swal.fire('Deleting...'+sellen+' Hashlist(s)...Please wait')
     Swal.showLoading()

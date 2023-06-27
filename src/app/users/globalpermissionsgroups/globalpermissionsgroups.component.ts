@@ -111,7 +111,7 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
 
     setAccessPermissions(){
       this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
-         console.log(perm.globalPermissionGroup)
+
       });
     }
 

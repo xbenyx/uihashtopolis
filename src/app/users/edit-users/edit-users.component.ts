@@ -165,7 +165,6 @@ export class EditUsersComponent implements OnInit {
 
       this.usersService.updateUser(this.updateForm.value, this.editedUserIndex).subscribe((agent: any) => {
         const response = agent;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

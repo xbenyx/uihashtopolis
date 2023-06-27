@@ -106,7 +106,6 @@ export class EditSupertasksComponent implements OnInit {
 
       this.supertaskService.updateSupertask(this.editedSTIndex,this.updateForm.value).subscribe((st: any) => {
         const response = st;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

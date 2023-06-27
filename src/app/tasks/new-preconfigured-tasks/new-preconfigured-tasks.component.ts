@@ -302,7 +302,6 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
       this.preTasksService.createPretask(this.createForm.value).subscribe((pret: any) => {
         const response = pret;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

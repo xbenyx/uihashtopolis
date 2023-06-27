@@ -33,7 +33,6 @@ export class NewGlobalpermissionsgroupsComponent implements OnInit {
 
   onSubmit(): void{
     if (this.createForm.valid) {
-    console.log(this.createForm.value);
 
     this.isLoading = true;
 

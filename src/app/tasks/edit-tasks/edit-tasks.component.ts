@@ -133,7 +133,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
       this.tasksService.updateTask(this.editedTaskIndex,this.updateForm.value['updateData']).subscribe((tasks: any) => {
         const response = tasks;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

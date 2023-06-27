@@ -56,7 +56,6 @@ export class NewCrackersComponent implements OnInit {
 
       this.crackerService.createCrackerBinary(this.editedTypeIndex, this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

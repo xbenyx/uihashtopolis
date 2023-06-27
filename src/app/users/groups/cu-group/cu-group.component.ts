@@ -69,11 +69,6 @@ export class CUGroupComponent implements OnInit {
   }
   }
 
-  onUpdate(item: any){
-    console.log(item);
-
-  }
-
   onSubmit(): void{
     if (this.Form.valid) {
 

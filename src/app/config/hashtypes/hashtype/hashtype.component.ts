@@ -78,7 +78,6 @@ export class HashtypeComponent implements OnInit {
 
   onSubmit(): void{
     if (this.Form.valid) {
-    console.log(this.Form);
 
     this.isLoading = true;
 
@@ -87,7 +86,6 @@ export class HashtypeComponent implements OnInit {
       case 'create':
       this.hashtypeService.createHashType(this.Form.value).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

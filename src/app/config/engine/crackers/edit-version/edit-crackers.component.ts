@@ -53,7 +53,6 @@ export class EditCrackersComponent implements OnInit {
 
       this.crackerService.updateCrackerBinary(this.editedCrackervIndex,this.updateForm.value).subscribe((ck: any) => {
         const response = ck;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

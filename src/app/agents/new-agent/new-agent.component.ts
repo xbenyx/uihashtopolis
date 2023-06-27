@@ -166,7 +166,6 @@ export class NewAgentComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
-    console.log(this.createAgentAccess)
     if(this.createAgentAccess || typeof this.createAgentAccess == 'undefined'){
     if (this.createForm.valid) {
 
@@ -174,7 +173,6 @@ export class NewAgentComponent implements OnInit, OnDestroy {
 
       this.voucherService.createVoucher(this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

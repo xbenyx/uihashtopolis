@@ -124,7 +124,6 @@ export class EditPreconfiguredTasksComponent implements OnInit{
 
       this.preTasksService.updatePretask(this.editedPretaskIndex,this.updateForm.value['updateData']).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

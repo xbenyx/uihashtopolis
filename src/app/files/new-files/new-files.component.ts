@@ -145,7 +145,6 @@ export class NewFilesComponent implements OnInit {
 
   toggleHover(event) {
     this.isHovering = event;
-    console.log(event)
   }
 
   fileSizeValue = fileSizeValue;

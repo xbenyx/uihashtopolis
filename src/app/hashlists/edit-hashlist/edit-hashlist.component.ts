@@ -115,7 +115,6 @@ export class EditHashlistComponent implements OnInit {
 
       this.listsService.updateHashlist(this.editedHashlistIndex,this.updateForm.value['updateData']).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",

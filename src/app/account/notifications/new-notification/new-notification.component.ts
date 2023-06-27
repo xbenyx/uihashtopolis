@@ -73,7 +73,6 @@ export class NewNotificationComponent implements OnInit {
 
       this.notifService.createNotif(this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
-        console.log(response);
         this.isLoading = false;
           Swal.fire({
             title: "Good job!",
