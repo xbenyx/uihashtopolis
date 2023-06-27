@@ -1,7 +1,7 @@
 <div *ngIf="isLoading" style="text-align: center;">
   <app-loading-spinner></app-loading-spinner>
 </div>
-<!-- Body -->&nbsp;
+<!-- Body -->
 <grid-main [class]="'fmxw-500'">
   <app-page-subtitle [subtitle]="'Hash Search'"></app-page-subtitle>
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">

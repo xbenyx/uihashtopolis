@@ -14,7 +14,6 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 @PageTitle(['Show Crackers'])
 export class CrackersComponent implements OnInit, OnDestroy {
 
-  public isCollapsed = true;
   faEdit=faEdit;
   faTrash=faTrash;
   faHome=faHomeAlt;
@@ -95,15 +94,6 @@ export class CrackersComponent implements OnInit, OnDestroy {
         ],
       }
     };
-  }
-
-  onSubmit(){
-    Swal.fire({
-      title: "Good job!",
-      text: "New Cracker created!",
-      icon: "success",
-      button: "Close",
-    });
   }
 
   onDelete(id: number){

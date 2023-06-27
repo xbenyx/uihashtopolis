@@ -109,7 +109,6 @@ export class ShowTasksComponent implements OnInit {
       buttons: {
           dom: {
             button: {
-              tag: 'i',
               className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
             }
           },

@@ -1,29 +1,5 @@
-<app-page-title [title]="'Crackers'" [buttontitle]="'New Cracker'" [buttonlink]="'/config/engine/crackers/new-cracker'" [subbutton]="true"></app-page-title>
-<div class="btn-group">
-  <button type="button" routerLink="../agent-binaries" class="btn btn-sm btn-outline-gray-600">Agent Binaries</button>
-  <button type="button" routerLink="../crackers" class="btn btn-sm btn-outline-gray-600-select">Crackers</button>
-  <button type="button" routerLink="../preprocessors" class="btn btn-sm btn-outline-gray-600">Preprocessors</button>
-</div>
-
-<a (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseFiles" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
-  <fa-icon [icon]="faPlus" aria-hidden="true"></fa-icon>
-    New Cracker
-</a>
-<!-- New Cracker -->
-<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-  <grid-main [class]="'fmxw-500'">
-    <app-page-subtitle [subtitle]="'Create Binary'"></app-page-subtitle>
-    <form (ngSubmit)="onSubmit()">
-      <grid-form-input [name]="'Cracker Type Name'">
-        <select  class='form-select' name="name" title="Name">
-          <option value="hashcat">Hashcat</option>
-          <option value="generic">Generic Cracker</option>
-        </select>
-      </grid-form-input>
-      <button-submit [name]="'Create'"></button-submit>
-    </form>
-  </grid-main>
-</div>
+<app-page-title [title]="'Crackers'" [buttontitle]="'New Cracker'" [buttonlink]="'/config/engine/crackers/new'" [subbutton]="true"></app-page-title>
+<engine-menu [cclass]="'btn-outline-gray-600-select'"></engine-menu>
 <!-- Body -->
 <app-table>
   <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">

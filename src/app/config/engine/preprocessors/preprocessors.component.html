@@ -1,9 +1,5 @@
 <app-page-title [title]="'Preprocessors'" [buttontitle]="'New Preprocessor'" [buttonlink]="'/config/engine/preprocessors/new-preprocessor'" [subbutton]="true"></app-page-title>
-<div class="btn-group">
-  <button type="button" routerLink="../agent-binaries" class="btn btn-sm btn-outline-gray-600">Agent Binaries</button>
-  <button type="button" routerLink="../crackers" class="btn btn-sm btn-outline-gray-600">Crackers</button>
-  <button type="button" routerLink="../preprocessors" class="btn btn-sm btn-outline-gray-600-select">Preprocessors</button>
-</div>
+<engine-menu [pclass]="'btn-outline-gray-600-select'"></engine-menu>
 <!-- Body -->
 <app-table>
   <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
