@@ -77,47 +77,47 @@
         </grid-form-input>
         <app-page-subtitle [subtitle]="'Update Settings'"></app-page-subtitle>
         <div formGroupName="updateData">
-        <grid-form-input [name]="'Set users right group'">
-          <select
-                type='number'
-                id="globalPermissionGroupId"
-                class='form-select'
-                formControlName="globalPermissionGroupId"
-              >
-              <span *ngIf="!updateForm.errors?.['globalPermissionGroupId'].valid && updateForm.errors?.['globalPermissionGroupId'].touched" class="help-block" >Please select a group!</span>
-              <option *ngFor="let a of agp" [ngValue]="a.id">{{ a.name }}</option>
-          </select>
-        </grid-form-input>
-        <grid-form-input [name]="'Set password'">
-          <div class="input-group">
-            <span class="input-group-text">
-            <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
-            </span>
-            <input
-                  type='new-password'
-                  id="setpassword"
-                  class="form-control"
-
-            />
-        </div>
-        </grid-form-input>
-        <grid-form-input [name]="''">
-          <div class="form-check form-switch form-input-custom">
-            <label class="form-label" for="setpassword"></label>
-                <input
-                      type="checkbox"
-                      id="user-notification-1"
-                      class="form-check-input"
-                      formControlName="isValid"
+          <grid-form-input [name]="'Set users right group'">
+            <select
+                  type='number'
+                  id="globalPermissionGroupId"
+                  class='form-select'
+                  formControlName="globalPermissionGroupId"
                 >
-                <label *ngIf="user['isValid'] === false" class="form-label" for="isvalid">User Disabled</label>
-                <label *ngIf="user['isValid'] === true" class="form-label" for="isvalid">User Enabled</label>
-                &nbsp;&nbsp;
+                <span *ngIf="!updateForm.errors?.['globalPermissionGroupId'].valid && updateForm.errors?.['globalPermissionGroupId'].touched" class="help-block" >Please select a group!</span>
+                <option *ngFor="let a of agp" [ngValue]="a.id">{{ a.name }}</option>
+            </select>
+          </grid-form-input>
+          <grid-form-input [name]="'Set password'">
+            <div class="input-group">
+              <span class="input-group-text">
+              <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
+              </span>
+              <input
+                    type='new-password'
+                    id="setpassword"
+                    class="form-control"
+
+              />
           </div>
-      </grid-form-input>
-      <button-submit [name]="'Update'"></button-submit>
-      <button class="btn btn-danger" (click)="onDelete()">Delete</button>
-    </div>
+          </grid-form-input>
+          <grid-form-input [name]="''">
+            <div class="form-check form-switch form-input-custom">
+              <label class="form-label" for="setpassword"></label>
+                  <input
+                        type="checkbox"
+                        id="user-notification-1"
+                        class="form-check-input"
+                        formControlName="isValid"
+                  >
+                  <label *ngIf="user['isValid'] === false" class="form-label" for="isvalid">User Disabled</label>
+                  <label *ngIf="user['isValid'] === true" class="form-label" for="isvalid">User Enabled</label>
+                  &nbsp;&nbsp;
+            </div>
+        </grid-form-input>
+        <button-submit [name]="'Update'"></button-submit>
+        <button class="btn btn-danger" (click)="onDelete()">Delete</button>
+     </div>
     </grid-autocol>
   </form>
 </grid-main>
