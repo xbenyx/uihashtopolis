@@ -89,9 +89,8 @@ export class EditCrackersComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.crackerService.deleteCrackerBinary(this.editedCrackervIndex).subscribe(() => {
-          Swal.fire(
-            "Cracker has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

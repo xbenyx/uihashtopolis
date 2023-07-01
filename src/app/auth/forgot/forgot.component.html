@@ -1,29 +1,31 @@
-<grid-main [class]="'fmxw-500'">
+<grid-main [class]="'fmxw-500'" [centered]="true">
   <h1 class="h3 mb-4">Forgot password</h1>
   <form #authForm="ngForm" >
-    <grid-form-input [name]="'User Name'" [labelclass]="'requiredak'">
-      <input
-            type="text"
-            class="form-control"
-            id="inputUsername"
-            placeholder="User Name"
-            ngModel
-            name="username"
-            autocomplete="on"
-            autofocus required
-      >
-    </grid-form-input>
-    <grid-form-input [name]="'Email'" [labelclass]="'requiredak'">
-      <input
-            type="email"
-            class="form-control"
-            id="inputEmail"
-            placeholder="example@domain.com"
-            ngModel name="email"
-            autocomplete="on"
-            autofocus required
-      >
-    </grid-form-input>
-    <button-submit [name]="'Reset'"></button-submit>
+    <div class="row">
+      <grid-form-input [name]="'User Name'" [labelclass]="'requiredak'">
+        <input
+              type="text"
+              class="form-control"
+              id="inputUsername"
+              placeholder="User Name"
+              ngModel
+              name="username"
+              autocomplete="on"
+              autofocus required
+        >
+      </grid-form-input>
+      <grid-form-input [name]="'Email'" [labelclass]="'requiredak'">
+        <input
+              type="email"
+              class="form-control"
+              id="inputEmail"
+              placeholder="example@domain.com"
+              ngModel name="email"
+              autocomplete="on"
+              autofocus required
+        >
+      </grid-form-input>
+      <button-submit [name]="'Reset'"></button-submit>
+    </div>
   </form>
 </grid-main>

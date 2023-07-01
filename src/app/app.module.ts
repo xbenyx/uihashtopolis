@@ -20,6 +20,7 @@ import { MomentModule } from 'ngx-moment';
  * App Pages Components
  *
 */
+import { ScreenSizeDetectorComponent } from './layout/screen-size-detector/screen-size-detector.component';
 import { PageNotFoundComponent } from './layout/page-not-found/page-not-found.component';
 import { AuthInterceptorService } from './core/_interceptors/auth-interceptor.service';
 import { HttpErrorInterceptor } from './core/_interceptors/http-error.interceptor';
@@ -44,6 +45,7 @@ import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
+    ScreenSizeDetectorComponent,
     PageNotFoundComponent,
     ScrollYTopComponent,
     BreadcrumbComponent,

@@ -138,9 +138,8 @@ export class SuperhashlistComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.superHashlist.deleteSuperhashlist(id).subscribe(() => {
-          Swal.fire(
-            "SuperHashList has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

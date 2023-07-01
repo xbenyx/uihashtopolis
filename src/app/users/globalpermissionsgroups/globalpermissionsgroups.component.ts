@@ -147,9 +147,8 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.gpg.deleteAccP(id).subscribe(() => {
-          Swal.fire(
-            "Global Permission Group has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

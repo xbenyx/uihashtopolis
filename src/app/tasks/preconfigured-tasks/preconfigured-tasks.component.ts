@@ -158,9 +158,8 @@ export class PreconfiguredTasksComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.preTasksService.deletePretask(id).subscribe(() => {
-          Swal.fire(
-            "PreTask has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

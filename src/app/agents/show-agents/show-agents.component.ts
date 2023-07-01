@@ -376,9 +376,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       .then((result) => {
         if (result.isConfirmed) {
           this.agentsService.deleteAgent(id).subscribe(() => {
-            Swal.fire(
-              "Agent has been deleted!",
-              {
+            Swal.fire({
+              title: "Success",
               icon: "success",
               showConfirmButton: false,
               timer: 1500

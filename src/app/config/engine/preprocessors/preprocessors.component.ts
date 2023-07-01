@@ -130,9 +130,8 @@ export class PreprocessorsComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.preprocessorService.deletePreprocessor(id).subscribe(() => {
-            Swal.fire(
-              "Preprocessor has been deleted!",
-              {
+            Swal.fire({
+              title: "Success",
               icon: "success",
               showConfirmButton: false,
               timer: 1500

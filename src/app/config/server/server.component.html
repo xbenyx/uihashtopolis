@@ -28,8 +28,7 @@
 <!-- Body -->
 <div [ngSwitch]="whichView">
   <div *ngSwitchCase="'agent'">
-    <div class="col-12 d-flex align-items-center justify-content-center">
-      <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
+    <grid-main [class]="'width:100%'">
         <form [formGroup]="agentForm">
           <h5 class="form-input-custom"><u>Activity / Registration</u></h5>
           <grid-form-input [name]="'Delay before considering an agent as inactive(or timed out)'" [tooltip]="atip.agenttimeout">
@@ -174,12 +173,10 @@
               >
           </grid-form-input>
           </form>
-        </div>
-      </div>
-    </div>
+    </grid-main>
+  </div>
     <div *ngSwitchCase="'task-chunk'">
-      <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
+      <grid-main [class]="'width:100%'">
           <form [formGroup]="tcForm">
             <div class="row">
               <h5><u>Benchmark / Chunk</u></h5>
@@ -324,26 +321,22 @@
               </grid-form-input>
             </div>
           </form>
-          <h5><u>Other</u></h5>&nbsp;
+          <h5><u>Other</u></h5>
           <form [formGroup]="taskcookieForm">
             <grid-form-input [name]="'Refresh Interval (seconds)'" [tooltip]="'Manage refresh interval in the show tasks view.'">
               <td>
-                <div class="form-check form-switch">
-                  <input
-                        class='form-control'
-                        formControlName="autorefresh"
-                        #autorefresh
-                        (change)="setAutorefresh(autorefresh.value)"
-                  >
-              </div>
+                <input
+                      class='form-control'
+                      formControlName="autorefresh"
+                      #autorefresh
+                      (change)="setAutorefresh(autorefresh.value)"
+                >
             </grid-form-input>
           </form>
-        </div>
-      </div>
+      </grid-main>
     </div>
     <div *ngSwitchCase="'hch'">
-      <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
+      <grid-main [class]="'width:100%'">
           <form [formGroup]="hchForm">
             <div class="row">
               <h5><u>Import/Display of Hashlist</u></h5>
@@ -443,12 +436,10 @@
               </grid-form-input>
             </div>
           </form>
-        </div>
-      </div>
+      </grid-main>
     </div>
     <div *ngSwitchCase="'notif'">
-      <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-700">
+      <grid-main [class]="'width:100%'">
           <form [formGroup]="notifForm">
             <div class="row">
               <grid-form-input [name]="'Email address sending the notification emails'" [tooltip]="notiftip.emailSender">
@@ -537,12 +528,10 @@
               </grid-form-input>
             </div>
           </form>
-        </div>
-      </div>
-    </div> <!-- End switch  -->
+      </grid-main>
+    </div>
     <div *ngSwitchCase="'gs'">
-      <div class="col-12 d-flex align-items-center justify-content-center">
-        <div class="layout-col shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-800">
+      <grid-main [class]="'width:100%'">
           <form [formGroup]="gsForm">
             <div class="row">
               <grid-form-input [name]="'Enable Hashcat Brain'" [tooltip]="gstip.hashcatBrainEnable">
@@ -693,9 +682,8 @@
                 </select>
             </grid-form-input>
           </form>
-        </div>
-      </div>
-  </div> <!-- End  settings  -->
+      </grid-main>
+    </div>
 </div> <!-- End switch  -->
 
 

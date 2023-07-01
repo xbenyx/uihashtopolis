@@ -175,9 +175,8 @@ export class HealthChecksComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.healthcheckService.deleteHealthCheck(id).subscribe(() => {
-          Swal.fire(
-            "Health Check has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

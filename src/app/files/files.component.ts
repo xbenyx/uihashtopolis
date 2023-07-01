@@ -259,9 +259,8 @@ export class FilesComponent implements OnInit {
       .then((result) => {
         if (result.isConfirmed) {
           this.filesService.deleteFile(id).subscribe(() => {
-            Swal.fire(
-              "File has been deleted!",
-              {
+            Swal.fire({
+              title: "Success",
               icon: "success",
               showConfirmButton: false,
               timer: 1500

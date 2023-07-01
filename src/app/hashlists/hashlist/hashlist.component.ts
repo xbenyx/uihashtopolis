@@ -269,9 +269,8 @@ onDelete(id: number){
   .then((result) => {
     if (result.isConfirmed) {
       this.listsService.deleteHashlist(id).subscribe(() => {
-        Swal.fire(
-          "HashList has been deleted!",
-          {
+        Swal.fire({
+          title: "Success",
           icon: "success",
           showConfirmButton: false,
           timer: 1500

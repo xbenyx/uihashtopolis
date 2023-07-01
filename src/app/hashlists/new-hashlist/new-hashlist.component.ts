@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from './../../../environments/environment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, delay } from 'rxjs';
 import { Buffer } from 'buffer';
 
 import { AccessGroupsService } from '../../core/_services/access/accessgroups.service';
@@ -62,8 +62,9 @@ export class NewHashlistComponent implements OnInit {
      private hlService: ListsService,
      private modalService: NgbModal,
      private users: UsersService,
-     private router: Router
-     ) { }
+     private router: Router,
+     ) {
+     }
 
   ngOnInit(): void {
     this.isLoading = true;

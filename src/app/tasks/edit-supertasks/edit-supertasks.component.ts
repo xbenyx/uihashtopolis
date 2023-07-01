@@ -199,9 +199,8 @@ export class EditSupertasksComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.supertaskService.deleteSupertask(id).subscribe(() => {
-          Swal.fire(
-            "Supertask has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

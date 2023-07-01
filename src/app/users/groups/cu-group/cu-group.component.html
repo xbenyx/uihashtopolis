@@ -1,4 +1,4 @@
-<grid-main [class]="'fmxw-500'">
+<grid-main [class]="'fmxw-500'" [centered]="true">
   <app-page-subtitle [subtitle]="'Access Group'"></app-page-subtitle>
     <form [formGroup]="Form" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -18,6 +18,6 @@
               <button-submit [name]="'Update'"></button-submit>
             </div>
           </div>
-        </div>
+      </div>
   </form>
 </grid-main>

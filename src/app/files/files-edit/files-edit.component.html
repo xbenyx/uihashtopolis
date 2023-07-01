@@ -2,9 +2,10 @@
   <app-loading-spinner></app-loading-spinner>
 </div>
 <!-- Body Edit Files -->
-<grid-main [class]="'fmxw-500'">
+<grid-main [class]="'fmxw-500'" [centered]="true">
   <app-page-subtitle [subtitle]="'Edit'"></app-page-subtitle>
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <div class="row">
     <grid-form-input [name]="'ID'">
       <input
             type='number'
@@ -44,5 +45,6 @@
       </grid-form-input>
     </div>
     <button-submit [name]="'Update'"></button-submit>
+    </div>
   </form>
 </grid-main>

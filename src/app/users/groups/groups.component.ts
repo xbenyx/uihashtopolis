@@ -142,9 +142,8 @@ export class GroupsComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.accessgroupService.deleteAccessGroups(id).subscribe(() => {
-          Swal.fire(
-            "Access Group has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

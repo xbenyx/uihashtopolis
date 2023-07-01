@@ -100,9 +100,8 @@ export class AgentBinariesComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.agentBinService.deleteAgentBin(id).subscribe(() => {
-          Swal.fire(
-            "Agent Binary has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

@@ -137,9 +137,8 @@ export class HashtypesComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.hashtypeService.deleteHashType(id).subscribe(() => {
-          Swal.fire(
-            "Hashtype has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

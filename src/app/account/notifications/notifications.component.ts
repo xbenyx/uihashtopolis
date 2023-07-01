@@ -141,9 +141,8 @@ export class NotificationsComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.notifService.deleteNotif(id).subscribe(() => {
-          Swal.fire(
-            "Notification has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

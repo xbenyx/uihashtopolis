@@ -137,9 +137,8 @@ export class NewAgentComponent implements OnInit, OnDestroy {
     .then((result) => {
       if (result.isConfirmed) {
         this.voucherService.deleteVoucher(id).subscribe(() => {
-          Swal.fire(
-            "Voucher has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500

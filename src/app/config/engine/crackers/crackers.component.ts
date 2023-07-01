@@ -108,10 +108,11 @@ export class CrackersComponent implements OnInit, OnDestroy {
     .then((willDelete) => {
       if (willDelete) {
         this.crackerService.deleteCrackerType(id).subscribe(() => {
-          Swal.fire(
-            "File has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
+            showConfirmButton: false,
+            timer: 1500
           });
         });
       } else {

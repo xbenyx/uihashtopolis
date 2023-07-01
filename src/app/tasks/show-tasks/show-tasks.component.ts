@@ -327,9 +327,8 @@ onDelete(id: number){
   .then((result) => {
     if (result.isConfirmed) {
       this.tasksService.deleteTask(id).subscribe(() => {
-        Swal.fire(
-          "Task has been deleted!",
-          {
+        Swal.fire({
+          title: "Success",
           icon: "success",
           showConfirmButton: false,
           timer: 1500

@@ -131,9 +131,8 @@ export class EditUsersComponent implements OnInit {
     .then((result) => {
       if (result.isConfirmed) {
         this.usersService.deleteUser(this.editedUserIndex).subscribe(() => {
-          Swal.fire(
-            "User has been deleted!",
-            {
+          Swal.fire({
+            title: "Success",
             icon: "success",
             showConfirmButton: false,
             timer: 1500
