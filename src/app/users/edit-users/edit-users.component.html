@@ -101,24 +101,19 @@
             />
         </div>
         </grid-form-input>
-
-        <div class="form-outline mb-4 form-input-custom">
-          <label class="form-label" for="setpassword">Set password</label>
-
-      </div>
-      <grid-form-input [name]="''">
-        <div class="form-check form-switch form-input-custom">
-          <label class="form-label" for="setpassword"></label>
-              <input
-                    type="checkbox"
-                    id="user-notification-1"
-                    class="form-check-input"
-                    formControlName="isValid"
-              >
-              <label *ngIf="user['isValid'] === false" class="form-label" for="isvalid">User Disabled</label>
-              <label *ngIf="user['isValid'] === true" class="form-label" for="isvalid">User Enabled</label>
-              &nbsp;&nbsp;
-        </div>
+        <grid-form-input [name]="''">
+          <div class="form-check form-switch form-input-custom">
+            <label class="form-label" for="setpassword"></label>
+                <input
+                      type="checkbox"
+                      id="user-notification-1"
+                      class="form-check-input"
+                      formControlName="isValid"
+                >
+                <label *ngIf="user['isValid'] === false" class="form-label" for="isvalid">User Disabled</label>
+                <label *ngIf="user['isValid'] === true" class="form-label" for="isvalid">User Enabled</label>
+                &nbsp;&nbsp;
+          </div>
       </grid-form-input>
       <button-submit [name]="'Update'"></button-submit>
       <button class="btn btn-danger" (click)="onDelete()">Delete</button>
