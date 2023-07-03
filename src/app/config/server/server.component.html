@@ -30,6 +30,7 @@
   <div *ngSwitchCase="'agent'">
     <grid-main [class]="'width:100%'">
         <form [formGroup]="agentForm">
+          <grid-autocol>
           <h5 class="form-input-custom"><u>Activity / Registration</u></h5>
           <grid-form-input [name]="'Delay before considering an agent as inactive(or timed out)'" [tooltip]="atip.agenttimeout">
           <td>
@@ -172,13 +173,14 @@
                     (change)="autoSave('agentUtilThreshold2',agentUtilThreshold2.value)"
               >
           </grid-form-input>
+          </grid-autocol>
           </form>
     </grid-main>
   </div>
     <div *ngSwitchCase="'task-chunk'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="tcForm">
-            <div class="row">
+            <grid-autocol>
               <h5><u>Benchmark / Chunk</u></h5>
               <grid-form-input [name]="'Expected duration of a chunk'" [tooltip]="tctip.chunktime">
                 <td>
@@ -319,7 +321,7 @@
                     >
                 </div>
               </grid-form-input>
-            </div>
+            </grid-autocol>
           </form>
           <h5><u>Other</u></h5>
           <form [formGroup]="taskcookieForm">
@@ -338,7 +340,7 @@
     <div *ngSwitchCase="'hch'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="hchForm">
-            <div class="row">
+            <grid-autocol>
               <h5><u>Import/Display of Hashlist</u></h5>
               <grid-form-input [name]="'Maximum number of lines in a hashlist'" [tooltip]="hchtip.maxHashlistSize">
                 <td>
@@ -434,14 +436,14 @@
                     <fa-icon  style="color:red" [icon]="faExclamationTriangle"></fa-icon> Such change may take a long time depending on the database size
                   </span>
               </grid-form-input>
-            </div>
+            </grid-autocol>
           </form>
       </grid-main>
     </div>
     <div *ngSwitchCase="'notif'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="notifForm">
-            <div class="row">
+             <grid-autocol>
               <grid-form-input [name]="'Email address sending the notification emails'" [tooltip]="notiftip.emailSender">
                 <td>
                   <input
@@ -526,14 +528,14 @@
                       <option *ngFor="let p of proxytype">{{ p.value }}</option>
                   </select>
               </grid-form-input>
-            </div>
+            </grid-autocol>
           </form>
       </grid-main>
     </div>
     <div *ngSwitchCase="'gs'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="gsForm">
-            <div class="row">
+            <grid-autocol>
               <grid-form-input [name]="'Enable Hashcat Brain'" [tooltip]="gstip.hashcatBrainEnable">
                 <td>
                   <div class="form-check form-switch">
@@ -663,7 +665,7 @@
                       <option *ngFor="let sl of serverlog" [ngValue]="sl.id">{{ sl.value }}</option>
                   </select>
               </grid-form-input>
-            </div>
+            </grid-autocol>
           </form>
           <form [formGroup]="cookieForm">
             <grid-form-input [name]="'Tooltip Help Level'" [tooltip]="'Manage Global level of tooltip details'">

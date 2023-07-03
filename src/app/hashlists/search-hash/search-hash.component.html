@@ -5,6 +5,7 @@
 <grid-main [class]="'fmxw-500'" [centered]="true">
   <app-page-subtitle [subtitle]="'Hash Search'"></app-page-subtitle>
   <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <div class="row">
     <grid-form-input [name]="'Search Hashes:'" [labelclass]="'requiredak'">
       <div class="input-group">
         <span class="input-group-text" >
@@ -21,5 +22,6 @@
     </grid-form-input>
     <span *ngIf="!createForm.valid && createForm.touched" class="help-block" >Minimum 1 hash required!</span><br>
     <button-submit [name]="'Create'"></button-submit>
+    </div>
   </form>
 </grid-main>
