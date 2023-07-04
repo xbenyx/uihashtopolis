@@ -417,14 +417,14 @@
 <br>
 <!-- Agent Activity Table -->
 <app-table>
-  <table class="table table-centered table-nowrap mb-0 rounded" #agentstatus datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+  <table class="table table-striped table-hover table-sm" #agentstatus datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead class="thead-light">
       <tr>
-          <th class="border-0 rounded-start">ID</th>
-          <th class="border-0">Name</th>
-          <th class="border-0">Currently working on</th>
-          <th class="border-0">Assigned to</th>
-          <th class="border-0 rounded-end">Last Activity</th>
+          <th class="rounded-start">ID</th>
+          <th>Name</th>
+          <th>Currently working on</th>
+          <th>Assigned to</th>
+          <th class="rounded-end">Last Activity</th>
       </tr>
       </thead>
       <tbody>

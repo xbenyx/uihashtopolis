@@ -1,17 +1,18 @@
-import { DataTableDirective } from 'angular-datatables';
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-table',
   template: `
 <div class="card shadow">
-  <div class="card-body table-responsive">
+  <div [ngClass]="getResizeTable()">
       <div #content><ng-content></ng-content></div>
   </div>
 </div>
-  `
+`,
+host: {
+  "(window:resize)":"onWindowResize($event)"
+}
 })
 export class TableComponent  {
 
@@ -19,11 +20,11 @@ export class TableComponent  {
     private router: Router
   ) { }
 
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  public getResizeTable(){
 
-  dtTrigger: Subject<any> = new Subject<any>();
-  dtOptions: any = {};
+   return 'card-body table-responsive';
+
+  }
 
 
 }

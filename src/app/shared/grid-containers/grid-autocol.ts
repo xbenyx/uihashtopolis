@@ -7,9 +7,7 @@ import { delay } from "rxjs";
 @Component({
   selector: 'grid-autocol',
   template: `
-<!-- <div [ngClass]="isMobile ? 'grid-container-main-px':''"> -->
   <div #content [ngStyle]="getStyles()">
-  <!-- {{width}}/{{height}} -->
     <ng-content></ng-content>
   </div>
 `,

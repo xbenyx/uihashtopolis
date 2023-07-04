@@ -1,16 +1,16 @@
 <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
 <!-- Body -->
 <app-table>
-  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+  <table class="table table-striped table-hover table-sm" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
     <thead class="thead-light">
       <tr>
-        <th class="border-0 rounded-start">ID</th>
-        <th class="border-0">Name</th>
-        <th class="border-0">Attack command</th>
-        <th class="border-0">Files</th>
-        <th class="border-0">Priority</th>
-        <th class="border-0">Max Agents</th>
-        <th class="border-0 rounded-end">Action</th>
+        <th class="rounded-start">ID</th>
+        <th>Name</th>
+        <th>Attack command</th>
+        <th>Files</th>
+        <th>Priority</th>
+        <th>Max Agents</th>
+        <th class="rounded-end">Action</th>
     </tr>
     </thead>
     <tbody>

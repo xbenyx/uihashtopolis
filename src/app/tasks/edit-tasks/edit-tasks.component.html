@@ -11,7 +11,7 @@
   <div class="container px-lg-5">
     <div class="row no-gutters">
         <div class="col-6 col-sm-8 col-md-8 d-flex align-items-center justify-content-center">
-            <div class="layout-col shadow border-0 rounded p-4 p-lg-5">
+            <div class="layout-col shadow rounded p-4 p-lg-5">
                 <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
                   <div class="row">
                     <div class="row g-3">
@@ -151,7 +151,7 @@
          </div>
       </div>
       <div class="col-12 col-sm-8 col-md-4 d-flex">
-        <div class="layout-col shadow border-0 rounded p-4 w-100 fmxw-500">
+        <div class="layout-col shadow rounded p-4 w-100 fmxw-500">
           <h4>Task Information</h4>
           &nbsp;
           <form [formGroup]="updateForm">
@@ -305,12 +305,12 @@
 <!-- Attached Files -->
 <app-table>
   <app-page-subtitle [subtitle]="'Attached Files'"></app-page-subtitle>
-  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[0]">
+  <table class="table table-striped table-hover table-sm" datatable [dtOptions]="dtOptions[0]">
     <thead class="thead-light">
       <tr>
-          <th class="border-0 rounded-start">ID</th>
-          <th class="border-0">File Name</th>
-          <th class="border-0 rounded-end">Size</th>
+          <th class="rounded-start">ID</th>
+          <th>File Name</th>
+          <th class="rounded-end">Size</th>
       </tr>
       </thead>
       <tbody>
@@ -332,17 +332,17 @@
 <!-- Assigned Agents -->
 <app-table>
   <app-page-subtitle [subtitle]="'Assigned agents'"></app-page-subtitle>
-  <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[1]">
+  <table class="table table-striped table-hover table-sm" datatable [dtOptions]="dtOptions[1]">
     <thead class="thead-light">
       <tr>
-          <th class="border-0 rounded-start">ID</th>
-          <th class="border-0">Name</th>
-          <th class="border-0">Benchmark</th>
-          <th class="border-0">Keyspace searched</th>
-          <th class="border-0">Time spent</th>
-          <th class="border-0">Cracked</th>
-          <th class="border-0">Last activity</th>
-          <th class="border-0 rounded-end">Action</th>
+          <th class="rounded-start">ID</th>
+          <th>Name</th>
+          <th>Benchmark</th>
+          <th>Keyspace searched</th>
+          <th>Time spent</th>
+          <th>Cracked</th>
+          <th>Last activity</th>
+          <th class="rounded-end">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -373,21 +373,21 @@
 </div>
 <div class="table-responsive">
   &nbsp;
-    <table class="table table-centered table-nowrap mb-0 rounded" datatable [dtOptions]="dtOptions[2]" [dtTrigger]="dtTrigger">
+    <table class="table table-striped table-hover table-sm" datatable [dtOptions]="dtOptions[2]" [dtTrigger]="dtTrigger">
       <thead class="thead-light">
         <tr>
-          <th class="border-0 rounded-start">ID</th>
-          <th class="border-0">Start</th>
-          <th class="border-0">Length</th>
-          <th class="border-0">Checkpoint</th>
-          <th class="border-0">Progress</th>
-          <th class="border-0">Agent</th>
-          <th class="border-0">Dispatch time</th>
-          <th class="border-0">Last activity</th>
-          <th class="border-0">Time spent</th>
-          <th class="border-0">State</th>
-          <th class="border-0">Cracked</th>
-          <th class="border-0 rounded-end">Action</th>
+          <th class="rounded-start">ID</th>
+          <th>Start</th>
+          <th>Length</th>
+          <th>Checkpoint</th>
+          <th>Progress</th>
+          <th>Agent</th>
+          <th>Dispatch time</th>
+          <th>Last activity</th>
+          <th>Time spent</th>
+          <th>State</th>
+          <th>Cracked</th>
+          <th class="rounded-end">Action</th>
         </tr>
         </thead>
         <tbody>
