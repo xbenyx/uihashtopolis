@@ -55,10 +55,24 @@ table.dataTable {
     color: #999;
     text-transform: uppercase;
   }
+  td {
+    vertical-align: top;
+    text-align: left;
+    font-size: .890rem;
+    font-weight: 400;
+    font-weight: normal;
+  }
 }
 
 .table-hover tbody tr:hover,.table-hover> tr:hover{
   background-color: rgb(249, 249, 167);
+}
+
+.btn-actions {
+  vertical-align: center;
+  font-size: .680rem;
+  font-weight: 400;
+  font-weight: normal;
 }
 
 
