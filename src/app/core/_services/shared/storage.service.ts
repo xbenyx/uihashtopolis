@@ -2,7 +2,8 @@ import { dateFormat } from '../../../core/_constants/settings.config';
 import { environment } from '../../../../environments/environment';
 import { Injectable } from "@angular/core";
 
-import { ConfigService } from '../config/config.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
+import { SERV } from '../../../core/_services/main.config';
 import { IStorage } from '../../_models/config-ui.model';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class UIConfigService {
   defaultSettings = false;
 
   constructor(
-    private configService:ConfigService
+    private gs: GlobalService,
   ) {}
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -59,7 +60,7 @@ export class UIConfigService {
 
   public storeDefault(){
     let params = {'maxResults': this.maxResults}
-    this.configService.getAllconfig(params).subscribe((result)=>{
+    this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
 
       var post_data = [];
 
@@ -102,10 +103,10 @@ export class UIConfigService {
   public updateDate(val){
     let keyn = 'timefmt';
     let params = {'filter=item': keyn};
-    this.configService.getAllconfig(params).subscribe((result)=>{
+    this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
       let indexUpdate = result.values.find(obj => obj.item === keyn).configId;
       let arr = {'item': keyn, 'value':  val};
-      this.configService.updateConfig(indexUpdate, arr).subscribe((result)=>{ }) })
+      this.gs.update(SERV.CONFIGS,indexUpdate, arr).subscribe((result)=>{ }) })
   }
 
   public getUIsettings(name?: string){

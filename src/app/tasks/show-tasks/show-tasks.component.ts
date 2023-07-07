@@ -7,7 +7,6 @@ import { interval, Subject, Subscription } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { CookieService } from 'src/app/core/_services/shared/cookies.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
 import { GlobalService } from '../../core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../core/_services/main.config';
@@ -20,13 +19,6 @@ declare let $:any;
 })
 @PageTitle(['Show Tasks'])
 export class ShowTasksComponent implements OnInit {
-
-  // Title Page
-  pTitle = "Tasks";
-  sTitle = "Archived Tasks";
-  buttontitle = "New Task";
-  buttonlink = "/tasks/new-tasks";
-  subbutton = true;
 
   faPauseCircle=faPauseCircle;
   faFileImport=faFileImport;
@@ -66,7 +58,6 @@ export class ShowTasksComponent implements OnInit {
   constructor(
     private gs: GlobalService,
     private route:ActivatedRoute,
-    private users: UsersService,
     private cs: CookieService,
     private router: Router
     ) { }
@@ -247,7 +238,7 @@ getAutoreload(){
 manageTaskAccess: any;
 
 setAccessPermissions(){
-  this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+  this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
       this.manageTaskAccess = perm.globalPermissionGroup.permissions.manageTaskAccess;
   });
 }

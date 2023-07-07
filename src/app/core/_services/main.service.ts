@@ -1,6 +1,6 @@
 import { environment } from './../../../environments/environment';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Observable, tap, retryWhen, delay, take } from 'rxjs';
+import { Observable, tap, retryWhen, delay, take, debounceTime } from 'rxjs';
 import { AuthService } from './access/auth.service';
 import { HttpClient} from '@angular/common/http';
 import { setParameter } from './buildparams';
@@ -65,6 +65,35 @@ export class GlobalService {
   }
 
 /**
+ * Create Preprocessor
+ * @param arr - Fields
+ * @returns Object
+ * TODO FIX
+**/
+createHashlist(methodUrl:string, arr: any): Observable<any> {
+  const str = arr.sourceData;
+  const filename = str.replace("C:\\fakepath\\", "");
+  return this.http.post<any>(this.endpoint+methodUrl, {
+          name: arr.name,
+          hashTypeId: arr.hashTypeId,
+          format: arr.format,
+          separator: arr.separator,
+          isSalted: arr.isSalted,
+          isHexSalt: arr.isHexSalt,
+          accessGroupId: arr.accessGroupId,
+          useBrain: arr.useBrain,
+          brainFeatures: arr.brainFeatures,
+          notes: arr.notes,
+          sourceType: arr.sourceType,
+          sourceData: filename,
+          hashCount: arr.hashCount,
+          cracked: arr.cracked,
+          isArchived: arr.isArchived,
+          isSecret: arr.isSecret
+        })
+}
+
+/**
  * Deletes a element
  * @param id - element id
  * @returns Object
@@ -92,6 +121,9 @@ export class GlobalService {
 **/
   update(methodUrl: string, id: number, arr: any): Observable<any> {
     return this.http.patch<number>(this.endpoint+methodUrl + '/' + id, arr)
+    .pipe(
+      debounceTime(2000)
+    );
   }
 
 /**

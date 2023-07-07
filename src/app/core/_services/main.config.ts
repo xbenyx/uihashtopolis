@@ -37,6 +37,8 @@ export class SERV {
   // USERS
   public static NOTIFICATIONS = '/ui/notifications';
   public static USERS = '/ui/users';
+  // PROJECTS
+  public static PROJECTS = '/ui/tasks';
 
 }
 

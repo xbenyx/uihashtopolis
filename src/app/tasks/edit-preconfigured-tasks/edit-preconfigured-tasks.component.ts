@@ -6,12 +6,11 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
-import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
-import { UsersService } from 'src/app/core/_services/users/users.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { colorpicker } from '../../core/_constants/settings.config';
 import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
-import { Pretask } from '../../core/_models/pretask';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-edit-preconfigured-tasks',
@@ -19,10 +18,6 @@ import { Pretask } from '../../core/_models/pretask';
 })
 @PageTitle(['Edit Preconfigured Tasks'])
 export class EditPreconfiguredTasksComponent implements OnInit{
-
-  // Title Page
-  pTitle = "Edit Preconfigured Tasks";
-  subbutton = false;
 
   editMode = false;
   editedPretaskIndex: number;
@@ -37,9 +32,8 @@ export class EditPreconfiguredTasksComponent implements OnInit{
   faInfoCircle=faInfoCircle;
 
   constructor(
-    private preTasksService: PreTasksService,
     private route:ActivatedRoute,
-    private users: UsersService,
+    private gs: GlobalService,
     private router: Router
   ) { }
 
@@ -95,7 +89,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
       'expand': 'pretaskFiles'
     }
 
-    this.preTasksService.getAllPretasks(params).subscribe((pretasks: any) => {
+    this.gs.getAll(SERV.PRETASKS,params).subscribe((pretasks: any) => {
       this.files = pretasks.values;
       this.dtTrigger.next(void 0);
     });
@@ -122,7 +116,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
 
       this.isLoading = true;
 
-      this.preTasksService.updatePretask(this.editedPretaskIndex,this.updateForm.value['updateData']).subscribe((hasht: any) => {
+      this.gs.update(SERV.PRETASKS,this.editedPretaskIndex,this.updateForm.value['updateData']).subscribe((hasht: any) => {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
@@ -152,7 +146,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
   managePretaskAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.managePretaskAccess = perm.globalPermissionGroup.permissions.managePretaskAccess;
     });
   }
@@ -160,7 +154,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
   private initForm() {
     this.isLoading = true;
     if (this.editMode) {
-    this.preTasksService.getPretask(this.editedPretaskIndex).subscribe((result)=>{
+    this.gs.get(SERV.PRETASKS,this.editedPretaskIndex).subscribe((result)=>{
       this.pretask = result;
       this.color = result['color'];
       this.updateForm = new FormGroup({

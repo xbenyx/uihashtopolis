@@ -1,16 +1,15 @@
 import { faAlignJustify, faInfoCircle, faMagnifyingGlass, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 
-import { SuperTasksService } from 'src/app/core/_services/tasks/supertasks.sevice';
-import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
-import { UsersService } from 'src/app/core/_services/users/users.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
+import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 declare var options: any;
 declare var defaultOptions: any;
@@ -35,10 +34,8 @@ export class EditSupertasksComponent implements OnInit {
   faMagnifyingGlass=faMagnifyingGlass;
 
   constructor(
-    private supertaskService: SuperTasksService,
-    private pretasksService: PreTasksService,
     private route:ActivatedRoute,
-    private users: UsersService,
+    private gs: GlobalService,
     private router: Router,
   ) { }
 
@@ -93,7 +90,7 @@ export class EditSupertasksComponent implements OnInit {
   manageSupertaskAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.manageSupertaskAccess = perm.globalPermissionGroup.permissions.manageSupertaskAccess;
     });
   }
@@ -104,7 +101,7 @@ export class EditSupertasksComponent implements OnInit {
 
       this.isLoading = true;
 
-      this.supertaskService.updateSupertask(this.editedSTIndex,this.updateForm.value).subscribe((st: any) => {
+      this.gs.update(SERV.SUPER_TASKS,this.editedSTIndex,this.updateForm.value).subscribe((st: any) => {
         const response = st;
         this.isLoading = false;
           Swal.fire({
@@ -132,7 +129,8 @@ export class EditSupertasksComponent implements OnInit {
 
   ngAfterViewInit() {
 
-    this.pretasksService.getAllPretasks().subscribe((htypes: any) => {
+    let params = { 'maxResults': this.maxResults};
+    this.gs.getAll(SERV.PRETASKS,params).subscribe((htypes: any) => {
       var self = this;
       var response = htypes.values;
       ($("#pretasks") as any).selectize({
@@ -198,7 +196,7 @@ export class EditSupertasksComponent implements OnInit {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        this.supertaskService.deleteSupertask(id).subscribe(() => {
+        this.gs.delete(SERV.SUPER_TASKS,id).subscribe(() => {
           Swal.fire({
             title: "Success",
             icon: "success",
@@ -222,7 +220,7 @@ export class EditSupertasksComponent implements OnInit {
   private initForm() {
     this.isLoading = true;
     if (this.editMode) {
-    this.supertaskService.getSupertask(this.editedSTIndex).subscribe((result)=>{
+    this.gs.get(SERV.SUPER_TASKS,this.editedSTIndex).subscribe((result)=>{
       this.viewForm = new FormGroup({
         supertaskId: new FormControl(result['supertaskId']),
         supertaskName: new FormControl(result['supertaskName']),
@@ -238,8 +236,8 @@ export class EditSupertasksComponent implements OnInit {
     let params = {'maxResults': this.maxResults, 'expand': 'pretasks', 'filter': 'supertaskId='+this.editedSTIndex+''};
     let paramspt = { 'maxResults': this.maxResults,'expand': 'pretaskFiles'}
     var matchObjectFiles =[]
-    this.supertaskService.getAllsupertasks(params).subscribe((result)=>{
-    this.pretasksService.getAllPretasks(paramspt).subscribe((pretasks: any) => {
+    this.gs.getAll(SERV.SUPER_TASKS,params).subscribe((result)=>{
+    this.gs.getAll(SERV.PRETASKS,paramspt).subscribe((pretasks: any) => {
       this.pretasks = result.values.map(mainObject => {
           for(let i=0; i < Object.keys(result.values[0].pretasks).length; i++){
             matchObjectFiles.push(pretasks.values.find((element:any) => element?.pretaskId === mainObject.pretasks[i]?.pretaskId))

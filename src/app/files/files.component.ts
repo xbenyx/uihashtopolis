@@ -8,8 +8,6 @@ import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { UploadTUSService } from '../core/_services/files/files_tus.service';
-import { FilesService } from '../core/_services/files/files.service';
-import { UsersService } from '../core/_services/users/users.service';
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { environment } from './../../environments/environment';
 import { PageTitle } from '../core/_decorators/autotitle';
@@ -63,9 +61,7 @@ export class FilesComponent implements OnInit {
 
   constructor(
     private uploadService:UploadTUSService,
-    private filesService:FilesService,
     private route:ActivatedRoute,
-    private users:UsersService,
     private gs: GlobalService,
     private http:HttpClient,
     private router:Router
@@ -97,7 +93,7 @@ export class FilesComponent implements OnInit {
   addFileAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.viewFileAccess = perm.globalPermissionGroup.permissions.viewFileAccess;
         this.manageFileAccess = perm.globalPermissionGroup.permissions.manageFileAccess;
         this.addFileAccess = perm.globalPermissionGroup.permissions.addFileAccess;
@@ -126,7 +122,7 @@ export class FilesComponent implements OnInit {
       }
       let params = {'maxResults': this.maxResults, 'expand': 'accessGroup', 'filter': 'fileType='+this.filterType+''}
 
-      this.filesService.getFiles(params).subscribe((files: any) => {
+      this.gs.getAll(SERV.FILES,params).subscribe((files: any) => {
         this.allfiles = files.values;
         this.dtTrigger.next(void 0);
       });
@@ -258,7 +254,7 @@ export class FilesComponent implements OnInit {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.filesService.deleteFile(id).subscribe(() => {
+          this.gs.delete(SERV.FILES,id).subscribe(() => {
             Swal.fire({
               title: "Success",
               icon: "success",
@@ -317,7 +313,7 @@ export class FilesComponent implements OnInit {
     selectionnum.forEach(function (value) {
       Swal.fire('Deleting...'+sellen+' File(s)...Please wait')
       Swal.showLoading()
-    self.filesService.deleteFile(value)
+    self.gs.delete(SERV.FILES,value)
     .subscribe(
       err => {
         console.log('HTTP Error', err)
@@ -347,7 +343,7 @@ export class FilesComponent implements OnInit {
       selectionnum.forEach(function (id) {
         Swal.fire('Updating...'+sellen+' File(s)...Please wait')
         Swal.showLoading()
-      self.filesService.updateBulkFile(id, value).subscribe(
+      self.gs.update(SERV.FILES, id, value).subscribe(
       );
     });
     self.onDone(sellen);

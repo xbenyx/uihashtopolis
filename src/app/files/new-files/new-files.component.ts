@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { UploadTUSService } from 'src/app/core/_services/files/files_tus.service';
-import { FilesService } from 'src/app/core/_services/files/files.service';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { environment } from './../../../environments/environment';
@@ -31,8 +30,7 @@ export class NewFilesComponent implements OnInit {
 
   constructor(
     private uploadService:UploadTUSService,
-    private filesService:FilesService,
-    private gs: GlobalService,
+    private gs: GlobalService
   ) { }
 
   // accessgroup: AccessGroup; //Use models when data structure is reliable
@@ -81,7 +79,7 @@ export class NewFilesComponent implements OnInit {
 
     var form = this.onPrep(this.createForm.value);
 
-    this.filesService.createFile(form).subscribe((hl: any) => {
+    this.gs.create(SERV.FILES,form).subscribe((hl: any) => {
       this.isLoading = false;
       Swal.fire({
         title: "Success",

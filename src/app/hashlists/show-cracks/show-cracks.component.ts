@@ -3,11 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 
-import { HashesService } from '../../core/_services/hashlist/hashes.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-show-cracks',
@@ -15,12 +15,6 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show Cracks'])
 export class ShowCracksComponent implements OnInit {
-
-  // Title Page
-  pTitle = "Cracks";
-  buttontitle = "";
-  buttonlink = "";
-  subbutton = false;
 
   faPlus=faPlus;
 
@@ -31,7 +25,7 @@ export class ShowCracksComponent implements OnInit {
   dtOptions: any = {};
 
   constructor(
-    private hashesService: HashesService
+    private gs: GlobalService,
   ) { }
 
   allhashes: any = [];
@@ -41,7 +35,7 @@ export class ShowCracksComponent implements OnInit {
 
     let params = {'maxResults': this.maxResults, 'filter': 'isCracked=1'}
 
-    this.hashesService.getAllhashes(params).subscribe((hashes: any) => {
+    this.gs.getAll(SERV.HASHES,params).subscribe((hashes: any) => {
       this.allhashes = hashes.values;
       this.dtTrigger.next(void 0);
     });

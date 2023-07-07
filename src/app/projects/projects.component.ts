@@ -1,5 +1,4 @@
 import { faHomeAlt, faPlus, faTrash, faEdit, faFilePdf} from '@fortawesome/free-solid-svg-icons';
-import { ProjectService } from '../core/_services/projects/projects.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
@@ -8,8 +7,11 @@ import { InputFiles, Report } from './report';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Subject } from 'rxjs';
 
+import { GlobalService } from 'src/app/core/_services/main.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../core/_services/main.config';
+
 // import { ReportConfig } from '../shared/defines/logobase64';
-import { PageTitle } from '../core/_decorators/autotitle';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -34,12 +36,12 @@ export class ProjectsComponent implements OnInit {
   public project: any[] = [];
 
   constructor(
-    private projectService:ProjectService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private gs: GlobalService,
   ) { }
 
   ngOnInit(): void {
-    this.projectService.projects().subscribe((proj: any) => {
+    this.gs.getAll(SERV.PROJECTS).subscribe((proj: any) => {
       this.projects = proj.values;
       this.dtTrigger.next(void 0);
     });
@@ -145,7 +147,7 @@ export class ProjectsComponent implements OnInit {
   public confreport: any[] = [];
 
   async renderPDF(id: number){
-    this.projectService.getProject(id).subscribe((proj: any) => {
+    this.gs.get(SERV.PROJECTS,id).subscribe((proj: any) => {
       this.project = proj.values;
     });
 

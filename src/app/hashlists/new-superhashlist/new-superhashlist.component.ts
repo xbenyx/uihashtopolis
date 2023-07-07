@@ -4,11 +4,10 @@ import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 
-import { SuperHashlistService } from 'src/app/core/_services/hashlist/superhashlist.service';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
-import { environment } from './../../../environments/environment';
+import { GlobalService } from 'src/app/core/_services/main.service';
+import { environment } from './../../../environments/environment'
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-new-superhashlist',
@@ -22,10 +21,8 @@ export class NewSuperhashlistComponent implements OnInit {
   faMagnifyingGlass=faMagnifyingGlass;
 
   constructor(
-    private superHashlistService:SuperHashlistService,
     private _changeDetectorRef: ChangeDetectorRef,
-    private hashlistService:ListsService,
-    private users: UsersService,
+    private gs: GlobalService,
     private router: Router
   ) { }
 
@@ -44,7 +41,7 @@ export class NewSuperhashlistComponent implements OnInit {
 
     let params = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
 
-    this.hashlistService.getAllhashlists(params).subscribe((tasks: any) => {
+    this.gs.getAll(SERV.HASHLISTS,params).subscribe((tasks: any) => {
       var self = this;
       var response = tasks.values;
       ($("#hashlists") as any).selectize({
@@ -81,7 +78,7 @@ export class NewSuperhashlistComponent implements OnInit {
   createSuperhashlistAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.createSuperhashlistAccess = perm.globalPermissionGroup.permissions.createSuperhashlistAccess;
     });
   }
@@ -107,7 +104,7 @@ export class NewSuperhashlistComponent implements OnInit {
 
       this.isLoading = true;
 
-      this.superHashlistService.createSuperhashlist(this.createForm.value).subscribe((hasht: any) => {
+      this.gs.create(SERV.SUPER_HASHLISTS,this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({

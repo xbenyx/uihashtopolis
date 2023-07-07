@@ -5,8 +5,9 @@ import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 
-import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-preconfigured-tasks',
@@ -14,12 +15,6 @@ import { PageTitle } from 'src/app/core/_decorators/autotitle';
 })
 @PageTitle(['Show Preconfigured Task'])
 export class PreconfiguredTasksComponent implements OnInit {
-
-  // Title Page
-  pTitle = "Preconfigured Tasks";
-  buttontitle = "New";
-  buttonlink = "/tasks/new-preconfigured-tasks";
-  subbutton = true;
 
   faFileImport=faFileImport;
   faFileExport=faFileExport;
@@ -39,7 +34,7 @@ export class PreconfiguredTasksComponent implements OnInit {
   dtOptions: any = {};
 
   constructor(
-    private preTasksService: PreTasksService
+    private gs: GlobalService,
   ) { }
 
   allpretasks: any = [];
@@ -49,7 +44,7 @@ export class PreconfiguredTasksComponent implements OnInit {
 
     let params = {'maxResults': this.maxResults, 'expand': 'pretaskFiles'}
 
-    this.preTasksService.getAllPretasks(params).subscribe((pretasks: any) => {
+    this.gs.getAll(SERV.PRETASKS,params).subscribe((pretasks: any) => {
       this.allpretasks = pretasks.values;
       this.dtTrigger.next(void 0);
     });
@@ -157,7 +152,7 @@ export class PreconfiguredTasksComponent implements OnInit {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        this.preTasksService.deletePretask(id).subscribe(() => {
+        this.gs.delete(SERV.PRETASKS,id).subscribe(() => {
           Swal.fire({
             title: "Success",
             icon: "success",

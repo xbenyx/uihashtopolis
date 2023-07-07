@@ -216,7 +216,7 @@ export class NewHashlistComponent implements OnInit {
 
       var res = this.handleUpload(this.signupForm.value);
 
-      this.gs.create(SERV.HASHLISTS,res).subscribe((hl: any) => {
+      this.gs.createHashlist(SERV.HASHLISTS,res).subscribe((hl: any) => {
         this.isLoading = false;
         Swal.fire({
           title: "Success",

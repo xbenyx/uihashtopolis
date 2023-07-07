@@ -4,8 +4,6 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UsersService } from 'src/app/core/_services/users/users.service';
-import { FilesService } from '../../core/_services/files/files.service';
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../core/_services/main.config';
@@ -34,9 +32,7 @@ export class FilesEditComponent implements OnInit {
   filetype: any[]
 
   constructor(
-    private filesService: FilesService,
     private route:ActivatedRoute,
-    private users: UsersService,
     private gs: GlobalService,
     private router: Router
     ) { }
@@ -86,7 +82,7 @@ export class FilesEditComponent implements OnInit {
         this.accessgroup = agroups.values;
       });
 
-      this.filesService.getFile(this.editedFileIndex).subscribe((files: any) => {
+      this.gs.get(SERV.FILES,this.editedFileIndex).subscribe((files: any) => {
         this.allfiles = files;
         this.isLoading = false;
       });
@@ -97,7 +93,7 @@ export class FilesEditComponent implements OnInit {
   manageFileAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(4,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS, this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.manageFileAccess = perm.globalPermissionGroup.permissions.manageFileAccess;
     });
   }
@@ -108,7 +104,7 @@ export class FilesEditComponent implements OnInit {
 
     this.isLoading = true;
 
-    this.filesService.updateFile(this.updateForm.value).subscribe((hl: any) => {
+    this.gs.update(SERV.FILES,this.editedFileIndex,this.updateForm.value).subscribe((hl: any) => {
       this.isLoading = false;
       Swal.fire({
         title: "Great!",
@@ -162,7 +158,7 @@ export class FilesEditComponent implements OnInit {
 private initForm() {
   this.isLoading = true;
   if (this.editMode) {
-  this.filesService.getFile(this.editedFileIndex).subscribe((result)=>{
+  this.gs.get(SERV.FILES,this.editedFileIndex).subscribe((result)=>{
     this.updateForm = new FormGroup({
       'fileId': new FormControl(result['fileId'], Validators.required),
       'updateData': new FormGroup({

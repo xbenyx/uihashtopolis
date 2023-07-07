@@ -19,10 +19,6 @@ import { SERV } from '../../core/_services/main.config';
 @PageTitle(['Edit Hashlist'])
 export class EditHashlistComponent implements OnInit {
 
-  // Title Page
-  pTitle = "Edit HashList";
-  subbutton = false;
-
   editMode = false;
   editedHashlistIndex: number;
   editedHashlist: any // Change to Model

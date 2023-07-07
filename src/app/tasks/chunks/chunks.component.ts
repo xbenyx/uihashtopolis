@@ -5,8 +5,6 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { ChunkService } from '../../core/_services/tasks/chunks.service';
-import { TasksService } from '../../core/_services/tasks/tasks.sevice';
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { environment } from 'src/environments/environment';
@@ -19,22 +17,12 @@ import { SERV } from '../../core/_services/main.config';
 @PageTitle(['Show Chunks'])
 export class ChunksComponent implements OnInit {
 
-  // Title Page
-  pTitle = "Chunks";
-  buttontitle = "View all chunks";
-  sbuttontitle = "View less";
-  buttonlink = "/tasks/chunks/show-all-chunks";
-  sbuttonlink = "/tasks/chunks";
-  subbutton = true;
-
   editedChunkIndex: number;
 
   faPlus=faPlus;
   faEye=faEye;
 
   constructor(
-    private tasksService: TasksService,
-    private chunkService: ChunkService,
     private uiService: UIConfigService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -97,8 +85,8 @@ export class ChunksComponent implements OnInit {
     });
 
     let params = {'maxResults': this.chunkresults};
-    this.chunkService.getChunks(paramchunk).subscribe((chunks: any) => {
-      this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
+    this.gs.getAll(SERV.CHUNKS,paramchunk).subscribe((chunks: any) => {
+      this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
       this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
         this.chunks = chunks.values.map(mainObject => {
           let matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)

@@ -1,9 +1,9 @@
 <div [ngSwitch]="whichView">
   <div *ngSwitchCase="'live'">
-    <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
+    <app-page-title [title]="'Tasks'" [buttontitle]="'New Task'" [buttonlink]="'/tasks/new-tasks'" [subbutton]="true"></app-page-title>
   </div>
   <div *ngSwitchCase="'archived'">
-    <app-page-title [title]="sTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
+    <app-page-title [title]="'Archived Tasks'" [buttontitle]="'New Task'" [buttonlink]="'/tasks/new-tasks'" [subbutton]="true"></app-page-title>
   </div>
 </div>
 <!-- Body -->
