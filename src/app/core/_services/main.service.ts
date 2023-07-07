@@ -65,7 +65,7 @@ export class GlobalService {
   }
 
 /**
- * Create Preprocessor
+ * Create Hashlist
  * @param arr - Fields
  * @returns Object
  * TODO FIX
