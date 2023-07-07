@@ -9,14 +9,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Subject } from 'rxjs';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { PreTasksService } from '../../core/_services/tasks/pretasks.sevice';
-import { CrackerService } from '../../core/_services/config/cracker.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
-import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
-import { FilesService } from '../../core/_services/files/files.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { colorpicker } from '../../core/_constants/settings.config';
 import { FileTypePipe } from 'src/app/core/_pipes/file-type.pipe';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 declare let $:any;
 
@@ -37,16 +34,11 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   private maxAgents = environment.config.tasks.maxAgents;
 
   constructor(
-    private preTasksService: PreTasksService,
-    private crackerService: CrackerService,
-    private filesService: FilesService,
     private uiService: UIConfigService,
-    private taskService: TasksService,
     private modalService: NgbModal,
     private fileType: FileTypePipe,
     private route:ActivatedRoute,
-    private users: UsersService,
-    private router: Router,
+    private gs: GlobalService,
   ) { }
 
   copyMode = false;
@@ -182,13 +174,13 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
       'files': new FormControl('' || [])
     });
 
-    this.crackerService.getCrackerType().subscribe((crackers: any) => {
+    this.gs.getAll(SERV.CRACKERS_TYPES).subscribe((crackers: any) => {
       this.crackertype = crackers.values;
     });
 
     let params = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
 
-    this.filesService.getFiles(params).subscribe((files: any) => {
+    this.gs.getAll(SERV.FILES,params).subscribe((files: any) => {
       this.allfiles = files.values;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         setTimeout(() => {
@@ -253,7 +245,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   createPretaskAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.createPretaskAccess = perm.globalPermissionGroup.permissions.createPretaskAccess;
     });
   }
@@ -300,7 +292,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
       this.isLoading = true;
 
-      this.preTasksService.createPretask(this.createForm.value).subscribe((pret: any) => {
+      this.gs.create(SERV.PRETASKS,this.createForm.value).subscribe((pret: any) => {
         const response = pret;
         this.isLoading = false;
           Swal.fire({
@@ -340,7 +332,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   private initForm() {
     this.isLoading = true;
     if (this.copyMode) {
-    this.preTasksService.getPretask(this.editedIndex).subscribe((result)=>{
+    this.gs.get(SERV.PRETASKS,this.editedIndex).subscribe((result)=>{
       this.createForm = new FormGroup({
         'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
         'attackCmd': new FormControl(result['attackCmd']),
@@ -364,7 +356,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   private initFormt() {
     this.isLoading = true;
     if (this.copyMode) {
-    this.taskService.getTask(this.editedIndex).subscribe((result)=>{
+    this.gs.get(SERV.TASKS,this.editedIndex).subscribe((result)=>{
       this.createForm = new FormGroup({
         'taskName': new FormControl(result['taskName']+'_(Copied_pretask_from_task_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
         'attackCmd': new FormControl(result['attackCmd']),

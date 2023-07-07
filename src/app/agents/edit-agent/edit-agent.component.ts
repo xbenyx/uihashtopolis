@@ -1,7 +1,6 @@
 import { faAlignJustify, faIdBadge, faComputer, faKey, faInfoCircle, faEye } from '@fortawesome/free-solid-svg-icons';
 import { faLinux, faWindows, faApple } from '@fortawesome/free-brands-svg-icons';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
@@ -10,6 +9,7 @@ import { Subject } from 'rxjs';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { GlobalService } from 'src/app/core/_services/main.service';
+import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../core/_services/main.config';
 
@@ -36,6 +36,8 @@ export class EditAgentComponent implements OnInit {
   faKey=faKey;
   faEye=faEye;
 
+  private maxResults = environment.config.prodApiMaxResults;
+
   constructor(
     private uiService: UIConfigService,
     private route:ActivatedRoute,
@@ -46,7 +48,6 @@ export class EditAgentComponent implements OnInit {
   updateForm: FormGroup
   showagent: any = [];
   users: any = [];
-  private maxResults = environment.config.prodApiMaxResults;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
@@ -90,7 +91,7 @@ export class EditAgentComponent implements OnInit {
       this.isLoading = false;
     });
 
-    let params = {'maxResults': this.maxResults}
+    let params = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.USERS, params).subscribe((user: any) => {
       this.users = user.values;
     });
