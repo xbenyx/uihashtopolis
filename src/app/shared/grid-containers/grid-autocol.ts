@@ -56,7 +56,7 @@ export class GridAutoColComponent implements OnInit {
       var rows = Math.floor((this.height + gutterSize) / (cardHeight + gutterSize));
     }
     return {
-      'display': 'inline-grid',
+      'display': 'grid',
       'grid-template-columns': `repeat(${cols}, auto)`,
       'grid-template-rows': `repeat(${rows}, auto)`,
       'grid-gap': '1px',

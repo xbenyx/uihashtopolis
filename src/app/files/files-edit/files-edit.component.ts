@@ -81,13 +81,11 @@ export class FilesEditComponent implements OnInit {
 
       this.filetype = [{fileType: 0, fileName: 'Wordlist'},{fileType: 1, fileName: 'Rules'},{fileType: 2, fileName: 'Other'}];
 
-      const id = +this.route.snapshot.params['id'];
-
       this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
         this.accessgroup = agroups.values;
       });
 
-      this.filesService.getFile(id).subscribe((files: any) => {
+      this.filesService.getFile(this.editedFileIndex).subscribe((files: any) => {
         this.allfiles = files;
         this.isLoading = false;
       });

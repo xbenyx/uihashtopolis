@@ -81,12 +81,12 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       select: {
         style: 'multi',
         },
-      columnDefs: [ {
-        width: "10% !important;",
-        targets: 0,
-        searchable: false,
-        orderable: false,
-      } ],
+      // columnDefs: [ {
+      //   width: "10% !important;",
+      //   targets: 0,
+      //   searchable: false,
+      //   orderable: false,
+      // } ],
       buttons: {
         dom: {
           button: {
@@ -101,13 +101,13 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
             {
               extend: 'excelHtml5',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5]
+                columns: [1, 2, 3, 4, 5, 6, 7, 8]
               },
             },
             {
               extend: 'print',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5]
+                columns: [1, 2, 3, 4, 5, 6, 7, 8]
               },
               customize: function ( win ) {
                 $(win.document.body)
@@ -176,7 +176,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
           {
             extend: 'colvis',
             text: 'Column View',
-            columns: [ 1,2,3,4,5 ],
+            columns: [ 1, 2, 3, 4, 5, 6, 7, 8 ],
           },
           {
             extend: "pageLength",

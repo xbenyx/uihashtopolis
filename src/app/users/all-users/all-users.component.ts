@@ -73,6 +73,9 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
       dom: 'Bfrtip',
       pageLength: 10,
       stateSave: true,
+      // "stateLoadParams": function (settings, data) {
+      //   return false;
+      // },
       select: true,
       buttons: {
         dom: {

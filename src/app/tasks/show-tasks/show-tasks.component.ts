@@ -7,10 +7,10 @@ import { interval, Subject, Subscription } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { CookieService } from 'src/app/core/_services/shared/cookies.service';
-import { ChunkService } from 'src/app/core/_services/tasks/chunks.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
-import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { GlobalService } from '../../core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 declare let $:any;
 
@@ -64,8 +64,7 @@ export class ShowTasksComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults
 
   constructor(
-    private tasksService: TasksService,
-    private chunkService: ChunkService,
+    private gs: GlobalService,
     private route:ActivatedRoute,
     private users: UsersService,
     private cs: CookieService,
@@ -256,7 +255,7 @@ setAccessPermissions(){
 getTasks():void {
   let params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived='+this.isArchived+''}
 
-  this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
+  this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
     this.alltasks = tasks.values;
     this.loadChunks();
     this.dtTrigger.next(null);
@@ -265,7 +264,7 @@ getTasks():void {
 
 loadChunks(){
   let params = {'maxResults': 999999999};
-  this.chunkService.getChunks(params).subscribe((c: any)=>{
+  this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
     this.loadchunks = c;
   });
 }
@@ -283,7 +282,7 @@ rerender(): void {
 
 onArchive(id: number){
   if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
-  this.tasksService.archiveTask(id).subscribe((tasks: any) => {
+  this.gs.archive(SERV.TASKS,id).subscribe((tasks: any) => {
     Swal.fire({
       title: "Success",
       text: "Archived!",
@@ -326,7 +325,7 @@ onDelete(id: number){
     })
   .then((result) => {
     if (result.isConfirmed) {
-      this.tasksService.deleteTask(id).subscribe(() => {
+      this.gs.delete(SERV.TASKS,id).subscribe(() => {
         Swal.fire({
           title: "Success",
           icon: "success",
@@ -385,7 +384,7 @@ onDeleteBulk(){
   selectionnum.forEach(function (value) {
     Swal.fire('Deleting...'+sellen+' Task(s)...Please wait')
     Swal.showLoading()
-  self.tasksService.deleteTask(value)
+  self.gs.delete(SERV.TASKS,value)
   .subscribe(
     err => {
       console.log('HTTP Error', err)
@@ -414,7 +413,7 @@ onUpdateBulk(value: any){
     selectionnum.forEach(function (id) {
       Swal.fire('Updating...'+sellen+' Task(s)...Please wait')
       Swal.showLoading()
-    self.tasksService.updateTask(id, value).subscribe(
+    self.gs.update(SERV.TASKS, id, value).subscribe(
     );
   });
   self.onDone(sellen);

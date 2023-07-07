@@ -1,7 +1,3 @@
-<div *ngIf="isLoading" style="text-align: center;">
-  <app-loading-spinner></app-loading-spinner>
-</div>
-<!-- Header -->
 <div [ngSwitch]="whichView">
   <div *ngSwitchCase="'create'">
     <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
@@ -9,6 +5,10 @@
   <div *ngSwitchCase="'edit'">
     <app-page-title [title]="sTitle + editedIndex" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
   </div>
+</div>
+<!-- Spinner -->
+<div *ngIf="isLoading" style="text-align: center;">
+  <app-loading-spinner></app-loading-spinner>
 </div>
 <!-- New Task End-->
 <div class="row g-3">
