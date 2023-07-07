@@ -8,11 +8,9 @@ import { interval, Subscription } from 'rxjs';
 import { HeatmapChart } from 'echarts/charts';
 import * as echarts from 'echarts/core';
 
-import { SuperTasksService } from '../core/_services/tasks/supertasks.sevice';
-import { HashesService } from '../core/_services/hashlist/hashes.service';
-import { AgentsService } from '../core/_services/agents/agents.service';
-import { TasksService } from '../core/_services/tasks/tasks.sevice';
-import { PageTitle } from '../core/_decorators/autotitle';
+import { GlobalService } from 'src/app/core/_services/main.service';
+import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../core/_services/main.config';
 
 @Component({
   selector: 'app-home',
@@ -51,11 +49,7 @@ export class HomeComponent implements OnInit {
   public punchCardOptss = {}
 
   constructor(
-    private supertaskService: SuperTasksService,
-    private agentsService: AgentsService,
-    private hashesService: HashesService,
-    private tasksService: TasksService,
-    private elementRef: ElementRef
+    private gs: GlobalService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -71,7 +65,7 @@ export class HomeComponent implements OnInit {
     // Agents
     let params = {'maxResults': this.maxResults}
 
-    this.agentsService.getAgents(params).subscribe((agents: any) => {
+    this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.totalAgents = agents.total | 0;
       this.activeAgents = agents.values.filter(u=> u.isActive == true).length | 0;
     });
@@ -79,12 +73,12 @@ export class HomeComponent implements OnInit {
     //  Tasks
     let paramst = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
 
-    this.tasksService.getAlltasks(paramst).subscribe((tasks: any) => {
+    this.gs.getAll(SERV.TASKS,paramst).subscribe((tasks: any) => {
       this.totalTasks = tasks.values.filter(u=> u.isArchived != true).length | 0;
     });
 
     // SuperTasks
-    this.supertaskService.getAllsupertasks(params).subscribe((stasks: any) => {
+    this.gs.getAll(SERV.SUPER_TASKS,params).subscribe((stasks: any) => {
       this.allsupertasks = stasks.total | 0;
     });
 
@@ -92,7 +86,7 @@ export class HomeComponent implements OnInit {
     // let paramsc = {'maxResults': this.maxResults, 'filter': 'isCracked='+true+''}
     let paramsc = {'maxResults': this.maxResults }
 
-    this.hashesService.getAllhashes(paramsc).subscribe((hashes: any) => {
+    this.gs.getAll(SERV.HASHES,paramsc).subscribe((hashes: any) => {
       let lastseven:any = new Date() ;
       lastseven = lastseven.setDate(lastseven.getDate() - 7).valueOf()/1000;
       let lastsevenObject = hashes.values.filter(u=> (u.isCracked == true && u.timeCracked > lastseven ));

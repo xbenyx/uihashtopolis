@@ -1,10 +1,10 @@
 import { environment } from './../../../environments/environment';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable, tap, retryWhen, delay, take } from 'rxjs';
+import { AuthService } from './access/auth.service';
 import { HttpClient} from '@angular/common/http';
 import { setParameter } from './buildparams';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Params } from '@angular/router';
-import { AuthService } from './access/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +47,12 @@ export class GlobalService {
  * @param id - element id
  * @returns  Object
 **/
-  get(methodUrl:string, id: number):Observable<any> {
-    return this.http.get(`${this.endpoint+methodUrl}/${id}`)
+  get(methodUrl:string, id: number, routerParams?: Params):Observable<any> {
+    let queryParams: Params = {};
+    if (routerParams) {
+        queryParams = setParameter(routerParams);
+    }
+    return this.http.get(`${this.endpoint+methodUrl}/${id}`,{params: routerParams})
   }
 
 /**

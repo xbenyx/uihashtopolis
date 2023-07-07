@@ -5,10 +5,10 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
-import { AccessPermissionGroupsService } from 'src/app/core/_services/access/accesspermissiongroups.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
-import { environment } from 'src/environments/environment';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { environment } from 'src/environments/environment';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-globalpermissionsgroups',
@@ -37,8 +37,7 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     public Allgpg: {id: number, name: string , user:[]}[] = [];
 
     constructor(
-      private gpg: AccessPermissionGroupsService,
-      private users: UsersService,
+      private gs: GlobalService,
       private router: Router
     ) { }
 
@@ -47,7 +46,7 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
       this.setAccessPermissions();
 
       let params = {'maxResults': this.maxResults , 'expand': 'user'}
-      this.gpg.getAccPGroups(params).subscribe((gpg: any) => {
+      this.gs.getAll(SERV.ACCESS_PERMISSIONS_GROUPS,params).subscribe((gpg: any) => {
         this.Allgpg = gpg.values;
         this.dtTrigger.next(void 0);
       });
@@ -110,7 +109,8 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     }
 
     setAccessPermissions(){
-      this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+      let param = {'expand':'globalPermissionGroup'};
+      this.gs.get(SERV.USERS,this.gs.userId,param).subscribe((perm: any) => {
 
       });
     }
@@ -146,7 +146,7 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     })
     .then((result) => {
       if (result.isConfirmed) {
-        this.gpg.deleteAccP(id).subscribe(() => {
+        this.gs.delete(SERV.ACCESS_PERMISSIONS_GROUPS,id).subscribe(() => {
           Swal.fire({
             title: "Success",
             icon: "success",

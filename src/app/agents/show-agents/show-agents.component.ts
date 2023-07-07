@@ -7,9 +7,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {Subject} from 'rxjs';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { AgentsService } from '../../core/_services/agents/agents.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 declare let $:any;
 
@@ -54,9 +54,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   private maxResults = environment.config.prodApiMaxResults
 
   constructor(
-    private agentsService: AgentsService,
     private uiService: UIConfigService,
-    private users: UsersService
+    private gs: GlobalService,
   ) { }
 
   ngOnInit(): void {
@@ -65,7 +64,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
     let params = {'maxResults': this.maxResults}
 
-    this.agentsService.getAgents(params).subscribe((agents: any) => {
+    this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.showagents = agents.values;
       // this.showagents.forEach(f => (f.checked = false));
       this.dtTrigger.next(void 0);
@@ -191,7 +190,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   manageAgentAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.manageAgentAccess = perm.globalPermissionGroup.permissions.manageAgentAccess;
     });
   }
@@ -264,7 +263,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       selectionnum.forEach(function (value) {
         Swal.fire('Deleting...'+sellen+' Agent(s)...Please wait')
         Swal.showLoading()
-      self.agentsService.deleteAgent(value)
+      self.gs.delete(SERV.AGENTS,value)
       .subscribe(
         err => {
           console.log('HTTP Error', err)
@@ -294,7 +293,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         selectionnum.forEach(function (id) {
           Swal.fire('Updating...'+sellen+' Agents...Please wait')
           Swal.showLoading()
-        self.agentsService.updateAgent(id, value).subscribe(
+        self.gs.update(SERV.AGENTS,id, value).subscribe(
           err => {
             console.log('HTTP Error', err)
             err = 1;
@@ -375,7 +374,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          this.agentsService.deleteAgent(id).subscribe(() => {
+          this.gs.delete(SERV.AGENTS,id).subscribe(() => {
             Swal.fire({
               title: "Success",
               icon: "success",

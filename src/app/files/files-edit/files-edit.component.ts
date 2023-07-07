@@ -4,11 +4,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AccessGroupsService } from '../../core/_services/access/accessgroups.service';
 import { UsersService } from 'src/app/core/_services/users/users.service';
 import { FilesService } from '../../core/_services/files/files.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
-import { AccessGroup } from '../../core/_models/access-group';
+import { SERV } from '../../core/_services/main.config';
 import { Filetype } from '../../core/_models/files';
 
 @Component({
@@ -33,10 +33,11 @@ export class FilesEditComponent implements OnInit {
   allfiles: any[]
   filetype: any[]
 
-  constructor(private filesService: FilesService,
-    private accessgroupService:AccessGroupsService,
+  constructor(
+    private filesService: FilesService,
     private route:ActivatedRoute,
     private users: UsersService,
+    private gs: GlobalService,
     private router: Router
     ) { }
 
@@ -81,7 +82,7 @@ export class FilesEditComponent implements OnInit {
 
       this.filetype = [{fileType: 0, fileName: 'Wordlist'},{fileType: 1, fileName: 'Rules'},{fileType: 2, fileName: 'Other'}];
 
-      this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+      this.gs.getAll(SERV.ACCESS_GROUPS).subscribe((agroups: any) => {
         this.accessgroup = agroups.values;
       });
 

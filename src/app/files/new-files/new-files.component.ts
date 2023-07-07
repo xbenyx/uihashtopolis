@@ -1,16 +1,17 @@
-import { faEdit, faTrash, faHomeAlt, faPlus, faUpload, faFileImport, faDownload, faPaperclip, faLink, faLock, faFileUpload} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faUpload, faDownload, faLink, faFileUpload} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { AccessGroupsService } from 'src/app/core/_services/access/accessgroups.service';
 import { UploadTUSService } from 'src/app/core/_services/files/files_tus.service';
 import { FilesService } from 'src/app/core/_services/files/files.service';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { UploadFileTUS } from '../../core/_models/files';
-import { Observable } from 'rxjs';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-new-files',
@@ -29,9 +30,9 @@ export class NewFilesComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults
 
   constructor(
-    private accessgroupService:AccessGroupsService,
     private uploadService:UploadTUSService,
     private filesService:FilesService,
+    private gs: GlobalService,
   ) { }
 
   // accessgroup: AccessGroup; //Use models when data structure is reliable
@@ -62,7 +63,7 @@ export class NewFilesComponent implements OnInit {
 
     let params = {'maxResults': this.maxResults}
 
-    this.accessgroupService.getAccessGroups(params).subscribe((agroups: any) => {
+    this.gs.getAll(SERV.ACCESS_GROUPS,params).subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
     });
 

@@ -8,7 +8,6 @@ import { InputFiles, Report } from './report';
 import pdfMake from 'pdfmake/build/pdfmake';
 import { Subject } from 'rxjs';
 
-import { ReportService } from '../core/_services/config/report.service';
 // import { ReportConfig } from '../shared/defines/logobase64';
 import { PageTitle } from '../core/_decorators/autotitle';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -36,7 +35,6 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private projectService:ProjectService,
-    private reportService: ReportService,
     private modalService: NgbModal
   ) { }
 
@@ -150,10 +148,6 @@ export class ProjectsComponent implements OnInit {
     this.projectService.getProject(id).subscribe((proj: any) => {
       this.project = proj.values;
     });
-
-    // this.reportService.getConfReport().subscribe((conf: any) => {
-    //   this.confreport = conf;
-    // });
 
     var isHeaderAlt:number = 0; // Vairaible for log; O use alternative logo, 1 use hashtopolis logo
 

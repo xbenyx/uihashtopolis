@@ -19,6 +19,7 @@ export class SERV {
   public static CRACKERS_TYPES = '/ui/crackertypes';
   public static HASHTYPES = '/ui/hashtypes';
   public static HEALTH_CHECKS = '/ui/healthchecks';
+  public static HEALTH_CHECKS_AGENTS = '/ui/healthcheckagents';
   public static LOGS = '/ui/logentries';
   public static PREPROCESSORS = '/ui/preprocessors';
   // FILES

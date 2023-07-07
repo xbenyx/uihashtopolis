@@ -1,9 +1,9 @@
+<!-- Header -->
+<app-page-title [title]="'Agent Details'" [subbutton]="false"></app-page-title>
 <!-- Spinner Loading -->
 <div *ngIf="isLoading" style="text-align: center;">
   <app-loading-spinner></app-loading-spinner>
 </div>
-<!-- Header -->
-<app-page-title [title]="pTitle" [subbutton]="subbutton"></app-page-title>
 <!-- Body -->
 <grid-main [class]="'width:100%'">
   <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
@@ -43,12 +43,11 @@
                 <fa-icon [icon]="faIdBadge" aria-hidden="true"></fa-icon>
               </span>
               <select
-                      type='number'
                       id="userId"
                       class='form-select'
                       formControlName="userId"
               >
-              <option *ngFor="let u of users" [ngValue]="u.userId">{{ u.username }}</option>
+              <option *ngFor="let u of users" [ngValue]="u.id">{{ u.name }}</option>
               </select>
             </div>
           </grid-form-input>
@@ -106,7 +105,7 @@
           </div>
           <grid-form-input [name]="'Member of access groups'" [labelclass]="'display-col'">
             <input
-                  type='number'
+                  type='string'
                   id="accessgroups"
                   class='form-control'
             >

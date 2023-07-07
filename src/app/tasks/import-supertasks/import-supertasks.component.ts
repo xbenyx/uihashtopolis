@@ -8,15 +8,11 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { PreprocessorService } from '../../core/_services/config/preprocessors.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { PreTasksService } from 'src/app/core/_services/tasks/pretasks.sevice';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
-import { CrackerService } from '../../core/_services/config/cracker.service';
-import { TasksService } from 'src/app/core/_services/tasks/tasks.sevice';
-import { FilesService } from '../../core/_services/files/files.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-import-supertasks',
@@ -69,16 +65,11 @@ export class ImportSupertasksComponent implements OnInit {
     }[] = [];
 
   constructor(
-    private preprocessorService:PreprocessorService,
     private _changeDetectorRef: ChangeDetectorRef,
-    private preTasksService: PreTasksService,
-    private crackerService: CrackerService,
     private tooltipService: TooltipService,
-    private filesService: FilesService,
     private uiService: UIConfigService,
-    private taskService: TasksService,
-    private listsService:ListsService,
     private route:ActivatedRoute,
+    private gs: GlobalService,
     private router: Router,
   ) { }
 
@@ -296,20 +287,20 @@ export class ImportSupertasksComponent implements OnInit {
     let params_crack = {'filter': 'crackerBinaryTypeId=1'};
     let params_f = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
 
-    await this.crackerService.getCrackerType().subscribe((crackers: any) => {
+    await this.gs.getAll(SERV.CRACKERS_TYPES).subscribe((crackers: any) => {
       this.crackertype = crackers.values;
     });
 
-    await this.crackerService.getCrackerBinaries(params_crack).subscribe((crackers: any) => {
+    await this.gs.getAll(SERV.CRACKERS,params_crack).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
       this.createForm.get('crackerBinaryTypeId').setValue(1) //ToDo
     });
 
-    await this.preprocessorService.getPreprocessors(params_prep).subscribe((prep: any) => {
+    await this.gs.getAll(SERV.PREPROCESSORS,params_prep).subscribe((prep: any) => {
       this.prep = prep.values;
     });
 
-    await this.filesService.getFiles(params_f).subscribe((files: any) => {
+    await this.gs.getAll(SERV.FILES,params_f).subscribe((files: any) => {
       this.allfiles = files.values;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         setTimeout(() => {
@@ -337,7 +328,7 @@ export class ImportSupertasksComponent implements OnInit {
 
     let params = {'maxResults': this.maxResults};
 
-    this.listsService.getAllhashlists(params).subscribe((hlist: any) => {
+    this.gs.getAll(SERV.HASHLISTS,params).subscribe((hlist: any) => {
       var self = this;
       var response = hlist.values;
       ($("#hashlist") as any).selectize({
@@ -386,7 +377,7 @@ export class ImportSupertasksComponent implements OnInit {
 
   onChangeBinary(id: string){
     let params = {'filter': 'crackerBinaryTypeId='+id+''};
-    this.crackerService.getCrackerBinaries(params).subscribe((crackers: any) => {
+    this.gs.getAll(SERV.CRACKERS,params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
       // this.createForm.get('crackerBinaryTypeId').setValue(this.crackerversions.slice(-1)[0] ) // Auto select the latest version
     });
@@ -397,7 +388,7 @@ export class ImportSupertasksComponent implements OnInit {
 
       this.isLoading = true;
 
-      this.taskService.createTask(this.createForm.value).subscribe((hasht: any) => {
+      this.gs.create(SERV.TASKS,this.createForm.value).subscribe((hasht: any) => {
         const response = hasht;
         this.isLoading = false;
           Swal.fire({
@@ -418,7 +409,7 @@ export class ImportSupertasksComponent implements OnInit {
   private initFormt() {
     this.isLoading = true;
     if (this.copyMode) {
-    this.taskService.getTask(this.editedIndex).subscribe((result)=>{
+    this.gs.get(SERV.TASKS,this.editedIndex).subscribe((result)=>{
       this.createForm = new FormGroup({
         'taskName': new FormControl(result['taskName']+'_(Copied_task_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
         'notes': new FormControl('Copied from task id'+this.editedIndex+'', Validators.required),
@@ -452,7 +443,7 @@ export class ImportSupertasksComponent implements OnInit {
   private initFormpt() {
     this.isLoading = true;
     if (this.copyMode) {
-    this.preTasksService.getPretask(this.editedIndex).subscribe((result)=>{
+    this.gs.get(SERV.PRETASKS,this.editedIndex).subscribe((result)=>{
       this.createForm = new FormGroup({
         'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
         'notes': new FormControl('Copied from pretask id'+this.editedIndex+'', Validators.required),

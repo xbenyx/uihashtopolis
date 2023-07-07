@@ -20,20 +20,18 @@
                 >
               </grid-form-input>
             </div>
-            <div class="col-md-7">
-              <div formGroupName="updateData">
-                <grid-form-input [name]="'Name'" [labelclass]="'requiredak'">
-                  <input
-                        type='text'
-                        id='taskName'
-                        class='form-control'
-                        formControlName="taskName"
-                  >
-                </grid-form-input>
-              </div>
+            <div class="col-md-7" formGroupName="updateData">
+              <grid-form-input [name]="'Name'" [labelclass]="'requiredak'">
+                <input
+                      type='text'
+                      id='taskName'
+                      class='form-control'
+                      formControlName="taskName"
+                >
+              </grid-form-input>
             </div>
             <div class="col-md-3">
-              <grid-form-input [name]="'Color'">
+              <grid-form-input [name]="'Color'" formGroupName="updateData">
                 <input
                       type='text'
                       class="form-control"
@@ -46,6 +44,7 @@
                     />
               </grid-form-input>
             </div>
+            <div formGroupName="updateData">
             <grid-form-input [name]="'Attack command'" [labelclass]="'requiredak'">
               <textarea
                       id='attackCmd'
@@ -141,6 +140,7 @@
               </div>
             </div>
           </div>
+        </div>
         <button class="btn btn-gray-800" type="submit">Update</button>
     </form>
   </grid-main>

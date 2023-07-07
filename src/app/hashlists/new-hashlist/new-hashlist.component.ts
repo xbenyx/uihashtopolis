@@ -8,17 +8,14 @@ import { Router } from '@angular/router';
 import { Observable, delay } from 'rxjs';
 import { Buffer } from 'buffer';
 
-import { AccessGroupsService } from '../../core/_services/access/accessgroups.service';
-import { HashtypeService } from 'src/app/core/_services/config/hashtype.service';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { UploadTUSService } from '../../core/_services/files/files_tus.service';
-import { ListsService } from '../../core/_services/hashlist/hashlist.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
-import { AccessGroup } from '../../core/_models/access-group';
 import { ShowHideTypeFile } from '../../shared/utils/forms';
 import { UploadFileTUS } from '../../core/_models/files';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-new-hashlist',
@@ -54,14 +51,11 @@ export class NewHashlistComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
-     private accessgroupService: AccessGroupsService,
      private _changeDetectorRef: ChangeDetectorRef,
-     private hashtypeService: HashtypeService,
      private uploadService:UploadTUSService,
      private uiService: UIConfigService,
-     private hlService: ListsService,
      private modalService: NgbModal,
-     private users: UsersService,
+     private gs: GlobalService,
      private router: Router,
      ) {
      }
@@ -71,7 +65,9 @@ export class NewHashlistComponent implements OnInit {
 
     this.brainenabled = this.uiService.getUIsettings('hashcatBrainEnable').value;
 
-    this.accessgroupService.getAccessGroups().subscribe((agroups: any) => {
+    let params = {'maxResults': this.maxResults};
+
+    this.gs.getAll(SERV.ACCESS_GROUPS, params).subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
     });
 
@@ -99,7 +95,7 @@ export class NewHashlistComponent implements OnInit {
   createHashlistAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.createHashlistAccess = perm.globalPermissionGroup.permissions.createHashlistAccess;
     });
   }
@@ -110,7 +106,7 @@ export class NewHashlistComponent implements OnInit {
 
     let params = {'maxResults': this.maxResults};
 
-    this.hashtypeService.getHashTypes(params).subscribe((htypes: any) => {
+    this.gs.getAll(SERV.HASHTYPES,params).subscribe((htypes: any) => {
       var self = this;
       var prep = htypes.values;
       var response = [];
@@ -220,7 +216,7 @@ export class NewHashlistComponent implements OnInit {
 
       var res = this.handleUpload(this.signupForm.value);
 
-      this.hlService.createHashlist(res).subscribe((hl: any) => {
+      this.gs.create(SERV.HASHLISTS,res).subscribe((hl: any) => {
         this.isLoading = false;
         Swal.fire({
           title: "Success",

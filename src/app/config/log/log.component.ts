@@ -7,8 +7,9 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { LogentryService } from '../../core/_services/config/logentry.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 declare var $: any;
 declare var _fnReDraw;
@@ -19,12 +20,6 @@ declare var _fnReDraw;
 })
 @PageTitle(['Show Logs'])
 export class LogComponent implements OnInit {
-
-  // Title Page
-  pTitle = "Logs";
-  buttontitle = "";
-  buttonlink = "";
-  subbutton = false;
 
   faHome=faHomeAlt;
 
@@ -46,10 +41,8 @@ export class LogComponent implements OnInit {
   showLabel: string;
 
   constructor(
-    private logentryService: LogentryService,
     private uiService: UIConfigService,
-    private route:ActivatedRoute,
-    private router:Router
+    private gs: GlobalService
   ) { }
 
   ngOnInit(): void {
@@ -99,7 +92,7 @@ export class LogComponent implements OnInit {
     var maxresults = this.getLenghtMenu();
     let params = {'maxResults': maxresults, 'startsAt': (page - 1) * this.pageSize};
 
-    this.logentryService.getLogs(params).subscribe((log: any) => {
+    this.gs.getAll(SERV.LOGS,params).subscribe((log: any) => {
       this.logs = log.values;
       this.totalRecords = log.total;
       this.isLast = log.isLast;

@@ -12,17 +12,12 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Observable, Subject } from 'rxjs';
 import * as echarts from 'echarts/core';
 
-import { HashtypeService } from 'src/app/core/_services/config/hashtype.service';
 import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { HashesService } from 'src/app/core/_services/hashlist/hashes.service';
-import { CrackerService } from '../../core/_services/config/cracker.service';
-import { AgentsService } from '../../core/_services/agents/agents.service';
-import { UsersService } from 'src/app/core/_services/users/users.service';
-import { ChunkService } from '../../core/_services/tasks/chunks.service';
-import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { colorpicker } from '../../core/_constants/settings.config';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-edit-tasks',
@@ -42,15 +37,9 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   isLoading = false;
 
   constructor(
-    private hashtypeService: HashtypeService,
-    private crackerService: CrackerService,
-    private agentsService: AgentsService,
-    private hashesService: HashesService,
-    private tasksService: TasksService,
-    private chunkService: ChunkService,
     private uiService:UIConfigService,
     private route: ActivatedRoute,
-    private users: UsersService,
+    private gs: GlobalService,
     private router: Router
   ) { }
 
@@ -114,7 +103,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   manageTaskAccess: any;
 
   setAccessPermissions(){
-    this.users.getUser(this.users.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
         this.manageTaskAccess = perm.globalPermissionGroup.permissions.manageTaskAccess;
     });
   }
@@ -131,7 +120,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
       this.isLoading = true;
 
-      this.tasksService.updateTask(this.editedTaskIndex,this.updateForm.value['updateData']).subscribe((tasks: any) => {
+      this.gs.update(SERV.TASKS,this.editedTaskIndex,this.updateForm.value['updateData']).subscribe((tasks: any) => {
         const response = tasks;
         this.isLoading = false;
           Swal.fire({
@@ -160,9 +149,9 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   private initForm() {
     this.isLoading = true;
     if (this.editMode) {
-    this.tasksService.getTask(this.editedTaskIndex).subscribe((result)=>{
+    this.gs.get(SERV.TASKS,this.editedTaskIndex).subscribe((result)=>{
       this.color = result['color'];
-      this.crackerService.getCrackerBinary(result['crackerBinaryId']).subscribe((val) => {
+      this.gs.get(SERV.CRACKERS,result['crackerBinaryId']).subscribe((val) => {
         this.crackerinfo = val;
       });
       this.getHashlist();
@@ -285,10 +274,10 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       }
     });
     let params = {'maxResults': this.chunkresults};
-    this.chunkService.getChunks(params).subscribe((result: any)=>{
+    this.gs.getAll(SERV.CHUNKS,params).subscribe((result: any)=>{
       var getchunks = result.values.filter(u=> u.taskId == id);
       this.timeCalc(getchunks);
-      this.agentsService.getAgents(params).subscribe((agents: any) => {
+      this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.getchunks = getchunks.map(mainObject => {
         let matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
         return { ...mainObject, ...matchObject }
@@ -345,7 +334,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   onReset(id: number){
     let reset = {'dispatchTime':0, 'solveTime':0, 'progress':0,'state':0};
-    this.chunkService.updateChunk(id, reset).subscribe(()=>{
+    this.gs.update(SERV.CHUNKS,id, reset).subscribe(()=>{
       Swal.fire({
         title: "Chunk Reset!",
         icon: "success",
@@ -363,8 +352,8 @@ getHashlist(){
   let params = {'maxResults': this.maxResults, 'expand': 'hashlist', 'filter': 'taskId='+this.editedTaskIndex+''}
   let paramsh = {'maxResults': this.maxResults};
   var matchObject =[]
-  this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
-    this.hashtypeService.getHashTypes(paramsh).subscribe((htypes: any) => {
+  this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
+    this.gs.getAll(SERV.HASHTYPES,paramsh).subscribe((htypes: any) => {
       this.hashL = tasks.values.map(mainObject => {
         matchObject.push(htypes.values.find((element:any) => element.hashTypeId === mainObject.hashlist.hashTypeId))
       return { ...mainObject, ...matchObject }
@@ -378,7 +367,7 @@ getTaskSpeed(){
   this.editedTaskIndex;
   let params = {'maxResults': 500 };
 
-  this.hashesService.getAllhashes(params).subscribe((hashes: any) => {
+  this.gs.getAll(SERV.HASHES,params).subscribe((hashes: any) => {
     this.initTaskSpeed(hashes.values);
   });
 }

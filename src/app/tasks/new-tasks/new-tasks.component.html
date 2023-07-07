@@ -1,9 +1,9 @@
 <div [ngSwitch]="whichView">
   <div *ngSwitchCase="'create'">
-    <app-page-title [title]="pTitle" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
+    <app-page-title [title]="'New Task'" [subbutton]="false"></app-page-title>
   </div>
   <div *ngSwitchCase="'edit'">
-    <app-page-title [title]="sTitle + editedIndex" [buttontitle]="buttontitle" [buttonlink]="buttonlink" [subbutton]="subbutton"></app-page-title>
+    <app-page-title [title]="'Data Copied From Pretask ID ' + editedIndex" [subbutton]="false"></app-page-title>
   </div>
 </div>
 <!-- Spinner -->

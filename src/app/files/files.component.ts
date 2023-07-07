@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 
-import { AccessGroupsService } from '../core/_services/access/accessgroups.service';
 import { UploadTUSService } from '../core/_services/files/files_tus.service';
 import { FilesService } from '../core/_services/files/files.service';
 import { UsersService } from '../core/_services/users/users.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { environment } from './../../environments/environment';
-import { AccessGroup } from '../core/_models/access-group';
 import { PageTitle } from '../core/_decorators/autotitle';
+import { SERV } from '../core/_services/main.config';
 import { Filetype } from '../core/_models/files';
 
 declare let $:any;
@@ -62,11 +62,11 @@ export class FilesComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
-    private accessgroupService:AccessGroupsService,
     private uploadService:UploadTUSService,
     private filesService:FilesService,
     private route:ActivatedRoute,
     private users:UsersService,
+    private gs: GlobalService,
     private http:HttpClient,
     private router:Router
     ) { }

@@ -5,11 +5,12 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
-import { AgentsService } from '../../core/_services/agents/agents.service';
 import { ChunkService } from '../../core/_services/tasks/chunks.service';
 import { TasksService } from '../../core/_services/tasks/tasks.sevice';
+import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { environment } from 'src/environments/environment';
+import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-chunks',
@@ -32,11 +33,11 @@ export class ChunksComponent implements OnInit {
   faEye=faEye;
 
   constructor(
-    private agentsService: AgentsService,
     private tasksService: TasksService,
     private chunkService: ChunkService,
     private uiService: UIConfigService,
     private route: ActivatedRoute,
+    private gs: GlobalService
   ) { }
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -98,7 +99,7 @@ export class ChunksComponent implements OnInit {
     let params = {'maxResults': this.chunkresults};
     this.chunkService.getChunks(paramchunk).subscribe((chunks: any) => {
       this.tasksService.getAlltasks(params).subscribe((tasks: any) => {
-      this.agentsService.getAgents(params).subscribe((agents: any) => {
+      this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
         this.chunks = chunks.values.map(mainObject => {
           let matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)
           let matchTObject = tasks.values.find(element => element.taskId === mainObject.taskId)
