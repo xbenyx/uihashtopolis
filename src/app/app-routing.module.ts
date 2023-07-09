@@ -62,11 +62,10 @@ const appRoutes: Routes = [
         RouterModule.forRoot(
           appRoutes,
           {
-          // enableTracing: false, // <-- Debugging purposes only
-          preloadingStrategy: AppPreloadingStrategy,
-          relativeLinkResolution: 'corrected',
-          useHash: true  // Old browsers could have issues but can be fixed setting useHash: true. Note: if its enabled it will affect redirectURL after login
-      })
+    // enableTracing: false, // <-- Debugging purposes only
+    preloadingStrategy: AppPreloadingStrategy,
+    useHash: true // Old browsers could have issues but can be fixed setting useHash: true. Note: if its enabled it will affect redirectURL after login
+})
     ],
     exports:[
         RouterModule
