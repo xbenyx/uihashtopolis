@@ -37,7 +37,7 @@ export class CrackersComponent implements OnInit, OnDestroy {
   private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
-    let params = {'maxResults': this.maxResults, 'expand': 'crackerVersions'}
+    const params = {'maxResults': this.maxResults, 'expand': 'crackerVersions'}
 
     this.gs.getAll(SERV.CRACKERS_TYPES,params).subscribe((type: any) => {
       this.crackerType = type.values;
@@ -83,8 +83,8 @@ export class CrackersComponent implements OnInit, OnDestroy {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Crackers\n\n"+  dt;
                 }
                 return data;

@@ -174,7 +174,7 @@ export class ServerComponent implements OnInit {
   private initAgentForm() {
     this.isLoading = true;
     this.getTooltipLevel()
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
       this.agentForm = new FormGroup({
         'agenttimeout': new FormControl(result.values.find(obj => obj.item === 'agenttimeout').value),
@@ -243,7 +243,7 @@ export class ServerComponent implements OnInit {
 
   private initTCForm() {
     this.isLoading = true;
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
       this.tcForm = new FormGroup({
         'chunktime': new FormControl(result.values.find(obj => obj.item === 'chunktime').value),
@@ -267,7 +267,7 @@ export class ServerComponent implements OnInit {
 
   private initHCHForm() {
     this.isLoading = true;
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
       this.hchForm = new FormGroup({
         'maxHashlistSize': new FormControl(result.values.find(obj => obj.item === 'maxHashlistSize').value),
@@ -285,7 +285,7 @@ export class ServerComponent implements OnInit {
 
   private initNotifForm() {
     this.isLoading = true;
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
       this.notifForm = new FormGroup({
         'emailSender': new FormControl(result.values.find(obj => obj.item === 'emailSender').value),
@@ -302,7 +302,7 @@ export class ServerComponent implements OnInit {
 
   private initGSForm() {
     this.isLoading = true;
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
       this.gsForm = new FormGroup({
         'hashcatBrainEnable': new FormControl(result.values.find(obj => obj.item === 'hashcatBrainEnable').value === '0' ? false: true),
@@ -326,18 +326,18 @@ export class ServerComponent implements OnInit {
 
   // Auto Save Settings
 
-  searchTxt:string = '';
+  searchTxt = '';
   timeout = null;
 
   autoSave(key: string, value: any, sw?: boolean, collap?: boolean){
     clearTimeout(this.timeout);
       this.timeout = setTimeout(() => {
       this.isLoading = true;
-      let params = {'filter=item': key};
+      const params = {'filter=item': key};
       this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
-        let indexUpdate = result.values.find(obj => obj.item === key).configId;
-        let valueUpdate = result.values.find(obj => obj.item === key).value;
-        let arr = {'item': key, 'value':  this.checkSwitch(value, valueUpdate, sw)};
+        const indexUpdate = result.values.find(obj => obj.item === key).configId;
+        const valueUpdate = result.values.find(obj => obj.item === key).value;
+        const arr = {'item': key, 'value':  this.checkSwitch(value, valueUpdate, sw)};
         this.gs.update(SERV.CONFIGS,indexUpdate, arr).subscribe((result)=>{
           this.uicService.onUpdatingCheck(key);
           if(collap === true){

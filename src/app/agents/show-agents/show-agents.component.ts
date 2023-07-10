@@ -36,7 +36,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
   uidateformat:any;
-  isChecked:boolean =false;
+  isChecked =false;
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -56,7 +56,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
     this.setAccessPermissions();
 
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
 
     this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.showagents = agents.values;
@@ -116,8 +116,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
               select: true,
               customize: function (dt, csv) {
                 self.onSelectedAgents();
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Agents\n\n"+  dt;
                 }
                 return data;
@@ -190,7 +190,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   }
 
   setCheckAll(){
-    let chkBoxlength = $(".checkboxCls:checked").length;
+    const chkBoxlength = $(".checkboxCls:checked").length;
     if (this.isChecked == true) {
       $(".checkboxCls").prop("checked", false);
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -233,7 +233,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
   onSelectedAgents(){
     $(".dt-button-background").trigger("click");
-    let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+    const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
     if(selection.length == 0) {
       Swal.fire({
         title: "You haven't selected any Agent",
@@ -243,7 +243,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       })
       return;
     }
-    let selectionnum = selection.map(i=>Number(i));
+    const selectionnum = selection.map(i=>Number(i));
 
     return selectionnum;
   }
@@ -251,9 +251,9 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   onDeleteBulk(){
     if(this.manageAgentAccess || typeof this.manageAgentAccess == 'undefined'){
       const self = this;
-      let selectionnum = this.onSelectedAgents();
-      let sellen = selectionnum.length;
-      let errors = [];
+      const selectionnum = this.onSelectedAgents();
+      const sellen = selectionnum.length;
+      const errors = [];
       selectionnum.forEach(function (value) {
         Swal.fire('Deleting...'+sellen+' Agent(s)...Please wait')
         Swal.showLoading()
@@ -281,9 +281,9 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   onUpdateBulk(value: any){
     if(this.manageAgentAccess || typeof this.manageAgentAccess == 'undefined'){
         const self = this;
-        let selectionnum = this.onSelectedAgents();
-        let sellen = selectionnum.length;
-        let errors = [];
+        const selectionnum = this.onSelectedAgents();
+        const sellen = selectionnum.length;
+        const errors = [];
         selectionnum.forEach(function (id) {
           Swal.fire('Updating...'+sellen+' Agents...Please wait')
           Swal.showLoading()
@@ -311,7 +311,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     (async () => {
 
       $(".dt-button-background").trigger("click");
-      let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+      const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
       if(selection.length == 0) {
         Swal.fire({
           title: "You haven't selected any Agent",
@@ -335,7 +335,7 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
         }
       })
 
-      let rack = []
+      const rack = []
       if (formValues) {
         rack.push({rack: formValues})
         // we need to send pus

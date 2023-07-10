@@ -39,11 +39,11 @@ export class SearchHashComponent implements OnInit {
 
       this.isLoading = true;
 
-      let params = {'maxResults': this.maxResults}
+      const params = {'maxResults': this.maxResults}
 
       this.gs.getAll(SERV.HASHES,params).subscribe((hasht: any) => {
 
-        var index = hasht.findIndex(obj => obj.hash === this.createForm['hashlists']);
+        const index = hasht.findIndex(obj => obj.hash === this.createForm['hashlists']);
 
         this.isLoading = false;
           Swal.fire({

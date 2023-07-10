@@ -42,7 +42,7 @@ export class SupertasksComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults
 
   ngOnInit(): void {
-    let params = {'maxResults': this.maxResults }
+    const params = {'maxResults': this.maxResults }
 
     this.gs.getAll(SERV.SUPER_TASKS,params).subscribe((stasks: any) => {
       this.allsupertasks = stasks.values;

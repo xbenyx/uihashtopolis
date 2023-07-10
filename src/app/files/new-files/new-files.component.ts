@@ -59,7 +59,7 @@ export class NewFilesComponent implements OnInit {
 
   loadData(){
 
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
 
     this.gs.getAll(SERV.ACCESS_GROUPS,params).subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
@@ -77,7 +77,7 @@ export class NewFilesComponent implements OnInit {
 
     this.isLoading = true;
 
-    var form = this.onPrep(this.createForm.value);
+    const form = this.onPrep(this.createForm.value);
 
     this.gs.create(SERV.FILES,form).subscribe((hl: any) => {
       this.isLoading = false;
@@ -108,8 +108,8 @@ export class NewFilesComponent implements OnInit {
   }
 
   onPrep(obj: any){
-    var sourcadata;
-    var fname;
+    let sourcadata;
+    let fname;
     if(obj.sourceType == 'inline'){
       fname = obj.filename;
       sourcadata = Buffer.from(obj.sourceData).toString('base64');
@@ -117,7 +117,7 @@ export class NewFilesComponent implements OnInit {
       sourcadata = this.fileName;
       fname = this.fileName;
     }
-    var res = {
+    const res = {
       "filename": fname,
       "isSecret": obj.isSecret,
       "fileType": obj.fileType,

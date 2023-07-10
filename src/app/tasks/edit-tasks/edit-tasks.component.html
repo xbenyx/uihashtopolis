@@ -244,7 +244,7 @@
               </div>
               <div class="col">
                 <grid-form-input [name]="'E.T.'">
-                  <div *ngIf="tkeyspace != 0 && (cprogress/tkeyspace) != 0; else templatedash">
+                  <div *ngIf="tkeyspace !== 0 && (cprogress/tkeyspace) !== 0; else templatedash">
                     <span class="pre input-group-text input-group-lg">
                       <td>
                         {{ (ctimespent/(cprogress/tkeyspace)-ctimespent) | percent }}

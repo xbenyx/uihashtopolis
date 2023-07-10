@@ -134,8 +134,8 @@ export class ShowTasksComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Show Tasks\n\n"+  dt;
                 }
                 return data;
@@ -150,7 +150,7 @@ export class ShowTasksComponent implements OnInit {
           extend: 'collection',
           text: 'Bulk Actions',
           drawCallback: function() {
-            var hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
+            const hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
             $('.buttons-excel')[0].style.visibility = hasRows ? 'visible' : 'hidden'
           },
           buttons: [
@@ -219,8 +219,8 @@ onAutorefresh(){
 
 // Manage Auto reload
 setAutoreload(value: any){
-  var set = Number(this.storedAutorefresh.value);
-  var val;
+  const set = Number(this.storedAutorefresh.value);
+  let val;
   if(value == false){
     val = true;
   }if(value == true){
@@ -244,7 +244,7 @@ setAccessPermissions(){
 }
 
 getTasks():void {
-  let params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived='+this.isArchived+''}
+  const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived='+this.isArchived+''}
 
   this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
     this.alltasks = tasks.values;
@@ -254,7 +254,7 @@ getTasks():void {
 }
 
 loadChunks(){
-  let params = {'maxResults': 999999999};
+  const params = {'maxResults': 999999999};
   this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
     this.loadchunks = c;
   });
@@ -351,7 +351,7 @@ onDelete(id: number){
 
 onSelectedTasks(){
   $(".dt-button-background").trigger("click");
-  let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+  const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
   if(selection.length == 0) {
     Swal.fire({
       title: "You haven't selected any Task",
@@ -361,7 +361,7 @@ onSelectedTasks(){
     })
     return;
   }
-  let selectionnum = selection.map(i=>Number(i));
+  const selectionnum = selection.map(i=>Number(i));
 
   return selectionnum;
 }
@@ -369,9 +369,9 @@ onSelectedTasks(){
 onDeleteBulk(){
   if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
   const self = this;
-  let selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
-  let sellen = selectionnum.length;
-  let errors = [];
+  const selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+  const sellen = selectionnum.length;
+  const errors = [];
   selectionnum.forEach(function (value) {
     Swal.fire('Deleting...'+sellen+' Task(s)...Please wait')
     Swal.showLoading()
@@ -399,8 +399,8 @@ onDeleteBulk(){
 onUpdateBulk(value: any){
   if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
     const self = this;
-    let selectionnum = this.onSelectedTasks();
-    let sellen = selectionnum.length;
+    const selectionnum = this.onSelectedTasks();
+    const sellen = selectionnum.length;
     selectionnum.forEach(function (id) {
       Swal.fire('Updating...'+sellen+' Task(s)...Please wait')
       Swal.showLoading()
@@ -437,7 +437,7 @@ onModalProject(title: string){
   (async () => {
 
     $(".dt-button-background").trigger("click");
-    let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+    const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
     if(selection.length == 0) {
       Swal.fire({
         title: "You haven't selected any Task",
@@ -462,7 +462,7 @@ onModalProject(title: string){
     })
 
     if (formValues) {
-      let edit = {projectName: +formValues};
+      const edit = {projectName: +formValues};
       this.onUpdateBulk(edit);
     }
 

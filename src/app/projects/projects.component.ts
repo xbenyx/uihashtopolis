@@ -87,8 +87,8 @@ export class ProjectsComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Show Projects\n\n"+  dt;
                 }
                 return data;
@@ -103,7 +103,7 @@ export class ProjectsComponent implements OnInit {
           extend: 'collection',
           text: 'Bulk Actions',
           drawCallback: function() {
-            var hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
+            const hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
             $('.buttons-excel')[0].style.visibility = hasRows ? 'visible' : 'hidden'
           },
           buttons: [
@@ -151,9 +151,9 @@ export class ProjectsComponent implements OnInit {
       this.project = proj.values;
     });
 
-    var isHeaderAlt:number = 0; // Vairaible for log; O use alternative logo, 1 use hashtopolis logo
+    const isHeaderAlt = 0; // Vairaible for log; O use alternative logo, 1 use hashtopolis logo
 
-    var project = {
+    const project = {
       info: {
         title: 'Hashtopolis Report',
         author: 'xbenyx',
@@ -599,18 +599,18 @@ export class ProjectsComponent implements OnInit {
   //  Function creates converts the image in base64, so can be used in the report
   getBase64ImageFromURL(url: string) {
     return new Promise((resolve, reject) => {
-      var img = new Image();
+      const img = new Image();
       img.setAttribute("crossOrigin", "anonymous");
 
       img.onload = () => {
-        var canvas = document.createElement("canvas");
+        const canvas = document.createElement("canvas");
         canvas.width = img.width;
         canvas.height = img.height;
 
-        var ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0);
 
-        var dataURL = canvas.toDataURL("image/png");
+        const dataURL = canvas.toDataURL("image/png");
 
         resolve(dataURL);
       };

@@ -80,12 +80,12 @@ export class EditHealthChecksComponent implements OnInit {
   }
 
   agentsInit(){
-    let paramshc = {'maxResults': this.maxResults, 'filter': 'healthCheckId='+this.editedHealthCIndex+''};
-    let paramsa = {'maxResults': this.maxResults};
+    const paramshc = {'maxResults': this.maxResults, 'filter': 'healthCheckId='+this.editedHealthCIndex+''};
+    const paramsa = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.HEALTH_CHECKS_AGENTS,paramshc).subscribe((hc: any) => {
       this.gs.getAll(SERV.AGENTS,paramsa).subscribe((agents: any) => {
       this.healthca = hc.values.map(mainObject => {
-        let matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)
+        const matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)
         return { ...mainObject, ...matchAObject }
       })
       this.dtTrigger.next(void 0);
@@ -127,8 +127,8 @@ export class EditHealthChecksComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "HealthChecks\n\n"+  dt;
                 }
                 return data;

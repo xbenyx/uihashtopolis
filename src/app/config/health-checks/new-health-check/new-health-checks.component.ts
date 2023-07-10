@@ -41,7 +41,7 @@ export class NewHealthChecksComponent implements OnInit {
   }
 
   onChangeBinary(id: string){
-    let params = {'filter': 'crackerBinaryTypeId='+id+''};
+    const params = {'filter': 'crackerBinaryTypeId='+id+''};
     this.gs.getAll(SERV.CRACKERS,params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
     });

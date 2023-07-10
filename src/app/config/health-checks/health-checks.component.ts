@@ -65,12 +65,12 @@ export class HealthChecksComponent implements OnInit {
 
   ngOnInit(): void {
 
-  let params = {'maxResults': this.maxResults};
+  const params = {'maxResults': this.maxResults};
 
   this.gs.getAll(SERV.HEALTH_CHECKS,params).subscribe((check: any) => {
     this.gs.getAll(SERV.HASHTYPES,params).subscribe((hasht: any) => {
     this.mergedObjects = check.values.map(mainObject => {
-      let matchObject = hasht.values.find(element => element.hashTypeId === mainObject.hashtypeId)
+      const matchObject = hasht.values.find(element => element.hashTypeId === mainObject.hashtypeId)
       return { ...mainObject, ...matchObject }
     })
     this.dtTrigger.next(void 0);
@@ -118,8 +118,8 @@ export class HealthChecksComponent implements OnInit {
             exportOptions: {modifier: {selected: true}},
             select: true,
             customize: function (dt, csv) {
-              var data = "";
-              for (var i = 0; i < dt.length; i++) {
+              let data = "";
+              for (let i = 0; i < dt.length; i++) {
                 data = "Health Checks\n\n"+  dt;
               }
               return data;

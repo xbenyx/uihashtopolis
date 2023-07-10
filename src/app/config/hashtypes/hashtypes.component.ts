@@ -42,7 +42,7 @@ export class HashtypesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
 
     this.gs.getAll(SERV.HASHTYPES,params).subscribe((htypes: any) => {
       this.htypes = htypes.values;
@@ -90,8 +90,8 @@ export class HashtypesComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Hashtypes\n\n"+  dt;
                 }
                 return data;

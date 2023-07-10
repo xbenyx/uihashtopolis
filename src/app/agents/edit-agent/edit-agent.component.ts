@@ -91,7 +91,7 @@ export class EditAgentComponent implements OnInit {
       this.isLoading = false;
     });
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.USERS, params).subscribe((user: any) => {
       this.users = user.values;
     });
@@ -111,7 +111,7 @@ export class EditAgentComponent implements OnInit {
   getchunks: any;
 
   timeCalc(chunks){
-    var tspent = [];
+    const tspent = [];
     for(let i=0; i < chunks.length; i++){
       tspent.push(Math.max(chunks[i].solveTime, chunks[i].dispatchTime)-chunks[i].dispatchTime);
     }
@@ -119,12 +119,12 @@ export class EditAgentComponent implements OnInit {
   }
 
   assignChunksInit(id: number){
-    let params = {'maxResults': 999999};
+    const params = {'maxResults': 999999};
     this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
-      var getchunks = c.values.filter(u=> u.agentId == id);
+      const getchunks = c.values.filter(u=> u.agentId == id);
       this.gs.getAll(SERV.TASKS,params).subscribe((t: any)=>{
         this.getchunks = getchunks.map(mainObject => {
-          let matchObjectAgents = t.values.find(e => e.taskId === mainObject.taskId)
+          const matchObjectAgents = t.values.find(e => e.taskId === mainObject.taskId)
           return { ...mainObject, ...matchObjectAgents}
         })
       this.timeCalc(this.getchunks);

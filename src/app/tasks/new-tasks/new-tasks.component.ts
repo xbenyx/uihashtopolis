@@ -36,7 +36,7 @@ export class NewTasksComponent implements OnInit {
   faTrash=faTrash;
   faInfoCircle=faInfoCircle;
   faLock=faLock;
-  color: string = '#fff';
+  color = '#fff';
   colorpicker=colorpicker;
 
   @ViewChild(DataTableDirective)
@@ -95,7 +95,7 @@ export class NewTasksComponent implements OnInit {
     } if (isChecked && cmdAttk === 1) {
         this.OnChangeAttackPrep(fileName, fileType);
     } if (!isChecked && cmdAttk === 0) {
-      let index = this.filesFormArray.indexOf(fileId);
+      const index = this.filesFormArray.indexOf(fileId);
       this.filesFormArray.splice(index,1);
       this.createForm.patchValue({files: this.filesFormArray});
       this.OnChangeAttack(fileName, fileType, true);
@@ -106,7 +106,7 @@ export class NewTasksComponent implements OnInit {
 
   OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
     if(onRemove === true){
-        let currentCmd = this.createForm.get('attackCmd').value;
+        const currentCmd = this.createForm.get('attackCmd').value;
         let newCmd = item
         if (fileType === 1 ){newCmd = '-r '+ newCmd;}
         newCmd = currentCmd.replace(newCmd,'');
@@ -115,7 +115,7 @@ export class NewTasksComponent implements OnInit {
           attackCmd: newCmd
         });
     } else {
-        let currentCmd = this.createForm.get('attackCmd').value;
+        const currentCmd = this.createForm.get('attackCmd').value;
         let newCmd = item;
         this.validateFile(newCmd);
         if (fileType === 1 ){
@@ -129,7 +129,7 @@ export class NewTasksComponent implements OnInit {
 
   OnChangeAttackPrep(item: string, fileType: number, onRemove?: boolean){
     if(onRemove === true){
-        let currentCmd = this.createForm.get('preprocessorCommand').value;
+        const currentCmd = this.createForm.get('preprocessorCommand').value;
         let newCmd = item
         if (fileType === 1 ){newCmd = '-r '+ newCmd;}
         newCmd = currentCmd.replace(newCmd,'');
@@ -138,7 +138,7 @@ export class NewTasksComponent implements OnInit {
           preprocessorCommand: newCmd
         });
     } else {
-        let currentCmd = this.createForm.get('preprocessorCommand').value;
+        const currentCmd = this.createForm.get('preprocessorCommand').value;
         let newCmd = item;
         this.validateFile(newCmd);
         if (fileType === 1 ){
@@ -169,7 +169,7 @@ export class NewTasksComponent implements OnInit {
   }
 
   getBanChars(){
-    var chars = this.uiService.getUIsettings('blacklistChars').value.replace(']', '\\]').replace('[', '\\[');
+    const chars = this.uiService.getUIsettings('blacklistChars').value.replace(']', '\\]').replace('[', '\\[');
     return new RegExp('['+chars+'\/]', "g")
   }
 
@@ -306,7 +306,7 @@ export class NewTasksComponent implements OnInit {
 
   get attckcmd(){
     return this.createForm.controls['attackCmd'];
-  };
+  }
 
   forbiddenChars(name: RegExp): ValidatorFn{
     return (control: AbstractControl): { [key: string]: any } => {
@@ -320,10 +320,10 @@ export class NewTasksComponent implements OnInit {
   }
 
   async fetchData() {
-    let params = {'maxResults': this.maxResults, 'filter': 'isArchived='+false+''}
-    let params_prep = {'maxResults': this.maxResults }
-    let params_crack = {'filter': 'crackerBinaryTypeId=1'};
-    let params_f = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
+    const params = {'maxResults': this.maxResults, 'filter': 'isArchived='+false+''}
+    const params_prep = {'maxResults': this.maxResults }
+    const params_crack = {'filter': 'crackerBinaryTypeId=1'};
+    const params_f = {'maxResults': this.maxResults, 'expand': 'accessGroup'}
 
     await this.gs.getAll(SERV.CRACKERS_TYPES).subscribe((crackers: any) => {
       this.crackertype = crackers.values;
@@ -364,11 +364,11 @@ export class NewTasksComponent implements OnInit {
     },2000);
     this.dtTrigger.next(null);
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
 
     this.gs.getAll(SERV.HASHLISTS,params).subscribe((hlist: any) => {
-      var self = this;
-      var response = hlist.values;
+      const self = this;
+      const response = hlist.values;
       ($("#hashlist") as any).selectize({
         plugins: ['remove_button'],
         valueField: "hashlistId",
@@ -386,9 +386,9 @@ export class NewTasksComponent implements OnInit {
           },
         },
         onInitialize: function(){
-          var selectize = this;
+          const selectize = this;
             selectize.addOption(response);
-            var selected_items = [];
+            const selected_items = [];
             $.each(response, function( i, obj) {
                 selected_items.push(obj.id);
             });
@@ -414,7 +414,7 @@ export class NewTasksComponent implements OnInit {
   }
 
   onChangeBinary(id: string){
-    let params = {'filter': 'crackerBinaryTypeId='+id+''};
+    const params = {'filter': 'crackerBinaryTypeId='+id+''};
     this.gs.getAll(SERV.CRACKERS,params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
       // this.createForm.get('crackerBinaryTypeId').setValue(this.crackerversions.slice(-1)[0] ) // Auto select the latest version

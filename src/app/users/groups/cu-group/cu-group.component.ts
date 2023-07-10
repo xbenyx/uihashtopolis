@@ -51,7 +51,6 @@ export class CUGroupComponent implements OnInit {
           this.whichView = 'edit';
           this.isLoading = true;
           this.initForm();
-          const id = +this.route.snapshot.params['id'];
         break;
 
       }
@@ -94,8 +93,7 @@ export class CUGroupComponent implements OnInit {
       break;
 
       case 'edit':
-        const id = +this.route.snapshot.params['id'];
-        this.gs.update(SERV.ACCESS_GROUPS,id,this.Form.value).subscribe((hasht: any) => {
+        this.gs.update(SERV.ACCESS_GROUPS,this.editedIndex,this.Form.value).subscribe((hasht: any) => {
           this.isLoading = false;
           Swal.fire({
             title: "Updated!",

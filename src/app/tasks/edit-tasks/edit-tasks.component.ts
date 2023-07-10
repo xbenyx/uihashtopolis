@@ -44,7 +44,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   ) { }
 
   updateForm: FormGroup;
-  color: string = '';
+  color = '';
   colorpicker=colorpicker;
   private maxResults = environment.config.prodApiMaxResults;
 
@@ -230,9 +230,9 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   // Time Spent
   ctimespent: any;
   timeCalc(chunks){
-      var cprogress = [];
-      var timespent = [];
-      var current = 0;
+      const cprogress = [];
+      const timespent = [];
+      const current = 0;
       for(let i=0; i < chunks.length; i++){
         cprogress.push(chunks[i].checkpoint - chunks[i].skip);
         if(chunks[i].dispatchTime > current){
@@ -247,8 +247,8 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   // Chunk View
   chunkview: number;
-  isactive: number = 0;
-  currenspeed: number = 0;
+  isactive = 0;
+  currenspeed = 0;
   chunkresults: Object;
   activechunks: Object;
 
@@ -273,19 +273,19 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
       }
     });
-    let params = {'maxResults': this.chunkresults};
+    const params = {'maxResults': this.chunkresults};
     this.gs.getAll(SERV.CHUNKS,params).subscribe((result: any)=>{
-      var getchunks = result.values.filter(u=> u.taskId == id);
+      const getchunks = result.values.filter(u=> u.taskId == id);
       this.timeCalc(getchunks);
       this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.getchunks = getchunks.map(mainObject => {
-        let matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
+        const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
         return { ...mainObject, ...matchObject }
         })
       if(this.chunkview == 0){
-        let chunktime = this.uiService.getUIsettings('chunktime').value;
-        var resultArray = [];
-        var cspeed = [];
+        const chunktime = this.uiService.getUIsettings('chunktime').value;
+        const resultArray = [];
+        const cspeed = [];
         for(let i=0; i < this.getchunks.length; i++){
           if(Date.now() - Math.max(this.getchunks[i].solveTime, this.getchunks[i].dispatchTime) < chunktime && this.getchunks[i].progress < 10000){
             this.isactive = 1;
@@ -333,7 +333,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   }
 
   onReset(id: number){
-    let reset = {'dispatchTime':0, 'solveTime':0, 'progress':0,'state':0};
+    const reset = {'dispatchTime':0, 'solveTime':0, 'progress':0,'state':0};
     this.gs.update(SERV.CHUNKS,id, reset).subscribe(()=>{
       Swal.fire({
         title: "Chunk Reset!",
@@ -349,9 +349,9 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 hashL: any;
 
 getHashlist(){
-  let params = {'maxResults': this.maxResults, 'expand': 'hashlist', 'filter': 'taskId='+this.editedTaskIndex+''}
-  let paramsh = {'maxResults': this.maxResults};
-  var matchObject =[]
+  const params = {'maxResults': this.maxResults, 'expand': 'hashlist', 'filter': 'taskId='+this.editedTaskIndex+''}
+  const paramsh = {'maxResults': this.maxResults};
+  const matchObject =[]
   this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
     this.gs.getAll(SERV.HASHTYPES,paramsh).subscribe((htypes: any) => {
       this.hashL = tasks.values.map(mainObject => {
@@ -365,7 +365,7 @@ getHashlist(){
 // Task Speed Graph
 getTaskSpeed(){
   this.editedTaskIndex;
-  let params = {'maxResults': 500 };
+  const params = {'maxResults': 500 };
 
   this.gs.getAll(SERV.HASHES,params).subscribe((hashes: any) => {
     this.initTaskSpeed(hashes.values);
@@ -398,23 +398,23 @@ initTaskSpeed(obj: Object){
     | LineSeriesOption
   >;
 
-  var data:any = obj;
-  var arr = [];
-  var max = []
+  const data:any = obj;
+  const arr = [];
+  const max = []
   for(let i=0; i < data.length; i++){
 
-    var iso = this.transDate(data[i]['timeCracked']);
+    const iso = this.transDate(data[i]['timeCracked']);
     arr.push([iso, data[i]['chunkId']]);
     max.push(data[i]['timeCracked']);
   }
 
-  var startdate =  Math.max(...max);
-  var datelabel = this.transDate(startdate);
-  var xAxis = this.generateIntervalsOf(5,+startdate-50,+startdate);
+  const startdate =  Math.max(...max);
+  const datelabel = this.transDate(startdate);
+  const xAxis = this.generateIntervalsOf(5,+startdate-50,+startdate);
 
-  var chartDom = document.getElementById('tspeed')!;
-  var myChart = echarts.init(chartDom);
-  var option: EChartsOption;
+  const chartDom = document.getElementById('tspeed')!;
+  const myChart = echarts.init(chartDom);
+  let option: EChartsOption;
 
   const self = this;
 
@@ -518,7 +518,7 @@ initTaskSpeed(obj: Object){
  }
 
  transDate(dt){
-  let date:any = new Date(dt* 1000);
+  const date:any = new Date(dt* 1000);
   return date.getUTCFullYear()+'-'+this.leading_zeros((date.getUTCMonth() + 1))+'-'+date.getUTCDate()+','+this.leading_zeros(date.getUTCHours())+':'+this.leading_zeros(date.getUTCMinutes())+':'+this.leading_zeros(date.getUTCSeconds());
  }
 

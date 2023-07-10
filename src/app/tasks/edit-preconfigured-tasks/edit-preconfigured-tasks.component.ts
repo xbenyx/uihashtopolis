@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy ,ChangeDetectorRef, ViewChild, HostListener   } from '@angular/core';
 import { faHomeAlt, faPlus, faTrash, faInfoCircle, faEye, faLock} from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup, FormBuilder, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, HostListener   } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -38,7 +38,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
   ) { }
 
   pretask: any = [];
-  color: string = '';
+  color = '';
   colorpicker=colorpicker;
   updateForm: FormGroup
   private maxResults = environment.config.prodApiMaxResults
@@ -83,7 +83,7 @@ export class EditPreconfiguredTasksComponent implements OnInit{
 
     // Files Table
 
-    let params = {
+    const params = {
       'maxResults': this.maxResults,
       'filter': 'pretaskId='+this.editedPretaskIndex+'',
       'expand': 'pretaskFiles'

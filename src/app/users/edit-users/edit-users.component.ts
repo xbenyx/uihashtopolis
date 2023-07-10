@@ -82,7 +82,7 @@ export class EditUsersComponent implements OnInit {
       this.isLoading = false;
     });
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.ACCESS_PERMISSIONS_GROUPS,params).subscribe((agp: any) => {
       this.agp = agp.values;
     });

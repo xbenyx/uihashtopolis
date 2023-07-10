@@ -65,7 +65,7 @@ export class NewHashlistComponent implements OnInit {
 
     this.brainenabled = this.uiService.getUIsettings('hashcatBrainEnable').value;
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
 
     this.gs.getAll(SERV.ACCESS_GROUPS, params).subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
@@ -104,12 +104,12 @@ export class NewHashlistComponent implements OnInit {
 
     this.uploadProgress = this.uploadService.uploadProgress; // TUS upload progress
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
 
     this.gs.getAll(SERV.HASHTYPES,params).subscribe((htypes: any) => {
-      var self = this;
-      var prep = htypes.values;
-      var response = [];
+      const self = this;
+      const prep = htypes.values;
+      const response = [];
       for(let i=0; i < prep.length; i++){
         const obj = { hashTypeId: prep[i].hashTypeId, descrId: prep[i].hashTypeId +' '+prep[i].description };
         response.push(obj)
@@ -131,9 +131,9 @@ export class NewHashlistComponent implements OnInit {
           },
         },
         onInitialize: function(){
-          var selectize = this;
+          const selectize = this;
             selectize.addOption(response);
-            var selected_items = [];
+            const selected_items = [];
             $.each(response, function( i, obj) {
                 selected_items.push(obj.id);
             });
@@ -214,7 +214,7 @@ export class NewHashlistComponent implements OnInit {
 
       this.isLoading = true;
 
-      var res = this.handleUpload(this.signupForm.value);
+      const res = this.handleUpload(this.signupForm.value);
 
       this.gs.createHashlist(SERV.HASHLISTS,res).subscribe((hl: any) => {
         this.isLoading = false;
@@ -241,7 +241,7 @@ export class NewHashlistComponent implements OnInit {
   }
 
   handleUpload(arr: any){
-    var res = {
+    const res = {
       'name': arr.name,
       'hashTypeId': arr.hashTypeId,
       'format': arr.format,

@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { UploadTUSService } from '../core/_services/files/files_tus.service';
@@ -120,7 +119,7 @@ export class FilesComponent implements OnInit {
         break;
 
       }
-      let params = {'maxResults': this.maxResults, 'expand': 'accessGroup', 'filter': 'fileType='+this.filterType+''}
+      const params = {'maxResults': this.maxResults, 'expand': 'accessGroup', 'filter': 'fileType='+this.filterType+''}
 
       this.gs.getAll(SERV.FILES,params).subscribe((files: any) => {
         this.allfiles = files.values;
@@ -172,8 +171,8 @@ export class FilesComponent implements OnInit {
                 exportOptions: {modifier: {selected: true}},
                 select: true,
                 customize: function (dt, csv) {
-                  var data = "";
-                  for (var i = 0; i < dt.length; i++) {
+                  let data = "";
+                  for (let i = 0; i < dt.length; i++) {
                     data = "Agents\n\n"+  dt;
                   }
                   return data;
@@ -289,7 +288,7 @@ export class FilesComponent implements OnInit {
 
   onSelectedFiles(){
     $(".dt-button-background").trigger("click");
-    let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+    const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
     if(selection.length == 0) {
       Swal.fire({
         title: "You haven't selected any File",
@@ -299,7 +298,7 @@ export class FilesComponent implements OnInit {
       })
       return;
     }
-    let selectionnum = selection.map(i=>Number(i));
+    const selectionnum = selection.map(i=>Number(i));
 
     return selectionnum;
   }
@@ -307,9 +306,9 @@ export class FilesComponent implements OnInit {
   onDeleteBulk(){
     if(this.manageFileAccess || typeof this.manageFileAccess == 'undefined'){
     const self = this;
-    let selectionnum = this.onSelectedFiles();
-    let sellen = selectionnum.length;
-    let errors = [];
+    const selectionnum = this.onSelectedFiles();
+    const sellen = selectionnum.length;
+    const errors = [];
     selectionnum.forEach(function (value) {
       Swal.fire('Deleting...'+sellen+' File(s)...Please wait')
       Swal.showLoading()
@@ -337,8 +336,8 @@ export class FilesComponent implements OnInit {
   onUpdateBulk(value: any){
     if(this.manageFileAccess || typeof this.manageFileAccess == 'undefined'){
       const self = this;
-      let selectionnum = this.onSelectedFiles();
-      let sellen = selectionnum.length;
+      const selectionnum = this.onSelectedFiles();
+      const sellen = selectionnum.length;
       // let edit = {fileType: value};
       selectionnum.forEach(function (id) {
         Swal.fire('Updating...'+sellen+' File(s)...Please wait')
@@ -376,7 +375,7 @@ export class FilesComponent implements OnInit {
     (async () => {
 
       $(".dt-button-background").trigger("click");
-      let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+      const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
       if(selection.length == 0) {
         Swal.fire({
           title: "You haven't selected any File",
@@ -401,7 +400,7 @@ export class FilesComponent implements OnInit {
       })
 
       if (formValues) {
-        let edit = {fileType: +formValues};
+        const edit = {fileType: +formValues};
         this.onUpdateBulk(edit);
       }
 

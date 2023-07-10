@@ -38,7 +38,7 @@ export class SuperhashlistComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults, 'expand': 'pretaskFiles'}
+    const params = {'maxResults': this.maxResults, 'expand': 'pretaskFiles'}
 
     this.gs.getAll(SERV.SUPER_HASHLISTS,params).subscribe((sh: any) => {
       this.allsuperhashlisth = sh.values;
@@ -85,8 +85,8 @@ export class SuperhashlistComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "SuperHashlist\n\n"+  dt;
                 }
                 return data;

@@ -39,10 +39,10 @@ export class HashesComponent implements OnInit {
 
   crackPos: any = true;
   cracked:any;
-  filtering: string = "";
-  filteringDescr: string = "";
-  displaying: string = "";
-  displayingDescr: string = "";
+  filtering = "";
+  filteringDescr = "";
+  displaying = "";
+  displayingDescr = "";
 
   filters: any = [{"name":"cracked", "description":"Cracked"},{"name":"uncracked", "description": "Uncracked"},{"name":"", "description": "All"}];
   displays: any = [
@@ -100,7 +100,7 @@ export class HashesComponent implements OnInit {
 
   private initChashes() {
     this.isLoading = true;
-    let param = {'filter': 'chunkId='+this.editedIndex+''};
+    const param = {'filter': 'chunkId='+this.editedIndex+''};
     this.getHashes(param);
   }
 
@@ -113,18 +113,18 @@ export class HashesComponent implements OnInit {
 
   private initHhashes() {
     this.isLoading = true;
-    let param = {'filter': 'hashlistId='+this.editedIndex+''};
+    const param = {'filter': 'hashlistId='+this.editedIndex+''};
     this.getHashes(param);
   }
 
   async getHashes(param?: any){
 
-    let params = {'maxResults': 90000, 'expand':'hashlist,chunk'};
+    const params = {'maxResults': 90000, 'expand':'hashlist,chunk'};
 
     const nwparams = {...params, ...param};
 
     this.gs.getAll(SERV.HASHES,nwparams).subscribe((hashes: any) => {
-      var res = hashes.values;
+      let res = hashes.values;
       if(this.whichView = 'tasks'){
         res = res.filter(u=> u.chunk.taskId == this.editedIndex);
       }
@@ -141,7 +141,7 @@ export class HashesComponent implements OnInit {
   viewForm: FormGroup;
 
   initDisplay(){
-    let qp = this.route.snapshot.queryParams;
+    const qp = this.route.snapshot.queryParams;
     if(qp['crackpos']){
       this.crackPos = qp['crackpos'];
     }if(qp['filter']){

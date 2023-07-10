@@ -65,7 +65,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       'voucher': new FormControl(''),
     });
 
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
 
     this.gs.getAll(SERV.VOUCHER,params).subscribe((vouchers: any) => {
       this.vouchers = vouchers.values;

@@ -341,7 +341,7 @@
                       </div>
                     </form>
                   </td>
-                  <td *ngIf="f.isSecret == 1" class="width: 100px">
+                  <td *ngIf="f.isSecret === 1" class="width: 100px">
                     <label class="form-check-label" for="{{f.filename}}">
                       {{f.filename | shortenString:25 }}
                     </label>
@@ -355,7 +355,7 @@
                     >
                     </fa-icon>
                 </td>
-                <td *ngIf="f.isSecret == 0">{{ f.filename | shortenString:18 }}
+                <td *ngIf="f.isSecret === 0">{{ f.filename | shortenString:18 }}
                   <fa-icon
                           placement="bottom"
                           ngbTooltip='Line Count:{{f.lineCount}}/ Size:{{ f.size | fileSize:false}}'
@@ -407,7 +407,7 @@
                       </div>
                     </form>
                   </td>
-                  <td *ngIf="f.isSecret == 1">
+                  <td *ngIf="f.isSecret === 1">
                     <label class="form-check-label" for="{{f.filename}}">
                       {{f.filename | shortenString:25 }}
                     </label>
@@ -421,7 +421,7 @@
                     >
                     </fa-icon>
                   </td>
-                  <td *ngIf="f.isSecret == 0">{{ f.filename | shortenString:18 }}
+                  <td *ngIf="f.isSecret === 0">{{ f.filename | shortenString:18 }}
                     <fa-icon
                             placement="bottom"
                             ngbTooltip='Line Count:{{f.lineCount}}/ Size:{{ f.size | fileSize:false}}'
@@ -473,7 +473,7 @@
                       </div>
                     </form>
                   </td>
-                  <td *ngIf="f.isSecret == 1" class="width: 100px">
+                  <td *ngIf="f.isSecret === 1" class="width: 100px">
                     <label class="form-check-label" for="{{f.filename}}">
                       {{f.filename | shortenString:25 }}
                     </label>
@@ -487,7 +487,7 @@
                     >
                     </fa-icon>
                   </td>
-                  <td *ngIf="f.isSecret == 0">{{ f.filename | shortenString:18 }}
+                  <td *ngIf="f.isSecret === 0">{{ f.filename | shortenString:18 }}
                     <fa-icon
                             placement="bottom"
                             ngbTooltip='Line Count:{{f.lineCount}}/ Size:{{ f.size | fileSize:false}}'

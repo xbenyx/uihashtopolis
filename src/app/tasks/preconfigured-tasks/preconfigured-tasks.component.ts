@@ -42,7 +42,7 @@ export class PreconfiguredTasksComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults, 'expand': 'pretaskFiles'}
+    const params = {'maxResults': this.maxResults, 'expand': 'pretaskFiles'}
 
     this.gs.getAll(SERV.PRETASKS,params).subscribe((pretasks: any) => {
       this.allpretasks = pretasks.values;
@@ -90,8 +90,8 @@ export class PreconfiguredTasksComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Agents\n\n"+  dt;
                 }
                 return data;

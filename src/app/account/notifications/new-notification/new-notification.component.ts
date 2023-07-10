@@ -50,7 +50,7 @@ export class NewNotificationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
 
     this.createForm = new FormGroup({
       'action': new FormControl('', [Validators.required]),

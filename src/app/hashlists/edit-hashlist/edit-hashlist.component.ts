@@ -79,7 +79,7 @@ export class EditHashlistComponent implements OnInit {
       this.editedHashlist = result;
     });
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
 
     this.gs.getAll(SERV.ACCESS_GROUPS, params).subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
@@ -168,9 +168,9 @@ export class EditHashlistComponent implements OnInit {
 
   hashT: any;
   getHashtype(){
-    let params = {'maxResults': this.maxResults, 'expand': 'hashlist', 'filter': 'taskId='+this.editedHashlistIndex+''}
-    let paramsh = {'maxResults': this.maxResults};
-    var matchObject =[]
+    const params = {'maxResults': this.maxResults, 'expand': 'hashlist', 'filter': 'taskId='+this.editedHashlistIndex+''}
+    const paramsh = {'maxResults': this.maxResults};
+    const matchObject =[]
     this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
       this.gs.getAll(SERV.HASHTYPES,paramsh).subscribe((htypes: any) => {
         this.hashT = tasks.values.map(mainObject => {
@@ -182,11 +182,11 @@ export class EditHashlistComponent implements OnInit {
   }
 
   getTasks():void {
-    let params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived=false'}
-    var taskh = []
+    const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived=false'}
+    const taskh = []
     this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
       for(let i=0; i < tasks.values.length; i++){
-        let match = tasks.values[i].hashlist.hashlistId == this.editedHashlistIndex;
+        const match = tasks.values[i].hashlist.hashlistId == this.editedHashlistIndex;
         if(match === true){
           taskh.push(tasks.values[i])
         }
@@ -217,7 +217,7 @@ export class EditHashlistComponent implements OnInit {
   }
 
   loadChunks(){
-    let params = {'maxResults': 999999999};
+    const params = {'maxResults': 999999999};
     this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
       this.loadchunks = c;
     });

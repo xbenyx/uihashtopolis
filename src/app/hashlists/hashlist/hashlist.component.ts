@@ -82,7 +82,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
 
       }
 
-    let params = {'maxResults': this.maxResults, 'expand': 'hashType,accessGroup', 'filter': 'isArchived='+this.isArchived+''}
+    const params = {'maxResults': this.maxResults, 'expand': 'hashType,accessGroup', 'filter': 'isArchived='+this.isArchived+''}
 
     this.gs.getAll(SERV.HASHLISTS,params).subscribe((list: any) => {
       this.allhashlists = list.values.filter(u=> u.format != 3); // Exclude superhashlists
@@ -131,8 +131,8 @@ export class HashlistComponent implements OnInit, OnDestroy {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Hashlist\n\n"+  dt;
                 }
                 return data;
@@ -145,7 +145,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
             extend: 'collection',
             text: 'Bulk Actions',
             drawCallback: function() {
-              var hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
+              const hasRows = this.api().rows({ filter: 'applied' }).data().length > 0;
               $('.buttons-excel')[0].style.visibility = hasRows ? 'visible' : 'hidden'
             },
             buttons: [
@@ -296,7 +296,7 @@ onDelete(id: number){
 
 onSelectedHashlists(){
   $(".dt-button-background").trigger("click");
-  let selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+  const selection = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
   if(selection.length == 0) {
     Swal.fire({
       title: "You haven't selected any Hashlist",
@@ -306,7 +306,7 @@ onSelectedHashlists(){
     })
     return;
   }
-  let selectionnum = selection.map(i=>Number(i));
+  const selectionnum = selection.map(i=>Number(i));
 
   return selectionnum;
 }
@@ -314,9 +314,9 @@ onSelectedHashlists(){
 onDeleteBulk(){
   if(this.manageHashlistAccess || typeof this.manageHashlistAccess == 'undefined'){
   const self = this;
-  let selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
-  let sellen = selectionnum.length;
-  let errors = [];
+  const selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
+  const sellen = selectionnum.length;
+  const errors = [];
   selectionnum.forEach(function (value) {
     Swal.fire('Deleting...'+sellen+' Hashlist(s)...Please wait')
     Swal.showLoading()
@@ -344,8 +344,8 @@ onDeleteBulk(){
 onUpdateBulk(value: any){
   if(this.manageHashlistAccess || typeof this.manageHashlistAccess == 'undefined'){
     const self = this;
-    let selectionnum = this.onSelectedHashlists();
-    let sellen = selectionnum.length;
+    const selectionnum = this.onSelectedHashlists();
+    const sellen = selectionnum.length;
     selectionnum.forEach(function (id) {
       Swal.fire('Updating...'+sellen+' Hashlist(s)...Please wait')
       Swal.showLoading()

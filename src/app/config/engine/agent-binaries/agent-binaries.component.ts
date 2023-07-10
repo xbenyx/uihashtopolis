@@ -38,7 +38,7 @@ export class AgentBinariesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.AGENT_BINARY,params).subscribe((bin: any) => {
       this.binaries = bin.values;
       this.dtTrigger.next(void 0);

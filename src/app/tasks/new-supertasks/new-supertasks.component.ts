@@ -39,11 +39,11 @@ export class NewSupertasksComponent implements OnInit {
       pretasks: new FormControl(''),
     });
 
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
 
     this.gs.getAll(SERV.PRETASKS,params).subscribe((tasks: any) => {
-      var self = this;
-      var response = tasks.values;
+      const self = this;
+      const response = tasks.values;
       ($("#preTasks") as any).selectize({
         maxItems: null,
         plugins: ["restore_on_backspace"],
@@ -62,9 +62,9 @@ export class NewSupertasksComponent implements OnInit {
           },
         },
         onInitialize: function(){
-          var selectize = this;
+          const selectize = this;
             selectize.addOption(response); // This is will add to option
-            var selected_items = [];
+            const selected_items = [];
             $.each(response, function( i, obj) {
                 selected_items.push(obj.id);
             });
@@ -86,13 +86,13 @@ export class NewSupertasksComponent implements OnInit {
   }
 
   OnChangeValue(value){
-    let formArr = new FormArray([]);
-    for (let val of value) {
+    const formArr = new FormArray([]);
+    for (const val of value) {
       formArr.push(
         new FormControl(+val)
       );
     }
-    let cname = this.createForm.get('supertaskName').value;
+    const cname = this.createForm.get('supertaskName').value;
     this.createForm = new FormGroup({
       supertaskName: new FormControl(cname),
       pretasks: formArr

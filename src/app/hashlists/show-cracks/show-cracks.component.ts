@@ -33,7 +33,7 @@ export class ShowCracksComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults, 'filter': 'isCracked=1'}
+    const params = {'maxResults': this.maxResults, 'filter': 'isCracked=1'}
 
     this.gs.getAll(SERV.HASHES,params).subscribe((hashes: any) => {
       this.allhashes = hashes.values;
@@ -81,8 +81,8 @@ export class ShowCracksComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Logs\n\n"+  dt;
                 }
                 return data;

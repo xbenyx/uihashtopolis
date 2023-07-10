@@ -1,8 +1,4 @@
-import { SCREEN_SIZE } from "src/app/layout/screen-size-detector/screen-size-detector.enum";
-import { ScreenSizeService } from 'src/app/core/_services/shared/screensize.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { delay } from "rxjs";
 
 @Component({
   selector: 'grid-autocol',
@@ -19,10 +15,10 @@ export class GridAutoColComponent implements OnInit {
 
   @Input() centered?: boolean;
 
-  isMobile: boolean = false;
+  isMobile = false;
   width:number = window.innerWidth;
   height:number = window.innerHeight;
-  mobileWidth:number  = 760;
+  mobileWidth  = 760;
   size1920_1080 = false;
   size1366_768 = false;
   size1280_720 = false;

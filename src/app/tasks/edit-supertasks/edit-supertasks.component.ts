@@ -11,9 +11,9 @@ import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../core/_services/main.config';
 
-declare var options: any;
-declare var defaultOptions: any;
-declare var parser: any;
+declare let options: any;
+declare let defaultOptions: any;
+declare let parser: any;
 
 @Component({
   selector: 'app-edit-supertasks',
@@ -129,10 +129,10 @@ export class EditSupertasksComponent implements OnInit {
 
   ngAfterViewInit() {
 
-    let params = { 'maxResults': this.maxResults};
+    const params = { 'maxResults': this.maxResults};
     this.gs.getAll(SERV.PRETASKS,params).subscribe((htypes: any) => {
-      var self = this;
-      var response = htypes.values;
+      const self = this;
+      const response = htypes.values;
       ($("#pretasks") as any).selectize({
         plugins: ['remove_button'],
         valueField: "pretaskId",
@@ -150,9 +150,9 @@ export class EditSupertasksComponent implements OnInit {
           },
         },
         onInitialize: function(){
-          var selectize = this;
+          const selectize = this;
             selectize.addOption(response); // This is will add to option
-            var selected_items = [];
+            const selected_items = [];
             $.each(response, function( i, obj) {
                 selected_items.push(obj.id);
             });
@@ -164,8 +164,8 @@ export class EditSupertasksComponent implements OnInit {
     }
 
   OnChangeValue(value){
-    let formArr = new FormArray([]);
-    for (let val of value) {
+    const formArr = new FormArray([]);
+    for (const val of value) {
       formArr.push(
         new FormControl(+val)
       );
@@ -233,9 +233,9 @@ export class EditSupertasksComponent implements OnInit {
 
   async fetchPreTaskData() {
 
-    let params = {'maxResults': this.maxResults, 'expand': 'pretasks', 'filter': 'supertaskId='+this.editedSTIndex+''};
-    let paramspt = { 'maxResults': this.maxResults,'expand': 'pretaskFiles'}
-    var matchObjectFiles =[]
+    const params = {'maxResults': this.maxResults, 'expand': 'pretasks', 'filter': 'supertaskId='+this.editedSTIndex+''};
+    const paramspt = { 'maxResults': this.maxResults,'expand': 'pretaskFiles'}
+    const matchObjectFiles =[]
     this.gs.getAll(SERV.SUPER_TASKS,params).subscribe((result)=>{
     this.gs.getAll(SERV.PRETASKS,paramspt).subscribe((pretasks: any) => {
       this.pretasks = result.values.map(mainObject => {
@@ -272,15 +272,15 @@ export class EditSupertasksComponent implements OnInit {
   keyspaceTimeCalc(){
     if(this.etForm.value.benchmarka0 !==0 && this.etForm.value.benchmarka3 !== 0){
 
-      var totalSecondsSupertask = 0;
-      var unknown_runtime_included = 0;
-      var benchmarka0 = this.etForm.value.benchmarka0;
-      var benchmarka3 = this.etForm.value.benchmarka3;
+      let totalSecondsSupertask = 0;
+      let unknown_runtime_included = 0;
+      const benchmarka0 = this.etForm.value.benchmarka0;
+      const benchmarka3 = this.etForm.value.benchmarka3;
 
       $(".taskInSuper").each(function (index) {
-          var keyspace_size = $(this).find("td:nth-child(4)").text();
-          var seconds = null;
-          var runtime = null;
+          const keyspace_size = $(this).find("td:nth-child(4)").text();
+          let seconds = null;
+          let runtime = null;
 
           options = defaultOptions;
           options.ruleFiles = [];
@@ -298,11 +298,11 @@ export class EditSupertasksComponent implements OnInit {
 
           if (Number.isInteger(seconds)) {
               totalSecondsSupertask = totalSecondsSupertask + seconds;
-              var days = Math.floor(seconds / (3600 * 24));
+              const days = Math.floor(seconds / (3600 * 24));
               seconds -= days * 3600 * 24;
-              var hrs = Math.floor(seconds / 3600);
+              const hrs = Math.floor(seconds / 3600);
               seconds -= hrs * 3600;
-              var mins = Math.floor(seconds / 60);
+              const mins = Math.floor(seconds / 60);
               seconds -= mins * 60;
 
               runtime = days + "d, " + hrs + "h, " + mins + "m, " + seconds + "s";
@@ -315,12 +315,12 @@ export class EditSupertasksComponent implements OnInit {
       });
 
       // reduce total runtime to a human format
-      var seconds = totalSecondsSupertask;
-      var days = Math.floor(seconds / (3600 * 24));
+      let seconds = totalSecondsSupertask;
+      const days = Math.floor(seconds / (3600 * 24));
       seconds -= days * 3600 * 24;
-      var hrs = Math.floor(seconds / 3600);
+      const hrs = Math.floor(seconds / 3600);
       seconds -= hrs * 3600;
-      var mins = Math.floor(seconds / 60);
+      const mins = Math.floor(seconds / 60);
       seconds -= mins * 60;
 
       let totalRuntimeSupertask = days + "d, " + hrs + "h, " + mins + "m, " + seconds + "s";

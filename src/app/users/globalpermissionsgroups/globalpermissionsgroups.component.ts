@@ -45,7 +45,7 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
 
       this.setAccessPermissions();
 
-      let params = {'maxResults': this.maxResults , 'expand': 'user'}
+      const params = {'maxResults': this.maxResults , 'expand': 'user'}
       this.gs.getAll(SERV.ACCESS_PERMISSIONS_GROUPS,params).subscribe((gpg: any) => {
         this.Allgpg = gpg.values;
         this.dtTrigger.next(void 0);
@@ -92,8 +92,8 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
                 exportOptions: {modifier: {selected: true}},
                 select: true,
                 customize: function (dt, csv) {
-                  var data = "";
-                  for (var i = 0; i < dt.length; i++) {
+                  let data = "";
+                  for (let i = 0; i < dt.length; i++) {
                     data = "Agents\n\n"+  dt;
                   }
                   return data;
@@ -109,9 +109,8 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     }
 
     setAccessPermissions(){
-      let param = {'expand':'globalPermissionGroup'};
+      const param = {'expand':'globalPermissionGroup'};
       this.gs.get(SERV.USERS,this.gs.userId,param).subscribe((perm: any) => {
-
       });
     }
 

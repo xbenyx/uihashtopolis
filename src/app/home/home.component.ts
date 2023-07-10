@@ -19,7 +19,7 @@ import { SERV } from '../core/_services/main.config';
 @PageTitle(['Dashboard'])
 export class HomeComponent implements OnInit {
 
-  username: string = 'Admin';
+  username = 'Admin';
 
   faCalendarWeek=faCalendarWeek;
   faChainBroken=faChainBroken;
@@ -37,11 +37,11 @@ export class HomeComponent implements OnInit {
   }
 
   // Dashboard variables
-  activeAgents: number = 0;
-  totalAgents: number = 0;
-  totalTasks: number = 0;
-  totalCracks: number = 0;
-  allsupertasks: number = 0;
+  activeAgents = 0;
+  totalAgents = 0;
+  totalTasks = 0;
+  totalCracks = 0;
+  allsupertasks = 0;
 
   private maxResults = environment.config.prodApiMaxResults;
   private updateSubscription: Subscription;
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
   async initData() {
 
     // Agents
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
 
     this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.totalAgents = agents.total | 0;
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
     });
 
     //  Tasks
-    let paramst = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
+    const paramst = {'maxResults': this.maxResults, 'filter': 'isArchived=false'}
 
     this.gs.getAll(SERV.TASKS,paramst).subscribe((tasks: any) => {
       this.totalTasks = tasks.values.filter(u=> u.isArchived != true).length | 0;
@@ -84,12 +84,12 @@ export class HomeComponent implements OnInit {
 
     // Cracks
     // let paramsc = {'maxResults': this.maxResults, 'filter': 'isCracked='+true+''}
-    let paramsc = {'maxResults': this.maxResults }
+    const paramsc = {'maxResults': this.maxResults }
 
     this.gs.getAll(SERV.HASHES,paramsc).subscribe((hashes: any) => {
       let lastseven:any = new Date() ;
       lastseven = lastseven.setDate(lastseven.getDate() - 7).valueOf()/1000;
-      let lastsevenObject = hashes.values.filter(u=> (u.isCracked == true && u.timeCracked > lastseven ));
+      const lastsevenObject = hashes.values.filter(u=> (u.isCracked == true && u.timeCracked > lastseven ));
       this.totalCracks = lastsevenObject.length | 0;
       this.initCrackCard(hashes.values);
     });
@@ -100,22 +100,22 @@ export class HomeComponent implements OnInit {
 
   initCrackCard(obj: any){
 
-    let date_today = new Date();
-    let year = (new Date()).getFullYear();
-    let first_day_of_the_week = new Date(date_today.setDate(date_today.getDate() - date_today.getDay() ));
-    let epochtime = Math.round(first_day_of_the_week.setDate(first_day_of_the_week.getDate()).valueOf()/1000);
+    const date_today = new Date();
+    const year = (new Date()).getFullYear();
+    const first_day_of_the_week = new Date(date_today.setDate(date_today.getDate() - date_today.getDay() ));
+    const epochtime = Math.round(first_day_of_the_week.setDate(first_day_of_the_week.getDate()).valueOf()/1000);
 
-    let filterdate = obj.filter(u=> (u.isCracked == true ));
+    const filterdate = obj.filter(u=> (u.isCracked == true ));
 
-    var arr = [];
+    const arr = [];
     for(let i=0; i < filterdate.length; i++){
-      let date:any = new Date(filterdate[i]['timeCracked']* 1000);
-      var iso = date.getUTCFullYear()+'-'+(date.getUTCMonth() + 1)+'-'+date.getUTCDate();
+      const date:any = new Date(filterdate[i]['timeCracked']* 1000);
+      const iso = date.getUTCFullYear()+'-'+(date.getUTCMonth() + 1)+'-'+date.getUTCDate();
       arr.push([iso]);
     }
 
-    var counts = arr.reduce((p, c) => {
-      var weekd = c[0];
+    const counts = arr.reduce((p, c) => {
+      const weekd = c[0];
       if (!p.hasOwnProperty(weekd)) {
         p[weekd] = 0;
       }
@@ -123,7 +123,7 @@ export class HomeComponent implements OnInit {
       return p;
     }, {});
 
-    var countsExtended = Object.keys(counts).map(k => {
+    const countsExtended = Object.keys(counts).map(k => {
       return [k, counts[k]]
     }, {});
 
@@ -136,9 +136,9 @@ export class HomeComponent implements OnInit {
       CanvasRenderer
     ]);
 
-    var chartDom = document.getElementById('pcard');
-    var myChart = echarts.init(chartDom);
-    var option;
+    const chartDom = document.getElementById('pcard');
+    const myChart = echarts.init(chartDom);
+    let option;
 
     option = {
       title: {},

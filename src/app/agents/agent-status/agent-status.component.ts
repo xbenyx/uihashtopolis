@@ -40,7 +40,7 @@ export class AgentStatusComponent implements OnInit {
 
   showagents: any[] = [];
   _filteresAgents: any[] = [];
-  filterText: string = '';
+  filterText = '';
 
   totalRecords = 0;
   pageSize = 20;
@@ -143,8 +143,8 @@ export class AgentStatusComponent implements OnInit {
                 exportOptions: {modifier: {selected: true}},
                 select: true,
                 customize: function (dt, csv) {
-                  var data = "";
-                  for (var i = 0; i < dt.length; i++) {
+                  let data = "";
+                  for (let i = 0; i < dt.length; i++) {
                     data = "Agent Status\n\n"+  dt;
                   }
                   return data;
@@ -172,18 +172,18 @@ export class AgentStatusComponent implements OnInit {
   }
 
   getAgentsPage(page: number) {
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.AGENTS,params).subscribe((a: any) => {
-      var getAData = a.values;
+      const getAData = a.values;
       this.totalRecords = a.total;
       this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
         this.gs.getAll(SERV.TASKS,params).subscribe((t: any)=>{
-          var map = getAData.map(mainObject => {
-          let matchObjectAgents = c.values.find(e => e.agentId === mainObject.agentId)
+          const map = getAData.map(mainObject => {
+          const matchObjectAgents = c.values.find(e => e.agentId === mainObject.agentId)
           return { ...mainObject, ...matchObjectAgents}
           })
           this.showagents = this.filteredAgents = map.map(mainObject => {
-            let matchObjectTask = t.values.find(e => e.taskId === mainObject.taskId)
+            const matchObjectTask = t.values.find(e => e.taskId === mainObject.taskId)
             return { ...mainObject, ...matchObjectTask}
           })
           this.dtTrigger.next(void 0);
@@ -198,7 +198,7 @@ export class AgentStatusComponent implements OnInit {
   statCpu: any[] = [];
 
   getAgentStats(){
-    let paramsstat = {'maxResults': this.maxResults, 'filter': 'time>'+this.gettime()+''}
+    const paramsstat = {'maxResults': this.maxResults, 'filter': 'time>'+this.gettime()+''}
     this.gs.getAll(SERV.AGENTS_STATS,paramsstat).subscribe((stats: any) => {
       this.statTemp = stats.values.filter(u=> u.statType == ASC.GPU_TEMP); // filter Device Temperature
       this.statDevice = stats.values.filter(u=> u.statType == ASC.GPU_UTIL); // filter Device Utilization
@@ -208,7 +208,7 @@ export class AgentStatusComponent implements OnInit {
   }
 
   gettime(){
-    let time = (Date.now() - this.uiService.getUIsettings('agenttimeout').value)
+    const time = (Date.now() - this.uiService.getUIsettings('agenttimeout').value)
     return time;
   }
 

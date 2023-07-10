@@ -59,13 +59,13 @@ export class UIConfigService {
   }
 
   public storeDefault(){
-    let params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults}
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
 
-      var post_data = [];
+      const post_data = [];
 
       this.cachevar.forEach((data) => {
-        let name = data.name;
+        const name = data.name;
         let value = result.values.find(obj => obj.item === data.name).value;
         // Check date format is valid
         if(name == 'timefmt'){
@@ -74,7 +74,7 @@ export class UIConfigService {
         value = {name:name, value: value}
         post_data.push(value);
       });
-      let timeinfo = [{name: '_timestamp', value: Date.now()},{name: '_expiresin', value: this.cexprity}];
+      const timeinfo = [{name: '_timestamp', value: Date.now()},{name: '_expiresin', value: this.cexprity}];
 
       localStorage.setItem('uis', JSON.stringify([].concat(post_data,timeinfo)));
     });
@@ -87,7 +87,7 @@ export class UIConfigService {
   }
 
   public onDateCheck(format: any){
-    var res; //Default date format
+    let res; //Default date format
     for(let i=0; i < dateFormat.length; i++){
       if(dateFormat[i]['format']== format){
         res = format;
@@ -101,11 +101,11 @@ export class UIConfigService {
   }
 
   public updateDate(val){
-    let keyn = 'timefmt';
-    let params = {'filter=item': keyn};
+    const keyn = 'timefmt';
+    const params = {'filter=item': keyn};
     this.gs.getAll(SERV.CONFIGS,params).subscribe((result)=>{
-      let indexUpdate = result.values.find(obj => obj.item === keyn).configId;
-      let arr = {'item': keyn, 'value':  val};
+      const indexUpdate = result.values.find(obj => obj.item === keyn).configId;
+      const arr = {'item': keyn, 'value':  val};
       this.gs.update(SERV.CONFIGS,indexUpdate, arr).subscribe((result)=>{ }) })
   }
 

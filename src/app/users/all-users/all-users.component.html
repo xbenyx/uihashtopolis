@@ -22,7 +22,7 @@
           <td>{{ user.registeredSince*1000 | date: uidateformat }}</td>
           <td>{{ user.lastLoginDate*1000 | date: uidateformat }}</td>
           <td>{{ user.email }}</td>
-          <td><span class="{{user.isValid == 1 ? 'fw-bold text-success' : 'fw-bold text-warning'}}">{{ user.isValid == 1 ? "Valid" : "Invalid/Not activated" }}</span></td>
+          <td><span class="{{user.isValid === 1 ? 'fw-bold text-success' : 'fw-bold text-warning'}}">{{ user.isValid === 1 ? "Valid" : "Invalid/Not activated" }}</span></td>
           <td>{{ user.sessionLifetime }}</td>
           <td>{{ user.globalPermissionGroup.name }}</td>
           <td class="overflow-hidden">

@@ -31,13 +31,13 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let params = {'maxResults': this.maxResults};
+    const params = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.ACCESS_PERMISSIONS_GROUPS,params).subscribe((agp: any) => {
       this.agp = agp.values;
     });
 
     this.gs.getAll(SERV.USERS,params).subscribe((res: any) => {
-      var arrNames = [];
+      const arrNames = [];
       for(let i=0; i < res.values.length; i++){
         arrNames.push(res.values[i]['name']);
       }

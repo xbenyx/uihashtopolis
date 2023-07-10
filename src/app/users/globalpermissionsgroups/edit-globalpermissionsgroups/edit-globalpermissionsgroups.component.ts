@@ -104,11 +104,11 @@ export class EditGlobalpermissionsgroupsComponent implements OnInit {
 
   private initForm() {
     this.isLoading = true;
-    let params = {'expand': 'user'};
+    const params = {'expand': 'user'};
     if (this.editMode) {
       this.gs.get(SERV.ACCESS_PERMISSIONS_GROUPS,this.editedGPGIndex, params).subscribe((res)=>{
       this.editedGPG = res;
-      var result = res['permissions'];
+      const result = res['permissions'];
       this.updateForm = new FormGroup({
         'name': new FormControl(res['name']),
         'permissions': new FormGroup({

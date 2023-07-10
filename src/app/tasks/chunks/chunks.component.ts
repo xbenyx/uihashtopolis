@@ -52,7 +52,7 @@ export class ChunksComponent implements OnInit {
   chunkresults: Object;
 
   chunksInit(){
-    var paramchunk = {};
+    let paramchunk = {};
 
     this.route.data.subscribe(data => {
       switch (data['kind']) {
@@ -84,13 +84,13 @@ export class ChunksComponent implements OnInit {
       }
     });
 
-    let params = {'maxResults': this.chunkresults};
+    const params = {'maxResults': this.chunkresults};
     this.gs.getAll(SERV.CHUNKS,paramchunk).subscribe((chunks: any) => {
       this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
       this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
         this.chunks = chunks.values.map(mainObject => {
-          let matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)
-          let matchTObject = tasks.values.find(element => element.taskId === mainObject.taskId)
+          const matchAObject = agents.values.find(element => element.agentId === mainObject.agentId)
+          const matchTObject = tasks.values.find(element => element.taskId === mainObject.taskId)
           return { ...mainObject, ...matchAObject, ...matchTObject }
         })
         this.dtTrigger.next(void 0);
@@ -134,8 +134,8 @@ export class ChunksComponent implements OnInit {
               exportOptions: {modifier: {selected: true}},
               select: true,
               customize: function (dt, csv) {
-                var data = "";
-                for (var i = 0; i < dt.length; i++) {
+                let data = "";
+                for (let i = 0; i < dt.length; i++) {
                   data = "Chunks\n\n"+  dt;
                 }
                 return data;

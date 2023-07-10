@@ -48,7 +48,7 @@ export class GroupsComponent implements OnInit {
 
     loadAccessGroups(){
 
-      let params = {'maxResults': this.maxResults}
+      const params = {'maxResults': this.maxResults}
       this.gs.getAll(SERV.ACCESS_GROUPS,params).subscribe((agroups: any) => {
         this.agroups = agroups.values;
         this.dtTrigger.next(void 0);
@@ -95,8 +95,8 @@ export class GroupsComponent implements OnInit {
                 exportOptions: {modifier: {selected: true}},
                 select: true,
                 customize: function (dt, csv) {
-                  var data = "";
-                  for (var i = 0; i < dt.length; i++) {
+                  let data = "";
+                  for (let i = 0; i < dt.length; i++) {
                     data = "Agents\n\n"+  dt;
                   }
                   return data;
