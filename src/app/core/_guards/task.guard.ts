@@ -22,6 +22,7 @@ export class TaskGuard implements CanActivate{
             take(1),
             map(perm =>{
             const isAuth = perm.globalPermissionGroup.permissions.viewTaskAccess;
+            console.log('here')
             if(isAuth || typeof isAuth == 'undefined'){
                 return true;
             }
