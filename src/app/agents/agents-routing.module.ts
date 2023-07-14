@@ -8,7 +8,6 @@ import { ShowAgentsComponent } from "./show-agents/show-agents.component";
 import { EditAgentComponent } from "./edit-agent/edit-agent.component";
 import { NewAgentComponent } from "./new-agent/new-agent.component";
 import { AgentGuard } from "../core/_guards/agent.guard";
-import { inject } from "@angular/core";
 
 const routes: Routes = [
   {
