@@ -218,44 +218,12 @@ export class NewTasksComponent implements OnInit {
 
    this.fetchData();
 
-    this.dtOptions[0] = {
+    this.dtOptions = {
       dom: 'Bfrtip',
       scrollY: "700px",
       scrollCollapse: true,
       paging: false,
       autoWidth: false,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
-
-    this.dtOptions[1] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      destroy: true,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
-
-    this.dtOptions[2] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      destroy: true,
       buttons: {
           dom: {
             button: {
