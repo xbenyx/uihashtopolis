@@ -155,8 +155,7 @@ export class EditAgentComponent implements OnInit {
 
       this.isLoading = true;
 
-      this.gs.update(SERV.AGENTS,this.editedAgentIndex,this.updateForm.value).subscribe((agent: any) => {
-        const response = agent;
+      this.gs.update(SERV.AGENTS,this.editedAgentIndex,this.updateForm.value).subscribe(() => {
         this.isLoading = false;
           Swal.fire({
             title: "Success",

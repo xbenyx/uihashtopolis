@@ -46,7 +46,7 @@ export class FilesComponent implements OnInit {
     fileId: number,
     filename: string,
     size: number,
-    isSecret: number,
+    isSecret: boolean,
     fileType: number,
     accessGroupId: number,
     lineCount:number
@@ -59,11 +59,8 @@ export class FilesComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
-    private uploadService:UploadTUSService,
     private route:ActivatedRoute,
     private gs: GlobalService,
-    private http:HttpClient,
-    private router:Router
     ) { }
 
   @ViewChild(DataTableDirective)
@@ -123,6 +120,7 @@ export class FilesComponent implements OnInit {
 
       this.gs.getAll(SERV.FILES,params).subscribe((files: any) => {
         this.allfiles = files.values;
+        console.log(this.allfiles)
         this.dtTrigger.next(void 0);
       });
 
