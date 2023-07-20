@@ -33,7 +33,7 @@ export class ShowCracksComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const params = {'maxResults': this.maxResults, 'filter': 'isCracked=1'}
+    const params = {'maxResults': this.maxResults, 'filter': 'isCracked=1', 'expand':'hashlist,chunk'}
 
     this.gs.getAll(SERV.HASHES,params).subscribe((hashes: any) => {
       this.allhashes = hashes.values;
