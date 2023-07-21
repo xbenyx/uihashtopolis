@@ -176,8 +176,8 @@ export class AgentStatusComponent implements OnInit {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   rerender(): void {

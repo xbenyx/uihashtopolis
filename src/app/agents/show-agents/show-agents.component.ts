@@ -188,8 +188,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   // Set permissions

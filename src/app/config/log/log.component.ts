@@ -191,8 +191,8 @@ export class LogComponent implements OnInit {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   onReload(mresults: number, cresults:number){

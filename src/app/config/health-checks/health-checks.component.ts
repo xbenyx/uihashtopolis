@@ -146,8 +146,8 @@ export class HealthChecksComponent implements OnInit {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   rerender(): void {

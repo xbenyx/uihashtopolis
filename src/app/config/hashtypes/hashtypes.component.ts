@@ -35,7 +35,7 @@ export class HashtypesComponent implements OnInit {
   dtOptions: any = {};
 
   constructor(
-    private gs: GlobalService,
+    private gs: GlobalService
   ) { }
 
   public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number}[] = [];
@@ -115,8 +115,8 @@ export class HashtypesComponent implements OnInit {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   rerender(): void {

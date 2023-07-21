@@ -111,8 +111,8 @@ export class CrackersComponent implements OnInit, OnDestroy {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   rerender(): void {

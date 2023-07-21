@@ -117,8 +117,8 @@ export class GlobalpermissionsgroupsComponent implements OnInit {
     }
 
     onRefresh(){
+      this.rerender();
       this.ngOnInit();
-      this.rerender();  // rerender datatables
     }
 
     setAccessPermissions(){

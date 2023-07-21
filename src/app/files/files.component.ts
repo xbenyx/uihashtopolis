@@ -231,8 +231,8 @@ export class FilesComponent implements OnInit {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   rerender(): void {

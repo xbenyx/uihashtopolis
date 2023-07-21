@@ -136,9 +136,10 @@ export class ProjectsComponent implements OnInit {
       }
     };
   }
+
   onRefresh(){
+    // this.rerender();
     this.ngOnInit();
-    // this.rerender();  // rerender datatables
   }
 
   getStatus(status: string): string{

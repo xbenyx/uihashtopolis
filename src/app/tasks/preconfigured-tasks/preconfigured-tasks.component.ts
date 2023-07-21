@@ -126,8 +126,8 @@ export class PreconfiguredTasksComponent implements OnInit {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   ngOnDestroy(): void {

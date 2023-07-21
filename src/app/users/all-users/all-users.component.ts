@@ -135,8 +135,8 @@ export class AllUsersComponent  implements OnInit, OnDestroy {
   }
 
   onRefresh(){
+    this.rerender();
     this.ngOnInit();
-    this.rerender();  // rerender datatables
   }
 
   editButtonClick(){
