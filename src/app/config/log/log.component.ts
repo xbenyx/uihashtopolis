@@ -125,6 +125,13 @@ export class LogComponent implements OnInit {
         },
       buttons: [
         {
+          text: '↻',
+          autoClose: true,
+          action: function (e, dt, node, config) {
+            self.onRefresh();
+          }
+        },
+        {
           extend: 'collection',
           text: 'Export',
           buttons: [
@@ -181,6 +188,11 @@ export class LogComponent implements OnInit {
       }
     };
 
+  }
+
+  onRefresh(){
+    this.ngOnInit();
+    this.rerender();  // rerender datatables
   }
 
   onReload(mresults: number, cresults:number){

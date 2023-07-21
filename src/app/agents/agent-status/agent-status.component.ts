@@ -93,6 +93,7 @@ export class AgentStatusComponent implements OnInit {
     this.getAgentsPage(1);
     this.getAgentStats();
 
+    const self = this;
     this.dtOptions = {
       dom: 'Bfrtip',
       scrollY: true,
@@ -115,6 +116,13 @@ export class AgentStatusComponent implements OnInit {
             }
           },
         buttons: [
+          {
+            text: '↻',
+            autoClose: true,
+            action: function (e, dt, node, config) {
+              self.onRefresh();
+            }
+          },
           {
             extend: 'collection',
             text: 'Export',
@@ -166,6 +174,23 @@ export class AgentStatusComponent implements OnInit {
         }
       }
   }
+
+  onRefresh(){
+    this.ngOnInit();
+    this.rerender();  // rerender datatables
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
 
   pageChanged(page: number) {
     this.getAgentsPage(page);

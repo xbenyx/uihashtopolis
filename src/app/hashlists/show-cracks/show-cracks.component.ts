@@ -39,7 +39,7 @@ export class ShowCracksComponent implements OnInit {
       this.allhashes = hashes.values;
       this.dtTrigger.next(void 0);
     });
-
+    const self = this;
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,
@@ -53,6 +53,13 @@ export class ShowCracksComponent implements OnInit {
           }
         },
       buttons: [
+        {
+          text: '↻',
+          autoClose: true,
+          action: function (e, dt, node, config) {
+            self.onRefresh();
+          }
+        },
         {
           extend: 'collection',
           text: 'Export',
@@ -105,6 +112,21 @@ export class ShowCracksComponent implements OnInit {
     };
 
   }
+
+  onRefresh(){
+    this.ngOnInit();
+    this.rerender();  // rerender datatables
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
+  }
+
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
