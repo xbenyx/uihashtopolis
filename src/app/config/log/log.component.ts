@@ -205,6 +205,8 @@ export class LogComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+    const currentPage = {start: 0};
+    localStorage.setItem(this.localStablepage, JSON.stringify(currentPage));
   }
 
   rerender(): void {
