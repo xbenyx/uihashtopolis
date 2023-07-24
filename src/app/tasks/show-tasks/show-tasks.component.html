@@ -24,20 +24,38 @@
     </thead>
     <tbody>
     <tr *ngFor="let task of alltasks">
-        <td [ngClass]="!task.color ? 'pill-ebidem' : 'pill-ebidem-tk'"  [ngStyle]="{'background-color': task.color }">{{ task.taskId }}</td>
-        <td>
-            <a [routerLink]="[task.taskId,'edit']">{{ task.taskName | lowercase | titlecase }}</a>
-            <span *ngIf="task.isSecret === 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+        <td [ngClass]="!task.color ? 'pill-ebidem' : 'pill-ebidem-tk'"  [ngStyle]="{'background-color': task.color }">{{ task.taskId }}
         </td>
         <td>
-          <a [routerLink]="['/hashlists/hashlist',task.hashlist.hashlistId,'edit']">{{ task.hashlist.name }}</a>
+          <a [ngClass]="task.keyspaceProgress >= task.keyspace ? 'align-text' : ''" [routerLink]="[task.taskId,'edit']">
+            {{ task.taskName | lowercase | titlecase }}
+          </a>
+          <span class="badge" *ngIf="task.keyspaceProgress >= task.keyspace"><app-check-mark></app-check-mark></span>
+          <span *ngIf="task.isSecret === 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+          <a *ngIf="task.isSmall === true">
+            <br>
+            <small><b>-Small Task</b></small>
+          </a>
+          <a *ngIf="task.isCpuTask === true">
+            <br>
+            <small><b>-CPU</b></small>
+          </a>
+          <a *ngIf="task.preprocessorId === 1">
+            <br>
+            <small><b>-Prince</b></small>
+          </a>
         </td>
-        <td *ngIf="task.keyspace > 0">{{ loadchunks | tdispatched:task.taskId:task.keyspace | percent}}/ {{ loadchunks | tdsearched:task.taskId:task.keyspace | percent}}</td>
+        <td>
+          <a [ngClass]="task.hashlist.hashCount === task.hashlist.cracked ? 'align-text' : ''" [routerLink]="['/hashlists/hashlist',task.hashlist.hashlistId,'edit']">{{ task.hashlist.name }}</a>
+          <span class="badge" *ngIf="task.hashlist.hashCount === task.hashlist.cracked"><app-check-mark></app-check-mark></span>
+          <span *ngIf="task.hashlist.isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+        </td>
+        <td *ngIf="task.keyspace > 0">{{ loadchunks | tdispatched:task.taskId:task.keyspace | percent}} / {{ loadchunks | tdsearched:task.taskId:task.keyspace | percent}}</td>
         <td *ngIf="task.keyspace === 0"></td>
         <td>
           <a [routerLink]="['/hashlists/hashes/','tasks',task.taskId]" routerLinkActive="active">{{ loadchunks | tdcracked:task.taskId }}</a>
         </td>
-        <td>{{ task.maxAgents }}</td>
+        <td>{{ task.maxAgents === 0 ? '0' : task.maxAgents }}</td>
         <td>{{ task.priority }}</td>
         <td>{{ task.maxAgents }}</td>
         <td>
@@ -85,3 +103,5 @@
     </tbody>
   </table>
 </app-table>
+
+
