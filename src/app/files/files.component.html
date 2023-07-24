@@ -25,10 +25,10 @@
       <tbody>
       <tr *ngFor="let f of allfiles">
           <td>{{ f.fileId }}</td>
-          <td *ngIf="f.isSecret === true" >
-            <a class="point" (click)="onEdit(f.fileId)">{{ f.filename }} </a> <fa-icon [icon]="faLock" aria-hidden="true"></fa-icon>
+          <td>
+            <a class="point" (click)="onEdit(f.fileId)">{{ f.filename }} </a>
+            <fa-icon *ngIf="f.isSecret === true" [icon]="faLock" aria-hidden="true"></fa-icon>
           </td>
-          <td *ngIf="f.isSecret === false">{{ f.filename }}</td>
           <td>{{ f.size | fileSize:false }}</td>
           <td>{{ f.lineCount }}</td>
           <td>{{ f.accessGroup.groupName }}</td>
@@ -47,4 +47,3 @@
     </tbody>
   </table>
 </app-table>
-

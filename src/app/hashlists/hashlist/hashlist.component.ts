@@ -42,7 +42,7 @@ export class HashlistComponent implements OnInit, OnDestroy {
     hashCount: number,
     saltSeparator: string,
     cracked: number,
-    isSecret: number,
+    isSecret: boolean,
     isHexSalt: string,
     isSalted: string,
     accessGroupId: number,
