@@ -24,8 +24,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let task of alltasks">
-        <td [ngClass]="!task.color ? 'pill-ebidem' : 'pill-ebidem-tk'"  [ngStyle]="{'background-color': task.color }">{{ task.taskId }}
-        </td>
+        <td [ngClass]="!task.color ? 'pill-ebidem' : 'pill-ebidem-tk'"  [ngStyle]="{'background-color': task.color }">{{ task.taskId }}</td>
         <td>
           <a [ngClass]="task.keyspaceProgress >= task.keyspace ? 'align-text' : ''" [routerLink]="[task.taskId,'edit']">
             {{ task.taskName | lowercase | titlecase }}
@@ -56,7 +55,7 @@
           <a *ngIf="(loadchunks | tdcracked:task.taskId) > 0"  [routerLink]="['/hashlists/hashes/','tasks',task.taskId]" routerLinkActive="active">{{ loadchunks | tdcracked:task.taskId }}</a>
           <a *ngIf="(loadchunks | tdcracked:task.taskId) === 0">0</a>
         </td>
-        <td>{{ task.maxAgents === 0 ? '0' : task.maxAgents }}</td>
+        <td>{{ task.maxAgents }}</td>
         <td>{{ task.priority }}</td>
         <td>{{ task.maxAgents }}</td>
         <td>

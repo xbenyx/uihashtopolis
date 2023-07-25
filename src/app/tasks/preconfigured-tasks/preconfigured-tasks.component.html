@@ -27,8 +27,7 @@
         <td>
           {{ ptask.pretaskFiles.length }}
           <span *ngIf="(ptask.pretaskFiles | sum:'isSecret') > 0" ><fa-icon [icon]="faLock" aria-hidden="true" ngbTooltip="{{ptask.pretaskFiles | sum:'isSecret'}} file(s) protected"></fa-icon></span>
-          /
-          <small>{{ ptask.pretaskFiles | sum:'size' | fileSize:false }}</small>
+          <small *ngIf="ptask.pretaskFiles.length > 0">/ {{ ptask.pretaskFiles | sum:'size' | fileSize:false }}</small>
         </td>
         <td>{{ ptask.priority }}</td>
         <td>{{ ptask.maxAgents }}</td>

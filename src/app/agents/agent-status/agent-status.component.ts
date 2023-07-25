@@ -197,7 +197,7 @@ export class AgentStatusComponent implements OnInit {
   }
 
   getAgentsPage(page: number) {
-    const params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.AGENTS,params).subscribe((a: any) => {
       const getAData = a.values;
       this.totalRecords = a.total;

@@ -48,7 +48,7 @@ export class ShowTasksComponent implements OnInit {
   isArchived: boolean;
   whichView: string;
 
-  private maxResults = environment.config.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
     private route:ActivatedRoute,
@@ -247,7 +247,7 @@ rerender(): void {
 
 onArchive(id: number){
   if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
-  this.gs.archive(SERV.TASKS,id).subscribe((tasks: any) => {
+  this.gs.archive(SERV.TASKS,id).subscribe(() => {
     Swal.fire({
       title: "Success",
       text: "Archived!",
