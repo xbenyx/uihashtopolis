@@ -34,15 +34,15 @@
           <span *ngIf="task.isSecret === 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
           <a *ngIf="task.isSmall === true">
             <br>
-            <small><b>-Small Task</b></small>
+            <small><b>*Small Task</b></small>
           </a>
           <a *ngIf="task.isCpuTask === true">
             <br>
-            <small><b>-CPU</b></small>
+            <small><b>*CPU</b></small>
           </a>
           <a *ngIf="task.preprocessorId === 1">
             <br>
-            <small><b>-Prince</b></small>
+            <small><b>*Prince</b></small>
           </a>
         </td>
         <td>
@@ -53,7 +53,8 @@
         <td *ngIf="task.keyspace > 0">{{ loadchunks | tdispatched:task.taskId:task.keyspace | percent}} / {{ loadchunks | tdsearched:task.taskId:task.keyspace | percent}}</td>
         <td *ngIf="task.keyspace === 0"></td>
         <td>
-          <a [routerLink]="['/hashlists/hashes/','tasks',task.taskId]" routerLinkActive="active">{{ loadchunks | tdcracked:task.taskId }}</a>
+          <a *ngIf="(loadchunks | tdcracked:task.taskId) > 0"  [routerLink]="['/hashlists/hashes/','tasks',task.taskId]" routerLinkActive="active">{{ loadchunks | tdcracked:task.taskId }}</a>
+          <a *ngIf="(loadchunks | tdcracked:task.taskId) === 0">0</a>
         </td>
         <td>{{ task.maxAgents === 0 ? '0' : task.maxAgents }}</td>
         <td>{{ task.priority }}</td>
