@@ -86,13 +86,21 @@ export class NewTasksComponent implements OnInit {
   filesFormArray: Array<any> = [];
   onChange(fileId:number, fileType:number, fileName: string, cmdAttk: number, $target: EventTarget) {
     const isChecked = (<HTMLInputElement>$target).checked;
-    if(isChecked && cmdAttk === 0) {
+    if(isChecked && cmdAttk === 0 ) {
+        if (this.copyMode) {
+          this.filesFormArray = this.createForm.get('files').value;
+        }
         this.filesFormArray.push(fileId);
         this.OnChangeAttack(fileName, fileType);
-        this.createForm.patchValue({files: this.filesFormArray });
-    } if (isChecked && cmdAttk === 1) {
+        this.createForm.get('files').value;
+        this.createForm.patchValue({files: this.filesFormArray});
+    }
+    if (isChecked && cmdAttk === 1) {
         this.OnChangeAttackPrep(fileName, fileType);
     } if (!isChecked && cmdAttk === 0) {
+      if (this.copyMode) {
+        this.filesFormArray = this.createForm.get('files').value;
+      }
       const index = this.filesFormArray.indexOf(fileId);
       this.filesFormArray.splice(index,1);
       this.createForm.patchValue({files: this.filesFormArray});
@@ -102,8 +110,10 @@ export class NewTasksComponent implements OnInit {
     }
   }
 
+  // if (this.copyMode) {
+
   onChecked(fileId: number){
-    return this.copyFiles.includes(fileId);
+    return this.createForm.get('files').value.includes(fileId);
   }
 
   OnChangeAttack(item: string, fileType: number, onRemove?: boolean){
@@ -341,6 +351,8 @@ export class NewTasksComponent implements OnInit {
       ($("#hashlist") as any).selectize({
         plugins: ['remove_button'],
         preload: true,
+        create: true,
+        items: [1],
         valueField: "hashlistId",
         placeholder: "Search hashlist...",
         labelField: "name",
@@ -474,7 +486,7 @@ export class NewTasksComponent implements OnInit {
       this.createForm = new FormGroup({
         'taskName': new FormControl(result['taskName']+'_(Copied_pretask_id_'+this.editedIndex+')', [Validators.required, Validators.minLength(1)]),
         'notes': new FormControl('Copied from pretask id '+this.editedIndex+'', Validators.required),
-        'hashlistId': new FormControl(result['hashlistId']),
+        'hashlistId': new FormControl(),
         'attackCmd': new FormControl(result['attackCmd'], [Validators.required, this.forbiddenChars(/[&*;$()\[\]{}'"\\|<>\/]/)]),
         'maxAgents': new FormControl(result['maxAgents'], Validators.required),
         'chunkTime': new FormControl(result['chunkTime'], Validators.required),
