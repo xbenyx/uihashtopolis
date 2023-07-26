@@ -44,7 +44,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
   whichView: string;
   createForm: FormGroup
   crackertype: any
-  color = '#fff'
+  color: any;
   colorpicker=colorpicker;
 
   @ViewChild(DataTableDirective)

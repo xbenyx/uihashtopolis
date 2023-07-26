@@ -29,8 +29,8 @@
           <a [ngClass]="task.keyspaceProgress >= task.keyspace ? 'align-text' : ''" [routerLink]="[task.taskId,'edit']">
             {{ task.taskName | lowercase | titlecase }}
           </a>
-          <span class="badge" *ngIf="task.keyspaceProgress >= task.keyspace"><app-check-mark></app-check-mark></span>
-          <span *ngIf="task.isSecret === 1" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+          <span class="badge" *ngIf="task.keyspaceProgress >= task.keyspace && task.keyspaceProgress > 0"><app-check-mark></app-check-mark></span>
+          <span *ngIf="task.isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
           <a *ngIf="task.isSmall === true">
             <br>
             <small><b>*Small Task</b></small>
