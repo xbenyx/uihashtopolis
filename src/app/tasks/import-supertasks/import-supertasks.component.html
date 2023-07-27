@@ -1,10 +1,13 @@
+<app-page-title [title]="'Supertask'"></app-page-title>
+<!-- Spinner Loading -->
 <div *ngIf="isLoading" style="text-align: center;">
   <app-loading-spinner></app-loading-spinner>
-</div>&nbsp;
+</div>
+<!-- Body -->
 <div class="row no-gutters">
   <div class="col-12 col-sm-6 col-md-8 d-flex align-items-center justify-content-center">
       <div class="layout-col shadow rounded p-4 p-lg-5 w-100 fmxw-700">
-        <app-page-subtitle [subtitle]="'Import Supertask'"></app-page-subtitle>
+        <app-page-subtitle [subtitle]="'Masks'"></app-page-subtitle>
         <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
           <div class="row">
               <div class="form-group">

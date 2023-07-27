@@ -36,76 +36,75 @@
         <button class="btn btn-danger" (ngSubmit)="onDelete()">Delete</button>
         </form>
         <hr>
-        <h5> Estimate Time
-        <fa-icon
-                placement="bottom"
-                ngbTooltip="The benchmark number to enter below is the total amount of hashes per second per attack type of all of the agents combined that will run the supertask."
-                container="body"
-                [icon]="faInfoCircle"
-                aria-hidden="true"
-        ></fa-icon>
-        </h5>
-        <form [formGroup]="etForm" (ngSubmit)="keyspaceTimeCalc()">
-        <div class="row">
-          <div class="col">
-            <grid-form-input [name]="'Benchmark for -a0 attacks'">
-              <input
-                    type='number'
-                    id="benchmarka0"
-                    class='form-control'
-                    formControlName="benchmarka0"
-              >
+        <h5>Add Pretask</h5>
+        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <grid-form-input [name]="'Select or search to assign pretasks'">
+              <div class="input-group">
+                  <span class="input-group-text" >
+                    <fa-icon [icon]="faMagnifyingGlass" aria-hidden="true"></fa-icon>
+                  </span>
+                  <select
+                        type='number'
+                        id="pretasks"
+                        class='form-select'
+                        formControlName="pretasks"
+                      >
+                      <option [ngValue]=""></option>
+                  </select>
+              </div>
             </grid-form-input>
           </div>
-          <div class="col">
-            <grid-form-input [name]="'Benchmark for -a3 attacks'">
-              <input
-                    type='number'
-                    id="benchmarka3"
-                    class='form-control'
-                    formControlName="benchmarka3"
-              >
-              <pre></pre>
-              <button class="btn btn-gray-800 actions-td-right">Calculate Runtime</button>
-            </grid-form-input>
-          </div>
-        </div>
-        <div *ngIf="etForm.get('benchmarka0').value !== 0 && etForm.get('benchmarka3').value !== 0">
-          &nbsp;
-          <tr>
-            <th>
-              Estimated total runtime of supertask:
-            </th>
-            <td class="runtimeOfSupertask">
-            </td>
-          </tr>
-        </div>
-    </form>
+          <button-submit [name]="'Add'"></button-submit>
+        </form>
   </grid-main>
 </div>
 <div class="col-md-5">
   <grid-main [class]="'width:100%'">
-    <h5>Add Pretask</h5>
-    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <grid-form-input [name]="'Select or search to assign pretasks'">
-          <div class="input-group">
-              <span class="input-group-text" >
-                <fa-icon [icon]="faMagnifyingGlass" aria-hidden="true"></fa-icon>
-              </span>
-              <select
-                    type='number'
-                    id="pretasks"
-                    class='form-select'
-                    formControlName="pretasks"
-                  >
-                  <option [ngValue]=""></option>
-              </select>
-          </div>
+    <h5> Estimate Time
+    <fa-icon
+            placement="bottom"
+            ngbTooltip="The benchmark number to enter below is the total amount of hashes per second per attack type of all of the agents combined that will run the supertask."
+            container="body"
+            [icon]="faInfoCircle"
+            aria-hidden="true"
+    ></fa-icon>
+    </h5>
+    <form [formGroup]="etForm" (ngSubmit)="keyspaceTimeCalc()">
+    <div class="row">
+      <div class="col">
+        <grid-form-input [name]="'Benchmark for -a0 attacks'">
+          <input
+                type='number'
+                id="benchmarka0"
+                class='form-control'
+                formControlName="benchmarka0"
+          >
         </grid-form-input>
       </div>
-      <button-submit [name]="'Add'"></button-submit>
-    </form>
+      <div class="col">
+        <grid-form-input [name]="'Benchmark for -a3 attacks'">
+          <input
+                type='number'
+                id="benchmarka3"
+                class='form-control'
+                formControlName="benchmarka3"
+          >
+        </grid-form-input>
+      </div>
+      <button class="btn btn-gray-800 actions-td-right">Calculate Runtime</button>
+    </div>
+    <div *ngIf="etForm.get('benchmarka0').value !== 0 && etForm.get('benchmarka3').value !== 0">
+      &nbsp;
+      <tr>
+        <th>
+          Estimated total runtime of supertask:
+        </th>
+        <td class="runtimeOfSupertask">
+        </td>
+      </tr>
+    </div>
+   </form>
   </grid-main>
 </div>
 </div>
@@ -129,9 +128,8 @@
           <span [ngClass]="!p.color ? '' : 'pill-ebidem-tk'" [ngStyle]="{'background-color': p.color }">{{  p.pretaskId }}</span>
         </td>
         <td>
-          {{ p.taskName | shortenString:35 | lowercase | titlecase }}
-          <a class='btn-outline-gray-600 float-right' [routerLink]="['/tasks/preconfigured-tasks/', p.pretaskId, 'edit' ]">
-            <fa-icon [icon]="faEye" aria-hidden="true" ></fa-icon>
+          <a [routerLink]="['/tasks/preconfigured-tasks/', p.pretaskId, 'edit' ]">
+            {{ p.taskName | shortenString:35 | lowercase | titlecase }}
           </a>
         </td>
         <td>{{ p.attackCmd }}</td>
