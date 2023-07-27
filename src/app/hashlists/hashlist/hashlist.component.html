@@ -17,8 +17,8 @@
     <tr *ngFor="let list of allhashlists">
         <td>{{ list.hashlistId }}</td>
         <td>
-            <a [ngClass]="list.hashCount === list.cracked ? 'align-text' : ''" [routerLink]="[list.hashlistId,'edit']">{{ list.name }}</a>
-            <span class="badge" *ngIf="list.hashCount === list.cracked"><app-check-mark></app-check-mark></span>
+            <a [routerLink]="[list.hashlistId,'edit']">{{ list.name }}</a>
+            <span *ngIf="list.hashCount === list.cracked"><fa-icon [icon]="faCheckCircle" aria-hidden="true"></fa-icon></span>
             <span *ngIf="list.isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
         </td>
         <td>{{ list.hashType.description }}</td>

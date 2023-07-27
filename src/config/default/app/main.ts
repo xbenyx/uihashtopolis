@@ -1,6 +1,5 @@
-
 export const DEFAULT_CONFIG = {
-  prodApiEndpoint: 'http://192.168.1.31:8080/api/v2',
+  prodApiEndpoint: 'http://crackz.one:8080/api/v2',
   prodApiPort: '8080',
   frontEndUrl: 'https://crackz.one/',
   prodApiMaxResults: '3000',

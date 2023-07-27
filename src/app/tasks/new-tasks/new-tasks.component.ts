@@ -110,8 +110,6 @@ export class NewTasksComponent implements OnInit {
     }
   }
 
-  // if (this.copyMode) {
-
   onChecked(fileId: number){
     return this.createForm.get('files').value.includes(fileId);
   }

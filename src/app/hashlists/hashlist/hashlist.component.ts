@@ -1,4 +1,4 @@
-import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash, faLock, faFileImport, faFileExport, faArchive, faPlus, faHomeAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -19,14 +19,15 @@ declare let $:any;
 @PageTitle(['Show Hashlists'])
 export class HashlistComponent implements OnInit, OnDestroy {
 
-  faEdit=faEdit;
-  faTrash=faTrash;
-  faLock=faLock;
+  faCheckCircle=faCheckCircle;
   faFileImport=faFileImport;
   faFileExport=faFileExport;
-  faPlus=faPlus;
-  faHome=faHomeAlt;
   faArchive=faArchive;
+  faHome=faHomeAlt;
+  faTrash=faTrash;
+  faLock=faLock;
+  faPlus=faPlus;
+  faEdit=faEdit;
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
