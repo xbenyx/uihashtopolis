@@ -27,6 +27,7 @@ import { HttpErrorInterceptor } from './core/_interceptors/http-error.intercepto
 import { BreadcrumbComponent } from './shared/breadcrumb/breadcrumb.component';
 import { ErrorPageComponent } from './layout/error-page/error-page.component';
 import { TimeoutComponent } from './shared/alert/timeout/timeout.component';
+import { ConfigService } from './core/_services/shared/config.service';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -86,7 +87,8 @@ import { AuthModule } from './auth/auth.module';
       multi: true
     },
     ThemeService,
-    AppPreloadingStrategy
+    AppPreloadingStrategy,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })
