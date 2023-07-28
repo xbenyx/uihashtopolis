@@ -10,7 +10,7 @@ export const DEFAULT_CONFIG = {
   favicon: 'assets/img/favicon.ico',
   header: {
     brand: {
-      logo: 'assets/img/logo.png',
+      logo: 'assets/img/h2p_mp4.mp4',
       logored: 'assets/img/logo_red.png',
       name: '',
       height: '60',
