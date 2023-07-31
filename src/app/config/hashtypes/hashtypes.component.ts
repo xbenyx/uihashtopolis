@@ -15,8 +15,6 @@ import { SERV } from '../../core/_services/main.config';
 })
 @PageTitle(['Show Hashtypes'])
 export class HashtypesComponent implements OnInit {
-  // Loader
-  isLoading = false;
 
   faHome=faHomeAlt;
   faPlus=faPlus;

@@ -19,7 +19,6 @@ import { SERV } from '../../core/_services/main.config';
 @PageTitle(['New File'])
 export class NewFilesComponent implements OnInit {
 
-  isLoading= false;
   faFileUpload=faFileUpload;
   faDownload=faDownload;
   faUpload=faUpload;
@@ -75,12 +74,9 @@ export class NewFilesComponent implements OnInit {
   onSubmit(): void{
     if (this.createForm.valid) {
 
-    this.isLoading = true;
-
     const form = this.onPrep(this.createForm.value);
 
-    this.gs.create(SERV.FILES,form).subscribe((hl: any) => {
-      this.isLoading = false;
+    this.gs.create(SERV.FILES,form).subscribe(() => {
       Swal.fire({
         title: "Success",
         text: "New File created!",

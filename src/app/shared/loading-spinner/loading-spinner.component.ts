@@ -1,13 +1,14 @@
 import { ThemeService } from 'src/app/core/_services/shared/theme.service';
 import { environment } from './../../../environments/environment';
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { delay } from 'rxjs';
+
 import { LoadingService } from 'src/app/core/_services/shared/loading.service';
 
 @Component({
     selector: 'app-loading-spinner',
     template: `
-<div class="logo_spinner_container" *ngIf="spinnerActive">
+<div class="logo_spinner_container" *ngIf="isLoading">
   <div class="logo_spinner_box">
     <div class="loading-dots">
       <div class="dot dot1"></div>
@@ -24,23 +25,22 @@ import { LoadingService } from 'src/app/core/_services/shared/loading.service';
 export class LoadingSpinnerComponent {
 
   headerConfig = environment.config.header;
-  spinnerActive = true;
+  isLoading = true;
 
   constructor(
     private theme: ThemeService,
     public ls: LoadingService
     ) {
-      this.ls.showSpinner.subscribe(this.showSpinner.bind(this));
+      this.ls.showSpinner.subscribe(this.stateSpinner.bind(this));
      }
 
   public currentTheme(): string {
     return this.theme.current;
   }
 
-  showSpinner = (state: boolean): void => {
-    this.spinnerActive = state;
+  stateSpinner = (state: boolean): void => {
+    this.isLoading = state;
   };
-
 
 }
 

@@ -1,9 +1,6 @@
 <app-page-subtitle [subtitle]="'New File'"></app-page-subtitle>
 <!-- Body -->
 <grid-main [class]="'fmxw-800'" [centered]="true">
-  <div *ngIf="isLoading" style="text-align: center;">
-    <app-loading-spinner></app-loading-spinner>
-  </div>
 
   <div class="files files-effect-scale files-theme boxtest">
     <input type="radio" name="files" checked  id="tab1" class="tab-content-first" (change)='souceType("import")'>

@@ -26,18 +26,21 @@ export class HttpResInterceptor implements HttpInterceptor{
             finalize(this.finalize.bind(this)),
             catchError((error: HttpErrorResponse) => {
               let errmsg= '';
+              console.log(error);
               if (error.error instanceof ErrorEvent) {
                 const err = error?.error.message || 'Unknown API error';
                 errmsg = `Client Side Error: ${err}`;
               } else {
-                const err = error?.error?.exception[0]?.message || 'Unknown API error';
-                errmsg = `Server Side Error: ${err}`;
-              }
-              if(error.status === 403){
-                errmsg = `Access Denied: Please contact your administrator`;
-              }
-              if(error.status !== 404 && error.status !== 403  && error?.status >= 300){
-                this.router.navigate(['error'])
+                console.log('heresss')
+                if(error.status === 403 || error.status === 401 || error.status === 0){
+                  errmsg = `${error.statusText}`;
+                }
+                if(error.status !== 404 && error.status !== 403  && error.status >= 300){
+                  this.router.navigate(['error']);
+                }
+                else{
+                  errmsg = error.error.exception[0].message;
+                }
               }
               this.modalRef = this.modalService.open(ErrorModalComponent);
               this.modalRef.componentInstance.status = error?.status;

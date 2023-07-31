@@ -6,10 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoadingService {
 
-  public numberOfRequests: number = 0;
+  public numberOfRequests = 0;
   public showSpinner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  handleRequest = (state: string = 'minus'): void => {
+  handleRequest = (state = 'minus'): void => {
     this.numberOfRequests = (state === 'plus') ? this.numberOfRequests + 1 : this.numberOfRequests - 1;
     this.showSpinner.next(this.numberOfRequests > 0);
   };
