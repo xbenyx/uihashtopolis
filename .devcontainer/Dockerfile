@@ -6,4 +6,5 @@ RUN mkdir /app
 WORKDIR /app
 
 COPY .devcontainer/docker-entrypoint.sh /usr/local/bin
+USER node
 ENTRYPOINT [ "docker-entrypoint.sh" ]

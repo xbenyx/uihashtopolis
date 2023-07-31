@@ -35,7 +35,7 @@ export class HashtypesComponent implements OnInit {
   dtOptions: any = {};
 
   constructor(
-    private gs: GlobalService
+    private gs: GlobalService,
   ) { }
 
   public htypes: {hashTypeId: number, description: string, isSalted: number, isSlowHash: number}[] = [];
