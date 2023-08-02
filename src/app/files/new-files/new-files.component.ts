@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Buffer } from 'buffer';
 
 import { UploadTUSService } from 'src/app/core/_services/files/files_tus.service';
 import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
@@ -11,6 +12,7 @@ import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { UploadFileTUS } from '../../core/_models/files';
 import { SERV } from '../../core/_services/main.config';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-files',
@@ -25,21 +27,24 @@ export class NewFilesComponent implements OnInit {
   faLink=faLink;
   faPlus=faPlus;
 
-  private maxResults = environment.config.prodApiMaxResults
+  private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
     private uploadService:UploadTUSService,
-    private gs: GlobalService
+    private route:ActivatedRoute,
+    private gs: GlobalService,
+    private router: Router
   ) { }
 
-  // accessgroup: AccessGroup; //Use models when data structure is reliable
   accessgroup: any[]
 
-  filterType: number
+  filterType: number;
   whichView: string;
   createForm: FormGroup;
 
   ngOnInit(): void {
+
+    this.getLocation();
 
     this.loadData();
 
@@ -58,7 +63,7 @@ export class NewFilesComponent implements OnInit {
 
   loadData(){
 
-    const params = {'maxResults': this.maxResults}
+    const params = {'maxResults': this.maxResults};
 
     this.gs.getAll(SERV.ACCESS_GROUPS,params).subscribe((agroups: any) => {
       this.accessgroup = agroups.values;
@@ -84,47 +89,76 @@ export class NewFilesComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-      // this.createForm.reset(this.createForm.value); // success, we reset form
-      // // this.isCollapsed = true;
-      // this.ngOnInit();
-      // this.rerender();
-      window.location.reload();
+      this.router.navigate(['/files',this.redirect]);
     }
   );
   }
 }
 
-  souceType(type: string){
-    this.createForm.patchValue({
-      filename: '',
-      accessGroupId: '',
-      sourceType:type,
-      sourceData:''
-    });
+onPrep(obj: any){
+  let sourcadata;
+  let fname;
+  if(obj.sourceType == 'inline'){
+    fname = obj.filename;
+    console.log('here')
+    sourcadata = Buffer.from(obj.sourceData).toString('base64');
+  }else{
+    sourcadata = this.fileName;
+    fname = this.fileName;
   }
-
-  onPrep(obj: any){
-    let sourcadata;
-    let fname;
-    if(obj.sourceType == 'inline'){
-      fname = obj.filename;
-      sourcadata = Buffer.from(obj.sourceData).toString('base64');
-    }else{
-      sourcadata = this.fileName;
-      fname = this.fileName;
+  const res = {
+    "filename": fname,
+    "isSecret": obj.isSecret,
+    "fileType": this.filterType,
+    "accessGroupId": obj.accessGroupId,
+    "sourceType": obj.sourceType,
+    "sourceData": sourcadata
     }
-    const res = {
-      "filename": fname,
-      "isSecret": obj.isSecret,
-      "fileType": obj.fileType,
-      "accessGroupId": obj.accessGroupId,
-      "sourceType": obj.sourceType,
-      "sourceData": sourcadata
+    return res;
+}
+
+souceType(type: string, view: string){
+  this.viewMode = view;
+  this.createForm.patchValue({
+    filename: '',
+    accessGroupId: 1,
+    sourceType:type,
+    sourceData:''
+  });
+}
+
+// Get Title
+  public title: string;
+  public redirect: string;
+  getLocation(){
+    this.route.data.subscribe(data => {
+      switch (data['kind']) {
+
+        case 'wordlist-new':
+          this.filterType = 0;
+          this.title = 'New Wordlist';
+          this.redirect = 'wordlist';
+        break;
+
+        case 'rule-new':
+          this.filterType = 1;
+          this.title = 'New Rule';
+          this.redirect = 'rules';
+        break;
+
+        case 'other-new':
+          this.filterType = 2;
+          this.title = 'New Other';
+          this.redirect = 'other';
+        break;
+
       }
-      return res;
+    })
   }
 
 // Uploading file
+  name = '!!!';
+  viewMode = 'tab1';
   uploadProgress: Observable<UploadFileTUS[]>;
   filenames: string[] = [];
 
