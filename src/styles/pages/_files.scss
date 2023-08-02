@@ -78,8 +78,15 @@
   left: 50%;
 }
 
-// Browse
+// Show file size style
 
-.custom-file-label {
-  overflow: hidden;
+.custom-file-upload-size {
+  position:relative;
+  top: 50%; left:0;
+  font-size: 0.7em;
+  line-height: 100%;
+  margin-top: -0.35em;
+  font-size:medium;
+  font-family:Verdana;
+  font-weight:bold;
 }

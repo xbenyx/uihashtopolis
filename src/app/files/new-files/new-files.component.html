@@ -26,7 +26,7 @@
 
             <tr id="uploadLine">
               <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                 <input
                       type="file"
                       accept="/*"
@@ -36,8 +36,8 @@
                       fileSelect directory #file
                 >
                 </div>
-                <div class="col-md-2">
-                  <span class="fileuploadspan ui-label-inner-lg"></span>
+                <div class="col-md-3">
+                  <span class="fileuploadspan custom-file-upload-size"></span>
                 </div>
                 <!-- Alternative use button to upload first -->
                 <!-- <div class="col-md-1">
@@ -54,7 +54,6 @@
                                   [value]="fileStatus.progress"
                                   [showValue]="true"
                   ></ngb-progressbar>
-                  <!-- <p>Progress: {{fileStatus.progress}}%</p> -->
                   <div *ngIf="fileStatus.progress === 100">
                     <p><b>Upload completed!</b></p>
                     <div *ngIf="this.submitted === false"><div *ngIf="fileStatus.progress === 100?onSubmitFile():false">;</div></div>
