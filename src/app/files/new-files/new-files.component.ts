@@ -52,7 +52,7 @@ export class NewFilesComponent implements OnInit {
       filename: new FormControl(''),
       isSecret: new FormControl(false),
       fileType: new FormControl(this.filterType),
-      accessGroupId: new FormControl(0),
+      accessGroupId: new FormControl(1),
       sourceType: new FormControl('import' || ''),
       sourceData: new FormControl(''),
     });
@@ -100,7 +100,6 @@ onPrep(obj: any){
   let fname;
   if(obj.sourceType == 'inline'){
     fname = obj.filename;
-    console.log('here')
     sourcadata = Buffer.from(obj.sourceData).toString('base64');
   }else{
     sourcadata = this.fileName;

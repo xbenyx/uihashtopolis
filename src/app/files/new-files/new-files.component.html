@@ -39,6 +39,7 @@
                 <div class="col-md-2">
                   <span class="fileuploadspan ui-label-inner-lg"></span>
                 </div>
+                <!-- Alternative use button to upload first -->
                 <div class="col-md-1">
                   <span style="width: 50%;text-align: center"><fa-icon [icon]="faFileUpload" class="btn btn-gray-800" title="Upload file" (click)="onuploadFile(file.files);" aria-hidden="true"></fa-icon></span>
                 </div>
@@ -55,14 +56,13 @@
                   ></ngb-progressbar>
                   <!-- <p>Progress: {{fileStatus.progress}}%</p> -->
                   <div *ngIf="fileStatus.progress === 100">
-                    <p><b>File Uploaded</b></p>
+                    <p><b>Upload completed!</b></p>
                   </div>
               </div>
             </tr>&nbsp;
             <div class="col-sm">
               <button-submit [name]="'Create'"></button-submit>
             </div>
-            <!-- {{ createForm.value | json }} -->
             <div class='alert alert-dark row justify-content-center closesys'>
               Files are securely uploaded to the server in small chunks. Once uploading do not refresh the page.
             </div>
@@ -107,7 +107,7 @@
                     <input
                           class='form-control'
                           formControlName="sourceData"
-
+                          pattern="^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
                           required
                       >
                 </div>
