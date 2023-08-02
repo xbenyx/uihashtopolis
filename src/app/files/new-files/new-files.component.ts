@@ -37,7 +37,6 @@ export class NewFilesComponent implements OnInit {
   ) { }
 
   accessgroup: any[]
-
   filterType: number;
   whichView: string;
   createForm: FormGroup;
@@ -75,8 +74,14 @@ export class NewFilesComponent implements OnInit {
    * Create File
    *
   */
+  submitted = false;
+  onSubmitFile(): void{
+    this.onSubmit();
+    this.submitted = true;
+  }
 
   onSubmit(): void{
+
     if (this.createForm.valid) {
 
     const form = this.onPrep(this.createForm.value);
@@ -184,6 +189,7 @@ souceType(type: string, view: string){
     $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
   }
 
+  // To use as Button
   onuploadFile(files: FileList) {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < files.length; i++) {
