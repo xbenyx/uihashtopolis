@@ -395,11 +395,23 @@ initTaskSpeed(obj: object){
   const data:any = obj;
   const arr = [];
   const max = []
-  for(let i=0; i < data.length; i++){
 
-    const iso = this.transDate(data[i]['time']);
-    arr.push([iso, data[i]['speed']]);
-    max.push(data[i]['time']);
+  const result = [];
+  data.reduce(function(res, value) {
+    if (!res[value.time]) {
+      res[value.time] = { time: value.time, speed: 0 };
+      result.push(res[value.time])
+    }
+    res[value.time].speed += value.speed;
+    return res;
+  }, {});
+
+  for(let i=0; i < result.length; i++){
+
+    const iso = this.transDate(result[i]['time']);
+
+    arr.push([iso, result[i]['speed']]);
+    max.push(result[i]['time']);
   }
 
   const startdate =  Math.max(...max);

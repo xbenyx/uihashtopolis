@@ -57,7 +57,12 @@
           <a *ngIf="(loadchunks | tdcracked:task.taskId) > 0"  [routerLink]="['/hashlists/hashes/','tasks',task.taskId]" routerLinkActive="active">{{ loadchunks | tdcracked:task.taskId }}</a>
           <a *ngIf="(loadchunks | tdcracked:task.taskId) === 0">0</a>
         </td>
-        <td>{{ task.maxAgents }}</td>
+        <td>
+          {{ task.maxAgents }}
+          <a *ngIf="currenspeed">
+            {{ currenspeed | fileSize:false }}H/s
+          </a>
+        </td>
         <td>{{ task.priority }}</td>
         <td>{{ task.maxAgents }}</td>
         <td>

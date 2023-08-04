@@ -49,6 +49,7 @@ export class ShowTasksComponent implements OnInit {
   loadchunks: any; //Change to Interface
   isArchived: boolean;
   whichView: string;
+  currenspeed = 0;
 
   private maxResults = environment.config.prodApiMaxResults;
 

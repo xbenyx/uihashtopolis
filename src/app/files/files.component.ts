@@ -76,6 +76,7 @@ export class FilesComponent implements OnInit {
 
   setAccessPermissions(){
     this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
+        console.log(perm);
         this.viewFileAccess = perm.globalPermissionGroup.permissions.viewFileAccess;
         this.manageFileAccess = perm.globalPermissionGroup.permissions.manageFileAccess;
         this.addFileAccess = perm.globalPermissionGroup.permissions.addFileAccess;

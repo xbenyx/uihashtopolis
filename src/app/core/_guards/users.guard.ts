@@ -6,7 +6,6 @@ import { Injectable } from "@angular/core";
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { SERV } from '../../core/_services/main.config';
 
-import { GP } from './acp.config';
 
 @Injectable({
   providedIn: 'root'
