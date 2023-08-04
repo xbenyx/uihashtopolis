@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IsAuth } from "../core/_guards/auth.guard";
 import { NgModule } from "@angular/core";
 
-import { NewPreprocessorComponent } from "./engine/preprocessors/preprocessor/new-preprocessor.component";
 import { NewAgentBinariesComponent } from "./engine/agent-binaries/agent-binary/new-agent-binaries.component";
 import { EditHealthChecksComponent } from "./health-checks/edit-health-check/edit-health-checks.component";
+import { NewPreprocessorComponent } from "./engine/preprocessors/preprocessor/new-preprocessor.component";
 import { NewHealthChecksComponent } from "./health-checks/new-health-check/new-health-checks.component";
 import { EditCrackersComponent } from "./engine/crackers/edit-version/edit-crackers.component";
 import { NewCrackersComponent } from "./engine/crackers/new-version/new-crackers.component";

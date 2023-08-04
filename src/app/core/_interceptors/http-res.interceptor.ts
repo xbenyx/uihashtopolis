@@ -34,8 +34,11 @@ export class HttpResInterceptor implements HttpInterceptor{
                 console.log(error.error)
                 console.log(error.status)
                 // errmsg = error.error.exception[0].message;
-                if(error.status === 403 || error.status === 401 || error.status === 0){
+                if(error.status === 401 || error.status === 0){
                   errmsg = `${error.error.title}`;
+                }
+                if(error.status === 403){
+                  errmsg = `You don't have permissions. Please contact your Administrator.`;
                 }
                 // if(error.status !== 404 && error.status !== 403 && error.status !== 401 && error.status >= 300){
                 //   this.router.navigate(['error']);

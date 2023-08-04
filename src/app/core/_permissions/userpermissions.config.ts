@@ -1,12 +1,7 @@
 /**
  * USER CRUD
 **/
-export enum PermissionType {
-  CREATE = 'CREATE',
-  READ   = 'READ',
-  UPDATE = 'UPDATE',
-  DELETE = 'DELETE'
-}
+
 // // AGENT
 export enum Agent {
   CREATE = 'permAgentCreate',
