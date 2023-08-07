@@ -18,12 +18,11 @@
           </thead>
           <tbody>
           <tr *ngFor="let g of editedGPG.user">
-            <td>{{ g.id }}</td>
             <td>
-              <a class='btn-outline-gray-600 float-right' [routerLink]="['/users/',g.id,'edit']" title="View User">
-                <fa-icon [icon]="faEye" aria-hidden="true"></fa-icon>
-              </a>
-              {{ g.name }}
+             {{ g.id }}
+            </td>
+            <td>
+              <a [routerLink]="['/users/',g.id,'edit']">{{ g.name }}</a>
             </td>
           </tr>
         </tbody>
@@ -43,72 +42,6 @@
         >
       </grid-form-input>
       <div formGroupName="permissions">
-      <ngb-accordion #acc="ngbAccordion" >
-        <ngb-panel>
-          <ng-template ngbPanelTitle>
-            <span><b>Hashlists</b></span>
-          </ng-template>
-          <ng-template ngbPanelContent>
-
-            <div class="form-outline">
-              <label class="form-label display-col" for="SetHashlistAccess">View</label>
-              <select
-                    id='viewHashlistAccess'
-                    class='form-select'
-                    formControlName="viewHashlistAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-            <div class="form-outline">
-              <label class="form-label display-col" for="SetManageHashlistAccess">Manage</label>
-              <select
-                    id='manageHashlistAccess'
-                    class='form-select'
-                    formControlName="manageHashlistAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-            <div class="form-outline">
-              <label class="form-label display-col" for="SetcreateHashlistAccess">Create</label>
-              <select
-                    id='createHashlistAccess'
-                    class='form-select'
-                    formControlName="createHashlistAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-            <div class="form-outline">
-              <label class="form-label display-col" for="SetcreateSuperhashlistAccess">Create SuperHashlist</label>
-              <select
-                    id='createSuperhashlistAccess'
-                    class='form-select'
-                    formControlName="createSuperhashlistAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-            <div class="form-outline">
-              <label class="form-label display-col" for="SetviewHashesAccess">View Hashes</label>
-              <select
-                    id='viewHashesAccess'
-                    class='form-select'
-                    formControlName="viewHashesAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
 
       <ngb-accordion #acc="ngbAccordion" >
         <ngb-panel>
@@ -116,34 +49,128 @@
             <span><b>Agents</b></span>
           </ng-template>
           <ng-template ngbPanelContent>
+            <h5>Agent</h5>
+            <div class="row">
+              <div class="col">
+                <grid-form-input [name]="'Create'">
+                  <td>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" formControlName="permAgentCreate">
+                    </div>
+                </grid-form-input>
+              </div>
+              <div class="col">
+                <grid-form-input [name]="'Delete'">
+                  <td>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" formControlName="permAgentDelete">
+                    </div>
+                </grid-form-input>
+              </div>
+              <div class="col">
+                <grid-form-input [name]="'Read'">
+                  <td>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" formControlName="permAgentRead">
+                    </div>
+                </grid-form-input>
+              </div>
+              <div class="col">
+                <grid-form-input [name]="'Update'">
+                  <td>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" formControlName="permAgentUpdate">
+                    </div>
+                </grid-form-input>
+              </div>
+            </div>
+            <hr>
+            <h5>Agent Stats</h5>
             <div class="form-outline">
-              <label class="form-label display-col" for="setviewAgentsAccess">View</label>
+              <label class="form-label display-col" for="permAgentStatCreate">Create</label>
               <select
-                    id='viewAgentsAccess'
+                    id='permAgentStatCreate'
                     class='form-select'
-                    formControlName="viewAgentsAccess"
+                    formControlName="permAgentStatCreate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setmanageAgentAccess">Manage</label>
+              <label class="form-label display-col" for="permAgentStatDelete">Delete</label>
               <select
-                    id='manageAgentAccess'
+                    id='permAgentStatDelete'
                     class='form-select'
-                    formControlName="manageAgentAccess"
+                    formControlName="permAgentStatDelete"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setcreateAgentAccess">Create</label>
+              <label class="form-label display-col" for="permAgentStatRead">Read</label>
               <select
-                    id='createAgentAccess'
+                    id='permAgentStatRead'
                     class='form-select'
-                    formControlName="createAgentAccess"
+                    formControlName="permAgentStatRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAgentStatUpdate">Update</label>
+              <select
+                    id='permAgentStatUpdate'
+                    class='form-select'
+                    formControlName="permAgentStatUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Voucher</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRegVoucherCreate">Create</label>
+              <select
+                    id='permRegVoucherCreate'
+                    class='form-select'
+                    formControlName="permRegVoucherCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRegVoucherDelete">Delete</label>
+              <select
+                    id='permRegVoucherDelete'
+                    class='form-select'
+                    formControlName="permRegVoucherDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRegVoucherRead">Read</label>
+              <select
+                    id='permRegVoucherRead'
+                    class='form-select'
+                    formControlName="permRegVoucherRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRegVoucherUpdate">Update</label>
+              <select
+                    id='permRegVoucherUpdate'
+                    class='form-select'
+                    formControlName="permRegVoucherUpdate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
@@ -159,116 +186,294 @@
             <span><b>Tasks</b></span>
           </ng-template>
           <ng-template ngbPanelContent>
+            <h5>Task</h5>
             <div class="form-outline">
-              <label class="form-label display-col" for="setviewTaskAccess">View</label>
+              <label class="form-label display-col" for="permTaskCreate">Create</label>
               <select
-                    id='viewTaskAccess'
+                    id='permTaskCreate'
                     class='form-select'
-                    formControlName="viewTaskAccess"
+                    formControlName="permTaskCreate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setrunTaskAccess">Run</label>
+              <label class="form-label display-col" for="permTaskDelete">Delete</label>
               <select
-                    id='runTaskAccess'
+                    id='permTaskDelete'
                     class='form-select'
-                    formControlName="runTaskAccess"
+                    formControlName="permTaskDelete"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setcreateTaskAccess">Create</label>
+              <label class="form-label display-col" for="permTaskRead">Read</label>
               <select
-                    id='createTaskAccess'
+                    id='permTaskRead'
                     class='form-select'
-                    formControlName="createTaskAccess"
+                    formControlName="permTaskRead"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setmanageTaskAccess">Manage</label>
+              <label class="form-label display-col" for="permTaskUpdate">Update</label>
               <select
-                    id='manageTaskAccess'
+                    id='permTaskUpdate'
                     class='form-select'
-                    formControlName="manageTaskAccess"
+                    formControlName="permTaskUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>PreTask</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permPretaskCreate">Create</label>
+              <select
+                    id='permPretaskCreate'
+                    class='form-select'
+                    formControlName="permPretaskCreate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setviewPretaskAccess">View Preconfigured Tasks</label>
+              <label class="form-label display-col" for="permPretaskDelete">Delete</label>
               <select
-                    id='viewPretaskAccess'
+                    id='permPretaskDelete'
                     class='form-select'
-                    formControlName="viewPretaskAccess"
+                    formControlName="permPretaskDelete"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setcreatePretaskAccess">Create Preconfigured Tasks</label>
+              <label class="form-label display-col" for="permPretaskRead">Read</label>
               <select
-                    id='createPretaskAccess'
+                    id='permPretaskRead'
                     class='form-select'
-                    formControlName="createPretaskAccess"
+                    formControlName="permPretaskRead"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setmanagePretaskAccess">Manage Preconfigured Tasks</label>
+              <label class="form-label display-col" for="permPretaskUpdate">Update</label>
               <select
-                    id='managePretaskAccess'
+                    id='permPretaskUpdate'
                     class='form-select'
-                    formControlName="managePretaskAccess"
+                    formControlName="permPretaskUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>SuperTask</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permSupertaskCreate">Create</label>
+              <select
+                    id='permSupertaskCreate'
+                    class='form-select'
+                    formControlName="permSupertaskCreate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setviewSupertaskAccess">View SuperTasks</label>
+              <label class="form-label display-col" for="permSupertaskDelete">Delete</label>
               <select
-                    id='viewSupertaskAccess'
+                    id='permSupertaskDelete'
                     class='form-select'
-                    formControlName="viewSupertaskAccess"
+                    formControlName="permSupertaskDelete"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="createSupertaskAccess">Create SuperTasks</label>
+              <label class="form-label display-col" for="permSupertaskRead">Read</label>
               <select
-                    id='createSupertaskAccess'
+                    id='permSupertaskRead'
                     class='form-select'
-                    formControlName="createSupertaskAccess"
+                    formControlName="permSupertaskRead"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="createManageSupertaskAccess">Manage SuperTasks</label>
+              <label class="form-label display-col" for="permSupertaskUpdate">Update</label>
               <select
-                    id='manageSupertaskAccess'
+                    id='permSupertaskUpdate'
                     class='form-select'
-                    formControlName="manageSupertaskAccess"
+                    formControlName="permSupertaskUpdate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
+            <hr>
+            <h5>Chunks</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permChunkDelete">Delete</label>
+              <select
+                    id='permChunkDelete'
+                    class='form-select'
+                    formControlName="permChunkDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permChunkRead">Read</label>
+              <select
+                    id='permChunkRead'
+                    class='form-select'
+                    formControlName="permChunkRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permChunkUpdate">Update</label>
+              <select
+                    id='permChunkUpdate'
+                    class='form-select'
+                    formControlName="permChunkUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+
+      <ngb-accordion #acc="ngbAccordion" >
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <span><b>Hashlists</b></span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+
+            <h5>Hashlist</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashlistCreate">Create</label>
+              <select
+                    id='permHashlistCreate'
+                    class='form-select'
+                    formControlName="permHashlistCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashlistDelete">Delete</label>
+              <select
+                    id='permHashlistDelete'
+                    class='form-select'
+                    formControlName="permHashlistDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashlistRead">Read</label>
+              <select
+                    id='permHashlistRead'
+                    class='form-select'
+                    formControlName="permHashlistRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashlistUpdate">Update</label>
+              <select
+                    id='permHashlistUpdate'
+                    class='form-select'
+                    formControlName="permHashlistUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>SuperHaslist</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashlistHashlistCreate">Create</label>
+              <select
+                    id='permHashlistHashlistCreate'
+                    class='form-select'
+                    formControlName="permHashlistHashlistCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashlistHashlistRead">Read</label>
+              <select
+                    id='permHashlistHashlistRead'
+                    class='form-select'
+                    formControlName="permHashlistHashlistRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Hash</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashTypeCreate">Create</label>
+              <select
+                    id='permHashTypeCreate'
+                    class='form-select'
+                    formControlName="permHashTypeCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashTypeDelete">Delete</label>
+              <select
+                    id='permHashTypeDelete'
+                    class='form-select'
+                    formControlName="permHashTypeDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHashRead">Read</label>
+              <select
+                    id='permHashRead'
+                    class='form-select'
+                    formControlName="permHashRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
@@ -280,65 +485,44 @@
           </ng-template>
           <ng-template ngbPanelContent>
             <div class="form-outline">
-              <label class="form-label display-col" for="setViewFileAccess">View</label>
+              <label class="form-label display-col" for="permFileCreate">Create</label>
               <select
-                    id='viewFileAccess'
+                    id='permFileCreate'
                     class='form-select'
-                    formControlName="viewFileAccess"
+                    formControlName="permFileCreate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setmanageFileAccess">Manage</label>
+              <label class="form-label display-col" for="permFileDelete">Delete</label>
               <select
-                    id='manageFileAccess'
+                    id='permFileDelete'
                     class='form-select'
-                    formControlName="manageFileAccess"
+                    formControlName="permFileDelete"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setaddFileAccess">Create</label>
+              <label class="form-label display-col" for="permFileRead">Read</label>
               <select
-                    id='addFileAccess'
+                    id='permFileRead'
                     class='form-select'
-                    formControlName="addFileAccess"
-                  >
-                  <option [ngValue]="true">Yes</option>
-                  <option [ngValue]="false">No</option>
-              </select>
-            </div>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
-
-      <ngb-accordion #acc="ngbAccordion" >
-        <ngb-panel>
-          <ng-template ngbPanelTitle>
-            <span><b>Users</b></span>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <div class="form-outline">
-              <label class="form-label display-col" for="setuserConfigAccess">Manage Users</label>
-              <select
-                    id='userConfigAccess'
-                    class='form-select'
-                    formControlName="userConfigAccess"
+                    formControlName="permFileRead"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
               </select>
             </div>
             <div class="form-outline">
-              <label class="form-label display-col" for="setmanageAccessGroupAccess">Manage Access Groups</label>
+              <label class="form-label display-col" for="permFileUpdate">Update</label>
               <select
-                    id='manageAccessGroupAccess'
+                    id='permFileUpdate'
                     class='form-select'
-                    formControlName="manageAccessGroupAccess"
+                    formControlName="permFileUpdate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
@@ -354,12 +538,275 @@
             <span><b>Configuration</b></span>
           </ng-template>
           <ng-template ngbPanelContent>
+            <h5>Global Settings</h5>
             <div class="form-outline">
-              <label class="form-label display-col" for="setServerConfigAccess">Access Configuration</label>
+              <label class="form-label display-col" for="permConfigCreate">Create</label>
               <select
-                    id='serverConfigAccess'
+                    id='permConfigCreate'
                     class='form-select'
-                    formControlName="serverConfigAccess"
+                    formControlName="permConfigCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permConfigDelete">Delete</label>
+              <select
+                    id='permConfigDelete'
+                    class='form-select'
+                    formControlName="permConfigDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permConfigRead">Read</label>
+              <select
+                    id='permConfigRead'
+                    class='form-select'
+                    formControlName="permConfigRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permConfigUpdate">Update</label>
+              <select
+                    id='permConfigUpdate'
+                    class='form-select'
+                    formControlName="permConfigUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Agent Binary</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAgentBinaryCreate">Create</label>
+              <select
+                    id='permAgentBinaryCreate'
+                    class='form-select'
+                    formControlName="permAgentBinaryCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAgentBinaryDelete">Delete</label>
+              <select
+                    id='permAgentBinaryDelete'
+                    class='form-select'
+                    formControlName="permAgentBinaryDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAgentBinaryRead">Read</label>
+              <select
+                    id='permAgentBinaryRead'
+                    class='form-select'
+                    formControlName="permAgentBinaryRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAgentBinaryUpdate">Update</label>
+              <select
+                    id='permAgentBinaryUpdate'
+                    class='form-select'
+                    formControlName="permAgentBinaryUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Cracker Binary</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryCreate">Create</label>
+              <select
+                    id='permCrackerBinaryCreate'
+                    class='form-select'
+                    formControlName="permCrackerBinaryCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryDelete">Delete</label>
+              <select
+                    id='permCrackerBinaryDelete'
+                    class='form-select'
+                    formControlName="permCrackerBinaryDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryRead">Read</label>
+              <select
+                    id='permCrackerBinaryRead'
+                    class='form-select'
+                    formControlName="permCrackerBinaryRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryUpdate">Update</label>
+              <select
+                    id='permCrackerBinaryUpdate'
+                    class='form-select'
+                    formControlName="permCrackerBinaryUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Cracker Binary Type</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryTypeCreate">Create</label>
+              <select
+                    id='permCrackerBinaryTypeCreate'
+                    class='form-select'
+                    formControlName="permCrackerBinaryTypeCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryTypeDelete">Delete</label>
+              <select
+                    id='permCrackerBinaryTypeDelete'
+                    class='form-select'
+                    formControlName="permCrackerBinaryTypeDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryTypeRead">Read</label>
+              <select
+                    id='permCrackerBinaryTypeRead'
+                    class='form-select'
+                    formControlName="permCrackerBinaryTypeRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permCrackerBinaryTypeUpdate">Update</label>
+              <select
+                    id='permCrackerBinaryTypeUpdate'
+                    class='form-select'
+                    formControlName="permCrackerBinaryTypeUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Preprocessor</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permPreprocessorCreate">Create</label>
+              <select
+                    id='permPreprocessorCreate'
+                    class='form-select'
+                    formControlName="permPreprocessorCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permPreprocessorDelete">Delete</label>
+              <select
+                    id='permPreprocessorDelete'
+                    class='form-select'
+                    formControlName="permPreprocessorDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permPreprocessorRead">Read</label>
+              <select
+                    id='permPreprocessorRead'
+                    class='form-select'
+                    formControlName="permPreprocessorRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permPreprocessorUpdate">Update</label>
+              <select
+                    id='permPreprocessorUpdate'
+                    class='form-select'
+                    formControlName="permPreprocessorUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <h5>Health Check</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHealthCheckCreate">Create</label>
+              <select
+                    id='permHealthCheckCreate'
+                    class='form-select'
+                    formControlName="permHealthCheckCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHealthCheckDelete">Delete</label>
+              <select
+                    id='permHealthCheckDelete'
+                    class='form-select'
+                    formControlName="permHealthCheckDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHealthCheckRead">Read</label>
+              <select
+                    id='permHealthCheckRead'
+                    class='form-select'
+                    formControlName="permHealthCheckRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permHealthCheckUpdate">Update</label>
+              <select
+                    id='permHealthCheckUpdate'
+                    class='form-select'
+                    formControlName="permHealthCheckUpdate"
                   >
                   <option [ngValue]="true">Yes</option>
                   <option [ngValue]="false">No</option>
@@ -368,6 +815,209 @@
           </ng-template>
         </ngb-panel>
       </ngb-accordion>
+
+      <ngb-accordion #acc="ngbAccordion" >
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <span><b>Users</b></span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <h5>User</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permUserCreate">Create</label>
+              <select
+                    id='permUserCreate'
+                    class='form-select'
+                    formControlName="permUserCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permUserDelete">Delete</label>
+              <select
+                    id='permUserDelete'
+                    class='form-select'
+                    formControlName="permUserDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permUserRead">Read</label>
+              <select
+                    id='permUserRead'
+                    class='form-select'
+                    formControlName="permUserRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permUserUpdate">Update</label>
+              <select
+                    id='permUserUpdate'
+                    class='form-select'
+                    formControlName="permUserUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Notifications</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permNotificationSettingCreate">Create</label>
+              <select
+                    id='permNotificationSettingCreate'
+                    class='form-select'
+                    formControlName="permNotificationSettingCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permNotificationSettingDelete">Delete</label>
+              <select
+                    id='permNotificationSettingDelete'
+                    class='form-select'
+                    formControlName="permNotificationSettingDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permNotificationSettingRead">Read</label>
+              <select
+                    id='permNotificationSettingRead'
+                    class='form-select'
+                    formControlName="permNotificationSettingRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permNotificationSettingUpdate">Update</label>
+              <select
+                    id='permNotificationSettingUpdate'
+                    class='form-select'
+                    formControlName="permNotificationSettingUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+
+      <ngb-accordion #acc="ngbAccordion" >
+        <ngb-panel>
+          <ng-template ngbPanelTitle>
+            <span><b>Permissions</b></span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <h5>Global Permissions</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRightGroupCreate">Create</label>
+              <select
+                    id='permRightGroupCreate'
+                    class='form-select'
+                    formControlName="permRightGroupCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRightGroupDelete">Delete</label>
+              <select
+                    id='permRightGroupDelete'
+                    class='form-select'
+                    formControlName="permRightGroupDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRightGroupRead">Read</label>
+              <select
+                    id='permRightGroupRead'
+                    class='form-select'
+                    formControlName="permRightGroupRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permRightGroupUpdate">Update</label>
+              <select
+                    id='permRightGroupUpdate'
+                    class='form-select'
+                    formControlName="permRightGroupUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <hr>
+            <h5>Access Groups</h5>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAccessGroupCreate">Create</label>
+              <select
+                    id='permAccessGroupCreate'
+                    class='form-select'
+                    formControlName="permAccessGroupCreate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAccessGroupDelete">Delete</label>
+              <select
+                    id='permAccessGroupDelete'
+                    class='form-select'
+                    formControlName="permAccessGroupDelete"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAccessGroupRead">Read</label>
+              <select
+                    id='permAccessGroupRead'
+                    class='form-select'
+                    formControlName="permAccessGroupRead"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+            <div class="form-outline">
+              <label class="form-label display-col" for="permAccessGroupUpdate">Update</label>
+              <select
+                    id='permAccessGroupUpdate'
+                    class='form-select'
+                    formControlName="permAccessGroupUpdate"
+                  >
+                  <option [ngValue]="true">Yes</option>
+                  <option [ngValue]="false">No</option>
+              </select>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+
     </div>
     <button-submit [name]="'Update'"></button-submit>
     </form>

@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, RouterStateSnapshot, UrlTree } from "@angular/router";
-import { Perm } from "../_permissions/userpermissions.config";
+import { Perm } from "../_constants/userpermissions.config";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Injectable, inject } from "@angular/core";
 import { map, Observable, take } from "rxjs";
