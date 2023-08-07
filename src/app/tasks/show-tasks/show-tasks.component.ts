@@ -61,8 +61,6 @@ export class ShowTasksComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.setAccessPermissions();
-
     this.route.data.subscribe(data => {
       switch (data['kind']) {
 
@@ -211,15 +209,6 @@ onRefresh(){
   this.rerender();  // rerender datatables
 }
 
-// Set permissions
-manageTaskAccess: any;
-
-setAccessPermissions(){
-  this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
-      this.manageTaskAccess = perm.globalPermissionGroup.permissions.manageTaskAccess;
-  });
-}
-
 getTasks():void {
   const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived='+this.isArchived+''}
 
@@ -249,7 +238,6 @@ rerender(): void {
 }
 
 onArchive(id: number){
-  if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
   this.gs.archive(SERV.TASKS,id).subscribe(() => {
     Swal.fire({
       title: "Success",
@@ -261,19 +249,9 @@ onArchive(id: number){
     this.ngOnInit();
     this.rerender();  // rerender datatables
   });
-  }else{
-    Swal.fire({
-      title: "ACTION DENIED",
-      text: "Please contact your Administrator.",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
 }
 
 onDelete(id: number){
-  if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn',
@@ -313,15 +291,6 @@ onDelete(id: number){
       })
     }
   });
-  }else{
-    Swal.fire({
-      title: "ACTION DENIED",
-      text: "Please contact your Administrator.",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
 }
 
 // Bulk actions
@@ -344,7 +313,6 @@ onSelectedTasks(){
 }
 
 onDeleteBulk(){
-  if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
   const self = this;
   const selectionnum = $($(this.dtElement).DataTable.tables()).DataTable().rows({ selected: true } ).data().pluck(0).toArray();
   const sellen = selectionnum.length;
@@ -362,19 +330,9 @@ onDeleteBulk(){
     );
   });
   self.onDone(sellen);
-  }else{
-    Swal.fire({
-      title: "ACTION DENIED",
-      text: "Please contact your Administrator.",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
 }
 
 onUpdateBulk(value: any){
-  if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
     const self = this;
     const selectionnum = this.onSelectedTasks();
     const sellen = selectionnum.length;
@@ -385,15 +343,6 @@ onUpdateBulk(value: any){
     );
   });
   self.onDone(sellen);
-  }else{
-    Swal.fire({
-      title: "ACTION DENIED",
-      text: "Please contact your Administrator.",
-      icon: "error",
-      showConfirmButton: false,
-      timer: 2000
-    })
-  }
 }
 
 onDone(value?: any){

@@ -57,8 +57,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   ngOnInit() {
 
-    this.setAccessPermissions();
-
     this.uidateformat = this.uiService.getUIsettings('timefmt').value;
 
     this.route.params
@@ -97,15 +95,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   }
 
-  // Set permissions
-  manageTaskAccess: any;
-
-  setAccessPermissions(){
-    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
-        this.manageTaskAccess = perm.globalPermissionGroup.permissions.manageTaskAccess;
-    });
-  }
-
   OnChangeValue(value){
     this.updateForm.patchValue({
       updateData:{color: value}
@@ -113,7 +102,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   }
 
   onSubmit(){
-    if(this.manageTaskAccess || typeof this.manageTaskAccess == 'undefined'){
     if (this.updateForm.valid) {
 
       this.gs.update(SERV.TASKS,this.editedTaskIndex,this.updateForm.value['updateData']).subscribe(() => {
@@ -128,15 +116,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
           this.router.navigate(['tasks/show-tasks']);
         }
       );
-    }
-    }else{
-      Swal.fire({
-        title: "ACTION DENIED",
-        text: "Please contact your Administrator.",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 2000
-      })
     }
   }
 

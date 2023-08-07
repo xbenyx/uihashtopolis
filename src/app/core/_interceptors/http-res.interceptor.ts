@@ -31,8 +31,8 @@ export class HttpResInterceptor implements HttpInterceptor{
                 errmsg = `Client Side Error: ${err}`;
               }
               else {
-                console.log(error.error)
-                console.log(error.status)
+                // console.log(error.error)
+                // console.log(error.status)
                 // errmsg = error.error.exception[0].message;
                 if(error.status === 401 || error.status === 0){
                   errmsg = `${error.error.title}`;

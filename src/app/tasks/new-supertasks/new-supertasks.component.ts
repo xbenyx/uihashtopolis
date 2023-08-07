@@ -32,8 +32,6 @@ export class NewSupertasksComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.setAccessPermissions();
-
     this.createForm = new FormGroup({
       supertaskName: new FormControl(''),
       pretasks: new FormControl(''),
@@ -74,17 +72,6 @@ export class NewSupertasksComponent implements OnInit {
         });
   }
 
-  // Set permissions
-  manageSupertaskAccess: any;
-  createSupertaskAccess: any;
-
-  setAccessPermissions(){
-    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
-        this.manageSupertaskAccess = perm.globalPermissionGroup.permissions.manageSupertaskAccess;
-        this.createSupertaskAccess = perm.globalPermissionGroup.permissions.createSupertaskAccess;
-    });
-  }
-
   OnChangeValue(value){
     const formArr = new FormArray([]);
     for (const val of value) {
@@ -101,7 +88,6 @@ export class NewSupertasksComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.createSupertaskAccess || typeof this.createSupertaskAccess == 'undefined'){
     if (this.createForm.valid) {
 
       this.gs.create(SERV.SUPER_TASKS,this.createForm.value).subscribe(() => {
@@ -116,15 +102,6 @@ export class NewSupertasksComponent implements OnInit {
           this.router.navigate(['tasks/supertasks']);
         }
       );
-    }
-    }else{
-      Swal.fire({
-        title: "ACTION DENIED",
-        text: "Please contact your Administrator.",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 2000
-      })
     }
   }
 }

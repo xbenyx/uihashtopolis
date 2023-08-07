@@ -190,8 +190,6 @@ export class NewTasksComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.setAccessPermissions();
-
     this.route.params
     .subscribe(
       (params: Params) => {
@@ -267,15 +265,6 @@ export class NewTasksComponent implements OnInit {
 
     this.patchHashalias();
 
-  }
-
-  // Set permissions
-  createTaskAccess: any;
-
-  setAccessPermissions(){
-    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
-        this.createTaskAccess = perm.globalPermissionGroup.permissions.createTaskAccess;
-    });
   }
 
   get attckcmd(){
@@ -399,7 +388,6 @@ export class NewTasksComponent implements OnInit {
   }
 
   onSubmit(){
-    if(this.createTaskAccess || typeof this.createTaskAccess == 'undefined'){
     if (this.createForm.valid) {
 
       this.gs.create(SERV.TASKS,this.createForm.value).subscribe(() => {
@@ -414,15 +402,6 @@ export class NewTasksComponent implements OnInit {
           this.router.navigate(['tasks/show-tasks']);
         }
       );
-    }
-    }else{
-      Swal.fire({
-        title: "ACTION DENIED",
-        text: "Please contact your Administrator.",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 2000
-      })
     }
   }
 

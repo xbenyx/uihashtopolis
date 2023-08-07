@@ -54,8 +54,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.setAccessPermissions();
-
     const params = {'maxResults': this.maxResults}
 
     this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
@@ -192,15 +190,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
     this.ngOnInit();
   }
 
-  // Set permissions
-  manageAgentAccess: any;
-
-  setAccessPermissions(){
-    this.gs.get(SERV.USERS,this.gs.userId,{'expand':'globalPermissionGroup'}).subscribe((perm: any) => {
-        this.manageAgentAccess = perm.globalPermissionGroup.permissions.manageAgentAccess;
-    });
-  }
-
   setCheckAll(){
     const chkBoxlength = $(".checkboxCls:checked").length;
     if (this.isChecked == true) {
@@ -261,7 +250,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   }
 
   onDeleteBulk(){
-    if(this.manageAgentAccess || typeof this.manageAgentAccess == 'undefined'){
       const self = this;
       const selectionnum = this.onSelectedAgents();
       const sellen = selectionnum.length;
@@ -272,26 +260,16 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
       self.gs.delete(SERV.AGENTS,value)
       .subscribe(
         err => {
-          console.log('HTTP Error', err)
+          // console.log('HTTP Error', err)
           err = 1;
           errors.push(err);
         },
         );
       });
     self.onDone(sellen);
-    }else{
-      Swal.fire({
-        title: "ACTION DENIED",
-        text: "Please contact your Administrator.",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
   }
 
   onUpdateBulk(value: any){
-    if(this.manageAgentAccess || typeof this.manageAgentAccess == 'undefined'){
         const self = this;
         const selectionnum = this.onSelectedAgents();
         const sellen = selectionnum.length;
@@ -301,22 +279,13 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
           Swal.showLoading()
         self.gs.update(SERV.AGENTS,id, value).subscribe(
           err => {
-            console.log('HTTP Error', err)
+            // console.log('HTTP Error', err)
             err = 1;
             errors.push(err);
           },
         );
       });
       self.onDone(sellen);
-    }else{
-      Swal.fire({
-        title: "ACTION DENIED",
-        text: "Please contact your Administrator.",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
   }
 
   onModal(title: string){
@@ -360,7 +329,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   }
 
   onDelete(id: number){
-    if(this.manageAgentAccess || typeof this.manageAgentAccess == 'undefined'){
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn',
@@ -400,16 +368,6 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
           })
         }
       });
-    }else{
-      Swal.fire({
-        title: "ACTION DENIED",
-        text: "Please contact your Administrator.",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
   }
-
 
 }
