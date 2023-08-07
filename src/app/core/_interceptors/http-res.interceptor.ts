@@ -44,7 +44,6 @@ export class HttpResInterceptor implements HttpInterceptor{
                 //   this.router.navigate(['error']);
                 // }
                 else{
-                  console.log(error)
                   errmsg = error.error.exception[0].message;
                 }
               }
