@@ -56,7 +56,7 @@ export class NewSuperhashlistComponent implements OnInit {
         },
         render: {
           option: function (item, escape) {
-            return '<div  class="hashtype_selectize">' + escape(item.hashlistId) + ' -  ' + escape(item.name) + '</div>';
+            return '<div  class="style_selectize">' + escape(item.hashlistId) + ' -  ' + escape(item.name) + '</div>';
           },
         },
         onInitialize: function(){

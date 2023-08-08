@@ -34,6 +34,8 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   faHome=faHomeAlt;
   faEye=faEye;
 
+  private maxResults = environment.config.prodApiMaxResults;
+
   constructor(
     private uiService:UIConfigService,
     private route: ActivatedRoute,
@@ -42,18 +44,20 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   ) { }
 
   updateForm: FormGroup;
-  color = '';
   colorpicker=colorpicker;
-  private maxResults = environment.config.prodApiMaxResults;
+  color = '';
 
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  hashlistinform:any;
+  hashlistDescrip:any;
   uidateformat:any;
   crackerinfo:any;
   getchunks: any;
+  getFiles: any;
 
   ngOnInit() {
 
@@ -121,12 +125,16 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   private initForm() {
     if (this.editMode) {
-    this.gs.get(SERV.TASKS,this.editedTaskIndex).subscribe((result)=>{
+    this.gs.get(SERV.TASKS,this.editedTaskIndex, {'expand': 'hashlist,speeds,crackerBinary,crackerBinaryType,files'}).subscribe((result)=>{
       this.color = result['color'];
-      this.gs.get(SERV.CRACKERS,result['crackerBinaryId']).subscribe((val) => {
-        this.crackerinfo = val;
-      });
-      this.getHashlist();
+      this.getFiles = result.files;
+      console.log(this.getFiles );
+      this.crackerinfo = result.crackerBinary;
+      // Hashlist Description and Type
+      this.hashlistinform =  result.hashlist;
+      this.gs.getAll(SERV.HASHTYPES,{'filter': 'hashTypeId='+result.hashlist['hashTypeId']+''}).subscribe((htypes: any) => {
+       this.hashlistDescrip = htypes.values[0].description;
+      })
       this.tkeyspace = result['keyspace'];
       this.tusepreprocessor = result['preprocessorId'];
       this.updateForm = new FormGroup({
@@ -153,7 +161,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     });
    }
   }
-
 
   attachFilesInit(id: number){
     this.dtOptions[0] = {
@@ -318,22 +325,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.rerender();
     });
   }
-// Get HashList Information
-hashL: any;
-
-getHashlist(){
-  const params = {'maxResults': this.maxResults, 'expand': 'hashlist', 'filter': 'taskId='+this.editedTaskIndex+''}
-  const paramsh = {'maxResults': this.maxResults};
-  const matchObject =[]
-  this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
-    this.gs.getAll(SERV.HASHTYPES,paramsh).subscribe((htypes: any) => {
-      this.hashL = tasks.values.map(mainObject => {
-        matchObject.push(htypes.values.find((element:any) => element.hashTypeId === mainObject.hashlist.hashTypeId))
-      return { ...mainObject, ...matchObject }
-      })
-    })
-  })
-}
 
 // Task Speed Graph
 getTaskSpeed(){

@@ -308,12 +308,12 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
 
   private initFormt() {
     if (this.copyMode) {
-    this.gs.get(SERV.TASKS,this.editedIndex).subscribe((result)=>{
+    this.gs.get(SERV.TASKS,this.editedIndex,{'expand': 'files'}).subscribe((result)=>{
       this.color = result['color'];
       const arrFiles: Array<any> = [];
-      if(result['pretaskFiles']){
-        for(let i=0; i < result['pretaskFiles'].length; i++){
-          arrFiles.push(result['pretaskFiles'][i]['fileId']);
+      if(result.files){
+        for(let i=0; i < result.files.length; i++){
+          arrFiles.push(result.files[i]['fileId']);
         }
       }
       this.createForm = new FormGroup({
@@ -329,7 +329,7 @@ export class NewPreconfiguredTasksComponent implements OnInit,AfterViewInit {
         'isSmall': new FormControl(result['isSmall'], Validators.required),
         'useNewBench': new FormControl(result['useNewBench'], Validators.required),
         'isMaskImport': new FormControl(result['isMaskImport'], Validators.required),
-        'files': new FormControl(result['files'], Validators.required),
+        'files': new FormControl(arrFiles),
       });
     });
    }

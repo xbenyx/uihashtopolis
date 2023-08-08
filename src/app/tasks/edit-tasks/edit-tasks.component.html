@@ -273,11 +273,11 @@
             </div>
             <hr>
             <div class="form-group">
-              <div *ngFor="let h of hashL" class="form-outline">
-                  <label *ngIf="h.hashlist.format ===0" class="form-label" for="getTaskId">Hashlist</label>
-                  <label *ngIf="h.hashlist.format ===3" class="form-label" for="getTaskId">Superhaslist</label>
+              <div class="form-outline">
+                  <label *ngIf="hashlistinform.format === 0" class="form-label" for="getTaskId">Hashlist</label>
+                  <label *ngIf="hashlistinform.format === 3" class="form-label" for="getTaskId">Superhaslist</label>
                   <td>
-                    <a [routerLink]="['/hashlists/hashlist', h.hashlist.hashlistId,'edit']">{{ h.hashlist.name }} {{ h[0].description }}</a>
+                    <a [routerLink]="['/hashlists/hashlist', hashlistinform.hashlistId,'edit']">{{ hashlistinform.name }} {{ hashlistDescrip }}</a>
               </div>
             </div>
             <grid-form-input [name]="''">
@@ -295,7 +295,7 @@
       </ngb-panel>
     </ngb-accordion>
     <!-- Attached Files -->
-    <ngb-accordion #acc="ngbAccordion" >
+    <ngb-accordion #acc="ngbAccordion" *ngIf="getFiles.length > 0">
       <ngb-panel>
         <ng-template ngbPanelTitle>
           <span><b>Attached Files</b></span>
@@ -306,14 +306,18 @@
               <thead class="thead-light">
                 <tr>
                     <th class="rounded-start">ID</th>
-                    <th>File Name</th>
+                    <th>Name</th>
+                    <th>Type</th>
                     <th class="rounded-end">Size</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-
-                </tr>
+                  <tr *ngFor="let file of getFiles">
+                    <td>{{ file.fileId }}</td>
+                    <td>{{ file.filename | shortenString:15 | lowercase | titlecase }}</td>
+                    <td>{{ file.fileType | fileType  }}</td>
+                    <td>{{ file.size | fileSize:false }}</td>
+                  </tr>
               </tbody>
             </table>
           </app-table>

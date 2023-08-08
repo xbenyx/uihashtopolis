@@ -56,7 +56,7 @@ export class NewSupertasksComponent implements OnInit {
         },
         render: {
           option: function (item, escape) {
-            return '<div  class="hashtype_selectize">' + escape(item.pretaskId) + ' -  ' + escape(item.taskName) + '</div>';
+            return '<div  class="style_selectize">' + escape(item.pretaskId) + ' -  ' + escape(item.taskName) + '</div>';
           },
         },
         onInitialize: function(){

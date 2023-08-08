@@ -137,7 +137,6 @@ export class EditGlobalpermissionsgroupsComponent implements OnInit {
 
   onSubmit(){
     if (this.updateForm.valid) {
-
       this.gs.update(SERV.ACCESS_PERMISSIONS_GROUPS,this.editedGPGIndex, this.updateForm.value).subscribe(() => {
           Swal.fire({
             title: "Success",

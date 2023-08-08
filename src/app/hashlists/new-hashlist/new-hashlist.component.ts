@@ -116,7 +116,7 @@ export class NewHashlistComponent implements OnInit {
         },
         render: {
           option: function (item, escape) {
-            return '<div  class="hashtype_selectize">' + escape(item.descrId) + '</div>';
+            return '<div  class="style_selectize">' + escape(item.descrId) + '</div>';
           },
         },
         onInitialize: function(){
