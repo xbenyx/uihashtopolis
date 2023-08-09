@@ -68,7 +68,7 @@ const routes: Routes = [
           data: {
               kind: 'hashtypes',
               breadcrumb: 'Hashtypes',
-              permission: ''
+              permission: 'Hashtype'
           },
           canActivate: [IsAuth,CheckPerm]},
         {
@@ -76,7 +76,7 @@ const routes: Routes = [
           data: {
               kind: 'new-hashtype',
               breadcrumb: 'New Hashtype',
-              permission: ''
+              permission: 'Hashtype'
           },
           canActivate: [IsAuth,CheckPerm]},
         {
@@ -84,7 +84,7 @@ const routes: Routes = [
           data: {
               kind: 'edit-hashtype',
               breadcrumb: 'Edit Hashtype',
-              permission: ''
+              permission: 'Hashtype'
           },
           canActivate: [IsAuth,CheckPerm]},
         {

@@ -62,10 +62,10 @@ const routes: Routes = [
           },
           canActivate: [IsAuth,CheckPerm]},
         {
-          path: 'new-tasks', component: NewTasksComponent,
+          path: 'new-task', component: NewTasksComponent,
           data: {
-              kind: 'new-tasks',
-              breadcrumb: 'New tasks',
+              kind: 'new-task',
+              breadcrumb: 'New task',
               permission: 'Task'
           },
           canActivate: [IsAuth,CheckPerm],

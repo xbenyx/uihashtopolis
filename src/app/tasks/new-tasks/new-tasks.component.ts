@@ -203,7 +203,7 @@ export class NewTasksComponent implements OnInit {
     this.route.data.subscribe(data => {
       switch (data['kind']) {
 
-        case 'new-tasks':
+        case 'new-task':
           this.whichView = 'create';
         break;
 
@@ -283,25 +283,24 @@ export class NewTasksComponent implements OnInit {
   }
 
   async fetchData() {
-    const params_prep = {'maxResults': this.maxResults };
-    const params_crack = {'filter': 'crackerBinaryTypeId=1'};
+    const params = {'maxResults': this.maxResults };
     const params_f = {'maxResults': this.maxResults, 'expand': 'accessGroup'};
 
-    await this.gs.getAll(SERV.CRACKERS_TYPES).subscribe((crackers: any) => {
+    await this.gs.getAll(SERV.CRACKERS_TYPES).subscribe((crackers) => {
       this.crackertype = crackers.values;
     });
 
-    await this.gs.getAll(SERV.CRACKERS,params_crack).subscribe((crackers: any) => {
+    await this.gs.getAll(SERV.CRACKERS,params).subscribe((crackers) => {
       this.crackerversions = crackers.values;
       const lastItem = crackers.values.slice(-1);
       this.createForm.get('crackerBinaryTypeId').patchValue(lastItem[0]['crackerBinaryId']); //ToDo
     });
 
-    await this.gs.getAll(SERV.PREPROCESSORS,params_prep).subscribe((prep: any) => {
+    await this.gs.getAll(SERV.PREPROCESSORS,params).subscribe((prep) => {
       this.prep = prep.values;
     });
 
-    await this.gs.getAll(SERV.FILES,params_f).subscribe((files: any) => {
+    await this.gs.getAll(SERV.FILES,params_f).subscribe((files) => {
       this.allfiles = files.values;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         setTimeout(() => {

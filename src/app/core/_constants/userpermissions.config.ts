@@ -74,12 +74,10 @@ export enum SuperHashlist {
 }
 // // HASH
 export enum Hash {
-  CREATE = 'permHashTypeCreate',
-  DELETE = 'permHashTypeDelete',
+  CREATE = '',
+  DELETE = '',
   READ   = 'permHashRead',
   UPDATE = '',
-// // permHashTypeRead: true
-// // permHashTypeUpdate: true
 }
 // // FILE
 export enum File {
@@ -122,6 +120,13 @@ export enum Prepro {
   DELETE = 'permPreprocessorDelete',
   READ   = 'permPreprocessorRead',
   UPDATE = 'permPreprocessorUpdate',
+}
+// // HASHTYPES
+export enum Hashtype {
+  CREATE = 'permHashTypeCreate',
+  DELETE = 'permHashTypeDelete',
+  READ   = 'permPreprocessorRead',
+  UPDATE = 'permHashTypeUpdate',
 }
 // // HEALTH CHECK
 export enum HealthCheck {
@@ -191,6 +196,7 @@ export class Perm {
   static readonly CrackerBinary = CrackerBinary;
   static readonly CrackerBinaryType = CrackerBinaryType;
   static readonly Prepro = Prepro;
+  static readonly Hashtype = Hashtype;
   static readonly HealthCheck = HealthCheck;
   static readonly HealthCheckAgent = HealthCheckAgent;
   static readonly Logs = Logs;

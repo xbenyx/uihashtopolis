@@ -1,4 +1,4 @@
-import {  faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark, faEye, faMicrochip, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import {  faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark, faEye, faMicrochip, faCheckCircle, faTerminal, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,9 +20,11 @@ declare let $:any;
 export class ShowTasksComponent implements OnInit {
 
   faCheckCircle=faCheckCircle;
+  faNoteSticky=faNoteSticky;
   faFileImport=faFileImport;
   faFileExport=faFileExport;
   faMicrochip=faMicrochip;
+  faTerminal=faTerminal;
   faBookmark=faBookmark;
   faArchive=faArchive;
   faHome=faHomeAlt;

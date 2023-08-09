@@ -1,5 +1,5 @@
 
-import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus, faFileText, faTrash, faCheckCircle, faArrowCircleDown} from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faLock, faPauseCircle,faHomeAlt, faPlus, faFileText, faTrash, faCheckCircle, faArrowCircleDown, faMicrochip, faTerminal} from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { DataTableDirective } from 'angular-datatables';
@@ -23,6 +23,8 @@ export class ShowAgentsComponent implements OnInit, OnDestroy {
   faArrowCircleDown=faArrowCircleDown;
   faCheckCircle=faCheckCircle;
   faPauseCircle=faPauseCircle;
+  faMicrochip=faMicrochip;
+  faTerminal=faTerminal;
   faFileText=faFileText;
   faHome=faHomeAlt;
   faTrash=faTrash;
