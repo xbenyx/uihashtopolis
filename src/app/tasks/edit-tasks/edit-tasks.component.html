@@ -70,20 +70,6 @@
                       >
                 </grid-form-input>
               </div>
-                <div class="col">
-                  <grid-form-input [name]="'Max agents'">
-                    <td>
-                      <input
-                            type='number'
-                            id='maxAgents'
-                            class='form-control'
-                            formControlName="maxAgents"
-                            validateInputNumber
-                        >
-                  </grid-form-input>
-              </div>
-            </div>
-            <div class="row">
               <div class="col">
                 <grid-form-input [name]="'Status timer'">
                   <td>
@@ -96,6 +82,32 @@
                 </grid-form-input>
               </div>
               <div class="col">
+                <grid-form-input [name]="'CPU only'">
+                  <div class="form-check form-switch">
+                    <input
+                          type="checkbox"
+                          id="isCpuTask"
+                          class="form-check-input"
+                          formControlName="isCpuTask"
+                    >
+                </div>
+               </grid-form-input>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <grid-form-input [name]="'Max agents'">
+                  <td>
+                    <input
+                          type='number'
+                          id='maxAgents'
+                          class='form-control'
+                          formControlName="maxAgents"
+                          validateInputNumber
+                      >
+                </grid-form-input>
+            </div>
+              <div class="col">
                 <grid-form-input [name]="'Chunk size (seconds)'">
                   <td>
                     <input
@@ -107,32 +119,22 @@
                     >
                 </grid-form-input>
               </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <grid-form-input [name]="'CPU only'">
-                  <select
-                        id='isCpuTask'
-                        class='form-select'
-                        formControlName="isCpuTask"
-                    >
-                    <option [ngValue]="false">No</option>
-                    <option [ngValue]="true">Yes</option>
-                  </select>
-                </grid-form-input>
-              </div>
               <div class="col">
                 <grid-form-input [name]="'Small task'">
-                  <select
-                        id='isSmall'
-                        class='form-select'
-                        formControlName="isSmall"
+                  <div class="form-check form-switch">
+                    <input
+                          type="checkbox"
+                          id="isSmall"
+                          class="form-check-input"
+                          formControlName="isSmall"
                     >
-                    <option [ngValue]="false">No</option>
-                    <option [ngValue]="true">Yes</option>
-                  </select>
-                </grid-form-input>
+                </div>
+               </grid-form-input>
               </div>
+            </div>
+            <div class="row">
+
+
               </div>
             </div>
           </div>
