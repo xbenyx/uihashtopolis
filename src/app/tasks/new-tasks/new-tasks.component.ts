@@ -288,12 +288,17 @@ export class NewTasksComponent implements OnInit {
 
     await this.gs.getAll(SERV.CRACKERS_TYPES).subscribe((crackers) => {
       this.crackertype = crackers.values;
-    });
-
-    await this.gs.getAll(SERV.CRACKERS,params).subscribe((crackers) => {
-      this.crackerversions = crackers.values;
-      const lastItem = crackers.values.slice(-1);
-      this.createForm.get('crackerBinaryTypeId').patchValue(lastItem[0]['crackerBinaryId']); //ToDo
+      let crackerBinaryTypeId = '';
+      if(this.crackertype.find(obj => obj.typeName === 'hashcat').crackerBinaryTypeId){
+        crackerBinaryTypeId = this.crackertype.find(obj => obj.typeName === 'hashcat').crackerBinaryTypeId;
+      }else{
+        crackerBinaryTypeId = this.crackertype.slice(-1)[0]['crackerBinaryTypeId'];
+      }
+      this.gs.getAll(SERV.CRACKERS,{'maxResults': this.maxResults,'filter': 'crackerBinaryTypeId='+crackerBinaryTypeId+'' }).subscribe((crackers) => {
+        this.crackerversions = crackers.values;
+        const lastItem = this.crackerversions.slice(-1)[0]['crackerBinaryId'];
+        this.createForm.get('crackerBinaryTypeId').patchValue(lastItem);
+      })
     });
 
     await this.gs.getAll(SERV.PREPROCESSORS,params).subscribe((prep) => {
@@ -389,7 +394,8 @@ export class NewTasksComponent implements OnInit {
     const params = {'filter': 'crackerBinaryTypeId='+id+''};
     this.gs.getAll(SERV.CRACKERS,params).subscribe((crackers: any) => {
       this.crackerversions = crackers.values;
-      // this.createForm.get('crackerBinaryTypeId').setValue(this.crackerversions.slice(-1)[0] ) // Auto select the latest version
+      const lastItem = this.crackerversions.slice(-1)[0]['crackerBinaryId'];
+      this.createForm.get('crackerBinaryTypeId').patchValue(lastItem);
     });
   }
 

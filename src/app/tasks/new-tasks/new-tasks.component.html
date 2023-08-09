@@ -247,7 +247,7 @@
                               class='form-select'
                               formControlName="crackerBinaryTypeId"
                             >
-                            <option [ngValue]=""  disabled="true">--<option>
+                            <!-- <option [ngValue]=""  disabled="true">--<option> -->
                             <option *ngFor="let cv of crackerversions" [value]="cv.crackerBinaryId">{{ cv.version }}</option>
                         </select>
                       </grid-form-input>
@@ -291,6 +291,7 @@
               </ngb-panel>
             </ngb-accordion>
           <span *ngIf="!createForm.valid && createForm.touched" class="help-block" >Please complete all the form!</span><br>
+          {{ createForm.value | json }}
           <button-submit [name]="'Create'"></button-submit>
       </form>
     </grid-main>
