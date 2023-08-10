@@ -5,8 +5,8 @@
 </div>
 <!-- Table current members -->
 <div class="row g-3">
-  <div class="col-md-5" *ngIf="editedGPG.length > 0">
-  <app-page-subtitle [subtitle]="'Members'"></app-page-subtitle>
+  <div class="col-md-5" *ngIf="editedGPG">
+    <app-page-subtitle [subtitle]="'Members'"></app-page-subtitle>
     <div class="table-responsive">
       &nbsp;
         <table class="table table-striped table-hover table-sm" datatable [dtOptions]="dtOptions[1]" [dtTrigger]="dtTrigger">
@@ -30,7 +30,7 @@
     </div>
   </div>
 <!-- Set permissions -->
-  <div [ngClass]="editedGPG.length > 0 ? 'col-md-7':'' ">
+  <div [ngClass]="editedGPG ? 'col-md-7':'' ">
     <app-page-subtitle [subtitle]="'Set Permissions'"></app-page-subtitle>
     <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
       <grid-form-input [name]="'Permission Group Name'" [labelclass]="'requiredak'">
