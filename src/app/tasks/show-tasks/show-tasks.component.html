@@ -20,6 +20,7 @@
         <th>Dispatched/Searched</th>
         <th>Cracked</th>
         <th>Agents</th>
+        <th>Speed</th>
         <th>Priority</th>
         <th>Max Agents</th>
         <th class="rounded-end">Actions</th>
@@ -33,9 +34,15 @@
             {{ task.taskName | shortenString:40 | lowercase | titlecase }}
           </a>
         </td>
-        <td>
-          <span *ngIf="task.keyspaceProgress >= task.keyspace && task.keyspaceProgress > 0"><fa-icon [icon]="faCheckCircle" aria-hidden="true"></fa-icon></span>
-          <span *ngIf="task.isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+        <td style="white-space: nowrap;">
+          <div class="row">
+            <div class="col-md-4" *ngIf="(task.speeds | aspeed:1) === true">
+              <app-active-spinner></app-active-spinner>
+            </div>
+            <div class="col-md-4">
+              <span *ngIf="task.keyspaceProgress >= task.keyspace && task.keyspaceProgress > 0" ngbTooltip="Completed"><fa-icon [icon]="faCheckCircle" aria-hidden="true"></fa-icon></span>
+            </div>
+          </div>
         </td>
         <td style="white-space: nowrap;">
           <fa-icon [icon]="faTerminal" aria-hidden="true" ngbTooltip={{task.attackCmd}}></fa-icon>
@@ -56,11 +63,12 @@
           <a *ngIf="(loadchunks | tdcracked:task.taskId) === 0">0</a>
         </td>
         <td>
-          {{ task.maxAgents }}
+          Missing
           <a *ngIf="currenspeed">
             {{ currenspeed | fileSize:false }}H/s
           </a>
         </td>
+        <td>{{ task.speeds | aspeed:1 }}</td>
         <td>{{ task.priority }}</td>
         <td>{{ task.maxAgents }}</td>
         <td>

@@ -51,6 +51,7 @@ export class ShowTasksComponent implements OnInit {
   loadchunks: any; //Change to Interface
   isArchived: boolean;
   whichView: string;
+  isTaskactive = 0;
   currenspeed = 0;
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -212,7 +213,7 @@ onRefresh(){
 }
 
 getTasks():void {
-  const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist', 'filter': 'isArchived='+this.isArchived+''}
+  const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist,speeds', 'filter': 'isArchived='+this.isArchived+''}
 
   this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
     this.alltasks = tasks.values;

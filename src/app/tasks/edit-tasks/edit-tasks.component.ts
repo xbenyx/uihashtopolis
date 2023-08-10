@@ -128,7 +128,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     this.gs.get(SERV.TASKS,this.editedTaskIndex, {'expand': 'hashlist,speeds,crackerBinary,crackerBinaryType,files'}).subscribe((result)=>{
       this.color = result['color'];
       this.getFiles = result.files;
-      console.log(this.getFiles );
       this.crackerinfo = result.crackerBinary;
       // Hashlist Description and Type
       this.hashlistinform =  result.hashlist;
@@ -163,39 +162,11 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   }
 
   attachFilesInit(id: number){
-    this.dtOptions[0] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      autoWidth: false,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
+
   }
 
   assingAgentInit(id: number){
-    this.dtOptions[1] = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      destroy: true,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
+
   }
 
 /**
@@ -226,6 +197,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   // Chunk View
   chunkview: number;
+  chunktitle: string;
   isactive = 0;
   currenspeed = 0;
   chunkresults: Object;
@@ -237,21 +209,84 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
         case 'edit-task':
           this.chunkview = 0;
+          this.chunktitle = 'Live Chunks';
           this.chunkresults = this.maxResults;
         break;
 
         case 'edit-task-c100':
           this.chunkview = 1;
+          this.chunktitle = 'Latest 100 Chunks';
           this.chunkresults = 100;
         break;
 
         case 'edit-task-cAll':
           this.chunkview = 2;
-          this.chunkresults = 6000;
+          this.chunktitle = 'All Chunks';
+          this.chunkresults = 60000;
         break;
 
       }
     });
+
+    const self = this;
+    this.dtOptions = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      buttons: {
+          dom: {
+            button: {
+              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+            }
+          },
+      buttons:[
+        {
+          text: '↻',
+          autoClose: true,
+          action: function (e, dt, node, config) {
+            self.onRefresh();
+          }
+        },
+        {
+          text: self.chunkview === 0 ? 'Show Latest 100':'Show Live',
+          action: function () {
+            if(self.chunkview === 0) {
+              self.router.navigate(['/tasks/show-tasks',id,'edit','show-100-chunks']);
+            }
+            if(self.chunkview === 1) {
+              self.router.navigate(['/tasks/show-tasks',id,'edit']);
+            }
+            if(self.chunkview === 2) {
+              self.router.navigate(['/tasks/show-tasks',id,'edit']);
+            }
+          }
+        },
+        {
+          text: self.chunkview === 0 ? 'Show All':'Show Latest 100',
+          action: function () {
+            if(self.chunkview === 0) {
+              console.log(id)
+              self.router.navigate(['/tasks/show-tasks',id,'edit','show-all-chunks']);
+            }
+            if(self.chunkview === 1) {
+              self.router.navigate(['/tasks/show-tasks',id,'edit','show-all-chunks']);
+            }
+            if(self.chunkview === 2) {
+              self.router.navigate(['/tasks/show-tasks',id,'edit','show-100-chunks']);
+            }
+          }
+        },
+        {
+          extend: 'colvis',
+          text: 'Column View',
+          columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        }
+      ]
+      }
+    }
+
     const params = {'maxResults': this.chunkresults};
     this.gs.getAll(SERV.CHUNKS,params).subscribe((result: any)=>{
       const getchunks = result.values.filter(u=> u.taskId == id);
@@ -268,33 +303,24 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
         for(let i=0; i < this.getchunks.length; i++){
           if(Date.now()/1000 - Math.max(this.getchunks[i].solveTime, this.getchunks[i].dispatchTime) < chunktime && this.getchunks[i].progress < 10000){
             this.isactive = 1;
-
             cspeed.push(this.getchunks[i].speed);
             resultArray.push(this.getchunks[i]);
           }
         }
-        this.currenspeed = cspeed.reduce((a, i) => a + i);
+        if(cspeed.length > 0){
+          this.currenspeed = cspeed.reduce((a, i) => a + i);
+        }
         this.getchunks = resultArray;
       }
       this.dtTrigger.next(void 0);
       });
     });
 
-    this.dtOptions = {
-      dom: 'Bfrtip',
-      scrollY: "700px",
-      scrollCollapse: true,
-      paging: false,
-      destroy: true,
-      buttons: {
-          dom: {
-            button: {
-              className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
-            }
-          },
-      buttons:[]
-      }
-    }
+  }
+
+  onRefresh(){
+    this.ngOnInit();
+    this.rerender();  // rerender datatables
   }
 
 /**
