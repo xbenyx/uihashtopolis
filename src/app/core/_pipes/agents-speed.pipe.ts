@@ -4,15 +4,18 @@ import {
 } from '@angular/core';
 
 import { UIConfigService } from '../_services/shared/storage.service';
+import { environment } from './../../../environments/environment';
+import { GlobalService } from '../_services/main.service';
+import { SERV } from '../../core/_services/main.config';
+import { firstValueFrom } from 'rxjs';
 
 /**
- * This function calculates the total agent speed and return the value and the tag active
- * @param value - Object
- * @param name -Column name
+ * This function calculates the agent current speed
+ * @param id - Task Id
  * Usage:
- *   object | sum:'name'
+ *   object | aspeed:'id'
  * Example:
- *   {{ object | sum:'value' }}
+ *   {{ number | aspeed:'1' }}
  * @returns number
 **/
 
@@ -22,40 +25,35 @@ import { UIConfigService } from '../_services/shared/storage.service';
 export class AgentsSpeedPipe implements PipeTransform {
 
   constructor(
-    private uiService:UIConfigService
+    private uiService:UIConfigService,
+    private gs: GlobalService
   ) { }
 
-  isactive = 0;
   currenspeed = 0;
+  isactive = false;
 
-  transform(getchunks: any[],active?: number) {
+  transform(id: number ){
 
+      // const maxResults = environment.config.prodApiMaxResults;
+      const maxResults = 60000;
       const chunktime = this.uiService.getUIsettings('chunktime').value;
-      console.log(chunktime);
       const cspeed = [];
 
-      if (getchunks.length === 0) {
-        return 'No data';
-      }
+      let currenspeed: any;
 
-      if(active === 1){
-        const lastItem = getchunks.slice(-1)[0]['time'];
-        if(Date.now()/1000 - lastItem < 60){
-          return true;
+      return firstValueFrom(this.gs.getAll(SERV.CHUNKS,{'maxResults': maxResults, 'filter': 'taskId='+id+''}))
+        .then((res) => {
+        for(let i=0; i < res.values.length; i++){
+          if(Date.now()/1000 - Math.max(res.values[i].solveTime, res.values[i].dispatchTime) < chunktime && res.values[i].progress < 10000){
+            cspeed.push(res.values[i].dispatchTime);
+          }
         }
-      }
-
-      return false;
-
-      // for(let i=0; i < getchunks.length; i++){
-      //   if(Date.now()/1000 - getchunks[i].time < chunktime && getchunks[i].progress < 10000){
-      //     this.isactive = 1;
-
-      //     cspeed.push(getchunks[i].speed);
-      //   }
-      // }
-
-      // return this.currenspeed = cspeed.reduce((a, i) => a + i);
-
+        currenspeed = cspeed.reduce((a, i) => a + i, 0);
+        if(currenspeed > 0){
+          return currenspeed;
+        }else{
+          return 0;
+        }
+      });
     }
 }

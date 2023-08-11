@@ -36,7 +36,7 @@
         </td>
         <td style="white-space: nowrap;">
           <div class="row">
-            <div class="col-md-4" *ngIf="(task.speeds | aspeed:1) === true">
+            <div class="col-md-4" *ngIf="(task.taskId | aspeed | async ) > 0">
               <app-active-spinner></app-active-spinner>
             </div>
             <div class="col-md-4">
@@ -64,11 +64,8 @@
         </td>
         <td>
           Missing
-          <a *ngIf="currenspeed">
-            {{ currenspeed | fileSize:false }}H/s
-          </a>
         </td>
-        <td>{{ task.speeds | aspeed:1 }}</td>
+        <td style="white-space: nowrap;">{{ task.taskId | aspeed | async | fileSize:false:1000 }} H/s</td>
         <td>{{ task.priority }}</td>
         <td>{{ task.maxAgents }}</td>
         <td>

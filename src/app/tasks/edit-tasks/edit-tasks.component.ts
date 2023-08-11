@@ -9,6 +9,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 import { Observable, Subject } from 'rxjs';
 import * as echarts from 'echarts/core';
 
@@ -16,12 +17,14 @@ import { PendingChangesGuard } from 'src/app/core/_guards/pendingchanges.guard';
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { colorpicker } from '../../core/_constants/settings.config';
+import { FileSizePipe } from 'src/app/core/_pipes/file-size.pipe';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../core/_services/main.config';
 
 @Component({
   selector: 'app-edit-tasks',
-  templateUrl: './edit-tasks.component.html'
+  templateUrl: './edit-tasks.component.html',
+  providers: [FileSizePipe]
 })
 @PageTitle(['Edit Task'])
 export class EditTasksComponent implements OnInit,PendingChangesGuard {
@@ -40,6 +43,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     private uiService:UIConfigService,
     private route: ActivatedRoute,
     private gs: GlobalService,
+    private fs:FileSizePipe,
     private router: Router
   ) { }
 
@@ -95,8 +99,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       }),
     });
 
-    this.getTaskSpeed();
-
   }
 
   OnChangeValue(value){
@@ -129,6 +131,8 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.color = result['color'];
       this.getFiles = result.files;
       this.crackerinfo = result.crackerBinary;
+      // Graph Speed
+      this.initTaskSpeed(result.speeds);
       // Hashlist Description and Type
       this.hashlistinform =  result.hashlist;
       this.gs.getAll(SERV.HASHTYPES,{'filter': 'hashTypeId='+result.hashlist['hashTypeId']+''}).subscribe((htypes: any) => {
@@ -288,11 +292,10 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     }
 
     const params = {'maxResults': this.chunkresults};
-    this.gs.getAll(SERV.CHUNKS,params).subscribe((result: any)=>{
-      const getchunks = result.values.filter(u=> u.taskId == id);
-      this.timeCalc(getchunks);
+    this.gs.getAll(SERV.CHUNKS,{'maxResults': this.chunkresults, 'filter': 'taskId='+id+''}).subscribe((result: any)=>{
+      this.timeCalc(result.values);
       this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
-      this.getchunks = getchunks.map(mainObject => {
+      this.getchunks = result.values.map(mainObject => {
         const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
         return { ...mainObject, ...matchObject }
         })
@@ -353,15 +356,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   }
 
 // Task Speed Graph
-getTaskSpeed(){
-  this.editedTaskIndex;
-  const params = {'maxResults': 3000 };
-
-  this.gs.getAll(SERV.SPEEDS,params).subscribe((sp: any) => {
-    this.initTaskSpeed(sp.values);
-  });
-}
-
 initTaskSpeed(obj: object){
 
   echarts.use([
@@ -390,7 +384,8 @@ initTaskSpeed(obj: object){
 
   const data:any = obj;
   const arr = [];
-  const max = []
+  const max = [];
+  const unit = [];
 
   const result = [];
   data.reduce(function(res, value) {
@@ -406,7 +401,7 @@ initTaskSpeed(obj: object){
 
     const iso = this.transDate(result[i]['time']);
 
-    arr.push([iso, result[i]['speed']]);
+    arr.push([iso, this.fs.transform(result[i]['speed'],false,1000).match(/\d+(\.\d+)?/)[0], this.fs.transform(result[i]['speed'],false,1000).slice(-2)]);
     max.push(result[i]['time']);
   }
 
@@ -422,12 +417,12 @@ initTaskSpeed(obj: object){
 
    option = {
         title: {
-          subtext: 'Last record: '+datelabel,
+          subtext: 'Last record: '+ datelabel,
         },
         tooltip: {
           position: 'top',
           formatter: function (p) {
-            return p.data[0] + ': ' + p.data[1] + ' H/s';
+            return p.data[0] + ': ' + p.data[1] + ' ' + p.data[2] + ' H/s';
           }
         },
         grid: {
