@@ -385,7 +385,6 @@ initTaskSpeed(obj: object){
   const data:any = obj;
   const arr = [];
   const max = [];
-  const unit = [];
 
   const result = [];
   data.reduce(function(res, value) {

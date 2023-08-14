@@ -70,9 +70,10 @@
                                     [icon]="faDigitalTachograph"
                                     aria-hidden="true"
                                     hoverDashed
+                                    style="cursor: pointer;"
                                     [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():1:a.isActive:a.lastTime}"
                             ></fa-icon>
-                            <a underline class="display-col">{{ result === 'No data'? result:result +'%' }}</a>
+                            <a (click)="open(device)" underline class="display-col pointer" style="cursor: pointer;">{{ result === 'No data'? result:result +'%' }}</a>
                           <div>
                             <!-- Modal Device Utilisation -->
                             <ng-template #device let-modal>
@@ -122,10 +123,11 @@
                                   [icon]="faTemperature0"
                                   aria-hidden="true"
                                   hoverDashed
+                                  style="cursor: pointer;"
                                   [ngStyle]="{'color': result | asColor:this.getTemp1():this.getTemp2():2:a.isActive:a.lastTime}"
 
                           ></fa-icon>
-                          <a underline class="display-col">{{ result === 'No data'? result:result +'°' }}</a>
+                          <a (click)="open(temperature)" underline class="display-col" style="cursor: pointer;">{{ result === 'No data'? result:result +'°' }}</a>
                           <div>
                             <!-- Modal Temperature -->
                             <ng-template #temperature let-modal>
@@ -175,9 +177,10 @@
                                   [icon]="faMicrochip"
                                   aria-hidden="true"
                                   hoverDashed
+                                  style="cursor: pointer;"
                                   [ngStyle]="{'color':result | asColor:this.getUtil1():this.getUtil2():3:a.isActive:a.lastTime}"
                           ></fa-icon>
-                          <a underline class="display-col">{{ result === 'No data'? result:result +'%' }}</a>
+                          <a (click)="open(cpu)" underline class="display-col" style="cursor: pointer;">{{ result === 'No data'? result:result +'%' }}</a>
                           <div>
                             <!-- CPU Utilisation -->
                             <ng-template #cpu let-modal>
