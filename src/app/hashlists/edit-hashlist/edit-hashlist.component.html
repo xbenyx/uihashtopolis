@@ -138,8 +138,8 @@
           <td>
             <a [routerLink]="['/tasks/show-tasks',t.taskId,'edit']">{{ t.taskName | lowercase | titlecase }}</a>
           </td>
-          <td>{{ loadchunks | tdispatched:t.taskId:t.keyspace | percent}}</td>
-          <td>{{ loadchunks | tdsearched:t.taskId:t.keyspace | percent}}</td>
+          <td>{{ loadchunks | tdispatched:t.taskId:t.keyspace | percent:'1.2-2'}}</td>
+          <td>{{ loadchunks | tdsearched:t.taskId:t.keyspace | percent:'1.2-2'}}</td>
           <td>
             <a [routerLink]="['/hashlists/hashes/','tasks',t.taskId]"> {{ loadchunks | tdcracked:t.taskId }}</a>
           </td>

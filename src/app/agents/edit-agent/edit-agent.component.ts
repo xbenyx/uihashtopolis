@@ -116,7 +116,8 @@ export class EditAgentComponent implements OnInit {
       })
     });
 
-    this.dtOptions[1] = {
+    const self = this;
+    this.dtOptions = {
       dom: 'Bfrtip',
       scrollY: "700px",
       scrollCollapse: true,
@@ -128,9 +129,38 @@ export class EditAgentComponent implements OnInit {
               className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
             }
           },
-      buttons:[]
+      buttons:[
+        {
+          text: '↻',
+          autoClose: true,
+          action: function (e, dt, node, config) {
+            self.onRefresh();
+          }
+        },
+        {
+          extend: 'colvis',
+          text: 'Column View',
+          columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        }
+      ]
       }
     }
+  }
+
+  onRefresh(){
+    this.ngOnInit();
+    this.rerender();  // rerender datatables
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      setTimeout(() => {
+        this.dtTrigger['new'].next();
+      });
+    });
   }
 
   onSubmit(){

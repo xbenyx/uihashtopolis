@@ -23,6 +23,12 @@ export class AgentSColorPipe implements PipeTransform {
   constructor(private uiService: UIConfigService) { }
 
   transform(value: any, threshold1: number, threshold2: number, stattype: number, isActive: any, lastactivity: number) {
+    // console.log('value'+value)
+    // console.log('threshold1'+threshold1)
+    // console.log('threshold1'+threshold2)
+    // console.log('stattype'+stattype)
+    // console.log('isActive'+isActive)
+    // console.log('lastactivity'+lastactivity)
     if (value === 'No data') {
       if ((isActive == 1) && (Date.now() - lastactivity < this.gettime())) {
         return "#42d4f4";

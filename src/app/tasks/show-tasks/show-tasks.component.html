@@ -56,7 +56,7 @@
           <span *ngIf="task.hashlist.hashCount === task.hashlist.cracked"><fa-icon [icon]="faCheckCircle" aria-hidden="true"></fa-icon></span>
           <span *ngIf="task.hashlist.isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
         </td>
-        <td *ngIf="task.keyspace > 0">{{ loadchunks | tdispatched:task.taskId:task.keyspace | percent}} / {{ loadchunks | tdsearched:task.taskId:task.keyspace | percent}}</td>
+        <td *ngIf="task.keyspace > 0">{{ loadchunks | tdispatched:task.taskId:task.keyspace | percent:'1.2-2'}} / {{ loadchunks | tdsearched:task.taskId:task.keyspace | percent:'1.2-2'}}</td>
         <td *ngIf="task.keyspace === 0"></td>
         <td>
           <a *ngIf="(loadchunks | tdcracked:task.taskId) > 0"  [routerLink]="['/hashlists/hashes/','tasks',task.taskId]" routerLinkActive="active">{{ loadchunks | tdcracked:task.taskId }}</a>

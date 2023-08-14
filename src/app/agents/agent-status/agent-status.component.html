@@ -235,15 +235,12 @@
   <div class="col-xs-6 col-md-4 col-lg-2" *ngFor="let gname of _filteresAgents | groupBy:'agentName' | sort:'asc':'agentName'">
       <div class="card card-section">
           <div class="card-header-ag text-center">
-            <a underline>{{ gname.k | shortenString:15 | lowercase | titlecase}} </a>
+            <a>{{ gname.k | shortenString:15 | lowercase | titlecase}} </a>
           </div>
           <div class="card-body" *ngFor="let a of gname.value ; let last=last">
             <div class="row">
               <small><b>
-                <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
-                  <fa-icon [icon]="faEye" aria-hidden="true" class="gray-light-ico"></fa-icon>
-                </a>
-                <a class="display-col">{{ a.agentName | split:'-':1 | shortenString:15 | lowercase | titlecase }}</a>
+                <a class="display-col" [routerLink]="['/agents/show-agents',a.agentId,'edit']">{{ a.agentName | split:'-':1 | shortenString:15 | lowercase | titlecase }}</a>
               </b></small>
               <div class="col" *ngIf="statDevice | filterItem:'agentId':a.agentId | avg:'value' as result">
                 <fa-icon
@@ -405,10 +402,9 @@
       </div>
   </div>
 </div>
-<!-- Agent Activity -->
-<app-page-subtitle [subtitle]="'Agents activity'"></app-page-subtitle>
 <!-- Agent Activity Table -->
 <app-table>
+  <app-page-subtitle [subtitle]="'Agents activity'"></app-page-subtitle>
   <table class="table table-striped table-hover table-sm" #agentstatus datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="agentstatus">
     <thead class="thead-light">
       <tr>
