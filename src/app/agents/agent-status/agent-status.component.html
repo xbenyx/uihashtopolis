@@ -125,7 +125,6 @@
                                   hoverDashed
                                   style="cursor: pointer;"
                                   [ngStyle]="{'color': result | asColor:this.getTemp1():this.getTemp2():2:a.isActive:a.lastTime}"
-
                           ></fa-icon>
                           <a (click)="open(temperature)" underline class="display-col" style="cursor: pointer;">{{ result === 'No data'? result:result +'°' }}</a>
                           <div>

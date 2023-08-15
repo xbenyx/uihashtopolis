@@ -223,13 +223,14 @@ export class AgentStatusComponent implements OnInit {
   statCpu: any[] = [];
 
   getAgentStats(){
-    // const paramsstat = {'maxResults': this.maxResults, 'filter': 'time>'+this.gettime()+''}; //Todo waiting for API date filters
+    // const paramsstat = {'maxResults': this.maxResults, 'filter': 'time>'+this.gettime()+''}; //Waiting for API date filters
     const paramsstat = {'maxResults': this.maxResults};
     this.gs.getAll(SERV.AGENTS_STATS,paramsstat).subscribe((stats: any) => {
-      const tempDateFilter = stats.values.filter(u=> u.time > this.gettime()); // filter Device Utilization
-      this.statTemp = tempDateFilter.filter(u=> u.statType == ASC.GPU_TEMP); // filter Device Temperature
-      this.statDevice = tempDateFilter.filter(u=> u.statType == ASC.GPU_UTIL); // filter Device Utilization
-      this.statCpu =tempDateFilter.filter(u=> u.statType == ASC.CPU_UTIL); // filter CPU utilization
+      const tempDateFilter = stats.values.filter(u=> u.time > 10000000); // Temp
+      // const tempDateFilter = stats.values.filter(u=> u.time > this.gettime()); // Temp
+      this.statTemp = tempDateFilter.filter(u=> u.statType == ASC.GPU_TEMP); // Temp
+      this.statDevice = tempDateFilter.filter(u=> u.statType == ASC.GPU_UTIL); // Temp
+      this.statCpu =tempDateFilter.filter(u=> u.statType == ASC.CPU_UTIL); // Temp
       // this.statTemp = stats.values.filter(u=> u.statType == ASC.GPU_TEMP); // filter Device Temperature
       // this.statDevice = stats.values.filter(u=> u.statType == ASC.GPU_UTIL); // filter Device Utilization
       // this.statCpu = stats.values.filter(u=> u.statType == ASC.CPU_UTIL); // filter CPU utilization

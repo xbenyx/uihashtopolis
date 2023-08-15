@@ -1,10 +1,10 @@
 import {  faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark, faEye, faMicrochip, faCheckCircle, faTerminal, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
-import { interval, Subject, Subscription } from 'rxjs';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Subject, Subscription } from 'rxjs';
 
 import { GlobalService } from '../../core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';

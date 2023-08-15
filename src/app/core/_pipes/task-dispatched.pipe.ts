@@ -20,6 +20,11 @@ export class TaskDispatchedPipe implements PipeTransform {
       return null;
     }
 
+    // const params = {'maxResults': 999999999};
+    // this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
+    //   this.loadchunks = c;
+    // });
+
     const ch = obj.values?.filter(u=> u.taskId == id);
 
     const dispatched = []
