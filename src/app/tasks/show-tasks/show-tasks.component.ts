@@ -48,7 +48,6 @@ export class ShowTasksComponent implements OnInit {
   }
 
   alltasks: any = []; //Change to Interface
-  loadchunks: any; //Change to Interface
   isArchived: boolean;
   whichView: string;
   isTaskactive = 0;
@@ -217,17 +216,10 @@ getTasks():void {
 
   this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {
     this.alltasks = tasks.values;
-    this.loadChunks();
     this.dtTrigger.next(null);
   });
 }
 
-loadChunks(){
-  const params = {'maxResults': 999999999};
-  this.gs.getAll(SERV.CHUNKS,params).subscribe((c: any)=>{
-    this.loadchunks = c;
-  });
-}
 
 rerender(): void {
   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
