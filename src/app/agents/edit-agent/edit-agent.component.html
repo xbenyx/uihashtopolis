@@ -217,14 +217,21 @@
   <app-page-subtitle [subtitle]="'Device(s) Temperature'"></app-page-subtitle>
   <div class="row">
     <div class="col col-12">
-      <div id="main" style="height: 250px;"></div>
+      <div id="tempgraph" style="height: 250px;"></div>
     </div>
   </div>
-
   <app-page-subtitle [subtitle]="'Device(s) Utilization'"></app-page-subtitle>
-
+  <div class="row">
+    <div class="col col-12">
+      <div id="devicegraph" style="height: 250px;"></div>
+    </div>
+  </div>
   <app-page-subtitle [subtitle]="'Agent average CPU utilization'"></app-page-subtitle>
-
+  <div class="row">
+    <div class="col col-12">
+      <div id="cpugraph" style="height: 250px;"></div>
+    </div>
+  </div>
 </app-table>
 <!-- Errors -->
 <!-- <app-table>

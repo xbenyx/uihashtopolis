@@ -1,4 +1,4 @@
-import {  faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark, faEye, faMicrochip, faCheckCircle, faTerminal, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
+import {  faPencil, faEdit, faTrash, faLock, faFileImport, faFileExport, faPlus, faHomeAlt, faArchive, faCopy, faBookmark, faEye, faMicrochip, faCheckCircle, faTerminal, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -27,6 +27,7 @@ export class ShowTasksComponent implements OnInit {
   faTerminal=faTerminal;
   faBookmark=faBookmark;
   faArchive=faArchive;
+  faPencil=faPencil;
   faHome=faHomeAlt;
   faTrash=faTrash;
   faEdit=faEdit;
@@ -390,15 +391,18 @@ onModalProject(title: string){
     })()
 }
 
-onModalUpdate(title: string, id: number, cvalue: any, formlabel: boolean){
+onModalUpdate(title: string, id: number, cvalue: any, formlabel: boolean, nameref: string){
   (async () => {
 
     const { value: formValues } = await Swal.fire({
-      title: title,
+      title: title + ' - '+ nameref,
       html:
         '<input id="project-input" class="swal2-input" type="number" placeholder="'+cvalue+'">',
       focusConfirm: false,
-      confirmButtonColor: '#4B5563',
+      showCancelButton: true,
+      cancelButtonColor: '#C53819',
+      confirmButtonColor: '#8A8584',
+      cancelButton: true,
       preConfirm: () => {
         return [
           (<HTMLInputElement>document.getElementById('project-input')).value,

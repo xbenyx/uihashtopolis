@@ -1,14 +1,15 @@
 import { TitleComponent, TitleComponentOption, ToolboxComponent, ToolboxComponentOption, TooltipComponent, TooltipComponentOption, GridComponent, GridComponentOption, VisualMapComponent, VisualMapComponentOption, DataZoomComponent, DataZoomComponentOption, MarkLineComponent, MarkLineComponentOption } from 'echarts/components';
+import { LineChart, LineSeriesOption, CandlestickChart } from 'echarts/charts';
 import { faHomeAlt, faEye, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import gm from 'gm/index.js';
 
 import { Observable, Subject } from 'rxjs';
 import * as echarts from 'echarts/core';
@@ -294,6 +295,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     const params = {'maxResults': this.chunkresults};
     this.gs.getAll(SERV.CHUNKS,{'maxResults': this.chunkresults, 'filter': 'taskId='+id+''}).subscribe((result: any)=>{
       this.timeCalc(result.values);
+      this.initVisualGraph(result.values, 150, 150); // Get data for visual graph
       this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.getchunks = result.values.map(mainObject => {
         const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
@@ -355,8 +357,17 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     });
   }
 
+initVisualGraph(obj: object, xdimension: any, ydimension: any){
+
+  //Get Size dimensions
+  // if(xdimension === 0 || ydimension === 0){
+  //   return 'Invalid Size';
+  // }
+  let sizegraph = [xdimension,ydimension];
+
+}
+
 // Task Speed Graph
-speedInfo = true;
 initTaskSpeed(obj: object){
 
   echarts.use([
@@ -415,88 +426,79 @@ initTaskSpeed(obj: object){
 
   const self = this;
 
-   option = {
-        title: {
-          subtext: 'Last record: '+ datelabel,
-        },
-        tooltip: {
-          position: 'top',
-          formatter: function (p) {
-            return p.data[0] + ': ' + p.data[1] + ' ' + p.data[2] + ' H/s';
+  option = {
+      title: {
+        subtext: 'Last record: '+ datelabel,
+      },
+      tooltip: {
+        position: 'top',
+        formatter: function (p) {
+          return p.data[0] + ': ' + p.data[1] + ' ' + p.data[2] + ' H/s';
+        }
+      },
+      grid: {
+        left: '5%',
+        right: '4%',
+      },
+      xAxis: {
+        data: xAxis.map(function (item: any[] | any) {
+          return self.transDate(item);
+        })
+      },
+      yAxis: {
+        type: 'value',
+        name: 'H/s',
+        position: 'left',
+        alignTicks: true,
+      },
+      useUTC: true,
+      toolbox: {
+        itemGap: 10,
+        show: true,
+        left: '85%',
+        feature: {
+          dataZoom: {
+            yAxisIndex: 'none'
+          },
+          restore: {},
+          saveAsImage: {
+            name: "Task Speed"
           }
-        },
-        grid: {
-          right: '0%',
-        },
-        xAxis: {
-          data: xAxis.map(function (item: any[] | any) {
-            return self.transDate(item);
-          })
-        },
-        yAxis: {
-          type: 'value',
-          name: 'H/s',
-          position: 'left',
-          alignTicks: true,
-        },
-        useUTC: true,
-        toolbox: {
-          itemGap: 10,
+        }
+      },
+      dataZoom: [
+        {
+          type: 'slider',
           show: true,
-          feature: {
-            dataZoom: {
-              yAxisIndex: 'none'
-            },
-            restore: {},
-            saveAsImage: {
-              name: "Task Speed"
-            }
-          }
+          start: 94,
+          end: 100,
+          handleSize: 8
         },
-        dataZoom: [
-          {
-            type: 'slider',
-            show: true,
-            start: 94,
-            end: 100,
-            handleSize: 8
+        {
+          type: 'inside',
+          start: 94,
+          end: 100
+        },
+      ],
+      series: {
+        name: '',
+        type: 'line',
+        data: arr,
+        connectNulls: true,
+                markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+        markLine: {
+          lineStyle: {
+            color: '#333'
           },
-          {
-            type: 'inside',
-            start: 94,
-            end: 100
-          },
-        ],
-        series: {
-          name: '',
-          type: 'line',
-          data: arr,
-          markLine: {
-            silent: true,
-            lineStyle: {
-              color: '#333'
-            },
-            data: [
-              {
-                yAxis: 50
-              },
-              {
-                yAxis: 100
-              },
-              {
-                yAxis: 150
-              },
-              {
-                yAxis: 200
-              },
-              {
-                yAxis: 300
-              }
-            ]
-          }
-          }
-        };
-        if(data.length > 0){  option && myChart.setOption(option);}
+        }
+        }
+      };
+      if(data.length > 0){  option && myChart.setOption(option);}
  }
 
  leading_zeros(dt){

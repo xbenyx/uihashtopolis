@@ -28,8 +28,10 @@
               Inactive
             </span>
           </td>
-          <td>
-            <a [routerLink]="[agent.agentId,'edit']"><b>{{ agent.agentName | lowercase | titlecase }}</b></a>
+          <td style="white-space: nowrap;">
+            <a [routerLink]="[agent.agentId,'edit']" ngbTooltip={{agent.agentName}}>
+              {{ agent.agentName | shortenString:40 | lowercase | titlecase }}
+            </a>
             <span *ngIf="agent.notes > 1" ><fa-icon [icon]="faEdit" aria-hidden="true"></fa-icon></span>
             <span *ngIf="agent.isTrusted === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
           </td>

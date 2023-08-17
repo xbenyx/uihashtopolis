@@ -266,24 +266,28 @@
               </div>
             </div>
             <hr>
-            <div class="form-group">
-              <div class="form-outline">
+            <div class="row">
+              <div class="col">
+                <grid-form-input [name]="''">
                   <label *ngIf="hashlistinform.format === 0" class="form-label" for="getTaskId">Hashlist</label>
                   <label *ngIf="hashlistinform.format === 3" class="form-label" for="getTaskId">Superhaslist</label>
                   <td>
                     <a [routerLink]="['/hashlists/hashlist', hashlistinform.hashlistId,'edit']">{{ hashlistinform.name }} {{ hashlistDescrip }}</a>
+                </grid-form-input>
+              </div>
+              <div class="col">
+                <grid-form-input [name]="''">
+                  <div *ngIf="crackerinfo">
+                    <h6>
+                        Cracker Information
+                      <fa-icon [icon]="faEye" [routerLink]="['/config/engine/crackers/', crackerinfo['crackerBinaryId'],'edit']" aria-hidden="true" class="gray-light-ico"></fa-icon>
+                    </h6>
+                      <small>Name</small>: {{ crackerinfo['binaryName'] | lowercase | titlecase }}<br>
+                      <small>Version</small>: {{ crackerinfo['version'] }}
+                    </div>
+                </grid-form-input>
               </div>
             </div>
-            <grid-form-input [name]="''">
-              <div *ngIf="crackerinfo">
-                <h6>
-                    Cracker Information
-                  <fa-icon [icon]="faEye" [routerLink]="['/config/engine/crackers/', crackerinfo['crackerBinaryId'],'edit']" aria-hidden="true" class="gray-light-ico"></fa-icon>
-                </h6>
-                  <small>Name</small>: {{ crackerinfo['binaryName'] | lowercase | titlecase }}<br>
-                  <small>Version</small>: {{ crackerinfo['version'] }}
-                </div>
-            </grid-form-input>
             </form>
         </ng-template>
       </ngb-panel>
@@ -323,10 +327,14 @@
 <!-- Visual  -->
 <app-table *ngIf="tkeyspace > 0">
   <app-page-subtitle [subtitle]="'Visual Graph'"></app-page-subtitle>
-  <div>
-    <img class='img-fluid' style="height:32px" alt>
-    <!-- src="api/taskimg.php?task=[[task.getId()]]&x=1500&y=32" -->
-  </div>
+
+  <div id="visualgrap" style="width: 90%;height: 310px;"></div>
+  <tr>
+    <td>
+      <img class='img-fluid' style="height: 32px" src="api/taskimg.php?task=[[task.getId()]]&x=1500&y=32" alt>
+    </td>
+  </tr>
+
 </app-table>
 <!-- Assigned Agents -->
 <app-table>
@@ -345,7 +353,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr >
+      <tr>
 
       </tr>
     </tbody>
@@ -355,11 +363,7 @@
 <div>
 <app-table>
   <app-page-subtitle [subtitle]="'Task Speed'"></app-page-subtitle>
-  <div class="row">
-    <div class="col col-12">
-      <div id="tspeed" style="height: 310px;"></div>
-    </div>
-  </div>
+  <div id="tspeed" style="height: 310px;"></div>
 </app-table>
 <!-- Dispatched Chunks -->
 <app-table >
