@@ -9,8 +9,6 @@ import { DataTableDirective } from 'angular-datatables';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import gm from 'gm/index.js';
-
 import { Observable, Subject } from 'rxjs';
 import * as echarts from 'echarts/core';
 
