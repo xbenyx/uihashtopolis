@@ -1,7 +1,7 @@
 import { TitleComponent, TitleComponentOption, ToolboxComponent, ToolboxComponentOption, TooltipComponent, TooltipComponentOption, GridComponent, GridComponentOption, VisualMapComponent, VisualMapComponentOption, DataZoomComponent, DataZoomComponentOption, MarkLineComponent, MarkLineComponentOption } from 'echarts/components';
 import { LineChart, LineSeriesOption, CandlestickChart } from 'echarts/charts';
 import { faHomeAlt, faEye, faEraser } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -293,7 +293,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
     const params = {'maxResults': this.chunkresults};
     this.gs.getAll(SERV.CHUNKS,{'maxResults': this.chunkresults, 'filter': 'taskId='+id+''}).subscribe((result: any)=>{
       this.timeCalc(result.values);
-      this.initVisualGraph(result.values, 150, 150); // Get data for visual graph
+      // this.initVisualGraph(result.values, 150, 150); // Get data for visual graph
       this.gs.getAll(SERV.AGENTS,params).subscribe((agents: any) => {
       this.getchunks = result.values.map(mainObject => {
         const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
@@ -354,16 +354,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.rerender();
     });
   }
-
-initVisualGraph(obj: object, xdimension: any, ydimension: any){
-
-  //Get Size dimensions
-  // if(xdimension === 0 || ydimension === 0){
-  //   return 'Invalid Size';
-  // }
-  let sizegraph = [xdimension,ydimension];
-
-}
 
 // Task Speed Graph
 initTaskSpeed(obj: object){

@@ -327,14 +327,12 @@
 <!-- Visual  -->
 <app-table *ngIf="tkeyspace > 0">
   <app-page-subtitle [subtitle]="'Visual Graph'"></app-page-subtitle>
-
-  <div id="visualgrap" style="width: 90%;height: 310px;"></div>
-  <tr>
-    <td>
-      <img class='img-fluid' style="height: 32px" src="api/taskimg.php?task=[[task.getId()]]&x=1500&y=32" alt>
-    </td>
-  </tr>
-
+  <task-visual
+              [tkeyspace]="tkeyspace"
+              [cprogress]="cprogress"
+              [taskid]="editedTaskIndex"
+              [tusepreprocessor]="tusepreprocessor"
+  ></task-visual>
 </app-table>
 <!-- Assigned Agents -->
 <app-table>
