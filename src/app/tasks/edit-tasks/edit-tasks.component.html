@@ -328,9 +328,11 @@
 <app-table *ngIf="tkeyspace > 0">
   <app-page-subtitle [subtitle]="'Visual Graph'"></app-page-subtitle>
   <task-visual
+              [view]="'task'"
               [tkeyspace]="tkeyspace"
               [cprogress]="cprogress"
               [taskid]="editedTaskIndex"
+              [taskWrapperId]="taskWrapperId"
               [tusepreprocessor]="tusepreprocessor"
   ></task-visual>
 </app-table>

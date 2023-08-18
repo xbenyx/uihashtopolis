@@ -30,6 +30,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   editMode = false;
   editedTaskIndex: number;
+  taskWrapperId: number;
   editedTask: any // Change to Model
 
   faEraser=faEraser;
@@ -130,6 +131,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.color = result['color'];
       this.getFiles = result.files;
       this.crackerinfo = result.crackerBinary;
+      this.taskWrapperId - result.taskWrapperId;
       // Graph Speed
       this.initTaskSpeed(result.speeds);
       // Hashlist Description and Type

@@ -34,6 +34,7 @@ export class SERV {
   public static SPEEDS = '/ui/speeds';
   public static SUPER_TASKS = '/ui/supertasks';
   public static TASKS = '/ui/tasks';
+  public static TASKS_WRAPPER = '/ui/taskwrappers';
   // USERS
   public static NOTIFICATIONS = '/ui/notifications';
   public static USERS = '/ui/users';

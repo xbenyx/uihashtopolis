@@ -1,14 +1,11 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import canvas from 'canvas';
-
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { GlobalService } from '../../../core/_services/main.service';
 import { SERV } from '../../../core/_services/main.config';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'task-visual',
   template: `
-  <canvas #myCanvas style="border: 1px solid;width:100%;"  height="100">
+  <canvas #myCanvas style="border: 1px solid;" width:1500px height=32px class='img-fluid'>
     Fallback content
   </canvas>
   `
@@ -16,11 +13,15 @@ import { firstValueFrom } from 'rxjs';
 export class TaskVisualomponent  {
 
   @ViewChild("myCanvas") canvasRef: ElementRef;
+  @Input() view: any;
   @Input() tkeyspace: any;
   @Input() taskid: any;
+  @Input() taskWrapperId: any;
   @Input() cprogress: any;
   @Input() tusepreprocessor: any;
   private ctx: CanvasRenderingContext2D;
+  public x = 1500;
+  public y = 32;
 
   constructor(
     private gs: GlobalService
@@ -28,90 +29,121 @@ export class TaskVisualomponent  {
 
   ngAfterViewInit () {
     this.ctx = this.canvasRef.nativeElement.getContext('2d');
+
     this.drawPoint();
+  }
+
+  drawBorder(xPos, yPos, width, height, thickness = 1)
+  {
+    this.ctx.fillStyle='#000';
+    this.ctx.rect(xPos - (thickness), yPos - (thickness), width + (thickness * 2), height + (thickness * 2));
+    this.ctx.fill();
   }
 
   drawPoint() {
 
     const maxResults = 10000;
-    const x = 100;
-    const y = 200;
+
     // const maxResults = environment.config.prodApiMaxResults;
+    this.gs.getAll(SERV.TASKS,{'maxResults': maxResults, 'filter': 'taskId='+this.taskid+''})
+      .subscribe((res) => {
+      this.gs.getAll(SERV.TASKS_WRAPPER,{'maxResults': maxResults, 'filter': 'taskWrapperId='+res.values[0].taskWrapperId+''})
+        .subscribe((res) => {
+          const ch = res.values;
+          console.log(ch)
+          if(ch[0].taskType === 1 && this.view === 'supertask'){
+            for(let i=0; i < ch.length; i++){
+            this.gs.getAll(SERV.CHUNKS,{'maxResults': maxResults, 'filter': 'taskId='+this.taskid+''})
+            .subscribe((res) => {
+              const chunks = res.values;
+              let progress;
+              let cracked;
+              for(let i=0; i < chunks.length; i++){
+                progress.push(chunks[i].progress);
+                cracked.push(chunks[i].cracked);
+              }
+              progress = progress.reduce((a, i) => a + i,0);
+              cracked = cracked.reduce((a, i) => a + i,0);
 
-    const searched = []
+              if(cracked > 0){
+                this.ctx.fillStyle = "#00ff00";
+                this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
+              }
+              //New to get the task keypace
+              // if(){
+              //   this.ctx.fillStyle = "#0000FF";
+              //   this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
+              // }
+              // if(){
+              //   this.ctx.fillStyle = "#00ff00";
+              //   this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
+              // }
+              else{
+                this.ctx.fillStyle = "#c0c0c0";
+                this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
+              }
+            })
+           }
+          }
+          else{
+            this.gs.getAll(SERV.CHUNKS,{'maxResults': maxResults, 'filter': 'taskId='+this.taskid+''})
+            .subscribe((res) => {
 
-    return firstValueFrom(this.gs.getAll(SERV.CHUNKS,{'maxResults': maxResults, 'filter': 'taskId='+this.taskid+''}))
-    .then((res) => {
-      const ch = res.values;
+              const ch = res.values; // Get chunks by id
 
-      var keyspace = Number(this.tkeyspace);
-      var progress = Number(this.cprogress);
+              console.log(ch);
 
-      // if(this.tusepreprocessor === 1 && this.tkeyspace <= 0){
-      //   break;
-      // }
-      console.log(keyspace);
-      console.log(progress);
+              // Getting variables
+              var keyspace = Number(this.tkeyspace); // Get Keyspace Progress
+              var progress = Number(this.cprogress); // Get Progress
 
-      for(let i=0; i < ch.length; i++){
-        var start = Math.floor((100 - 1) * ch[i]['skip'] / keyspace);
-        var end = Math.floor((100 - 1) * (ch[i]['skip'] + keyspace+ ch[i]['length'])/keyspace) -1;
-        var current = Math.floor((100 - 1) * (ch[i]['skip'] + keyspace+ ch[i]['length'] * progress / 10000) /keyspace) -1;
+              // this.ctx.beginPath();
+              for(let i=0; i < ch.length; i++){
+                if(this.tusepreprocessor === 1 && this.tkeyspace <= 0){
+                  break;
+                }
+                var start = Math.floor((this.x - 1) * ch[i]['skip'] / keyspace);
+                var end = Math.floor((this.x - 1) * (ch[i]['skip'] + ch[i]['length']) / keyspace) -1;
+                var current = Math.floor((this.x - 1) * (ch[i]['skip'] + ch[i]['length'] * progress / 10000) /keyspace) -1;
 
-        console.log(start);
-        console.log(end);
-        console.log(current);
-        if(current > end) {
-          current = end;
-        }
+                if(current > end) {
+                  current = end;
+                }
 
-       if(end - start < 3){
-
-        if(ch[i]['state'] >= 6){
-
-
-        }if (ch[i]['cracked'] > 0) {
-
-
-        } else {
-
-
-        }
-       }else{
-        console.log('here');
-        this.ctx.beginPath();
-        this.ctx.arc(100, 100, 30, 0, 2 * Math.PI);
-        this.ctx.fillStyle = "yellow";
-        this.ctx.fill();
-       }
-
-      }
-
-
-      // this.ctx.beginPath();
-      // this.ctx.arc(50, 50, 30, 0, 2 * Math.PI);
-      // this.ctx.fillStyle = "darkred";
-      // this.ctx.fill();
-
-    });
-
+               if(end - start < 3){
+                if(ch[i]['state'] >= 6){
+                  this.ctx.rect(start, 0, end, this.y-1);
+                  this.ctx.fillStyle = "#ff0000";
+                }if (ch[i]['cracked'] > 0) {
+                  this.ctx.rect(start, 0, end, this.y-1);
+                  this.ctx.fillStyle = "#00ff00";
+                } else {
+                  this.ctx.rect(start, 0, end, this.y-1);
+                  this.ctx.fillStyle = "#ffff00";
+                }
+               }else{
+                  if(ch[i]['state'] >= 6){
+                    this.ctx.rect(start, 0, end, (this.y-1));
+                    this.ctx.fillStyle = "#ff0000";
+                  }
+                  else{
+                    this.ctx.fillStyle = "#c0c0c0";
+                    this.ctx.rect(start, 1, end, (this.y));
+                  }
+                  if(ch[i]['cracked'] > 0){
+                    this.ctx.fillStyle = "#00ff00";
+                    this.ctx.rect(start+1, 1, current-1, (this.y-2));
+                  }else{
+                    this.ctx.strokeStyle="#ffff00";
+                    this.ctx.strokeRect(start+1, 1, current-1, (this.y-2));//for white background
+                  }
+               }
+               this.ctx.fill();
+              }
+            });
+          }
+      })
+    })
   }
-
-  // Setting colours
-
-
-  // Preparing data
-
-  // Get Keyspace Progress
-  // Max keyspace progress
-
-
-  //Load all chunks
-
-
-
-
-
 }
-
 
