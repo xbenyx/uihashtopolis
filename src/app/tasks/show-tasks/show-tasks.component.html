@@ -61,9 +61,9 @@
         <td *ngIf="task.taskType === 0">{{ task.preprocessorId === 1 ? 'Prince':'-'}}</td>
         <td *ngIf="task.taskType === 1">-</td>
         <td style="white-space: nowrap;" *ngIf="task.taskType === 0">
-          <a [routerLink]="['/hashlists/hashlist',task.hashlist.hashlistId,'edit']" ngbTooltip={{task.hashlist.name}}>{{ task.hashlist.name | shortenString:30 | lowercase | titlecase}}</a>
-          <span *ngIf="task.hashlist.hashCount === task.hashlist.cracked"><fa-icon [icon]="faCheckCircle" aria-hidden="true"></fa-icon></span>
-          <span *ngIf="task.hashlist.isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
+          <a [routerLink]="['/hashlists/hashlist',task.hashlist[0].hashlistId,'edit']" ngbTooltip={{task.hashlist[0].name}}>{{ task.hashlist[0].name | shortenString:30 | lowercase | titlecase}}</a>
+          <span *ngIf="task.hashlist[0].hashCount === task.hashlist[0].cracked"><fa-icon [icon]="faCheckCircle" aria-hidden="true"></fa-icon></span>
+          <span *ngIf="task.hashlist[0].isSecret === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
         </td>
         <td style="white-space: nowrap;" *ngIf="task.taskType === 1">
           <a [routerLink]="['/hashlists/hashlist',task.hashlistId,'edit']">{{ task.name | shortenString:30 | lowercase | titlecase }}</a>
@@ -80,7 +80,7 @@
         <td *ngIf="task.taskType === 1">-</td>
         <td *ngIf="task.taskType === 0">{{ task.taskId | aassigned | async }}</td>
         <td *ngIf="task.taskType === 1">-</td>
-        <td style="white-space: nowrap;" *ngIf="task.taskType === 0">{{ task.taskId | aspeed | async | fileSize:false:1000 }} H/s {{ task.taskId | aspeed | async }}</td>
+        <td style="white-space: nowrap;" *ngIf="task.taskType === 0">{{ task.taskId | aspeed | async | fileSize:false:1000 }} H/s</td>
         <td *ngIf="task.taskType === 1">-</td>
         <td>
           {{ task.priority }}

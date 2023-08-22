@@ -59,6 +59,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
+  dtTrigger1: Subject<any> = new Subject<any>();
   dtOptions: any = {};
   dtOptions1: any = {};
   hashlistinform:any;
@@ -190,7 +191,8 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
           const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
           return { ...mainObject, ...matchObject }
         })
-        this.dtTrigger.next(void 0);
+        console.log(this.assigAgents);
+        this.dtTrigger1.next(void 0);
       });
     });
 
