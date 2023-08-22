@@ -1,9 +1,9 @@
 import { TitleComponent, TitleComponentOption, ToolboxComponent, ToolboxComponentOption, TooltipComponent, TooltipComponentOption, GridComponent, GridComponentOption, VisualMapComponent, VisualMapComponentOption, DataZoomComponent, DataZoomComponentOption, MarkLineComponent, MarkLineComponentOption } from 'echarts/components';
-import { LineChart, LineSeriesOption, CandlestickChart } from 'echarts/charts';
-import { faHomeAlt, faEye, faEraser } from '@fortawesome/free-solid-svg-icons';
-import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { faHomeAlt, faEye, faEraser, faLock, faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { LineChart, LineSeriesOption } from 'echarts/charts';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { UniversalTransition } from 'echarts/features';
@@ -33,8 +33,11 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   taskWrapperId: number;
   editedTask: any // Change to Model
 
+  faPencil=faPencil;
   faEraser=faEraser;
   faHome=faHomeAlt;
+  faTrash=faTrash;
+  faLock=faLock;
   faEye=faEye;
 
   private maxResults = environment.config.prodApiMaxResults;
@@ -48,6 +51,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   ) { }
 
   updateForm: FormGroup;
+  createForm: FormGroup; // Assign Agent
   colorpicker=colorpicker;
   color = '';
 
@@ -56,9 +60,12 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   dtTrigger: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  dtOptions1: any = {};
   hashlistinform:any;
   hashlistDescrip:any;
+  assigAgents: any;
   uidateformat:any;
+  availAgents:any;
   crackerinfo:any;
   getchunks: any;
   getFiles: any;
@@ -99,6 +106,10 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       }),
     });
 
+    this.createForm = new FormGroup({
+      'agentId': new FormControl(),
+    });
+
   }
 
   OnChangeValue(value){
@@ -109,7 +120,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 
   onSubmit(){
     if (this.updateForm.valid) {
-
       this.gs.update(SERV.TASKS,this.editedTaskIndex,this.updateForm.value['updateData']).subscribe(() => {
           Swal.fire({
             title: "Success",
@@ -134,6 +144,8 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       this.taskWrapperId - result.taskWrapperId;
       // Graph Speed
       this.initTaskSpeed(result.speeds);
+      // Assigned Agents init
+      this.assingAgentInit();
       // Hashlist Description and Type
       this.hashlistinform =  result.hashlist;
       this.gs.getAll(SERV.HASHTYPES,{'filter': 'hashTypeId='+result.hashlist['hashTypeId']+''}).subscribe((htypes: any) => {
@@ -166,12 +178,106 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
    }
   }
 
-  attachFilesInit(id: number){
+/**
+ * The below functions are related with assign, manage and delete agents
+ *
+**/
+  assingAgentInit(){
+    this.gs.getAll(SERV.AGENT_ASSIGN).subscribe((res)=>{
+      this.gs.getAll(SERV.AGENTS,{'maxResults': this.maxResults}).subscribe((agents)=>{
+        this.availAgents = this.getAvalAgents(res.values,agents.values);
+        this.assigAgents = res.values.map(mainObject => {
+          const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
+          return { ...mainObject, ...matchObject }
+        })
+        this.dtTrigger.next(void 0);
+      });
+    });
+
+    this.dtOptions1 = {
+      dom: 'Bfrtip',
+      scrollY: "700px",
+      scrollCollapse: true,
+      paging: false,
+      destroy: true,
+      searching: false,
+      bInfo: false,
+      buttons:[]
+    }
+  }
+
+  getAvalAgents(assing: any, agents: any){
+
+    return agents.filter(u => assing.findIndex(lu => lu.agentId === u.agentId) === -1);
 
   }
 
-  assingAgentInit(id: number){
+  asignAgents(){
+    if (this.createForm.valid) {
+      const payload = {"taskId": this.editedTaskIndex, "agentId":this.createForm.value['agentId']};
+      this.gs.create(SERV.AGENT_ASSIGN,payload).subscribe(() => {
+          Swal.fire({
+            title: "Success",
+            text: "Agent Assigned!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this.rerender();  // rerender datatables
+          this.ngOnInit();
+        }
+      );
+    }
+  }
 
+  onDelete(id: number){
+    this.gs.delete(SERV.AGENT_ASSIGN,id).subscribe(() => {
+      Swal.fire({
+        title: "Success",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.rerender();  // rerender datatables
+      this.ngOnInit();
+    });
+  }
+
+  onModalUpdate(title: string, id: number, cvalue: any, nameref: string ){
+    (async () => {
+
+      const { value: formValues } = await Swal.fire({
+        title: title + ' - '+ nameref,
+        html:
+          '<input id="project-input" class="swal2-input" type="number" placeholder="'+cvalue+'">',
+        focusConfirm: false,
+        showCancelButton: true,
+        cancelButtonColor: '#C53819',
+        confirmButtonColor: '#8A8584',
+        cancelButton: true,
+        preConfirm: () => {
+          return [
+            (<HTMLInputElement>document.getElementById('project-input')).value,
+          ]
+        }
+      })
+
+      if (formValues) {
+        if(cvalue !== Number(formValues[0])){
+          this.gs.update(SERV.AGENT_ASSIGN,id, {benchmark: +formValues}).subscribe(() => {
+            Swal.fire({
+              title: "Success",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500
+            });
+            this.ngOnInit();
+            this.rerender();  // rerender datatables
+          });
+        }
+      }
+
+    })()
   }
 
 /**

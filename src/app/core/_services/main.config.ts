@@ -11,6 +11,7 @@ export class SERV {
   // AGENTS
   public static AGENTS = '/ui/agents';
   public static AGENTS_STATS = '/ui/agentstats';
+  public static AGENT_ASSIGN = '/ui/agentassignments';
   public static VOUCHER = '/ui/vouchers';
   // CONFIGURATION
   public static AGENT_BINARY = '/ui/agentbinaries';

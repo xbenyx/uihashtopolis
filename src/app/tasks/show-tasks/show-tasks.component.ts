@@ -221,11 +221,11 @@ getTasks():void {
       let filtertasks = tw.values.filter(u=> (u.taskType == 0 && u.isArchived === this.isArchived)); //Active Tasks
       let filtersupert = tw.values.filter(u=> (u.taskType == 1 && u.isArchived === this.isArchived)); // Active SuperTasks
       let supertasks = filtersupert.map(mainObject => {
-        const matchObject = h.values.find(element => element.hashlistId === mainObject.hashlistId )
+        const matchObject = h.values.find(element => element.hashlistId === mainObject.hashlistId );
         return { ...mainObject, ...matchObject }
       }) //Join Supertasks from TaskWrapper with Hashlist info
       let mergeTasks = filtertasks.map(mainObject => {
-        const matchObject = tasks.values.find(element => element.taskWrapperId === mainObject.taskWrapperId )
+        const matchObject = tasks.values.find(element => element.taskWrapperId === mainObject.taskWrapperId );
         return { ...mainObject, ...matchObject }
       }) // Join Tasks with Taskwrapper information for filtering
       let prepdata = mergeTasks.concat(supertasks); // Join with supertasks

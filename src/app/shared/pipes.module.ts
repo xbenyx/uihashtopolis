@@ -24,11 +24,13 @@ import { FileTypePipe } from "../core/_pipes/file-type.pipe";
 import { GroupByPipe } from "../core/_pipes/groupby.pipe";
 import { SumPipe } from "../core/_pipes/sum-object.pipe";
 import { SplitPipe } from "../core/_pipes/split.pipe";
+import { AgentsAssignedPipe } from "../core/_pipes/agents-assigned.pipe";
 
 @NgModule({
   declarations: [
     HealthCheckStatusPipe,
     TaskDispatchedPipe,
+    AgentsAssignedPipe,
     ReplaceStringPipe,
     ShortenStringPipe,
     SecondsToTimePipe,
@@ -55,6 +57,7 @@ import { SplitPipe } from "../core/_pipes/split.pipe";
   exports: [
     HealthCheckStatusPipe,
     TaskDispatchedPipe,
+    AgentsAssignedPipe,
     ReplaceStringPipe,
     ShortenStringPipe,
     SecondsToTimePipe,
