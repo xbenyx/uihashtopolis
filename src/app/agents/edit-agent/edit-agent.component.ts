@@ -93,8 +93,21 @@ export class EditAgentComponent implements OnInit {
       this.agentStats(agent.agentstats);
     });
 
-    const params = {'maxResults': this.maxResults};
-    this.gs.getAll(SERV.USERS, params).subscribe((user: any) => {
+    // For Test Only
+    this.gs.getAll(SERV.TASKS_WRAPPER,{'maxResults': this.maxResults}).subscribe((tw: any) => {
+      this.gs.getAll(SERV.TASKS, {'maxResults': this.maxResults, 'filter': 'isArchived=false'}).subscribe((tasks: any) => {
+        console.log(tw);
+        console.log(tasks);
+        let supertasks = tw.values.map(mainObject => {
+          const matchObject = tasks.values.find(element => element.taskWrapperId === mainObject.taskWrapperId );
+          return { ...mainObject, ...matchObject }
+        })
+        console.log(supertasks);
+      });
+    });
+    // For Test Only
+
+    this.gs.getAll(SERV.USERS, {'maxResults': this.maxResults}).subscribe((user: any) => {
       this.users = user.values;
     });
 

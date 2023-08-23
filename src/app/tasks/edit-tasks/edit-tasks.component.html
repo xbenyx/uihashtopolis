@@ -234,7 +234,7 @@
                 <grid-form-input [name]="'Time spent'">
                     <span class="pre input-group-text input-group-lg" *ngIf="ctimespent; else templatedash">
                       <td>
-                          {{ ctimespent | sectotime }}
+                          {{ editedTaskIndex | ttimespent:false:true | async | sectotime }}
                       </td>
                     </span>
                 </grid-form-input>
@@ -272,7 +272,7 @@
                   <label *ngIf="hashlistinform.format === 0" class="form-label" for="getTaskId">Hashlist</label>
                   <label *ngIf="hashlistinform.format === 3" class="form-label" for="getTaskId">Superhaslist</label>
                   <td>
-                    <a [routerLink]="['/hashlists/hashlist', hashlistinform.hashlistId,'edit']">{{ hashlistinform.name }} {{ hashlistDescrip }}</a>
+                    <a [routerLink]="['/hashlists/hashlist', hashlistinform.hashlistId,'edit']">{{ hashlistinform.name }} / {{ hashlistDescrip }}</a>
                 </grid-form-input>
               </div>
               <div class="col">
@@ -365,8 +365,9 @@
     <thead class="thead-light">
       <tr>
           <th class="rounded-start">ID</th>
-          <th>Name</th>
           <th>Status</th>
+          <th>Name</th>
+          <th>Agent Status</th>
           <th>Benchmark</th>
           <th>Speed</th>
           <th>Keyspace searched</th>
@@ -379,29 +380,34 @@
       <tbody>
       <tr *ngFor="let a of assigAgents">
         <td>{{ a.assignmentId }}</td>
+        <td>
+          <app-active-spinner *ngIf="( a.agentId | aspeed:true | async ) > 0"></app-active-spinner>
+        </td>
         <td style="white-space: nowrap;">
-          <a [routerLink]="['/agents/show-agents/',a.agentId,'edit']">
+          <a [routerLink]="['/agents/show-agents/',a.agentId,'edit']" ngbTooltip={{a.agentName}}>
             {{ a.agentName | shortenString:30 | lowercase | titlecase }}
           </a>
+          <span *ngIf="a.isTrusted === true" ><fa-icon [icon]="faLock" aria-hidden="true" ngbTooltip='Trust agent with secret data'></fa-icon></span>
+        </td>
+        <td>
           <span *ngIf="a.isActive === true" class="ui-label-inner inline-flex whitespace-nowrap items-center px-2 py-0.5 rounded-md text-xs font-medium text-white capitalize badge my-0" style="background-color: green;">
             Active
           </span>
           <span *ngIf="a.isActive === false" class="ui-label-inner inline-flex whitespace-nowrap items-center px-2 py-0.5 rounded-md text-xs font-medium text-white capitalize badge my-0" style="background-color: rgba(255, 136, 0, 0.87);">
             Inactive
           </span>
-          <span *ngIf="a.isTrusted === true" ><fa-icon [icon]="faLock" aria-hidden="true"></fa-icon></span>
         </td>
-        <td>
-          <app-active-spinner *ngIf="( a.agentId | aspeed:true | async ) > 0"></app-active-spinner>
-        </td>
-        <td style="white-space: nowrap;">{{ a.benchmark }}
+        <td style="white-space: nowrap;">
+          <a ngbTooltip={{a.benchmark}}>{{ a.benchmark | shortenString:20 }}</a>
           <fa-icon style="cursor: pointer;" (click)="this.onModalUpdate('New Benchmark', a.assignmentId, a.benchmark, a.agentName)" [icon]="faPencil" aria-hidden="true"></fa-icon>
         </td>
         <td>{{ a.agentId | aspeed:true | async | fileSize:false:1000 }} H/s</td>
         <td>
-          <!-- <a *ngIf="task.keyspace > 0">{{ task.taskId | tdispatched:task.keyspace | async  | percent:'1.2-2'}} / {{ task.taskId | tdsearched:task.keyspace | async | percent:'1.2-2'}}</a> -->
+          <a *ngIf="tkeyspace > 0">{{ a.agentId | tdsearched:tkeyspace:true | async | percent:'1.2-2'}}</a>
         </td>
-        <td>onProgress</td>
+        <td>
+          {{ a.agentId | ttimespent:false:true | async | sectotime }}
+        </td>
         <td>
           <a *ngIf="(a.agentId | tdcracked | async) > 0"  [routerLink]="['/hashlists/hashes/','tasks',editedTaskIndex]" routerLinkActive="active">{{ a.agentId | tdcracked | async }}</a>
         </td>

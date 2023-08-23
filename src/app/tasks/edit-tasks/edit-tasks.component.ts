@@ -62,12 +62,14 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
   dtTrigger1: Subject<any> = new Subject<any>();
   dtOptions: any = {};
   dtOptions1: any = {};
-  hashlistinform:any;
+  tusepreprocessor: any;
   hashlistDescrip:any;
+  hashlistinform:any;
   assigAgents: any;
   uidateformat:any;
   availAgents:any;
   crackerinfo:any;
+  tkeyspace: any;
   getchunks: any;
   getFiles: any;
 
@@ -148,7 +150,7 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
       // Assigned Agents init
       this.assingAgentInit();
       // Hashlist Description and Type
-      this.hashlistinform =  result.hashlist;
+      this.hashlistinform =  result.hashlist[0];
       this.gs.getAll(SERV.HASHTYPES,{'filter': 'hashTypeId='+result.hashlist['hashTypeId']+''}).subscribe((htypes: any) => {
        this.hashlistDescrip = htypes.values[0].description;
       })
@@ -191,7 +193,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
           const matchObject = agents.values.find(element => element.agentId === mainObject.agentId)
           return { ...mainObject, ...matchObject }
         })
-        console.log(this.assigAgents);
         this.dtTrigger1.next(void 0);
       });
     });
@@ -288,8 +289,6 @@ export class EditTasksComponent implements OnInit,PendingChangesGuard {
 **/
   // Keyspace searched
   cprogress: any;
-  tkeyspace: any;
-  tusepreprocessor: any;
   // Time Spent
   ctimespent: any;
   timeCalc(chunks){

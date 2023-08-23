@@ -26,7 +26,7 @@ export class SERV {
   public static LOGS = '/ui/logentries';
   public static PREPROCESSORS = '/ui/preprocessors';
   // FILES
-  public static FILES = '/ui/helper/importFile'; // Previous call /ui/files
+  public static FILES = '/ui/files'; // Previous call  '/ui/helper/importFile'
   // HASHLISTS
   public static HASHES = '/ui/hashes';
   public static HASHLISTS = '/ui/hashlists';
