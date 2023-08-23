@@ -136,6 +136,36 @@
               </button>
             </app-button-actions>
           </div>
+            <!-- Modal Start -->
+            <ng-template #pretask let-modal>
+              <app-modal-table [title]="'Subtasks'">
+                <table class="table table-striped table-hover table-sm" #subtasks datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" id="subtasks">
+                  <thead class="thead-light">
+                    <th class="rounded-start">ID</th>
+                    <th>Name</th>
+                    <th>Dispatched / Searched</th>
+                    <th>Cracked</th>
+                    <th>Agents</th>
+                    <th>Priority</th>
+                    <th>Max. Agents</th>
+                    <th class="rounded-end">Actions</th>
+                  </thead>
+                  <tbody>
+                    <!-- <tr *ngFor="let pt of pretasks">
+                      <td>{{ pt.pretaskId }}</td>
+                      <td>
+                        <a [routerLink]="['/tasks/preconfigured-tasks/', pt.pretaskId,'edit']">
+                          {{ pt.taskName }}
+                        </a>
+                      </td>
+                      <td>{{ pt.priority }}</td>
+                      <td>delete Missing?</td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </app-modal-table>
+            </ng-template>
+            <!-- Modal End -->
         <!-- </td> -->
         </div>
       </tr>

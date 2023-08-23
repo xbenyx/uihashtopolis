@@ -40,7 +40,9 @@ export class ShowTasksComponent implements OnInit {
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
+  dtTrigger1: Subject<any> = new Subject<any>();
   dtOptions: any = {};
+  dtOptions1: any = {};
 
   private updateSubscription: Subscription;
 
