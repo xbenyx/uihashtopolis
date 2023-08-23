@@ -213,7 +213,7 @@ onRefresh(){
 }
 
 getTasks():void {
-  const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist,speeds', 'filter': 'isArchived='+this.isArchived+''};
+  const params = {'maxResults': this.maxResults, 'expand': 'crackerBinary,crackerBinaryType,hashlist,speeds,assignedAgents', 'filter': 'isArchived='+this.isArchived+''};
 
   this.gs.getAll(SERV.TASKS_WRAPPER,{'maxResults': this.maxResults}).subscribe((tw: any) => {
     this.gs.getAll(SERV.TASKS,params).subscribe((tasks: any) => {

@@ -4,6 +4,8 @@
 
 export class SERV {
 
+  // HELPER
+  public static HELPER = '/ui/helper';
   // ACCESS
   public static AUTH = '/auth';
   public static ACCESS_GROUPS = '/ui/accessgroups';
@@ -24,7 +26,7 @@ export class SERV {
   public static LOGS = '/ui/logentries';
   public static PREPROCESSORS = '/ui/preprocessors';
   // FILES
-  public static FILES = '/ui/files';
+  public static FILES = '/ui/helper/importFile'; // Previous call /ui/files
   // HASHLISTS
   public static HASHES = '/ui/hashes';
   public static HASHLISTS = '/ui/hashlists';

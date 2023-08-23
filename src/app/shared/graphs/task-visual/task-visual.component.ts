@@ -5,10 +5,13 @@ import { SERV } from '../../../core/_services/main.config';
 @Component({
   selector: 'task-visual',
   template: `
-  <canvas #myCanvas style="border: 1px solid;" width:1500px height=32px class='img-fluid'>
+  <canvas #myCanvas style="border: 1px solid;" width={{x}} height=32px class='img-fluid'>
     Fallback content
   </canvas>
-  `
+  `,
+  host: {
+    "(window:resize)":"onWindowResize($event)"
+  }
 })
 export class TaskVisualomponent  {
 
@@ -20,12 +23,17 @@ export class TaskVisualomponent  {
   @Input() cprogress: any;
   @Input() tusepreprocessor: any;
   private ctx: CanvasRenderingContext2D;
-  public x = 1500;
+  // public x = 1500;
+  public x:number = window.innerWidth; // Dynamic width
   public y = 32;
 
   constructor(
     private gs: GlobalService
   ) { }
+
+  onWindowResize(event) {
+    this.x = event.target.innerWidth;
+  }
 
   ngAfterViewInit () {
     this.ctx = this.canvasRef.nativeElement.getContext('2d');
@@ -50,7 +58,6 @@ export class TaskVisualomponent  {
       this.gs.getAll(SERV.TASKS_WRAPPER,{'maxResults': maxResults, 'filter': 'taskWrapperId='+res.values[0].taskWrapperId+''})
         .subscribe((res) => {
           const ch = res.values;
-          console.log(ch)
           if(ch[0].taskType === 1 && this.view === 'supertask'){
             for(let i=0; i < ch.length; i++){
             this.gs.getAll(SERV.CHUNKS,{'maxResults': maxResults, 'filter': 'taskId='+this.taskid+''})
@@ -67,9 +74,9 @@ export class TaskVisualomponent  {
 
               if(cracked > 0){
                 this.ctx.fillStyle = "#00ff00";
-                this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
+                this.ctx.fillRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
               }
-              //New to get the task keypace
+              //ToDo need to get the task keypace
               // if(){
               //   this.ctx.fillStyle = "#0000FF";
               //   this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
@@ -80,7 +87,7 @@ export class TaskVisualomponent  {
               // }
               else{
                 this.ctx.fillStyle = "#c0c0c0";
-                this.ctx.strokeRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
+                this.ctx.fillRect(i*this.x/ch.length, 0, (i+1)*this.x/ch.length, (this.y-1));
               }
             })
            }
@@ -91,20 +98,18 @@ export class TaskVisualomponent  {
 
               const ch = res.values; // Get chunks by id
 
-              console.log(ch);
-
               // Getting variables
-              var keyspace = Number(this.tkeyspace); // Get Keyspace Progress
-              var progress = Number(this.cprogress); // Get Progress
+              let keyspace = Number(this.tkeyspace); // Get Keyspace Progress
+              let progress = Number(this.cprogress); // Get Progress
 
               // this.ctx.beginPath();
               for(let i=0; i < ch.length; i++){
                 if(this.tusepreprocessor === 1 && this.tkeyspace <= 0){
                   break;
                 }
-                var start = Math.floor((this.x - 1) * ch[i]['skip'] / keyspace);
-                var end = Math.floor((this.x - 1) * (ch[i]['skip'] + ch[i]['length']) / keyspace) -1;
-                var current = Math.floor((this.x - 1) * (ch[i]['skip'] + ch[i]['length'] * progress / 10000) /keyspace) -1;
+                let start = Math.floor((this.x - 1) * ch[i]['skip'] / keyspace);
+                let end = Math.floor((this.x - 1) * (ch[i]['skip'] + ch[i]['length']) / keyspace) -1;
+                let current = Math.floor((this.x - 1) * (ch[i]['skip'] + ch[i]['length'] * progress / 10000) /keyspace) -1;
 
                 if(current > end) {
                   current = end;
@@ -112,33 +117,32 @@ export class TaskVisualomponent  {
 
                if(end - start < 3){
                 if(ch[i]['state'] >= 6){
-                  this.ctx.rect(start, 0, end, this.y-1);
-                  this.ctx.fillStyle = "#ff0000";
+                  this.ctx.fillStyle = "#ff0000"; //Red
+                  this.ctx.fillRect(start, 0, end, this.y-1);
                 }if (ch[i]['cracked'] > 0) {
-                  this.ctx.rect(start, 0, end, this.y-1);
-                  this.ctx.fillStyle = "#00ff00";
+                  this.ctx.fillStyle = "#00ff00"; //Green
+                  this.ctx.fillRect(start, 0, end, this.y-1);
                 } else {
-                  this.ctx.rect(start, 0, end, this.y-1);
-                  this.ctx.fillStyle = "#ffff00";
+                  this.ctx.fillStyle = "#ffff00"; //Yellow
+                  this.ctx.fillRect(start, 0, end, this.y-1);
                 }
                }else{
                   if(ch[i]['state'] >= 6){
-                    this.ctx.rect(start, 0, end, (this.y-1));
-                    this.ctx.fillStyle = "#ff0000";
+                    this.ctx.fillStyle = "#ff0000"; //Red
+                    this.ctx.fillRect(start, 0, end, (this.y-1));
                   }
                   else{
-                    this.ctx.fillStyle = "#c0c0c0";
-                    this.ctx.rect(start, 1, end, (this.y));
+                    this.ctx.fillStyle = "#c0c0c0"; //Gray
+                    this.ctx.fillRect(start, 1, end, (this.y));
                   }
                   if(ch[i]['cracked'] > 0){
-                    this.ctx.fillStyle = "#00ff00";
-                    this.ctx.rect(start+1, 1, current-1, (this.y-2));
+                    this.ctx.fillStyle = "#00ff00"; //Green
+                    this.ctx.fillRect(start+1, 1, current-1, (this.y-2));
                   }else{
-                    this.ctx.strokeStyle="#ffff00";
-                    this.ctx.strokeRect(start+1, 1, current-1, (this.y-2));//for white background
+                    this.ctx.fillStyle="#ffff00"; //Yellow
+                    this.ctx.fillRect(start+1, 1, current-1, (this.y-2));
                   }
                }
-               this.ctx.fill();
               }
             });
           }
