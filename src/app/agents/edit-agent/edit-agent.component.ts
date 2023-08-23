@@ -51,6 +51,7 @@ export class EditAgentComponent implements OnInit {
 
   updateForm: FormGroup
   showagent: any = [];
+  groups: any = [];
   users: any = [];
 
   @ViewChild(DataTableDirective)
@@ -86,8 +87,9 @@ export class EditAgentComponent implements OnInit {
     });
 
     const id = +this.route.snapshot.params['id'];
-    this.gs.get(SERV.AGENTS,id,{'expand':'agentstats'}).subscribe((agent: any) => {
+    this.gs.get(SERV.AGENTS,id,{'expand':'agentstats,accessGroups'}).subscribe((agent: any) => {
       this.showagent = agent;
+      this.groups = agent.accessGroups;
       this.agentStats(agent.agentstats);
     });
 
@@ -210,7 +212,6 @@ export class EditAgentComponent implements OnInit {
   // //
 
   agentStats(obj: any){
-    console.log(obj);
     this.getGraph(obj.filter(u=> u.statType == ASC.GPU_TEMP),ASC.GPU_TEMP,'tempgraph'); // filter Device Temperature
     this.getGraph(obj.filter(u=> u.statType == ASC.GPU_UTIL),ASC.GPU_UTIL,'devicegraph'); // filter Device Utilization
     this.getGraph(obj.filter(u=> u.statType == ASC.CPU_UTIL),ASC.CPU_UTIL,'cpugraph'); // filter CPU utilization
@@ -255,8 +256,6 @@ getGraph(obj: object, status: number, name: string){
 
   // console.log(this.getTemp1());  //Min temp
   // console.log(this.getTemp2());  //Max temp
-
-  console.log(obj);
 
   const data:any = obj;
   const arr = [];

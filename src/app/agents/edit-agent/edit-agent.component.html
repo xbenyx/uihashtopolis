@@ -178,11 +178,13 @@
             </div>
             <div class="col-md-4">
               <grid-form-input [name]="'Member of access groups'" [labelclass]="'display-col'">
-                <input
-                      type='string'
-                      id="accessgroups"
-                      class='form-control'
-                >
+                <span class="pre input-group-text input-group-lg">
+                  <td>
+                    <div *ngFor="let g of groups" style="text-align:left;">
+                      <a [routerLink]="['/users/access-groups/',g.accessGroupId,'edit']">{{g.groupName}}</a>
+                    </div>
+                  </td>
+                </span>
               </grid-form-input>
             </div>
           </div>
