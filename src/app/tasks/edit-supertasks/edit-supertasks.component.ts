@@ -51,6 +51,7 @@ export class EditSupertasksComponent implements OnInit {
   etForm:FormGroup; //estimation time form
   pretasks: any = [];
   pretasksFiles: any = [];
+  assignPretasks: any;
 
   ngOnInit(): void {
 
@@ -197,9 +198,22 @@ export class EditSupertasksComponent implements OnInit {
     });
   }
 
+  onDeletePret(id: number){
+    // { "supertaskName": "fdfdf", "pretasks": [ 2, 1 ] }
+
+    const filter = this.assignPretasks.filter(u => u.pretaskId !== id);
+    const payload = [];
+    for(let i=0; i < filter.length; i++){
+      payload.push(filter[i].pretaskId);
+    }
+    this.gs.update(SERV.SUPER_TASKS,this.editedSTIndex,{'pretasks': payload}).subscribe((result)=>{})
+
+  }
+
   private initForm() {
     if (this.editMode) {
-    this.gs.get(SERV.SUPER_TASKS,this.editedSTIndex).subscribe((result)=>{
+    this.gs.get(SERV.SUPER_TASKS,this.editedSTIndex,{'expand': 'pretasks'}).subscribe((result)=>{
+      this.assignPretasks = result.pretasks;
       this.viewForm = new FormGroup({
         supertaskId: new FormControl({value: result['supertaskId'], disabled: true}),
         supertaskName: new FormControl({value: result['supertaskName'], disabled: true}),
