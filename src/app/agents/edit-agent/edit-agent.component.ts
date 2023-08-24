@@ -96,13 +96,10 @@ export class EditAgentComponent implements OnInit {
     // For Test Only
     this.gs.getAll(SERV.TASKS_WRAPPER,{'maxResults': this.maxResults}).subscribe((tw: any) => {
       this.gs.getAll(SERV.TASKS, {'maxResults': this.maxResults, 'filter': 'isArchived=false'}).subscribe((tasks: any) => {
-        console.log(tw);
-        console.log(tasks);
         let supertasks = tw.values.map(mainObject => {
           const matchObject = tasks.values.find(element => element.taskWrapperId === mainObject.taskWrapperId );
           return { ...mainObject, ...matchObject }
         })
-        console.log(supertasks);
       });
     });
     // For Test Only
@@ -233,6 +230,8 @@ export class EditAgentComponent implements OnInit {
   // Temperature Graph
 getGraph(obj: object, status: number, name: string){
 
+  // console.log(obj)
+
   echarts.use([
     TitleComponent,
     ToolboxComponent,
@@ -284,6 +283,7 @@ getGraph(obj: object, status: number, name: string){
     return res;
   }, {});
 
+  console.log(result)
   for(let i=0; i < result.length; i++){
 
     const iso = this.transDate(result[i]['time']);
@@ -357,12 +357,6 @@ getGraph(obj: object, status: number, name: string){
         name:'Device',
         type: 'line',
         data: arr,
-        // markPoint: {
-        //   data: [
-        //     { type: 'max', name: 'Max' },
-        //     { type: 'min', name: 'Min' }
-        //   ]
-        // },
         markLine: {
           data: [{ type: 'average', name: 'Avg' }],
           symbol:['none', 'none'],
