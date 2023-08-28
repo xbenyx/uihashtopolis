@@ -9,6 +9,7 @@ import { NgModule } from "@angular/core";
 import { EditPreconfiguredTasksComponent } from './edit-preconfigured-tasks/edit-preconfigured-tasks.component';
 import { NewPreconfiguredTasksComponent } from "./new-preconfigured-tasks/new-preconfigured-tasks.component";
 import { PreconfiguredTasksComponent } from "./preconfigured-tasks/preconfigured-tasks.component";
+import { ModalSubtasksComponent } from './show-tasks/modal-subtasks/modal-subtasks.component';
 import { ModalPretasksComponent } from './supertasks/modal-pretasks/modal-pretasks.component';
 import { EditSupertasksComponent } from './edit-supertasks/edit-supertasks.component';
 import { NewSupertasksComponent } from "./new-supertasks/new-supertasks.component";
@@ -33,6 +34,7 @@ import { PipesModule } from "../shared/pipes.module";
     NewSupertasksComponent,
     ApplyHashlistComponent,
     ModalPretasksComponent,
+    ModalSubtasksComponent,
     SupertasksComponent,
     ShowTasksComponent,
     EditTasksComponent,
@@ -54,7 +56,8 @@ import { PipesModule } from "../shared/pipes.module";
     NgbModule
  ],
  exports: [
-  ModalPretasksComponent
+  ModalPretasksComponent,
+  ModalSubtasksComponent
  ]
 })
 export class TasksModule {}
