@@ -129,6 +129,8 @@ export class SupertasksComponent implements OnInit {
     const _filter = this.allsupertasks.filter(u=> u.supertaskId == id);
     this.pretasks = _filter[0]['pretasks'];
     ref.componentInstance.prep = _filter[0]['pretasks'];
+    ref.componentInstance.supertaskid = id;
+    ref.componentInstance.title = 'Edit Pretaks'
   }
 
   onRefresh(){
