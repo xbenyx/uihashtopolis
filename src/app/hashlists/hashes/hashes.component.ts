@@ -164,8 +164,12 @@ export class HashesComponent implements OnInit {
         res = res.filter(u=> u.chunk?.taskId == this.editedIndex);
       }
       if(this.filtering === 'cracked'){
-        this.matchHashes = res.filter(u=> u.isCracked == 'true');
-      }else{
+        this.matchHashes = res.filter(u=> u.isCracked == true);
+      }
+      if(this.filtering === 'uncracked'){
+        this.matchHashes = res.filter(u=> u.isCracked == false);
+      }
+      else{
         this.matchHashes = res;
       }
       this.dtTrigger.next(null);
