@@ -41,7 +41,7 @@ export class NewNotificationComponent implements OnInit {
 
     this.createForm = new FormGroup({
       'action': new FormControl('' || qp['filter']),
-      'actionFilter': new FormControl(),
+      'actionFilter': new FormControl(''),
       'notification': new FormControl('' || 'ChatBot'),
       'receiver': new FormControl(),
       'isActive': new FormControl(true),
@@ -50,6 +50,43 @@ export class NewNotificationComponent implements OnInit {
   }
 
   onSubscribe(filter: string){
+
+    let path = this.checkPath(filter);
+
+    const params = {'maxResults': this.maxResults};
+
+    if(String(path) !== 'none'){
+    this.active = true;
+    this.gs.getAll(path,params).subscribe((res: any) => {
+      const value = []
+      for(let i=0; i < res.values.length; i++){
+        if(path === SERV.AGENTS) {
+          console.log(res.values.length)
+          value.push({"id": res.values[i]['_id'], "name": res.values[i]['agentName']});
+        }
+        if(path === SERV.TASKS) {
+          value.push({"id": res.values[i]['_id'], "name": res.values[i]['taskName']});
+        }
+        if(path === SERV.USERS || path === SERV.HASHLISTS ){
+          value.push({"id": res.values[i]['_id'], "name": res.values[i]['name']});
+        }
+       }
+      this.value = value;
+    });
+    }else{
+      this.active = false;
+    }
+
+  }
+
+  onQueryp(name: any){
+    this.router.navigate(['/account/notifications/new-notification'], {queryParams: {filter: name}, queryParamsHandling: 'merge'});
+    setTimeout(() => {
+      this.ngOnInit();
+    });
+  }
+
+  checkPath(filter: string){
 
     let path;
     switch (filter) {
@@ -122,38 +159,7 @@ export class NewNotificationComponent implements OnInit {
         path = 'none';
 
     }
-
-    const params = {'maxResults': this.maxResults};
-
-    if(String(path) !== 'none'){
-    this.active = true;
-    this.gs.getAll(path,params).subscribe((res: any) => {
-      const value = []
-      for(let i=0; i < res.values.length; i++){
-        if(path === SERV.AGENTS) {
-          console.log(res.values.length)
-          value.push({"id": res.values[i]['_id'], "name": res.values[i]['agentName']});
-        }
-        if(path === SERV.TASKS) {
-          value.push({"id": res.values[i]['_id'], "name": res.values[i]['taskName']});
-        }
-        if(path === SERV.USERS || path === SERV.HASHLISTS ){
-          value.push({"id": res.values[i]['_id'], "name": res.values[i]['name']});
-        }
-       }
-      this.value = value;
-    });
-    }else{
-      this.active = false;
-    }
-
-  }
-
-  onQueryp(name: any){
-    this.router.navigate(['/account/notifications/new-notification'], {queryParams: {filter: name}, queryParamsHandling: 'merge'});
-    setTimeout(() => {
-      this.ngOnInit();
-    });
+    return path;
   }
 
   onSubmit(){
@@ -168,6 +174,7 @@ export class NewNotificationComponent implements OnInit {
             timer: 1500
           });
           this.ngOnInit();
+          this.router.navigate(['/account/notifications']);
         }
       );
     }
