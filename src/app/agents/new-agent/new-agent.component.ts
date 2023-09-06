@@ -80,6 +80,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
     this.dtOptions = {
       dom: 'Bfrtip',
       pageLength: 10,
+      scrollX: true,
       stateSave: true,
       select: true,
     };

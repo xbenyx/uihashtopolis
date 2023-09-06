@@ -138,6 +138,7 @@ export class EditAgentComponent implements OnInit {
     this.dtOptions = {
       dom: 'Bfrtip',
       scrollY: "700px",
+      scrollX: true,
       scrollCollapse: true,
       paging: false,
       destroy: true,
