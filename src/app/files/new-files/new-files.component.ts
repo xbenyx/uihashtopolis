@@ -1,22 +1,39 @@
 import { faPlus, faUpload, faDownload, faLink, faFileUpload} from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Observable, ReplaySubject, Subject, Subscription, map, pairwise, startWith, switchMap, take, takeUntil, tap } from 'rxjs';
 import { Buffer } from 'buffer';
 
 import { UploadTUSService } from 'src/app/core/_services/files/files_tus.service';
-import { fileSizeValue, validateFileExt } from '../../shared/utils/util';
 import { GlobalService } from 'src/app/core/_services/main.service';
+import { FileSizePipe } from 'src/app/core/_pipes/file-size.pipe';
 import { environment } from './../../../environments/environment';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
+import { validateFileExt } from '../../shared/utils/util';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UploadFileTUS } from '../../core/_models/files';
 import { SERV } from '../../core/_services/main.config';
-import { ActivatedRoute, Router } from '@angular/router';
+import { subscribe } from 'diagnostics_channel';
+
+@Injectable()
+export class UnsubscriberService implements OnDestroy {
+  private readonly _destroy$ = new Subject<void>();
+
+  public readonly takeUntilDestroy = <T>(
+    origin: Observable<T>
+  ): Observable<T> => origin.pipe(takeUntil(this._destroy$));
+
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+}
 
 @Component({
   selector: 'app-new-files',
-  templateUrl: './new-files.component.html'
+  templateUrl: './new-files.component.html',
+  providers: [UnsubscriberService,FileSizePipe]
 })
 @PageTitle(['New File'])
 export class NewFilesComponent implements OnInit {
@@ -30,16 +47,21 @@ export class NewFilesComponent implements OnInit {
   private maxResults = environment.config.prodApiMaxResults;
 
   constructor(
+    private readonly _unsubscriber: UnsubscriberService,
     private uploadService:UploadTUSService,
     private route:ActivatedRoute,
     private gs: GlobalService,
+    private fs:FileSizePipe,
     private router: Router
-  ) { }
+  ) {
+
+   }
 
   accessgroup: any[]
   filterType: number;
   whichView: string;
   createForm: FormGroup;
+  submitted = false;
 
   ngOnInit(): void {
 
@@ -55,8 +77,10 @@ export class NewFilesComponent implements OnInit {
       sourceType: new FormControl('import' || ''),
       sourceData: new FormControl(''),
     });
+    this.createForm.valueChanges.pipe(this._unsubscriber.takeUntilDestroy).subscribe(console.log);
+    this.createForm.statusChanges.pipe(this._unsubscriber.takeUntilDestroy).subscribe(console.log);
 
-    this.uploadProgress = this.uploadService.uploadProgress; //Uploading File using tus protocol
+    this.uploadProgress = this.uploadService.uploadProgress.pipe(this._unsubscriber.takeUntilDestroy);
 
   }
 
@@ -74,33 +98,34 @@ export class NewFilesComponent implements OnInit {
    * Create File
    *
   */
-  submitted = false;
-  onSubmitFile(): void{
-    this.onSubmit();
-    this.submitted = true;
-  }
-
+  private _createSubs = new Subscription();
   onSubmit(): void{
+    if (this.createForm.valid && this.submitted === false) {
 
-    if (this.createForm.valid) {
+    let form = this.onPrep(this.createForm.value, false);
 
-    const form = this.onPrep(this.createForm.value);
+    this.submitted =true;
 
-    this.gs.create(SERV.FILES,form).subscribe(() => {
-      Swal.fire({
-        title: "Success",
-        text: "New File created!",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500
-      });
-      this.router.navigate(['/files',this.redirect]);
+    if(form.status === false){
+      this._createSubs.add(this.gs.create(SERV.FILES,form.update).pipe(this._unsubscriber.takeUntilDestroy).subscribe(() => {
+        form = this.onPrep(this.createForm.value, true);
+        Swal.fire({
+          title: "Success",
+          text: "New File created!",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.submitted = false;
+        // this.router.navigate(['/files',this.redirect]);
+        // setTimeout(() => { this.router.navigate(['/files',this.redirect]); },500)
+        // setTimeout(() => { window.location.reload(); },100)
+      }));
     }
-  );
   }
 }
 
-onPrep(obj: any){
+onPrep(obj: any, status: boolean){
   let sourcadata;
   let fname;
   if(obj.sourceType == 'inline'){
@@ -111,12 +136,14 @@ onPrep(obj: any){
     fname = this.fileName;
   }
   const res = {
-    "filename": fname,
-    "isSecret": obj.isSecret,
-    "fileType": this.filterType,
-    "accessGroupId": obj.accessGroupId,
-    "sourceType": obj.sourceType,
-    "sourceData": sourcadata
+    "update":{
+      "filename": fname,
+      "isSecret": obj.isSecret,
+      "fileType": this.filterType,
+      "accessGroupId": obj.accessGroupId,
+      "sourceType": obj.sourceType,
+      "sourceData": sourcadata
+    },"status": status
     }
     return res;
 }
@@ -161,6 +188,7 @@ souceType(type: string, view: string){
   }
 
 // Uploading file
+  @ViewChild('file', {static: false}) file: ElementRef;
   name = '!!!';
   viewMode = 'tab1';
   uploadProgress: Observable<UploadFileTUS[]>;
@@ -171,8 +199,6 @@ souceType(type: string, view: string){
   toggleHover(event) {
     this.isHovering = event;
   }
-
-  fileSizeValue = fileSizeValue;
 
   validateFileExt = validateFileExt;
 
@@ -186,17 +212,46 @@ souceType(type: string, view: string){
     this.fileToUpload = event.target.files[0];
     this.fileSize = this.fileToUpload.size;
     this.fileName = this.fileToUpload.name;
-    $('.fileuploadspan').text(fileSizeValue(this.fileToUpload.size));
+    $('.fileuploadspan').text( this.fs.transform(this.fileToUpload.size,false));
   }
 
-  // To use as Button
-  onuploadFile(files: FileList) {
-    // tslint:disable-next-line:prefer-for-of
+ private subs: Subscription[] = [];
+
+ onuploadFile(files: FileList) {
+    const upload: Array<any> = [];
     for (let i = 0; i < files.length; i++) {
-      this.filenames.push(files[i].name);
-      console.log(`Uploading ${files[i].name} with size ${files[i].size} and type ${files[i].type}`);
-      this.uploadService.uploadFile(files[i], files[i].name);
+      upload.push(
+        this.uploadService.uploadFile(
+          files[i], files[i].name
+        )
+      )
     }
+    console.log('start file uploading');
+    this.onceUploadCreate();
+    this.reset();
+  }
+
+  onceUploadCreate(){
+    this.uploadService.uploadProgress.pipe(this._unsubscriber.takeUntilDestroy).subscribe(el=>{
+      el.forEach(progress=>{
+        if((Number(progress.progress) === 100 && progress.filename === this.fileName) || ( progress.filename === this.fileName && progress.status === 'EXISTED')){
+          console.log(progress.progress)
+          console.log(progress.time)
+          console.log(progress.status)
+          console.log(progress.filename)
+          console.log(this.fileName)
+          setTimeout(() => { this.onSubmit(); },500)
+        }
+      })
+    })
+  }
+
+  reset() {
+    this.file.nativeElement.value = null;
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach((s) => s.unsubscribe());
   }
 
 }
