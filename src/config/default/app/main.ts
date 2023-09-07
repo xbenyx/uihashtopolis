@@ -1,16 +1,14 @@
 export const DEFAULT_CONFIG = {
   prodApiEndpoint: 'http://localhost:8080/api/v2',
   prodApiMaxResults: '3000',
-  agentURL: '/api/server.php',
+  agentURL: '/server.php',
   agentApiPort: '8080',
   agentdownloadURL: '/agents.php?download=',
   appName: 'Hashtopolis',
   favicon: 'assets/img/favicon.ico',
   header: {
     brand: {
-      logo_animated: 'assets/img/h2p_mp4.mp4',
       logo: 'assets/img/logo.png',
-      logored_animated: 'assets/img/logo_red.png',
       logored: 'assets/img/logo_red.png',
       name: '',
       height: '60',
