@@ -139,6 +139,7 @@ export class EditAgentComponent implements OnInit {
       dom: 'Bfrtip',
       scrollY: "700px",
       scrollX: true,
+      pageLength: 25,
       scrollCollapse: true,
       paging: false,
       destroy: true,
