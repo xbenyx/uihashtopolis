@@ -1,36 +1,42 @@
 import { Injectable, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { environment } from './../../../../environments/environment';
 import * as tus from 'tus-js-client';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ConfigService } from '../shared/config.service';
 
 import { UploadFileTUS } from '../../_models/files';
+import { HttpEvent, HttpEventType, HttpProgressEvent } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class UploadTUSService {
 
     private endpoint = '/helper/importFile';
     private chunked = environment.config.chunkSizeTUS;
     private userData: {_token: string} = JSON.parse(localStorage.getItem('userData'));
 
-    private uploadStatus = new Subject<UploadFileTUS[]>();
-    uploadProgress = this.uploadStatus.asObservable();
-
-    fileStatusArr: UploadFileTUS[] = [];
+    private uploadStatus: Subject<UploadFileTUS[]> ;
+    public uploadProgress: Observable<any> ;
 
     constructor(
       private cs: ConfigService,
-    ){}
-/**
- * Upload file using TUS protocol
- * @param file - File
- * @param filename - Name to upload
- * @returns Object
-**/
-    uploadFile(file: File, filename: string, fileURL = null) {
+    ){
+      this.uploadStatus = new Subject<UploadFileTUS[]>();
+      this.uploadProgress = this.uploadStatus.asObservable()
+    }
+
+    fileStatusArr: UploadFileTUS[] = [];
+
+    /**
+     * Upload file using TUS protocol
+     * @param file - File
+     * @param filename - Name to upload
+     * @param fileURL - Get uncompleted file id
+     * @returns Object
+    **/
+
+    uploadFile(file: File, filename: string, fileURL = null): void {
       // Only continue if a file has been selected
       if (!file) {
         return
@@ -39,13 +45,15 @@ export class UploadTUSService {
         alert('This browser does not support uploads. Please use a modern browser instead.')
       }
 
-      const fileStatus: UploadFileTUS = {filename, progress: 0, hash: '', uuid: ''};
+      const fileStatus: UploadFileTUS = {filename, progress: 0, hash: '', uuid: '', status: 'PENDING', time: 0};
 
       this.fileStatusArr.push(fileStatus);
 
       this.uploadStatus.next(this.fileStatusArr);
 
-      const upload = new tus.Upload(file, {
+      console.log(this.fileStatusArr)
+
+      const options = {
         endpoint: this.cs.getEndpoint() + this.endpoint,
         headers: {
           Authorization: `Bearer ${this.userData._token}`,
@@ -53,29 +61,37 @@ export class UploadTUSService {
           'Tus-Extension': 'checksum',
           'Tus-Checksum-Algorithm': 'md5,sha1,crc32'
         },
-        uploadUrl: fileURL,
+        // uploadUrl: fileURL,
         retryDelays: [0, 3000, 6000, 9000, 12000],
         chunkSize: this.chunked,
         metadata: {
           filename,
           filetype: file.type,
-          // userId: "1234567"
         },
         onError: async (error) => {
-          if (error) {
-            if (window.confirm(`Failed because: ${error}\nDo you want to retry?`)) {
-              upload.start()
-              return false;
-            }
+          const exist = String(error).includes('exists!');
+          if (exist) {
+            this.fileStatusArr.forEach(value => {
+              if (value.filename === filename) {
+                value.status = 'EXISTED';
+                value.time = Date.now();
+                this.uploadStatus.next(this.fileStatusArr);
+              }
+            });
           } else {
             window.alert(`Failed because: ${error}`)
           }
           return false;
         },
+        // onError: async (error) => {
+        //   console.log(error);
+        //   return false;
+        // },
         onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
           this.fileStatusArr.forEach(value => {
             if (value.filename === filename) {
               value.progress = Math.floor(bytesAccepted / bytesTotal * 100);
+              value.status = 'IN_PROGRESS';
               value.uuid = upload.url.split('/').slice(-1)[0];
             }
           });
@@ -85,17 +101,51 @@ export class UploadTUSService {
           this.fileStatusArr.forEach(value => {
             if (value.filename === filename) {
               value.progress = 100;
+              value.time = Date.now();
+              value.status = 'DONE';
             }
           });
           this.uploadStatus.next(this.fileStatusArr);
           return true;
         }
-      });
-      upload.start();
+      }
+
+      const upload = new tus.Upload(file, options);
+
+      checkPreviousuploads(upload).catch((error) => {
+        console.error(error)
+      })
+
+      async function checkPreviousuploads(upload) {
+        let previousUploads = await upload.findPreviousUploads()
+
+        // We only want to consider uploads in the last hour.
+        const limitUpload = Date.now() - 3 * 60 * 60 * 1000
+        previousUploads = previousUploads
+          .map((upload) => {
+            upload.creationTime = new Date(upload.creationTime)
+            return upload
+          })
+          .filter((upload) => upload.creationTime > limitUpload)
+          .sort((a, b) => b.creationTime - a.creationTime)
+
+        if (previousUploads.length === 0) {
+          upload.start();
+        }
+
+        // File already exist in the import folder, then return progress as 100
+
+        upload.start();
+
+      }
+
     }
 
-    cancelUpload(filename: string){
-
+    isHttpProgressEvent(event: HttpEvent<unknown>): event is HttpProgressEvent {
+      return (
+        event.type === HttpEventType.DownloadProgress ||
+        event.type === HttpEventType.UploadProgress
+      );
     }
   }
 
