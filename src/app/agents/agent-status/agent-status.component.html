@@ -53,10 +53,7 @@
     <div class="col-xs-6 col-md-4 col-lg-2" *ngFor="let a of _filteresAgents | sort:statusOrderBy:statusOrderByName ; let ind=index">
         <div class="card card-ag overflowAuto">
             <div class="card-header-ag">
-              <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">
-                <fa-icon [icon]="faEye" aria-hidden="true" class="white-ico"></fa-icon>
-              </a>
-              <a underline>{{ a.agentName | shortenString:15 }} </a>
+              <a [routerLink]="['/agents/show-agents',a.agentId,'edit']">{{ a.agentName | shortenString:15 }} </a>
             </div>
             <div class="card-body">
                 <div class="clearfix">
