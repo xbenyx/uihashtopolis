@@ -48,6 +48,10 @@ export class PreprocessorsComponent implements OnInit {
       this.dtOptions = {
         dom: 'Bfrtip',
         scrollX: true,
+        lengthMenu: [
+          [10, 25, 50, 100, 250, -1],
+          [10, 25, 50, 100, 250, 'All']
+        ],
         pageLength: 25,
         stateSave: true,
         select: true,

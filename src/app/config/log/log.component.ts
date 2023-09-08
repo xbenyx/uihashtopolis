@@ -100,12 +100,12 @@ export class LogComponent implements OnInit {
       dom: 'Bfrtip',
       scrollX: true,
       pageLength: 25,
+      lengthMenu: [ [25, 50, 100, 200, 300, 500, 50000 ], [25, 50, 100, 200, 300, 500, 'All'] ],
       bStateSave:true,
       bPaginate: false,
       bLengthChange: false,
       bInfo: false,
       bSort: true,
-      lengthMenu: [ [25, 50, 100, 200, 300, 500, 50000 ], [25, 50, 100, 200, 300, 500, 'All'] ],
       columnDefs: [
         {
             targets: 0,
