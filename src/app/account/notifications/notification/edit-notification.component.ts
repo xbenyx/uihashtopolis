@@ -77,12 +77,12 @@ export class EditNotificationComponent implements OnInit {
 
       this.gs.update(SERV.NOTIFICATIONS,this.editedIndex,{'isActive':this.createForm.value['isActive']}).subscribe(() => {
           Swal.fire({
-            title: "Success!",
-            text: "New Notification created!",
-            icon: "success",
+            position: 'top-end',
+            icon: 'success',
+            title: "Saved",
             showConfirmButton: false,
             timer: 1500
-          });
+          })
           this.ngOnInit();
           this.router.navigate(['/account/notifications']);
         }

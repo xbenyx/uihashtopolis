@@ -192,12 +192,12 @@ export class EditAgentComponent implements OnInit {
       this.onUpdateAssign(this.updateAssignForm.value);
       this.gs.update(SERV.AGENTS,this.editedAgentIndex,this.updateForm.value).subscribe(() => {
           Swal.fire({
-            title: "Success",
-            text: "Agent updated!",
-            icon: "success",
+            position: 'top-end',
+            icon: 'success',
+            title: "Saved",
             showConfirmButton: false,
             timer: 1500
-          });
+          })
           this.updateForm.reset(); // success, we reset form
           this.router.navigate(['agents/show-agents']);
       });

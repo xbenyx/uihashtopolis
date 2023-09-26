@@ -110,12 +110,13 @@ export class NewFilesComponent implements OnInit {
       this._createSubs.add(this.gs.create(SERV.FILES,form.update).pipe(this._unsubscriber.takeUntilDestroy).subscribe(() => {
         form = this.onPrep(this.createForm.value, true);
         Swal.fire({
-          title: "Success",
+          position: 'top-end',
+          icon: 'success',
+          title: "Success!",
           text: "New File created!",
-          icon: "success",
           showConfirmButton: false,
           timer: 1500
-        });
+        })
         this.submitted = false;
         // this.router.navigate(['/files',this.redirect]);
         // setTimeout(() => { this.router.navigate(['/files',this.redirect]); },500)
