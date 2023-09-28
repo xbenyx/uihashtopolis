@@ -111,6 +111,7 @@ export class NewFilesComponent implements OnInit {
         form = this.onPrep(this.createForm.value, true);
         Swal.fire({
           position: 'top-end',
+          backdrop: false,
           icon: 'success',
           title: "Success!",
           text: "New File created!",

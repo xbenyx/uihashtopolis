@@ -159,6 +159,7 @@ export class AgentBinariesComponent implements OnInit {
         this.gs.delete(SERV.AGENT_BINARY,id).subscribe(() => {
           Swal.fire({
             position: 'top-end',
+            backdrop: false,
             icon: 'success',
             showConfirmButton: false,
             timer: 1500
