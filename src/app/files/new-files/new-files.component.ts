@@ -2,7 +2,8 @@ import { faPlus, faUpload, faDownload, faLink, faFileUpload} from '@fortawesome/
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { Observable, ReplaySubject, Subject, Subscription, map, pairwise, startWith, switchMap, take, takeUntil, tap } from 'rxjs';
+import { Observable, ReplaySubject, Subject, Subscription, map, of, pairwise, startWith, switchMap, take, takeUntil, tap } from 'rxjs';
+// import { takeUntil } from 'rxjs/operators';
 import { Buffer } from 'buffer';
 
 import { UploadTUSService } from 'src/app/core/_services/files/files_tus.service';
@@ -16,27 +17,13 @@ import { UploadFileTUS } from '../../core/_models/files';
 import { SERV } from '../../core/_services/main.config';
 import { subscribe } from 'diagnostics_channel';
 
-@Injectable()
-export class UnsubscriberService implements OnDestroy {
-  private readonly _destroy$ = new Subject<void>();
-
-  public readonly takeUntilDestroy = <T>(
-    origin: Observable<T>
-  ): Observable<T> => origin.pipe(takeUntil(this._destroy$));
-
-  public ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
-  }
-}
-
 @Component({
   selector: 'app-new-files',
   templateUrl: './new-files.component.html',
-  providers: [UnsubscriberService,FileSizePipe]
+  providers: [FileSizePipe]
 })
-@PageTitle(['New File'])
-export class NewFilesComponent implements OnInit {
+// @PageTitle(['New File'])
+export class NewFilesComponent implements OnInit, OnDestroy {
 
   faFileUpload=faFileUpload;
   faDownload=faDownload;
@@ -45,9 +32,9 @@ export class NewFilesComponent implements OnInit {
   faPlus=faPlus;
 
   private maxResults = environment.config.prodApiMaxResults;
+  subscriptions: Subscription[] = []
 
   constructor(
-    private readonly _unsubscriber: UnsubscriberService,
     private uploadService:UploadTUSService,
     private route:ActivatedRoute,
     private gs: GlobalService,
@@ -69,19 +56,15 @@ export class NewFilesComponent implements OnInit {
 
     this.loadData();
 
-    this.createForm = new FormGroup({
-      filename: new FormControl(''),
-      isSecret: new FormControl(false),
-      fileType: new FormControl(this.filterType),
-      accessGroupId: new FormControl(1),
-      sourceType: new FormControl('import' || ''),
-      sourceData: new FormControl(''),
-    });
-    this.createForm.valueChanges.pipe(this._unsubscriber.takeUntilDestroy).subscribe(console.log);
-    this.createForm.statusChanges.pipe(this._unsubscriber.takeUntilDestroy).subscribe(console.log);
+  }
 
-    this.uploadProgress = this.uploadService.uploadProgress.pipe(this._unsubscriber.takeUntilDestroy);
-
+  ngOnDestroy() {
+    this.subs.forEach((s) => s.unsubscribe());
+    for (const sub of this.subscriptions) {
+      sub.unsubscribe()
+    }
+    this.ngUnsubscribe.next(false);
+    this.ngUnsubscribe.complete();
   }
 
   loadData(){
@@ -92,13 +75,21 @@ export class NewFilesComponent implements OnInit {
       this.accessgroup = agroups.values;
     });
 
+    this.createForm = new FormGroup({
+      filename: new FormControl(''),
+      isSecret: new FormControl(false),
+      fileType: new FormControl(this.filterType),
+      accessGroupId: new FormControl(1),
+      sourceType: new FormControl('import' || ''),
+      sourceData: new FormControl(''),
+    });
+
   }
 
   /**
    * Create File
    *
   */
-  private _createSubs = new Subscription();
   onSubmit(): void{
     if (this.createForm.valid && this.submitted === false) {
 
@@ -107,7 +98,7 @@ export class NewFilesComponent implements OnInit {
     this.submitted =true;
 
     if(form.status === false){
-      this._createSubs.add(this.gs.create(SERV.FILES,form.update).pipe(this._unsubscriber.takeUntilDestroy).subscribe(() => {
+      this.subscriptions.push(this.gs.create(SERV.FILES,form.update).subscribe(() => {
         form = this.onPrep(this.createForm.value, true);
         Swal.fire({
           position: 'top-end',
@@ -119,9 +110,7 @@ export class NewFilesComponent implements OnInit {
           timer: 1500
         })
         this.submitted = false;
-        // this.router.navigate(['/files',this.redirect]);
-        // setTimeout(() => { this.router.navigate(['/files',this.redirect]); },500)
-        // setTimeout(() => { window.location.reload(); },100)
+        this.router.navigate(['/files',this.redirect]);
       }));
     }
   }
@@ -193,7 +182,7 @@ souceType(type: string, view: string){
   @ViewChild('file', {static: false}) file: ElementRef;
   name = '!!!';
   viewMode = 'tab1';
-  uploadProgress: Observable<UploadFileTUS[]>;
+  uploadProgress = 0;
   filenames: string[] = [];
 
   isHovering: boolean;
@@ -218,42 +207,29 @@ souceType(type: string, view: string){
   }
 
  private subs: Subscription[] = [];
+ private ngUnsubscribe = new Subject();
 
  onuploadFile(files: FileList) {
+    let form = this.onPrep(this.createForm.value, false);
     const upload: Array<any> = [];
     for (let i = 0; i < files.length; i++) {
       upload.push(
-        this.uploadService.uploadFile(
-          files[i], files[i].name
+         this.uploadService.uploadFile(
+          files[i], files[i].name, SERV.FILES, form.update, ['/files',this.redirect]
+        ).pipe(takeUntil(this.ngUnsubscribe))
+         .subscribe(
+          (progress) => {
+            this.uploadProgress = progress;
+            // console.log(`Upload progress: ${progress}%`);
+          }
         )
       )
     }
-    console.log('start file uploading');
-    this.onceUploadCreate();
-    this.reset();
-  }
-
-  onceUploadCreate(){
-    this.uploadService.uploadProgress.pipe(this._unsubscriber.takeUntilDestroy).subscribe(el=>{
-      el.forEach(progress=>{
-        if((Number(progress.progress) === 100 && progress.filename === this.fileName) || ( progress.filename === this.fileName && progress.status === 'EXISTED')){
-          console.log(progress.progress)
-          console.log(progress.time)
-          console.log(progress.status)
-          console.log(progress.filename)
-          console.log(this.fileName)
-          setTimeout(() => { this.onSubmit(); },500)
-        }
-      })
-    })
+    // this.reset();
   }
 
   reset() {
     this.file.nativeElement.value = null;
-  }
-
-  ngOnDestroy() {
-    this.subs.forEach((s) => s.unsubscribe());
   }
 
 }

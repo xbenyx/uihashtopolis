@@ -29,6 +29,7 @@ export class NewAgentComponent implements OnInit, OnDestroy {
   dtElement: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
+  dtTrigger1: Subject<any> = new Subject<any>();
   dtOptions: any = {};
 
   ngOnDestroy(): void {
@@ -68,27 +69,55 @@ export class NewAgentComponent implements OnInit, OnDestroy {
 
     const params = {'maxResults': this.maxResults}
 
-    this.gs.getAll(SERV.VOUCHER,params).subscribe((vouchers: any) => {
-      this.vouchers = vouchers.values;
-    });
-
     this.gs.getAll(SERV.AGENT_BINARY).subscribe((bin: any) => {
       this.binaries = bin.values;
       this.dtTrigger.next(void 0);
     });
 
+    this.gs.getAll(SERV.VOUCHER,params).subscribe((vouchers: any) => {
+      this.vouchers = vouchers.values;
+      this.dtTrigger1.next(void 0);
+    });
+
+    const self = this;
     this.dtOptions = {
       dom: 'Bfrtip',
       scrollX: true,
+      searching: false,
+      paging: false,
+      info: false,
       pageLength: 25,
+      processing: true,
+      oLanguage: {sProcessing: "<div id='loader'></div>"},
       lengthMenu: [
           [10, 25, 50, 100, 250, -1],
           [10, 25, 50, 100, 250, 'All']
       ],
       stateSave: true,
       select: true,
+      buttons: {
+        dom: {
+          button: {
+            className: 'dt-button buttons-collection btn btn-sm-dt btn-outline-gray-600-dt',
+          }
+        },
+      buttons: [
+        {
+          text: '↻',
+          autoClose: true,
+          action: function (e, dt, node, config) {
+            self.onRefresh();
+          }
+        }
+        ],
+      }
     };
 
+  }
+
+  onRefresh(){
+    this.rerender();
+    this.ngOnInit();
   }
 
   rerender(): void {
@@ -144,6 +173,10 @@ export class NewAgentComponent implements OnInit, OnDestroy {
       }
     });
 
+  }
+
+  downloadClient(id) {
+    window.location.href= this.agentdownloadURL+id;
   }
 
   onSubmit(){

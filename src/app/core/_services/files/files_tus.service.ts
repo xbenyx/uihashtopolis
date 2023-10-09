@@ -1,11 +1,14 @@
 import { Injectable, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { environment } from './../../../../environments/environment';
 import * as tus from 'tus-js-client';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { ConfigService } from '../shared/config.service';
 
 import { UploadFileTUS } from '../../_models/files';
+import { SERV } from '../../../core/_services/main.config';
 import { HttpEvent, HttpEventType, HttpProgressEvent } from '@angular/common/http';
+import { GlobalService } from '../main.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,104 +19,88 @@ export class UploadTUSService {
     private chunked = environment.config.chunkSizeTUS;
     private userData: {_token: string} = JSON.parse(localStorage.getItem('userData'));
 
-    private uploadStatus: Subject<UploadFileTUS[]> ;
-    public uploadProgress: Observable<any> ;
+    private tusUpload: tus.Upload | null = null;
 
     constructor(
       private cs: ConfigService,
-    ){
-      this.uploadStatus = new Subject<UploadFileTUS[]>();
-      this.uploadProgress = this.uploadStatus.asObservable()
-    }
-
-    fileStatusArr: UploadFileTUS[] = [];
+      private gs: GlobalService,
+      private router: Router
+    ){}
 
     /**
      * Upload file using TUS protocol
      * @param file - File
      * @param filename - Name to upload
-     * @param fileURL - Get uncompleted file id
-     * @returns Object
+     * @param form - Creation form
+     * @param redirect - Link to redirect
     **/
 
-    uploadFile(file: File, filename: string, fileURL = null): void {
-      // Only continue if a file has been selected
-      if (!file) {
-        return
-      }
-      if (!tus.isSupported) {
-        alert('This browser does not support uploads. Please use a modern browser instead.')
-      }
+    // public fileStatusArr: UploadFileTUS[] = [];
 
-      const fileStatus: UploadFileTUS = {filename, progress: 0, hash: '', uuid: '', status: 'PENDING', time: 0};
+    uploadFile(file: File, filename: string, path, form = null, redirect = null): Observable<number> {
 
-      this.fileStatusArr.push(fileStatus);
+      return new Observable<number>((observer) => {
 
-      this.uploadStatus.next(this.fileStatusArr);
-
-      console.log(this.fileStatusArr)
-
-      const options = {
-        endpoint: this.cs.getEndpoint() + this.endpoint,
-        headers: {
-          Authorization: `Bearer ${this.userData._token}`,
-          'Tus-Resumable':'1.0.0',
-          'Tus-Extension': 'checksum',
-          'Tus-Checksum-Algorithm': 'md5,sha1,crc32'
-        },
-        // uploadUrl: fileURL,
-        retryDelays: [0, 3000, 6000, 9000, 12000],
-        chunkSize: this.chunked,
-        metadata: {
-          filename,
-          filetype: file.type,
-        },
-        onError: async (error) => {
-          const exist = String(error).includes('exists!');
-          if (exist) {
-            this.fileStatusArr.forEach(value => {
-              if (value.filename === filename) {
-                value.status = 'EXISTED';
-                value.time = Date.now();
-                this.uploadStatus.next(this.fileStatusArr);
-              }
-            });
-          } else {
-            window.alert(`Failed because: ${error}`)
-          }
-          return false;
-        },
-        // onError: async (error) => {
-        //   console.log(error);
-        //   return false;
-        // },
-        onChunkComplete: (chunkSize, bytesAccepted, bytesTotal) => {
-          this.fileStatusArr.forEach(value => {
-            if (value.filename === filename) {
-              value.progress = Math.floor(bytesAccepted / bytesTotal * 100);
-              value.status = 'IN_PROGRESS';
-              value.uuid = upload.url.split('/').slice(-1)[0];
-            }
-          });
-          this.uploadStatus.next(this.fileStatusArr);
-        },
-        onSuccess: async () => {
-          this.fileStatusArr.forEach(value => {
-            if (value.filename === filename) {
-              value.progress = 100;
-              value.time = Date.now();
-              value.status = 'DONE';
-            }
-          });
-          this.uploadStatus.next(this.fileStatusArr);
-          return true;
+        // Chunksize config default
+        let chunkSize = this.chunked;
+        if (Number.isNaN(chunkSize)) {
+          chunkSize = Infinity
         }
-      }
+        if (!tus.isSupported) {
+          alert('This browser does not support uploads. Please use a modern browser instead.')
+        }
 
-      const upload = new tus.Upload(file, options);
+        const upload = new tus.Upload(file, {
+          endpoint: this.cs.getEndpoint() + this.endpoint,
+          headers: {
+            Authorization: `Bearer ${this.userData._token}`,
+            'Tus-Resumable':'1.0.0',
+            'Tus-Extension': 'checksum',
+            'Tus-Checksum-Algorithm': 'md5,sha1,crc32'
+          },
+          // uploadUrl: fileURL, //Used for paused uploads
+          retryDelays: [0, 3000, 6000, 9000, 12000],
+          chunkSize: chunkSize,
+          removeFingerprintOnSuccess: true,
+          metadata: {
+            filename,
+            filetype: file.type,
+          },
+          onError: async (error) => {
+            const exist = String(error).includes('exists!');
+            if (exist) {
+              const progress = 100;
+              observer.next(progress);
+              if(form !== null){
+                this.gs.create(path,form).subscribe(() => {
+                  this.router.navigate(redirect);
+                });
+              }
+            } else {
+              window.alert(`Failed because: ${error}`)
+            }
+            return false;
+          },
+          onProgress: (bytesUploaded, bytesTotal) => {
+            const progress = (bytesUploaded / bytesTotal) * 100;
+            observer.next(progress);
+          },
+          onSuccess: async () => {
+            observer.complete();
+            if(form !== null){
+              this.gs.create(path,form).subscribe(() => {
+                this.router.navigate(redirect);
+              });
+            }
+          }
+        })
 
-      checkPreviousuploads(upload).catch((error) => {
-        console.error(error)
+        this.tusUpload = upload;
+
+        checkPreviousuploads(upload).catch((error) => {
+          console.error(error)
+        })
+
       })
 
       async function checkPreviousuploads(upload) {
@@ -123,15 +110,16 @@ export class UploadTUSService {
         const limitUpload = Date.now() - 3 * 60 * 60 * 1000
         previousUploads = previousUploads
           .map((upload) => {
+            console.log('creationtome')
             upload.creationTime = new Date(upload.creationTime)
             return upload
           })
-          .filter((upload) => upload.creationTime > limitUpload)
+          .filter((upload) => upload.status > limitUpload)
           .sort((a, b) => b.creationTime - a.creationTime)
 
-        if (previousUploads.length === 0) {
-          upload.start();
-        }
+        // if (previousUploads.length === 0) {
+        //   upload.start();
+        // }
 
         // File already exist in the import folder, then return progress as 100
 

@@ -8,9 +8,8 @@
     Using the URL, link the agent with the app:
     <code>{{ agentURL }}</code>
     <fa-icon
-            class='btn-outline-gray-600 float-right'
+            class='float-right point'
             placement="bottom"
-            ngbTooltip="Copy Path: {{ agentURL }}"
             [copyButton]="agentURL"
             container="body"
             [icon]="faCopy"
@@ -22,7 +21,7 @@
 <!-- Clients section -->
 <app-table>
   <app-page-subtitle [subtitle]="'Clients'"></app-page-subtitle>
-  <table style="width: 100%" class="table table-striped table-hover table-sm" datatable>
+  <table style="width: 100%" class="table table-striped table-hover table-sm" #clientbinary datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger1" id="clientbinary">
     <thead class="thead-light">
         <tr>
           <th class="border-0 rounded-start">ID</th>
@@ -30,7 +29,7 @@
           <th class="border-0">Type</th>
           <th class="border-0">Operating Systems</th>
           <th class="border-0">Filename</th>
-          <th class="border-0 rounded-end">Download</th>
+          <th class="border-0 rounded-end">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -41,24 +40,19 @@
           <td>{{ b.operatingSystems }}</td>
           <td>{{ b.filename }}</td>
           <td>
-              <a href={{agentdownloadURL+b.agentBinaryId}} class='btn-outline-gray-600 float-right'>
+              <!-- <a href={{agentdownloadURL+b.agentBinaryId}} class='btn-outline-gray-600 float-right'>
                 <fa-icon
                         placement="bottom"
                         title="Download"
                         [icon]="faDownload"
                 >
                 </fa-icon>
-              </a>
-              <fa-icon
-                      class='btn-outline-gray-600 float-right'
-                      placement="bottom"
-                      ngbTooltip="Copy Path: {{ agentdownloadURL+b.agentBinaryId }}"
-                      [copyButton]="agentdownloadURL+b.agentBinaryId"
-                      container="body"
-                      [icon]="faCopy"
-                      aria-hidden="true"
-              >
-              </fa-icon>
+              </a> -->
+              <app-button-actions>
+                <button ngbDropdownItem (click)="downloadClient(b.agentBinaryId)"  data-toggle="tooltip" data-placement="top" title="Download">
+                  <fa-icon [icon]="faDownload" aria-hidden="true"></fa-icon> Download
+                </button>
+              </app-button-actions>
           </td>
         </tr>
     </tbody>
@@ -108,7 +102,7 @@
       </form>
       <br>
       <!-- Test Voucher here -->
-      <table style="width: 100%" class="table table-striped table-hover table-sm" datatable>
+      <table style="width: 100%" class="table table-striped table-hover table-sm" #voucherstable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="voucherstable">
         <thead class="thead-light">
           <tr>
             <th class="border-0 rounded-start">Key</th>
