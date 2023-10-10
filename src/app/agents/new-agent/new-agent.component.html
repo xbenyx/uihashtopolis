@@ -21,7 +21,7 @@
 <!-- Clients section -->
 <app-table>
   <app-page-subtitle [subtitle]="'Clients'"></app-page-subtitle>
-  <table style="width: 100%" class="table table-striped table-hover table-sm" #clientbinary datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger1" id="clientbinary">
+  <table style="width: 100%" class="table table-striped table-hover table-sm" #clientbinary id="clientbinary">
     <thead class="thead-light">
         <tr>
           <th class="border-0 rounded-start">ID</th>
@@ -59,78 +59,59 @@
   </table>
 </app-table>
 <!-- Voucher Section -->
-<!-- <div class="row g-3">
-  <div class="col-md-3">
-    <grid-main [class]="'py-2'">
-      <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-        <grid-form-input>
-          <input
-                type='text'
-                id="voucher"
-                [(ngModel)]="randomstring"
-                class='form-control'
-                formControlName="voucher"
-          >
-        </grid-form-input>
-        <button-submit [name]="'Generate Voucher'"></button-submit>
-      </form>
-    </grid-main>
-  </div>
-  <div class="col-md-9"> -->
-    <app-table>
-      <app-page-subtitle [subtitle]="'Vouchers'"></app-page-subtitle>
-      <!-- Test Voucher here -->
-      <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-xs-6 col-md-6">
-          </div>
-          <div class="col-xs-6 col-md-2">
-            <div style="float:right;">
-              <button-submit [name]="'Generate'"></button-submit>
-            </div>
-          </div>
-          <div class="col-xs-6 col-md-4">
-            <input
-                  type='text'
-                  id="voucher"
-                  [(ngModel)]="randomstring"
-                  class='form-control'
-                  formControlName="voucher"
-            >
-          </div>
+<app-table>
+  <app-page-subtitle [subtitle]="'Vouchers'"></app-page-subtitle>
+  <!-- Test Voucher here -->
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-xs-6 col-md-6">
+      </div>
+      <div class="col-xs-6 col-md-2">
+        <div style="float:right;">
+          <button-submit [name]="'Generate'"></button-submit>
         </div>
-      </form>
-      <br>
-      <!-- Test Voucher here -->
-      <table style="width: 100%" class="table table-striped table-hover table-sm" #voucherstable datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id="voucherstable">
-        <thead class="thead-light">
-          <tr>
-            <th class="border-0 rounded-start">Key</th>
-            <th class="border-0">Created</th>
-            <th class="border-0 rounded-end">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let v of vouchers">
-            <td><code>{{ v.voucher }}</code>
-              <fa-icon
-                      class='btn-outline-gray-600 float-right'
-                      placement="bottom"
-                      [copyButton]="v.voucher"
-                      [icon]="faCopy"
-              >
-              </fa-icon>
-            </td>
-            <td>{{ v.time | uiDate }}</td>
-            <td>
-              <a class='btn-outline-gray-600 float-right' (click)="onDelete(v.regVoucherId,v.voucher)" data-toggle="tooltip" data-placement="top" title="Delete">
-                <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </app-table>
-  <!-- </div>
-</div> -->
+      </div>
+      <div class="col-xs-6 col-md-4">
+        <input
+              type='text'
+              id="voucher"
+              [(ngModel)]="randomstring"
+              class='form-control'
+              formControlName="voucher"
+        >
+      </div>
+    </div>
+  </form>
+  <br>
+  <!-- Test Voucher here -->
+  <table style="width: 100%" class="table table-striped table-hover table-sm" #voucherstable id="voucherstable">
+    <thead class="thead-light">
+      <tr>
+        <th class="border-0 rounded-start">Key</th>
+        <th class="border-0">Created</th>
+        <th class="border-0 rounded-end">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of vouchers">
+        <td><code>{{ v.voucher }}</code>
+          <fa-icon
+                  class='btn-outline-gray-600 float-right'
+                  placement="bottom"
+                  [copyButton]="v.voucher"
+                  [icon]="faCopy"
+          >
+          </fa-icon>
+        </td>
+        <td>{{ v.time | uiDate }}</td>
+        <td>
+          <a class='btn-outline-gray-600 float-right' (click)="onDelete(v.regVoucherId,v.voucher)" data-toggle="tooltip" data-placement="top" title="Delete">
+            <fa-icon [icon]="faTrash" aria-hidden="true"></fa-icon>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-table>
+
 
