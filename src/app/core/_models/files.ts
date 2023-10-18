@@ -24,6 +24,4 @@ export interface UploadFileTUS {
   progress: number;
   hash: string;
   uuid: string;
-  status: string;
-  time: number;
 }

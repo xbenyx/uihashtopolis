@@ -37,7 +37,7 @@
               <a [routerLink]="['/tasks/show-tasks',c.taskId,'edit']">{{ c.taskName | shortenString:15 }}</a>
             </td>
             <td>
-              <a  [routerLink]="['/agents/show-agents',c.agentId,'edit']">{{ c.agentName | shortenString:15 }}</a>
+              <a  [routerLink]="['/agents/show-agents',c.agentId,'edit']">{{ c.agentName | shortenString:15  }}</a>
             </td>
             <td>{{ c.dispatchTime | uiDate }}</td>
             <td *ngIf="c.solveTime === 0">(No acitivity)</td>
