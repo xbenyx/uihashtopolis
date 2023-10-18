@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { ACTIONARRAY, ACTION, NOTIFARRAY } from '../../../core/_constants/notifications.config';
+import { AlertService } from 'src/app/core/_services/shared/alert.service';
 import { GlobalService } from 'src/app/core/_services/main.service';
 import { environment } from '../../../../environments/environment';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../../core/_services/main.config';
-
 
 @Component({
   selector: 'app-edit-notification',
@@ -22,6 +22,7 @@ export class EditNotificationComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
+    private alert: AlertService,
     private gs: GlobalService,
     private router:Router
   ) { }
@@ -76,14 +77,7 @@ export class EditNotificationComponent implements OnInit {
     if (this.createForm.valid) {
 
       this.gs.update(SERV.NOTIFICATIONS,this.editedIndex,{'isActive':this.createForm.value['isActive']}).subscribe(() => {
-          Swal.fire({
-            position: 'top-end',
-            backdrop: false,
-            icon: 'success',
-            title: "Saved",
-            showConfirmButton: false,
-            timer: 1500
-          })
+          this.alert.okAlert('Notification saved!','');
           this.ngOnInit();
           this.router.navigate(['/account/notifications']);
         }

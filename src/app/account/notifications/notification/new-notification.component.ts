@@ -1,6 +1,5 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import { ACTIONARRAY, ACTION, NOTIFARRAY } from '../../../core/_constants/notifications.config';
 import { environment } from '../../../../environments/environment';
@@ -8,6 +7,7 @@ import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../../core/_services/main.config';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertService } from 'src/app/core/_services/shared/alert.service';
 
 @Component({
   selector: 'app-new-notification',
@@ -18,6 +18,7 @@ export class NewNotificationComponent implements OnInit {
 
   constructor(
     private route:ActivatedRoute,
+    private alert: AlertService,
     private gs: GlobalService,
     private router:Router
   ) { }
@@ -166,17 +167,9 @@ export class NewNotificationComponent implements OnInit {
   onSubmit(){
     if (this.createForm.valid) {
       this.gs.create(SERV.NOTIFICATIONS,this.createForm.value).subscribe(() => {
-          Swal.fire({
-            position: 'top-end',
-            backdrop: false,
-            icon: 'success',
-            title: "Success!",
-            text: "New Notification created!",
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.ngOnInit();
-          this.router.navigate(['/account/notifications']);
+        this.alert.okAlert('New Notification created!','');
+        this.ngOnInit();
+        this.router.navigate(['/account/notifications']);
         }
       );
     }

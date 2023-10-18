@@ -1,6 +1,5 @@
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 
 import { UIConfigService } from 'src/app/core/_services/shared/storage.service';
@@ -8,6 +7,7 @@ import { GlobalService } from 'src/app/core/_services/main.service';
 import { PageTitle } from 'src/app/core/_decorators/autotitle';
 import { SERV } from '../../../core/_services/main.config';
 import { uiDatePipe } from 'src/app/core/_pipes/date.pipe';
+import { AlertService } from 'src/app/core/_services/shared/alert.service';
 
 function passwordMatchValidator(password: string): ValidatorFn {
   return (control: FormControl) => {
@@ -33,6 +33,7 @@ export class AccountSettingsComponent implements OnInit {
   constructor(
     private uiService: UIConfigService,
     private datePipe:uiDatePipe,
+    private alert: AlertService,
     private gs: GlobalService,
     private router: Router
   ) {
@@ -67,15 +68,8 @@ export class AccountSettingsComponent implements OnInit {
   onSubmit(){
     if (this.updateForm.valid) {
       this.gs.create(SERV.USERS,this.updateForm.value).subscribe(() => {
-          Swal.fire({
-            position: 'top-end',
-            backdrop: false,
-            icon: 'success',
-            title: 'Saved',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.router.navigate(['users/all-users']);
+        this.alert.okAlert('User saved!','');
+        this.router.navigate(['users/all-users']);
         }
       );
     }
