@@ -127,7 +127,4 @@ export class GlobalService {
     return this.http.patch(this.cs.getEndpoint() + methodUrl + '/' + option, arr)
   }
 
-
-
-
 }
