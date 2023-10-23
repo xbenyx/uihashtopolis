@@ -74,7 +74,7 @@ export class HashesComponent implements OnInit,OnDestroy {
   matchHashes:any;
 
   /**
-   * Initializes DataTable and retrieves pretasks.
+   * Initializes DataTable and retrieves hashes..
   */
 
   ngOnInit(): void {
