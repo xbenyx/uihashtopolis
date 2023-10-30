@@ -9,9 +9,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 
 import { EditGlobalpermissionsgroupsComponent } from './globalpermissionsgroups/edit-globalpermissionsgroups/edit-globalpermissionsgroups.component';
-import { NewGlobalpermissionsgroupsComponent } from './globalpermissionsgroups/new-globalpermissionsgroups/new-globalpermissionsgroups.component';
 import { GlobalpermissionsgroupsComponent } from './globalpermissionsgroups/globalpermissionsgroups.component';
-import { CUGroupComponent } from './groups/cu-group/cu-group.component';
 import { EditUsersComponent } from "./edit-users/edit-users.component";
 import { AllUsersComponent } from "./all-users/all-users.component";
 import { GroupsComponent } from "./groups/groups.component";
@@ -21,13 +19,11 @@ import { UsersComponent } from "./users.component";
 @NgModule({
   declarations:[
     EditGlobalpermissionsgroupsComponent,
-    NewGlobalpermissionsgroupsComponent,
     GlobalpermissionsgroupsComponent,
     EditUsersComponent,
     AllUsersComponent,
     GroupsComponent,
-    UsersComponent,
-    CUGroupComponent
+    UsersComponent
   ],
   imports:[
     ReactiveFormsModule,

@@ -3,25 +3,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IsAuth } from "../core/_guards/auth.guard";
 import { NgModule } from "@angular/core";
 
-import { NewAgentBinariesComponent } from "./engine/agent-binaries/agent-binary/new-agent-binaries.component";
 import { EditHealthChecksComponent } from "./health-checks/edit-health-check/edit-health-checks.component";
-import { NewPreprocessorComponent } from "./engine/preprocessors/preprocessor/new-preprocessor.component";
 import { NewHealthChecksComponent } from "./health-checks/new-health-check/new-health-checks.component";
-import { EditCrackersComponent } from "./engine/crackers/edit-version/edit-crackers.component";
-import { NewCrackersComponent } from "./engine/crackers/new-version/new-crackers.component";
 import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
-import { NewCrackerComponent } from "./engine/crackers/new-cracker/new-cracker.component";
 import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
 import { HealthChecksComponent } from "./health-checks/health-checks.component";
 import { HashtypeComponent } from "./hashtypes/hashtype/hashtype.component";
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
+import { FormComponent } from "../shared/form/form.component";
 import { ServerComponent } from "./server/server.component";
+import { SERV } from '../core/_services/main.config';
 import { LogComponent } from "./log/log.component";
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [IsAuth],
     children: [
         {
           path: 'agent',  component: ServerComponent,
@@ -30,7 +28,7 @@ const routes: Routes = [
               breadcrumb: 'Agent Settings',
               permission: 'Config'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'task-chunk',  component: ServerComponent,
           data: {
@@ -38,7 +36,7 @@ const routes: Routes = [
               breadcrumb: 'Task Chunk Settings',
               permission: 'Config'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'hch',  component: ServerComponent,
           data: {
@@ -46,7 +44,7 @@ const routes: Routes = [
               breadcrumb: 'Hashes/Cracks/Hashlist Settings',
               permission: 'Config'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'notifications',  component: ServerComponent,
           data: {
@@ -54,7 +52,7 @@ const routes: Routes = [
               breadcrumb: 'Notifications',
               permission: 'Notif'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'general-settings',  component: ServerComponent,
           data: {
@@ -62,7 +60,7 @@ const routes: Routes = [
               breadcrumb: 'General Settings',
               permission: 'Config'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'hashtypes',  component: HashtypesComponent,
           data: {
@@ -70,7 +68,7 @@ const routes: Routes = [
               breadcrumb: 'Hashtypes',
               permission: 'Hashtype'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'hashtypes/new',  component: HashtypeComponent,
           data: {
@@ -78,7 +76,7 @@ const routes: Routes = [
               breadcrumb: 'New Hashtype',
               permission: 'Hashtype'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'hashtypes/:id/edit',  component: HashtypeComponent,
           data: {
@@ -86,7 +84,7 @@ const routes: Routes = [
               breadcrumb: 'Edit Hashtype',
               permission: 'Hashtype'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'log',  component: LogComponent,
           data: {
@@ -94,7 +92,7 @@ const routes: Routes = [
               breadcrumb: 'Logs',
               permission: 'Logs'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'health-checks',  component: HealthChecksComponent,
           data: {
@@ -102,7 +100,7 @@ const routes: Routes = [
               breadcrumb: 'Health Checks',
               permission: 'HealthCheck'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'health-checks/new',  component: NewHealthChecksComponent,
           data: {
@@ -110,7 +108,7 @@ const routes: Routes = [
               breadcrumb: 'New Health Checks',
               permission: 'HealthCheck'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'health-checks/:id/edit',  component: EditHealthChecksComponent,
           data: {
@@ -118,7 +116,7 @@ const routes: Routes = [
               breadcrumb: 'Edit Health Checks',
               permission: 'HealthCheck'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'engine/agent-binaries',  component: AgentBinariesComponent,
           data: {
@@ -126,23 +124,27 @@ const routes: Routes = [
               breadcrumb: 'Engine > Agent-binaries',
               permission: 'AgentBinary'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/agent-binaries/new-agent-binary',  component: NewAgentBinariesComponent,
+          path: 'engine/agent-binaries/new-agent-binary',  component: FormComponent,
           data: {
-              kind: 'new-agent-binary',
+              kind: 'newagentbinary',
+              type: 'create',
+              path: SERV.AGENT_BINARY,
               breadcrumb: 'Engine > New Agent binary',
               permission: 'AgentBinary'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/agent-binaries/:id/edit',  component: NewAgentBinariesComponent,
+          path: 'engine/agent-binaries/:id/edit',  component: FormComponent,
           data: {
-              kind: 'edit-agent-binary',
+              kind: 'editagentbinary',
+              type: 'edit',
+              path: SERV.AGENT_BINARY,
               breadcrumb: 'Engine > Edit Agent binary',
               permission: 'AgentBinary'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'engine/crackers',  component: CrackersComponent,
           data: {
@@ -150,31 +152,37 @@ const routes: Routes = [
               breadcrumb: 'Engine > Crackers',
               permission: 'CrackerBinary'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/crackers/new',  component: NewCrackerComponent,
+          path: 'engine/crackers/new',  component: FormComponent,
           data: {
-              kind: 'new-cracker',
+              kind: 'newcracker',
+              type: 'create',
+              path: SERV.CRACKERS_TYPES,
               breadcrumb: 'Engine > New Cracker',
               permission: 'CrackerBinary'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/crackers/:id/new',  component: NewCrackersComponent,
+          path: 'engine/crackers/:id/new',  component: FormComponent,
           data: {
-              kind: 'new-cracker-version',
+              kind: 'newcrackerversion',
+              type: 'create',
+              path: SERV.CRACKERS,
               breadcrumb: 'Engine > New Cracker Version/Binary',
               permission: 'CrackerBinary'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/crackers/:id/edit',  component: EditCrackersComponent,
+          path: 'engine/crackers/:id/edit',  component: FormComponent,
           data: {
-              kind: 'edit-cracker-version',
+              kind: 'editcrackerversion',
+              type: 'edit',
+              path: SERV.CRACKERS,
               breadcrumb: 'Engine > Edit Cracker Version/Binary',
               permission: 'CrackerBinaryType'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'engine/preprocessors',  component: PreprocessorsComponent,
           data: {
@@ -182,23 +190,27 @@ const routes: Routes = [
               breadcrumb: 'Engine > Preprocessors',
               permission: 'Prepro'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/preprocessors/new-preprocessor',  component: NewPreprocessorComponent,
+          path: 'engine/preprocessors/new-preprocessor',  component: FormComponent,
           data: {
-              kind: 'new-preprocessor',
+              kind: 'newpreprocessor',
+              type: 'create',
+              path: SERV.PREPROCESSORS,
               breadcrumb: 'Engine > New Preprocessor',
               permission: 'Prepro'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'engine/preprocessors/:id/edit',  component: NewPreprocessorComponent,
+          path: 'engine/preprocessors/:id/edit',  component: FormComponent,
           data: {
-              kind: 'edit-preprocessor',
+              kind: 'editpreprocessor',
+              type: 'edit',
+              path: SERV.PREPROCESSORS,
               breadcrumb: 'Engine > Edit Preprocessor',
               permission: 'Prepro'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
     ]
 },
 ];

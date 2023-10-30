@@ -4,17 +4,18 @@ import { IsAuth } from "../core/_guards/auth.guard";
 import { NgModule } from "@angular/core";
 
 import { EditGlobalpermissionsgroupsComponent } from "./globalpermissionsgroups/edit-globalpermissionsgroups/edit-globalpermissionsgroups.component";
-import { NewGlobalpermissionsgroupsComponent } from "./globalpermissionsgroups/new-globalpermissionsgroups/new-globalpermissionsgroups.component";
 import { GlobalpermissionsgroupsComponent } from "./globalpermissionsgroups/globalpermissionsgroups.component";
-import { CUGroupComponent } from "./groups/cu-group/cu-group.component";
 import { EditUsersComponent } from "./edit-users/edit-users.component";
 import { AllUsersComponent } from "./all-users/all-users.component";
+import { FormComponent } from "../shared/form/form.component";
 import { GroupsComponent } from "./groups/groups.component";
+import { SERV } from '../core/_services/main.config';
 import { UsersComponent } from "./users.component";
 
 const routes: Routes = [
   {
     path: '',
+    canActivate: [IsAuth],
     children: [
         {
           path: '', component: UsersComponent,
@@ -23,7 +24,7 @@ const routes: Routes = [
               breadcrumb: 'New User',
               permission: 'User'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: ':id/edit', component: EditUsersComponent,
           data: {
@@ -31,7 +32,7 @@ const routes: Routes = [
               breadcrumb: 'Edit User',
               permission: 'User'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'all-users', component: AllUsersComponent,
           data: {
@@ -39,7 +40,7 @@ const routes: Routes = [
               breadcrumb: 'All Users',
               permission: 'User'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'global-permissions-groups', component: GlobalpermissionsgroupsComponent,
           data: {
@@ -47,15 +48,17 @@ const routes: Routes = [
               breadcrumb: 'Global Permissions Groups',
               permission: 'RightGroup'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'global-permissions-groups/new', component: NewGlobalpermissionsgroupsComponent,
+          path: 'global-permissions-groups/new', component: FormComponent,
           data: {
-              kind: 'new-globalpermissionsgp',
+              kind: 'newglobalpermissionsgp',
+              type: 'create',
+              path: SERV.ACCESS_PERMISSIONS_GROUPS,
               breadcrumb: 'New Global Permissions Groups',
               permission: 'RightGroup'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'global-permissions-groups/:id/edit', component: EditGlobalpermissionsgroupsComponent,
           data: {
@@ -63,7 +66,7 @@ const routes: Routes = [
               breadcrumb: 'Edit Global Permissions Group',
               permission: 'RightGroup'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
           path: 'access-groups', component: GroupsComponent,
           data: {
@@ -71,23 +74,27 @@ const routes: Routes = [
               breadcrumb: 'Access Groups',
               permission: 'GroupAccess'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'access-groups/new', component: CUGroupComponent,
+          path: 'access-groups/new', component: FormComponent,
           data: {
-              kind: 'new-access-groups',
+              kind: 'newaccessgroups',
+              type: 'create',
+              path: SERV.ACCESS_GROUPS,
               breadcrumb: 'New Access Group',
               permission: 'GroupAccess'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         {
-          path: 'access-groups/:id/edit', component: CUGroupComponent,
+          path: 'access-groups/:id/edit', component: FormComponent,
           data: {
-              kind: 'edit-access-groups',
+              kind: 'editaccessgroups',
+              type: 'edit',
+              path: SERV.ACCESS_GROUPS,
               breadcrumb: 'Edit Access Group',
               permission: 'GroupAccess'
           },
-          canActivate: [IsAuth,CheckPerm]},
+          canActivate: [CheckPerm]},
         ]
       }
    ]
