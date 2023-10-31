@@ -8,7 +8,6 @@ import { NewHealthChecksComponent } from "./health-checks/new-health-check/new-h
 import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
 import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
 import { HealthChecksComponent } from "./health-checks/health-checks.component";
-import { HashtypeComponent } from "./hashtypes/hashtype/hashtype.component";
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { FormComponent } from "../shared/form/form.component";
@@ -70,17 +69,21 @@ const routes: Routes = [
           },
           canActivate: [CheckPerm]},
         {
-          path: 'hashtypes/new',  component: HashtypeComponent,
+          path: 'hashtypes/new',  component: FormComponent,
           data: {
-              kind: 'new-hashtype',
+              kind: 'newhashtype',
+              type: 'create',
+              path: SERV.HASHTYPES,
               breadcrumb: 'New Hashtype',
               permission: 'Hashtype'
           },
           canActivate: [CheckPerm]},
         {
-          path: 'hashtypes/:id/edit',  component: HashtypeComponent,
+          path: 'hashtypes/:id/edit',  component: FormComponent,
           data: {
-              kind: 'edit-hashtype',
+              kind: 'edithashtype',
+              type: 'edit',
+              path: SERV.HASHTYPES,
               breadcrumb: 'Edit Hashtype',
               permission: 'Hashtype'
           },
