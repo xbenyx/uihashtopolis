@@ -1,7 +1,11 @@
 import { FormBuilder, FormGroup, FormControl, ValidatorFn, Validators } from '@angular/forms';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, AfterViewInit, OnDestroy } from '@angular/core';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { Observable, Subject, Subscription, combineLatest, forkJoin, map, switchMap, takeUntil } from 'rxjs';
+import { MetadataService } from 'src/app/core/_services/metadata.service';
+import { GlobalService } from 'src/app/core/_services/main.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 /**
  * This component renders a dynamic form based on the provided form metadata.
@@ -21,29 +25,40 @@ import { Router } from '@angular/router';
           <div class="form-outline form-input-custom">
             <label [class.requiredak]="field.requiredasterisk" class="form-label" [for]="field.name">{{ field.label }}</label>
             <fa-icon
-              placement="bottom"
-              ngbTooltip="{{field.tooltip}}"
-              container="body"
-              [icon]="faInfoCircle"
-              aria-hidden="true"
-              class="gray-light-ico display-col"
-              *ngIf="field.tooltip"
+                  placement="bottom"
+                  ngbTooltip="{{field.tooltip}}"
+                  container="body"
+                  [icon]="faInfoCircle"
+                  aria-hidden="true"
+                  class="gray-light-ico display-col"
+                  *ngIf="field.tooltip"
             ></fa-icon>
             <ng-container [ngSwitch]="field.type">
               <td *ngSwitchCase="'number'">
-                <input class="form-control" [type]="field.type" [formControlName]="field.name">
+                <input class="form-control" type="number" [formControlName]="field.name">
               </td>
               <div *ngSwitchCase="'text'">
                 <input class="form-control" [type]="field.type" [formControlName]="field.name">
               </div>
-              <td *ngSwitchCase="'email'">
-                <input [type]="field.type" [formControlName]="field.name">
-              </td>
-              <td *ngSwitchCase="'select'">
+              <div *ngSwitchCase="'email'">
+                <input class="form-control" [type]="field.type" [formControlName]="field.name">
+              </div>
+              <div *ngSwitchCase="'select'">
                 <select class="form-select" [formControlName]="field.name">
                   <option *ngFor="let option of field.selectOptions" [ngValue]="option.value">{{ option.label }}</option>
                 </select>
-              </td>
+              </div>
+              <div *ngSwitchCase="'selectd'">
+              <select class="form-select" [formControlName]="field.name">
+                <ng-container *ngIf="isLoadingSelect; else options">
+                  <option disabled>Loading...</option>
+                </ng-container>
+                <ng-template #options>
+                  <option [ngValue]="null">Please Select an Option</option>
+                  <option *ngFor="let option of field.selectOptions$" [ngValue]="option.id">{{ option.name }}</option>
+                </ng-template>
+              </select>
+              </div>
               <td *ngSwitchCase="'checkbox'" class="form-check form-switch">
                 <input type="checkbox" [formControlName]="field.name" [id]="field.name" class="form-check-input">
               </td>
@@ -61,7 +76,7 @@ import { Router } from '@angular/router';
 </grid-main>
   `,
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * FontAwesome icon for providing additional information in form fields.
    */
@@ -110,16 +125,19 @@ export class DynamicFormComponent implements OnInit {
   // Create an Output event to emit the delete action
   @Output() deleteAction: EventEmitter<void> = new EventEmitter();
 
-  constructor(private fb: FormBuilder) {}
+  private destroy$ = new Subject<void>(); // Create a destroy$ subject
+
+  constructor(private fb: FormBuilder, private gs: GlobalService, private cd: ChangeDetectorRef) {}
 
   /**
    * Initializes the form with controls and their initial values.
    */
   ngOnInit() {
+    // Handle other fields and initialize the form controls
     const controlsConfig = {};
 
     for (const field of this.formMetadata) {
-      if (!field.isTitle) { // Only add form controls for non-title fields
+      if (!field.isTitle) {
         const fieldName = field.name;
         const validators: ValidatorFn[] = field.validators ? field.validators : [];
 
@@ -128,12 +146,47 @@ export class DynamicFormComponent implements OnInit {
         if (this.isCreateMode && field.defaultValue !== undefined) {
           initialValue = field.defaultValue;
         }
-
-        controlsConfig[fieldName] = new FormControl(initialValue, validators);
+        if (!this.isCreateMode && field.disabled) {
+          controlsConfig[fieldName] = { value: initialValue, disabled: true };
+        } else {
+          controlsConfig[fieldName] = new FormControl(initialValue, validators);
+        }
       }
     }
-
     this.form = this.fb.group(controlsConfig);
+  }
+
+  private selectOptionsSubscription: Subscription;
+  isLoadingSelect: boolean = true;
+
+  ngAfterViewInit() {
+    // Check if there are any "select" type fields with "selectOptions$"
+    const selectFields = this.formMetadata.filter(
+      (field) => field.type === 'selectd' && field.selectOptions$
+    );
+
+    if (selectFields.length > 0) {
+      // Handle logic for select fields with selectOptions$ after the view is initialized
+      selectFields.forEach((field) => {
+        // Fetch the select options dynamically here
+        this.selectOptionsSubscription = this.gs.getAll(field.selectEndpoint$).subscribe((options) => {
+          field.selectOptions$ = options.values;
+          this.isLoadingSelect = false;
+          // Optionally, update the form control value if needed
+          const control = this.form.get(field.name);
+
+          // // Check if there are options available
+          if (control && options.values && options.values.length > 0 && !this.isCreateMode) {
+            // Set the initial selected value (e.g., the first option)
+            const initialSelectedValue = options.values[0].value;
+            control.setValue(initialSelectedValue);
+          }
+
+          // Trigger change detection to prevent ExpressionChangedAfterItHasBeenCheckedError
+          this.cd.detectChanges();
+        });
+      });
+    }
   }
 
   /**
@@ -161,6 +214,11 @@ export class DynamicFormComponent implements OnInit {
   */
   onDelete(){
     this.deleteAction.emit();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

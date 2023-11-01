@@ -10,7 +10,6 @@ import { AllUsersComponent } from "./all-users/all-users.component";
 import { FormComponent } from "../shared/form/form.component";
 import { GroupsComponent } from "./groups/groups.component";
 import { SERV } from '../core/_services/main.config';
-import { UsersComponent } from "./users.component";
 
 const routes: Routes = [
   {
@@ -18,9 +17,11 @@ const routes: Routes = [
     canActivate: [IsAuth],
     children: [
         {
-          path: '', component: UsersComponent,
+          path: '', component: FormComponent,
           data: {
-              kind: 'users',
+              kind: 'newuser',
+              type: 'create',
+              path: SERV.USERS,
               breadcrumb: 'New User',
               permission: 'User'
           },

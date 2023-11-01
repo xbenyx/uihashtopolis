@@ -11,7 +11,6 @@ import { NewHealthChecksComponent } from './health-checks/new-health-check/new-h
 import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
 import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
 import { HealthChecksComponent } from "./health-checks/health-checks.component";
-import { HashtypeComponent } from './hashtypes/hashtype/hashtype.component';
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { ComponentsModule } from "../shared/components.module";
@@ -31,7 +30,6 @@ import { LogComponent } from "./log/log.component";
     SettingsMenuComponent,
     HashtypesComponent,
     CrackersComponent,
-    HashtypeComponent,
     ServerComponent,
     LogComponent
   ],

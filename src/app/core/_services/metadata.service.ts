@@ -1,10 +1,22 @@
-import { Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
+import { FormControl, Validators } from '@angular/forms';
+import { SERV } from '../../core/_services/main.config';
+import { HttpClient } from '@angular/common/http';
+import { GlobalService } from './main.service';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MetadataService {
+
+  constructor(
+    private http: HttpClient,
+    private gs: GlobalService
+    ) { }
+
+  private maxResults = environment.config.prodApiMaxResults;
 
   // ToDo in validators, go to the database and add max lenght
 
@@ -84,9 +96,44 @@ export class MetadataService {
     { name: 'limitCommand', label: 'Limit Command', type: 'text', requiredasterisk: false, tooltip: false, validators: false, defaultValue: '--limit'},
   ];
 
+  // Hashtypes
+  // type checkbox doesnt handle well true or false
+
+  newhashtypeInfo = [
+    { title: 'Create Hashtype', customform: false, subtitle: false, submitok: 'New Hashtype created!', submitokredirect: '/config/hashtypes'},
+  ];
+
+  edithashtypeInfo = [
+    { title: 'Edit Hashtype', customform: false, subtitle: false, submitok: 'Hashtype saved!', submitokredirect: '/config/hashtypes', deltitle: 'Hashtypes', delsubmitok: 'Deleted Hashtype', delsubmitokredirect: '/config/hashtypes', delsubmitcancel:'Hashtype is safe!'},
+  ];
+
+  newhashtype = [
+    { name: 'hashTypeId', label: 'Hashtype', type: 'number', requiredasterisk: true, tooltip: 'ie. Hashcat -m', validators: [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(1), this.numberValidator]},
+    { name: 'description', label: 'Description', type: 'text', requiredasterisk: true, tooltip: false, validators:  [Validators.required, Validators.minLength(1)] },
+    { name: 'isSalted', label: 'Salted', type: 'checkbox', requiredasterisk: false, tooltip: 'Only if there is a separate salt value', validators: false, defaultValue: false },
+    { name: 'isSlowHash', label: 'Slow Hash', type: 'checkbox', requiredasterisk: false, tooltip: false, validators: false, defaultValue: false },
+  ];
+
+  edithashtype = [
+    { name: 'hashTypeId', label: 'Hashtype', type: 'number', requiredasterisk: true, tooltip: 'ie. Hashcat -m', validators: [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(1), this.numberValidator], disabled: true},
+    { name: 'description', label: 'Description', type: 'text', requiredasterisk: true, tooltip: false, validators:  [Validators.required, Validators.minLength(1)] },
+    { name: 'isSalted', label: 'Salted', type: 'checkbox', requiredasterisk: false, tooltip: 'Only if there is a separate salt value', validators: false, defaultValue: false },
+    { name: 'isSlowHash', label: 'Slow Hash', type: 'checkbox', requiredasterisk: false, tooltip: false, validators: false, defaultValue: true },
+  ];
+
   // //
   // USERS
   // //
+
+  newuserInfo = [
+    { title: 'New User', customform: false, subtitle: false, submitok: 'New User created!', submitokredirect: 'users/all-users'},
+  ];
+
+  newuser = [
+    { name: 'name', label: 'User Name', type: 'text', requiredasterisk: true, validators: [Validators.required] },
+    { name: 'email', label: 'Email', type: 'email', requiredasterisk: true, validators: [Validators.required, Validators.email] },
+    { name: 'globalPermissionGroupId', label: 'Access Permission Group', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS,selectOptions$: [], validators: [Validators.required] },
+  ];
 
   // New Global Permission Group
 
@@ -129,10 +176,16 @@ export class MetadataService {
       return this.editcrackerversion;
     } else if (formName === 'newpreprocessor' || formName === 'editpreprocessor') {
       return this.preprocessor;
+    } else if (formName === 'newhashtype' ) {
+      return this.newhashtype;
+    } else if (formName === 'edithashtype') {
+      return this.edithashtype;
     } else if (formName === 'newglobalpermissionsgp') {
       return this.newglobalpermissionsgp;
     } else if (formName === 'newaccessgroups' || formName === 'editaccessgroups') {
       return this.accessgroups;
+    } else if (formName === 'newuser') {
+      return this.newuser;
     } else {
       return [];
     }
@@ -158,15 +211,53 @@ export class MetadataService {
       return this.newpreprocessorInfo;
     } else if (formName === 'editpreprocessorInfo') {
       return this.editpreprocessorInfo;
+    } else if (formName === 'newhashtypeInfo') {
+      return this.newhashtypeInfo;
+    } else if (formName === 'edithashtypeInfo') {
+      return this.edithashtypeInfo;
     } else if (formName === 'newglobalpermissionsgpInfo') {
       return this.newglobalpermissionsgpInfo;
     } else if (formName === 'newaccessgroupsInfo') {
       return this.newaccessgroupsInfo;
     } else if (formName === 'editaccessgroupsInfo') {
       return this.editaccessgroupsInfo;
+    } else if (formName === 'newuserInfo') {
+      return this.newuserInfo;
     } else {
       return [];
     }
+  }
+
+  /**
+   * Fetches select options for a form control from an API endpoint.
+   *
+   * @param apiEndpoint - The API endpoint to retrieve select options from.
+   * @returns An observable that emits an array of select options.
+   */
+  fetchOptions(apiEndpoint: string): Observable<any[]> {
+    return this.gs.getAll(apiEndpoint).pipe(
+      map((data: any) => {
+        console.log(data)
+        // Adjust this based on your API response structure
+        return data.options.map((option: any) => ({
+          label: option.label,
+          value: option.value,
+        }));
+      }),
+    );
+  }
+
+  // Custom validator to convert the input value to a number
+  numberValidator(control: FormControl) {
+    const value = control.value;
+    if (value === null || value === undefined) {
+      return null;
+    }
+    const parsedValue = Number(value);
+    if (isNaN(parsedValue)) {
+      return { invalidNumber: true };
+    }
+    return null;
   }
 
 

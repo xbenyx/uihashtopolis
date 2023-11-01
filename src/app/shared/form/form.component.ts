@@ -65,7 +65,12 @@ export class FormComponent implements OnInit, OnDestroy {
       this.apiPath = data.path; // Get the API path from route data
       this.type = data.type;
       this.isCreate = (this.type === 'create'? true:false);
-
+      // Load metadata and form information
+      this.globalMetadata = this.metadataService.getInfoMetadata(formKind+'Info')[0];
+      this.formMetadata = this.metadataService.getFormMetadata(formKind);
+      this.title = this.globalMetadata['title'];
+      this.customform = this.globalMetadata['customform'];
+      titleService.set([this.title]);
       // Load metadata and form information
       if(this.type === 'edit'){
         this.getIndex();
@@ -73,13 +78,6 @@ export class FormComponent implements OnInit, OnDestroy {
       }else{
         this.isloaded = true
       }
-
-      // Load metadata and form information
-      this.globalMetadata = this.metadataService.getInfoMetadata(formKind+'Info')[0];
-      this.formMetadata = this.metadataService.getFormMetadata(formKind);
-      this.title = this.globalMetadata['title'];
-      this.customform = this.globalMetadata['customform'];
-      titleService.set([this.title]);
     });
     // Add this.mySubscription to UnsubscribeService
     this.unsubscribeService.add(this.mySubscription);
@@ -106,7 +104,6 @@ export class FormComponent implements OnInit, OnDestroy {
     this.gs.get(this.apiPath, this.editedIndex).subscribe((result) => {
       this.formValues = result;
       this.isloaded = true; // Data is loaded and ready for form rendering
-      console.log(this.formValues);
     });
   }
 
