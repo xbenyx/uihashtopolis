@@ -135,6 +135,12 @@ export class MetadataService {
     { name: 'globalPermissionGroupId', label: 'Access Permission Group', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS,selectOptions$: [], validators: [Validators.required] },
   ];
 
+  edituser = [
+    { name: 'name', label: 'User Name', type: 'text', requiredasterisk: true, validators: [Validators.required] },
+    { name: 'email', label: 'Email', type: 'email', requiredasterisk: true, validators: [Validators.required, Validators.email] },
+    { name: 'globalPermissionGroupId', label: 'Access Permission Group', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS,selectOptions$: [], validators: [Validators.required] },
+  ];
+
   // New Global Permission Group
 
   newglobalpermissionsgpInfo = [

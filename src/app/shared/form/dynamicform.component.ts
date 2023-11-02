@@ -17,6 +17,7 @@ import { ChangeDetectorRef } from '@angular/core';
 <grid-main [class]="'width:100%;'" [centered]="true">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div *ngFor="let field of formMetadata">
+    <div class="form-group" *ngIf="field.type !== 'hidden'">
       <ng-container *ngIf="field.isTitle">
         <h5>{{ field.label }}</h5>
       </ng-container>
@@ -66,6 +67,7 @@ import { ChangeDetectorRef } from '@angular/core';
           </div>
         </div>
       </ng-container>
+    </div>
     </div>
     <grid-buttons>
       <button-submit name="Cancel" [disabled]="false" type="cancel" *ngIf="isCreateMode"></button-submit>
@@ -119,46 +121,85 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   @Input() buttonText: string;
 
-  // Create an Output event to emit the form values on submission
+  /**
+   * Event emitter for submitting the form. Emits the form values when the form is submitted.
+   * Parent components can subscribe to this event to handle form submissions.
+   */
   @Output() formSubmit: EventEmitter<any> = new EventEmitter();
 
-  // Create an Output event to emit the delete action
+  /**
+   * Event emitter for handling the delete action. Emits when the "Delete" action is triggered.
+   * Parent components can subscribe to this event to perform delete operations.
+   */
   @Output() deleteAction: EventEmitter<void> = new EventEmitter();
 
-  private destroy$ = new Subject<void>(); // Create a destroy$ subject
+  /**
+   * A Subject used for managing the lifecycle and unsubscribing from observables when the component is destroyed.
+   * The `destroy$` subject is used to signal the component's destruction.
+   */
+  private destroy$ = new Subject<void>();
 
+  /**
+   * Constructor for the DynamicFormComponent.
+   * @param fb - The Angular FormBuilder for creating form controls and groups.
+   * @param gs - The GlobalService for handling global operations and API requests.
+   * @param cd - The Angular ChangeDetectorRef for triggering change detection manually.
+   */
   constructor(private fb: FormBuilder, private gs: GlobalService, private cd: ChangeDetectorRef) {}
 
   /**
-   * Initializes the form with controls and their initial values.
+   * Initializes the dynamic form by creating form controls and setting their initial values.
+   * This method is called when the dynamic form component is initialized.
    */
   ngOnInit() {
-    // Handle other fields and initialize the form controls
+    // Initialize form controls for the dynamic form
     const controlsConfig = {};
 
+    // Iterate through the form metadata to create and configure form controls
     for (const field of this.formMetadata) {
       if (!field.isTitle) {
         const fieldName = field.name;
         const validators: ValidatorFn[] = field.validators ? field.validators : [];
 
+        // Set the initial value for the form control
         let initialValue = this.formValues[fieldName] || '';
 
+        // Set the initial value based on the mode (create/update) and field's default value
         if (this.isCreateMode && field.defaultValue !== undefined) {
           initialValue = field.defaultValue;
         }
+
+        // Create a form control with the initial value and any specified validators
         if (!this.isCreateMode && field.disabled) {
+          // If in update mode and the field is disabled, create a disabled form control
           controlsConfig[fieldName] = { value: initialValue, disabled: true };
         } else {
+          // Create a form control with initial value and optional validators
           controlsConfig[fieldName] = new FormControl(initialValue, validators);
         }
       }
     }
+
+    // Create the Angular FormGroup with the configured controls
     this.form = this.fb.group(controlsConfig);
   }
 
+  /**
+   * A subscription to handle dynamic select options data retrieval.
+   * This subscription is used to fetch and update select field options with dynamic data.
+   */
   private selectOptionsSubscription: Subscription;
+
+  /**
+   * Indicates whether the dynamic select options are currently being loaded.
+   * When true, it represents that options are being fetched; when false, loading is complete.
+   */
   isLoadingSelect: boolean = true;
 
+  /**
+   * Angular lifecycle hook: ngAfterViewInit
+   * Performs initialization and logic for select fields with dynamic options.
+   */
   ngAfterViewInit() {
     // Check if there are any "select" type fields with "selectOptions$"
     const selectFields = this.formMetadata.filter(
@@ -170,12 +211,16 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
       selectFields.forEach((field) => {
         // Fetch the select options dynamically here
         this.selectOptionsSubscription = this.gs.getAll(field.selectEndpoint$).subscribe((options) => {
+          // Assign the fetched options to the field's selectOptions$
           field.selectOptions$ = options.values;
+
+          // Update isLoadingSelect to indicate that loading is complete
           this.isLoadingSelect = false;
+
           // Optionally, update the form control value if needed
           const control = this.form.get(field.name);
 
-          // // Check if there are options available
+          // Check if there are options available
           if (control && options.values && options.values.length > 0 && !this.isCreateMode) {
             // Set the initial selected value (e.g., the first option)
             const initialSelectedValue = options.values[0].value;
@@ -216,7 +261,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.deleteAction.emit();
   }
 
+  /**
+   * Angular lifecycle hook: ngOnDestroy
+   * Unsubscribes from all relevant subscriptions and cleans up resources
+   */
   ngOnDestroy() {
+    // Unsubscribe from the selectOptionsSubscription
+    this.selectOptionsSubscription.unsubscribe();
+
+    // Complete and close the destroy$ subject to prevent memory leaks
     this.destroy$.next();
     this.destroy$.complete();
   }

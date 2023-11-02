@@ -1,6 +1,6 @@
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AutoTitleService } from 'src/app/core/_services/shared/autotitle.service';
 import { UnsubscribeService } from 'src/app/core/_services/unsubscribe.service';
@@ -24,17 +24,65 @@ export class FormComponent implements OnInit, OnDestroy {
   globalMetadata: any[] = [];
   apiPath: string;
 
-  // Logic when form is in create or edit mode
+  /**
+   * Indicates the mode of the form: either 'create' or 'edit'.
+   * This property determines whether the form is in the process of creating a new item or editing an existing one.
+   * @type {string}
+   */
   type: string;
-  isloaded= false;
+
+  /**
+   * Flag that indicates whether the data for the form has been loaded and the form is ready for rendering.
+   * When true, the form is fully loaded and can be displayed; otherwise, it's still being prepared.
+   * @type {boolean}
+   */
+  isloaded = false;
+
+  /**
+   * Flag that specifies whether the form is in "create" mode.
+   * When true, the form is set to create a new item; when false, it's in edit mode for an existing item.
+   * @type {boolean}
+   */
   isCreate: boolean;
+
+  /**
+   * The index of the item being edited in "edit" mode.
+   * This value is set when editing an existing item and represents the unique identifier of the item.
+   * @type {number}
+   */
   editedIndex: number;
 
-  // Form
+  /**
+   * Title to be displayed in the form.
+   * @type {string}
+   */
   title: string;
+
+  /**
+   * The Angular FormGroup representing the dynamic form.
+   * This FormGroup contains form controls for all fields in the formMetadata.
+   */
   form: FormGroup;
+
+  /**
+   * Indicates if a custom form layout is used.
+   * Custom forms may have special logic or layouts.
+   * @type {boolean}
+   */
   customform: boolean;
+
+  /**
+   * An array of form field metadata that describes the form structure.
+   * Each item in the array represents a form field, including its type, label, and other properties.
+   * @type {any[]}
+   */
   formMetadata: any[] = [];
+
+  /**
+   * Initial values for form fields (optional).
+   * If provided, these values are used to initialize form controls in the dynamic form.
+   * @type {any[]}
+   */
   formValues: any[] = [];
 
   // Subscription for managing asynchronous data retrieval
@@ -133,7 +181,6 @@ export class FormComponent implements OnInit, OnDestroy {
     if(this.customform){
       this.onCustomForm(formValues);
     }
-    console.log(formValues)
     if (this.type === 'create') {
       // Create mode: Submit form data for creating a new item
       this.mySubscription = this.gs.create(this.apiPath, formValues).subscribe(() => {
@@ -169,11 +216,16 @@ export class FormComponent implements OnInit, OnDestroy {
     return formValues;
   }
 
-  onDeleteAction(){
-    if(this.globalMetadata['deltitle']){
+  /**
+   * Handles the deletion action when the "Delete" button is clicked.
+   * Displays a confirmation dialog and, if confirmed, triggers the deletion of the item.
+   * Emits success alerts and navigates to the appropriate route.
+   */
+  onDeleteAction() {
+    if (this.globalMetadata['deltitle']) {
       this.getIndex();
     }
-    this.alert.deleteConfirmation('',this.globalMetadata['deltitle']).then((confirmed) => {
+    this.alert.deleteConfirmation('', this.globalMetadata['deltitle']).then((confirmed) => {
       if (confirmed) {
         // Deletion
         this.gs.delete(this.apiPath, this.editedIndex).subscribe(() => {
@@ -183,7 +235,7 @@ export class FormComponent implements OnInit, OnDestroy {
         });
       } else {
         // Handle cancellation
-        this.alert.okAlert(this.globalMetadata['delsubmitcancel'],'');
+        this.alert.okAlert(this.globalMetadata['delsubmitcancel'], '');
       }
     });
   }
