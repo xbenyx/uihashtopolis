@@ -65,7 +65,18 @@ export class MetadataService {
   // Examples
   // Create title between fields. use  { label: 'More settings', isTitle: true }
 
-  //
+  // // // // // // // //
+  // TASKS SECTION     //
+  // // // // // // // //
+
+  // //
+  // Supertask
+  // //
+
+  supertaskInfo = [
+    { title: 'New Supertask', customform: false, subtitle: false, submitok: 'New SuperTask created!', submitokredirect: 'tasks/supertasks'},
+  ];
+
   // // // // // // // //
   // CONFIG SECTION    //
   // // // // // // // //
@@ -369,8 +380,8 @@ export class MetadataService {
 
   uisettings = [
     { name: "localtimefmt", label: "Set the time format", type: "select", selectOptions: dateFormat },
-    { name: "autorefresh", label: "Refresh Interval (seconds)", type: "text", tooltip: "Manage refresh interval in the show tasks view" },
-    { name: "cookieTooltip", tooltip: "Manage Global level of tooltip details", type: "select", selectOptions: [
+    { name: "autorefresh", label: "Dashboard Refresh Interval (seconds)", type: "text", tooltip: "Manage refresh interval in the show tasks view" },
+    { name: "tooltip", label: "Manage Global level of tooltip details", type: "select", selectOptions: [
       { label: "Concise", value: 0 },
       { label: "Detailed", value: 1 },
       { label: "Very Detailed", value: 2 }
@@ -383,7 +394,9 @@ export class MetadataService {
    * @returns An array of form metadata.
    */
   getFormMetadata(formName: string): any[] {
-    if (formName === 'newcracker') {
+    if (formName === 'uisettings') {
+      return this.uisettings;
+    } else if (formName === 'newcracker') {
       return this.newcracker;
     } else if (formName === 'newagentbinary' || formName === 'editagentbinary') {
       return this.agentbinary;
@@ -424,7 +437,9 @@ export class MetadataService {
    * @returns An array of info metadata.
    */
   getInfoMetadata(formName: string): any[] {
-    if (formName === 'newcrackerInfo') {
+    if (formName === 'uisettingsInfo') {
+      return this.uisettingsInfo;
+    } if (formName === 'newcrackerInfo') {
       return this.newcrackerInfo;
     } else if (formName === 'newagentbinaryInfo') {
       return this.newagentbinaryInfo;

@@ -12,7 +12,6 @@ import { FormConfigComponent } from "../shared/form/formconfig.component";
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { FormComponent } from "../shared/form/form.component";
-import { ServerComponent } from "./server/server.component";
 import { SERV } from '../core/_services/main.config';
 import { LogComponent } from "./log/log.component";
 

@@ -15,7 +15,6 @@ import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { ComponentsModule } from "../shared/components.module";
 import { ConfigRoutingModule } from "./config-routing.module";
-import { ServerComponent } from "./server/server.component";
 import { PipesModule } from "../shared/pipes.module";
 import { LogComponent } from "./log/log.component";
 
@@ -29,7 +28,6 @@ import { LogComponent } from "./log/log.component";
     HealthChecksComponent,
     HashtypesComponent,
     CrackersComponent,
-    ServerComponent,
     LogComponent
   ],
   imports:[

@@ -23,8 +23,9 @@
     "allowJs": true,
     "typeRoots": [
       "node_modules/@types",
-      "src/decs.d.ts"
+      "src/app/types"
     ],
+    "types": ["selectize"],
     "lib": [
       "ES2022",
       "dom"

@@ -13,7 +13,7 @@ import { CookieService } from 'src/app/core/_services/shared/cookies.service';
 @Component({
   selector: 'app-form',
   template: `
-    <app-dynamic-form [subtitle]='title' [formMetadata]="formMetadata" [formValues]="formValues" [form]="form" [buttonText]="'Create'" (formSubmit)="onFormSubmit($event)"></app-dynamic-form>
+    <app-dynamic-form [subtitle]='title' [formMetadata]="formMetadata" [formValues]="formValues" [form]="form" [buttonText]="'Update'" [showDeleteButton]="false" (formSubmit)="onFormSubmit($event)"></app-dynamic-form>
   `,
 })
 /**
@@ -23,6 +23,7 @@ export class FormUIsettingsComponent implements OnDestroy {
 
   // Metadata Text, titles, subtitles, forms, and API path
   globalMetadata: any[] = [];
+  apiPath: string;
 
   /**
    * Title to be displayed in the form.
@@ -76,6 +77,7 @@ export class FormUIsettingsComponent implements OnDestroy {
     // Subscribe to route data to initialize component data
     this.route.data.subscribe((data: { kind: string, path: string, type: string }) => {
       const formKind = data.kind;
+      this.apiPath = data.path; // Get the API path from route data
       // Load metadata and form information
       this.globalMetadata = this.metadataService.getInfoMetadata(formKind+'Info')[0];
       this.formMetadata = this.metadataService.getFormMetadata(formKind);
@@ -85,6 +87,22 @@ export class FormUIsettingsComponent implements OnDestroy {
     });
     // Add this.mySubscription to UnsubscribeService
     this.unsubscribeService.add(this.mySubscription);
+  }
+
+  /**
+   * Angular lifecycle hook: ngOnInit
+  */
+    ngOnInit(): void {
+      this.loadEdit();
+    }
+
+  /**
+   * Loads data for editing a form.
+   * This function fetches data from the API for editing and prepares it for rendering in a form.
+   */
+  loadEdit() {
+    // Fetch data from the API for editing
+    // Use utils
   }
 
   /**
@@ -117,5 +135,5 @@ export class FormUIsettingsComponent implements OnDestroy {
     this.alert.okAlert('Saved!', '');
   }
 
-
 }
+

@@ -6,8 +6,10 @@ import { AccountSettingsComponent } from "./settings/acc-settings/acc-settings.c
 import { UiSettingsComponent } from "./settings/ui-settings/ui-settings.component";
 import { EditNotificationComponent } from "./notifications/notification/edit-notification.component";
 import { NewNotificationComponent } from "./notifications/notification/new-notification.component";
+import { FormUIsettingsComponent } from "../shared/form/formuisettings.component";
 import { NotificationsComponent } from "./notifications/notifications.component";
 import { AccountComponent } from "./account.component";
+import { SERV } from '../core/_services/main.config';
 
 const routes: Routes = [
   {
@@ -28,9 +30,11 @@ const routes: Routes = [
           },
           canActivate: [IsAuth]},
         {
-          path: 'ui-settings', component: UiSettingsComponent,
+          path: 'ui-settings', component: FormUIsettingsComponent,
           data: {
-              kind: 'ui-settings',
+              kind: 'uisettings',
+              type: 'edit',
+              path: SERV.CONFIGS,
               breadcrumb: 'UI Settings'
           },
           canActivate: [IsAuth]},

@@ -1,4 +1,5 @@
 
+import { HorizontalNavModule } from '../navigation/navigation.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormUIsettingsComponent } from './formuisettings.component';
 import { PageTitleModule } from '../page-headers/page-title.module';
@@ -11,7 +12,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormComponent } from './form.component';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { HorizontalNavModule } from '../navigation/navigation.module';
+
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations:[
@@ -29,7 +35,12 @@ import { HorizontalNavModule } from '../navigation/navigation.module';
     FormsModule,
     GridModule,
     NgbModule,
-    CommonModule
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule
   ],
   exports:[
     FormUIsettingsComponent,
