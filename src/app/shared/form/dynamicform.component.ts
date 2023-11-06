@@ -41,6 +41,12 @@ import { ChangeDetectorRef } from '@angular/core';
               <div *ngSwitchCase="'text'">
                 <input class="form-control" [type]="field.type" [formControlName]="field.name">
               </div>
+              <div *ngSwitchCase="'password'">
+                <input class="form-control" type="password" [formControlName]="field.name">
+              </div>
+              <div *ngSwitchCase="'textarea'">
+                <textarea class="form-control" [formControlName]="field.name"></textarea>
+              </div>
               <div *ngSwitchCase="'email'">
                 <input class="form-control" [type]="field.type" [formControlName]="field.name">
               </div>
@@ -71,7 +77,7 @@ import { ChangeDetectorRef } from '@angular/core';
     </div>
     <grid-buttons>
       <button-submit name="Cancel" [disabled]="false" type="cancel" *ngIf="isCreateMode"></button-submit>
-      <button-submit name="Delete" [disabled]="false" type="delete" *ngIf="!isCreateMode" (click)="onDelete()">Delete</button-submit>
+      <button-submit name="Delete" [disabled]="false" type="delete" *ngIf="!isCreateMode && showDeleteButton" (click)="onDelete()">Delete</button-submit>
       <button-submit [name]="buttonText" [disabled]="!formIsValid()"></button-submit>
     </grid-buttons>
   </form>
@@ -117,6 +123,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() isCreateMode: boolean;
 
   /**
+   * A boolean input property that controls the visibility of the "Delete" button.
+   * Set it to `true` to display the "Delete" button, and `false` to hide it.
+   * By default, the "Delete" button is displayed (set to `true`).
+   */
+  @Input() showDeleteButton: boolean = true;
+
+  /**
    * The text to display on the "Create" or "Update" button.
    */
   @Input() buttonText: string;
@@ -137,7 +150,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    * A Subject used for managing the lifecycle and unsubscribing from observables when the component is destroyed.
    * The `destroy$` subject is used to signal the component's destruction.
    */
-  private destroy$ = new Subject<void>();
+  private destroy$: Subject<void> = new Subject<void>();
 
   /**
    * Constructor for the DynamicFormComponent.
@@ -210,7 +223,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
       // Handle logic for select fields with selectOptions$ after the view is initialized
       selectFields.forEach((field) => {
         // Fetch the select options dynamically here
-        this.selectOptionsSubscription = this.gs.getAll(field.selectEndpoint$).subscribe((options) => {
+        this.selectOptionsSubscription = this.gs.getAll(field.selectEndpoint$,{'maxResults': 5000})
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((options) => {
           // Assign the fetched options to the field's selectOptions$
           field.selectOptions$ = options.values;
 
@@ -267,7 +282,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   ngOnDestroy() {
     // Unsubscribe from the selectOptionsSubscription
-    this.selectOptionsSubscription.unsubscribe();
+    // this.selectOptionsSubscription.unsubscribe();
 
     // Complete and close the destroy$ subject to prevent memory leaks
     this.destroy$.next();

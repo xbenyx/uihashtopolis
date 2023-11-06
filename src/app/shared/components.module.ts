@@ -24,6 +24,7 @@ import { LottiesModule } from './lottie/lottie.module';
 import { GraphsModule } from "./graphs/graphs.module";
 import { ColorPickerModule } from 'ngx-color-picker';
 import { FormsModule } from "@angular/forms";
+import { HorizontalNavModule } from './navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FormsModule } from "@angular/forms";
   ],
   imports: [
     FilterTextboxModule,
+    HorizontalNavModule,
     DynamicFormModule,
     SwitchThemeModule,
     ColorPickerModule,
@@ -62,6 +64,7 @@ import { FormsModule } from "@angular/forms";
     HexconvertorComponent,
     PassStrenghtComponent,
     FilterTextboxModule,
+    HorizontalNavModule,
     CheatsheetComponent,
     PassMatchComponent,
     SwitchThemeModule,

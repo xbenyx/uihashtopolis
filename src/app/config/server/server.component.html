@@ -1,33 +1,33 @@
-<div [ngSwitch]="whichView">
-  <div *ngSwitchCase="'agent'">
-    <settings-menu [aclass]="'btn-outline-gray-600-select'">
+<!-- <div [ngSwitch]="whichView">
+  <div *ngSwitchCase="'serveragent'">
+    <horizontalnav>
       <app-page-subtitle [subtitle]="'Agent Settings'"></app-page-subtitle>
-    </settings-menu>
+    </horizontalnav>
   </div>
-  <div *ngSwitchCase="'task-chunk'">
-    <settings-menu [tclass]="'btn-outline-gray-600-select'">
+  <div *ngSwitchCase="'servertaskchunk'">
+    <horizontalnav>
       <app-page-subtitle [subtitle]="'Task/Chunk Settings'"></app-page-subtitle>
-    </settings-menu>
+    </horizontalnav>
   </div>
   <div *ngSwitchCase="'hch'">
-    <settings-menu [hchclass]="'btn-outline-gray-600-select'">
+    <horizontalnav>
       <app-page-subtitle [subtitle]="'Hashes/Cracks/Hashlist Settings'"></app-page-subtitle>
-    </settings-menu>
+    </horizontalnav>
   </div>
   <div *ngSwitchCase="'notif'">
-    <settings-menu [nclass]="'btn-outline-gray-600-select'">
+    <horizontalnav>
       <app-page-subtitle [subtitle]="'Notification Settings'"></app-page-subtitle>
-    </settings-menu>
+    </horizontalnav>
   </div>
   <div *ngSwitchCase="'gs'">
-    <settings-menu [gclass]="'btn-outline-gray-600-select'">
+    <horizontalnav>
       <app-page-subtitle [subtitle]="'General Settings'"></app-page-subtitle>
-    </settings-menu>
+    </horizontalnav>
   </div>
-</div>
+</div> -->
 <!-- Body -->
 <div [ngSwitch]="whichView">
-  <div *ngSwitchCase="'agent'">
+  <div *ngSwitchCase="'serveragent'">
     <grid-main [class]="'width:100%'">
         <form [formGroup]="agentForm">
           <grid-autocol>
@@ -177,7 +177,7 @@
           </form>
     </grid-main>
   </div>
-    <div *ngSwitchCase="'task-chunk'">
+    <div *ngSwitchCase="'servertaskchunk'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="tcForm">
             <grid-autocol>
@@ -337,7 +337,7 @@
           </form>
       </grid-main>
     </div>
-    <div *ngSwitchCase="'hch'">
+    <div *ngSwitchCase="'serverhch'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="hchForm">
             <grid-autocol>
@@ -440,7 +440,7 @@
           </form>
       </grid-main>
     </div>
-    <div *ngSwitchCase="'notif'">
+    <div *ngSwitchCase="'servernotif'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="notifForm">
              <grid-autocol>
@@ -532,7 +532,7 @@
           </form>
       </grid-main>
     </div>
-    <div *ngSwitchCase="'gs'">
+    <div *ngSwitchCase="'servergs'">
       <grid-main [class]="'width:100%'">
           <form [formGroup]="gsForm">
             <grid-autocol>
@@ -660,7 +660,7 @@
                         #serverLogLevel
                         (change)="autoSave('serverLogLevel',serverLogLevel.value)"
                     >
-                      <option *ngFor="let sl of serverlog" [ngValue]="sl.id">{{ sl.value }}</option>
+                      <option *ngFor="let sl of serverlog" [ngValue]="sl.value">{{ sl.label }}</option>
                   </select>
               </grid-form-input>
             </grid-autocol>

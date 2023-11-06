@@ -8,6 +8,7 @@ import { NewHealthChecksComponent } from "./health-checks/new-health-check/new-h
 import { AgentBinariesComponent } from "./engine/agent-binaries/agent-binaries.component";
 import { PreprocessorsComponent } from "./engine/preprocessors/preprocessors.component";
 import { HealthChecksComponent } from "./health-checks/health-checks.component";
+import { FormConfigComponent } from "../shared/form/formconfig.component";
 import { CrackersComponent } from "./engine/crackers/crackers.component";
 import { HashtypesComponent } from "./hashtypes/hashtypes.component";
 import { FormComponent } from "../shared/form/form.component";
@@ -21,41 +22,51 @@ const routes: Routes = [
     canActivate: [IsAuth],
     children: [
         {
-          path: 'agent',  component: ServerComponent,
+          path: 'agent',  component: FormConfigComponent,
           data: {
-              kind: 'agent',
+              kind: 'serveragent',
+              type: 'edit',
+              path: SERV.CONFIGS,
               breadcrumb: 'Agent Settings',
               permission: 'Config'
           },
           canActivate: [CheckPerm]},
         {
-          path: 'task-chunk',  component: ServerComponent,
+          path: 'task-chunk',  component: FormConfigComponent,
           data: {
-              kind: 'task-chunk',
+              kind: 'servertaskchunk',
+              type: 'edit',
+              path: SERV.CONFIGS,
               breadcrumb: 'Task Chunk Settings',
               permission: 'Config'
           },
           canActivate: [CheckPerm]},
         {
-          path: 'hch',  component: ServerComponent,
+          path: 'hch',  component: FormConfigComponent,
           data: {
-              kind: 'hch',
+              kind: 'serverhch',
+              type: 'edit',
+              path: SERV.CONFIGS,
               breadcrumb: 'Hashes/Cracks/Hashlist Settings',
               permission: 'Config'
           },
           canActivate: [CheckPerm]},
         {
-          path: 'notifications',  component: ServerComponent,
+          path: 'notifications',  component: FormConfigComponent,
           data: {
-              kind: 'notif',
+              kind: 'servernotif',
+              type: 'edit',
+              path: SERV.CONFIGS,
               breadcrumb: 'Notifications',
               permission: 'Notif'
           },
           canActivate: [CheckPerm]},
         {
-          path: 'general-settings',  component: ServerComponent,
+          path: 'general-settings',  component: FormConfigComponent,
           data: {
-              kind: 'gs',
+              kind: 'servergs',
+              type: 'edit',
+              path: SERV.CONFIGS,
               breadcrumb: 'General Settings',
               permission: 'Config'
           },

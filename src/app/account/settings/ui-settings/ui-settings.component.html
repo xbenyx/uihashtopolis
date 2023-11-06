@@ -12,7 +12,7 @@
               #localtimefmt
               (change)="setCookieValue('localtimefmt',localtimefmt.value)"
         >
-        <option *ngFor="let d of dateFormat" [value]="d.format">{{ d.description }}</option>
+        <option *ngFor="let d of dateFormat" [value]="d.value">{{ d.label }}</option>
         </select>
       </grid-form-input>
       <grid-buttons>

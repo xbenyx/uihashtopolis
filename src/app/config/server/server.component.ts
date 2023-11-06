@@ -1,7 +1,6 @@
 import { faHomeAlt, faInfoCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { environment } from './../../../environments/environment';
 import { FormControl, FormGroup } from '@angular/forms';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -66,8 +65,8 @@ export class ServerComponent implements OnInit {
     this.route.data.subscribe(data => {
       switch (data['kind']) {
 
-        case 'agent':
-          this.whichView = 'agent';
+        case 'serveragent':
+          this.whichView = 'serveragent';
           this.agentForm = new FormGroup({
             'agenttimeout': new FormControl(),
             'benchtime': new FormControl(),
@@ -86,8 +85,8 @@ export class ServerComponent implements OnInit {
           this.atip = this.tooltipService.getConfigTooltips().agent;
         break;
 
-        case 'task-chunk':
-          this.whichView = 'task-chunk';
+        case 'servertaskchunk':
+          this.whichView = 'servertaskchunk';
           this.tcForm = new FormGroup({
             'chunktime': new FormControl(),
             'disptolerance': new FormControl(),
@@ -108,8 +107,8 @@ export class ServerComponent implements OnInit {
           this.initTCForm();
         break;
 
-        case 'hch':
-          this.whichView = 'hch';
+        case 'serverhch':
+          this.whichView = 'serverhch';
           this.hchForm = new FormGroup({
             'maxHashlistSize': new FormControl(),
             'pagingSize': new FormControl(),
@@ -124,8 +123,8 @@ export class ServerComponent implements OnInit {
           this.initHCHForm();
         break;
 
-        case 'notif':
-          this.whichView = 'notif';
+        case 'servernotif':
+          this.whichView = 'servernotif';
           this.notifForm = new FormGroup({
             'emailSender': new FormControl(),
             'emailSenderName': new FormControl(),
@@ -139,8 +138,8 @@ export class ServerComponent implements OnInit {
           this.initNotifForm();
         break;
 
-        case 'gs':
-          this.whichView = 'gs';
+        case 'servergs':
+          this.whichView = 'servergs';
           this.gsForm = new FormGroup({
             'hashcatBrainEnable': new FormControl(),
             'hashcatBrainHost': new FormControl(),
@@ -189,52 +188,6 @@ export class ServerComponent implements OnInit {
     });
   }
 
-  modelAgentActivity = [
-    {
-      type: "number",
-      formcontrol: "agenttimeout",
-      label: "Delay before considering an agent as inactive(or timed out)",
-    },
-    {
-      type: "number",
-      formcontrol: "benchtime",
-      label: "Delay before considering an issued chunk as inactive",
-    },
-    {
-      type: "number",
-      formcontrol: "statustimer",
-      label: "Frequency of the agent reporting about a task to the server",
-    },
-    {
-      type: "number",
-      formcontrol: "agentDataLifetime",
-      label: "Time during which util and temperature data are retained on the server",
-    },
-    {
-      type: "checkbox",
-      formcontrol: "hideIpInfo",
-      label: "Hide agents IP information",
-    },
-    {
-      type: "checkbox",
-      formcontrol: "voucherDeletion",
-      label: "Voucher(s) can be used to register multiple agents",
-    }
-  ];
-
-
-  // sectiontwo: [
-  //   {
-  //     type: "number",
-  //     formcontrol: "agentStatLimit",
-  //     label: "Maximum number of data points in agent (gpu) graphs",
-  //   },
-  //   {
-  //     type: "number",
-  //     formcontrol: "agentStatTension",
-  //     label: "Draw straigth lines in agent data graph instead of bezier curves",
-  //   },
-  // ]
 
   private initTCForm() {
     const params = {'maxResults': this.maxResults}
