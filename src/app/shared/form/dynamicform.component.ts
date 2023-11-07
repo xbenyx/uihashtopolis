@@ -165,42 +165,50 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    * This method is called when the dynamic form component is initialized.
    */
   ngOnInit() {
-    // Initialize form controls for the dynamic form
+    // Initialize an object to store the configuration of form controls.
     const controlsConfig = {};
 
-    // Iterate through the form metadata to create and configure form controls
+    // Iterate through the form metadata to create and configure form controls.
     for (const field of this.formMetadata) {
+      // Exclude fields marked as titles from form control creation.
       if (!field.isTitle) {
+        // Get the name of the field.
         const fieldName = field.name;
+
+        // Determine the validators for the field, defaulting to an empty array if none are provided.
         const validators: ValidatorFn[] = field.validators ? field.validators : [];
+
+        // Initialize the initial value for the form control.
         let initialValue;
 
-        // Set the initial value for the form control.
-        if (field.type === 'checkbox'){
+        // Set the initial value for the form control based on the field's type.
+        if (field.type === 'checkbox') {
+          // For checkboxes, use the value directly from formValues.
           initialValue = this.formValues[fieldName];
-        } else{
-          initialValue = this.formValues[fieldName] || '';
+        } else {
+          // For other field types, use formValues[fieldName] or 0 as a default value if not provided.
+          initialValue = fieldName in this.formValues ? this.formValues[fieldName] : 0;
         }
-        // Set the initial value for the form control.
-        // If the field type is 'checkbox', use the value from formValues directly.
-        // For other field types, use formValues[fieldName] or an empty string if it's not provided.
+
+        // In 'create' mode, override the initial value if a default value is specified in the field's metadata.
         if (this.isCreateMode && field.defaultValue !== undefined) {
           initialValue = field.defaultValue;
         }
 
-        // Create a form control with the initial value and any specified validators
+        // Create a form control with the initial value and any specified validators.
         if (!this.isCreateMode && field.disabled) {
-          // If in update mode and the field is disabled, create a disabled form control
+          // If in 'update' mode and the field is disabled, create a disabled form control.
           controlsConfig[fieldName] = { value: initialValue, disabled: true };
         } else {
-          // Create a form control with initial value and optional validators
+          // Create a form control with the initial value and optional validators.
           controlsConfig[fieldName] = new FormControl(initialValue, validators);
         }
       }
     }
 
-    // Create the Angular FormGroup with the configured controls
+    // Create the Angular FormGroup with the configured controls.
     this.form = this.fb.group(controlsConfig);
+    console.log(this.form)
   }
 
   /**
@@ -232,8 +240,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectOptionsSubscription = this.gs.getAll(field.selectEndpoint$,{'maxResults': 5000})
         .pipe(takeUntil(this.destroy$))
         .subscribe((options) => {
+
+          // Sometimes fields need to be mapped
+          const transformedOptions = this.transformSelectOptions(options.values, field);
+
           // Assign the fetched options to the field's selectOptions$
-          field.selectOptions$ = options.values;
+          field.selectOptions$ = transformedOptions;
 
           // Update isLoadingSelect to indicate that loading is complete
           this.isLoadingSelect = false;
@@ -243,9 +255,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
           // Check if there are options available
           if (control && options.values && options.values.length > 0 && !this.isCreateMode) {
-            // Set the initial selected value (e.g., the first option)
-            const initialSelectedValue = options.values[0].value;
-            control.setValue(initialSelectedValue);
+            // Ensure that options.values[0] and options.values[0].value exist before setting the value
+            const initialSelectedValue = options.values[0]?.value;
+
+            if (initialSelectedValue !== undefined) {
+              control.setValue(initialSelectedValue);
+            }
           }
 
           // Trigger change detection to prevent ExpressionChangedAfterItHasBeenCheckedError
@@ -253,6 +268,33 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
         });
       });
     }
+  }
+
+  /**
+   * Transforms API response options based on a field mapping configuration.
+   *
+   * @param apiOptions - The options received from an API response.
+   * @param field - The field configuration that contains the mapping between form fields and API fields.
+   *
+   * @returns An array of transformed select options to be used in the form.
+   */
+  transformSelectOptions(apiOptions: any[], field: any): any[] {
+    return apiOptions.map((apiOption: any) => {
+      const transformedOption: any = {};
+
+      for (const formField of Object.keys(field.fieldMapping)) {
+        const apiField = field.fieldMapping[formField];
+
+        if (Object.prototype.hasOwnProperty.call(apiOption, apiField)) {
+          transformedOption[formField] = apiOption[apiField];
+        } else {
+          // Handle the case where the API field doesn't exist in the response
+          transformedOption[formField] = null; // or set a default value
+        }
+      }
+
+      return transformedOption;
+    });
   }
 
   /**

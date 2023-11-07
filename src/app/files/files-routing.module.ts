@@ -5,7 +5,9 @@ import { NgModule } from "@angular/core";
 
 import { FilesEditComponent } from "./files-edit/files-edit.component";
 import { NewFilesComponent } from "./new-files/new-files.component";
+import { SERV } from '../core/_services/main.config';
 import { FilesComponent } from "./files.component";
+import { FormComponent } from "../shared/form/form.component";
 
 const routes: Routes = [
   {
@@ -28,9 +30,11 @@ const routes: Routes = [
         },
         canActivate: [IsAuth,CheckPerm]},
       {
-        path: ':id/wordlist-edit',  component: FilesEditComponent,
+        path: ':id/wordlist-edit',  component: FormComponent,
         data: {
-            kind: 'wordlist-edit',
+            kind: 'editwordlist',
+            type: 'edit',
+            path: SERV.FILES,
             breadcrumb: 'Wordlist Edit',
             permission: 'File'
         },
@@ -52,9 +56,11 @@ const routes: Routes = [
         },
         canActivate: [IsAuth,CheckPerm]},
       {
-        path: ':id/rules-edit',  component: FilesEditComponent,
+        path: ':id/rules-edit',  component: FormComponent,
         data: {
-            kind: 'rules-edit',
+            kind: 'editrule',
+            type: 'edit',
+            path: SERV.FILES,
             breadcrumb: 'Rules Edit',
             permission: 'File'
         },
@@ -76,9 +82,11 @@ const routes: Routes = [
         },
         canActivate: [IsAuth,CheckPerm]},
       {
-        path: ':id/other-edit',  component: FilesEditComponent,
+        path: ':id/other-edit',  component: FormComponent,
         data: {
-            kind: 'other-edit',
+            kind: 'editother',
+            type: 'edit',
+            path: SERV.FILES,
             breadcrumb: 'Other Edit',
             permission: 'File'
         },

@@ -1,4 +1,5 @@
 import { dateFormat, serverlog, proxytype } from '../../core/_constants/settings.config';
+import { fileFormat } from '../../core/_constants/files.config';
 import { TooltipService } from '../../core/_services/shared/tooltip.service';
 import { environment } from 'src/environments/environment';
 import { FormControl, Validators } from '@angular/forms';
@@ -55,6 +56,7 @@ export class MetadataService {
       selectOptions: "Select options if the type is 'select'",
       selectOptions$: "Select options if the type is 'selectd', used with selectEndpoint",
       selectEndpoint$: "API endpoint route, use SERV",
+      fieldMapping: "Object with the dropdown options to be mapped, that is id and name. ie. id: _id, name:groupName",
       requiredasterisk: "Indicates if the field is required",
       tooltip: "Tooltip information as string or using ",
       validators: "Validation rules",
@@ -103,6 +105,29 @@ export class MetadataService {
   // Files
   // //
 
+  // This variable stores information about the edit wordlist file page.
+  editwordlistInfo = [
+    { title: 'Edit Wordlist File', customform: false, subtitle: false, submitok: 'Saved!', submitokredirect: '/files/wordlist'},
+  ];
+
+  // This variable stores information about the edit rule file page.
+  editruleInfo = [
+    { title: 'Edit Rule File', customform: false, subtitle: false, submitok: 'Saved!', submitokredirect: '/files/rules'},
+  ];
+
+  // This variable stores information about the edit other file page.
+  editotherInfo = [
+    { title: 'Edit Other File', customform: false, subtitle: false, submitok: 'Saved!', submitokredirect: '/files/other'},
+  ];
+
+  //This variable defines the fields and properties required when editing a wonrdlist, rule or other file.
+  editfile = [
+    {name: 'fileId', label: 'ID', type: 'number', disabled: true},
+    {name: 'filename', label: 'Name', type: 'text'},
+    {name: 'fileType', label: 'File Type', type: 'select', selectOptions: fileFormat},
+    {name: 'accessGroupId', label: 'Access group', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_GROUPS, selectOptions$: [], fieldMapping: {id: '_id', name: 'groupName' }},
+    {name: 'isSecret', label: 'Secret', type: 'checkbox'}
+  ];
 
   // // // // // // // //
   // CONFIG SECTION    //
@@ -112,7 +137,7 @@ export class MetadataService {
   // New Cracker
   // //
 
-  // This variable stores information about the new cracker. page.
+  // This variable stores information about the new cracker page.
   newcrackerInfo = [
     { title: 'New Cracker Type', customform: false, subtitle: false, submitok: 'New Cracker created!', submitokredirect: '/config/engine/crackers'},
   ];
@@ -359,7 +384,7 @@ export class MetadataService {
   newuser = [
     { name: 'name', label: 'User Name', type: 'text', requiredasterisk: true, validators: [Validators.required] },
     { name: 'email', label: 'Email', type: 'email', requiredasterisk: true, validators: [Validators.required, Validators.email] },
-    { name: 'globalPermissionGroupId', label: 'Set user Global Permission Group:', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], validators: [Validators.required] },
+    { name: 'globalPermissionGroupId', label: 'Set user Global Permission Group:', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], fieldMapping: {id: 'id', name: 'name' }, validators: [Validators.required] },
   ];
 
   //This variable is similar to newuser but is used for editing an existing user.
@@ -369,7 +394,7 @@ export class MetadataService {
     { name: 'email', label: 'Email', type: 'email',  disabled: true},
     { name: 'registered', label: 'Creation date', type: 'date',  disabled: true},
     { name: 'lastLogin', label: 'Last login', type: 'date',  disabled: true},
-    { name: 'globalPermissionGroupId', label: 'Set user Global Permission Group:', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], validators: [Validators.required] },
+    { name: 'globalPermissionGroupId', label: 'Set user Global Permission Group:', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [],fieldMapping: {id: 'id', name: 'name' }, validators: [Validators.required] },
     { name: 'password', type: 'password' },
     { name: 'isValid', label: 'Valid', type: 'checkbox', requiredasterisk: false, tooltip: false, validators: false, defaultValue: false },
   ];
@@ -431,7 +456,9 @@ export class MetadataService {
    * @returns An array of form metadata.
    */
   getFormMetadata(formName: string): any[] {
-    if (formName === 'uisettings') {
+    if (formName === 'editwordlist' || formName === 'editrule' || formName === 'editother') {
+      return this.editfile;
+    } else if (formName === 'uisettings') {
       return this.uisettings;
     } else if (formName === 'newcracker') {
       return this.newcracker;
@@ -474,9 +501,15 @@ export class MetadataService {
    * @returns An array of info metadata.
    */
   getInfoMetadata(formName: string): any[] {
-    if (formName === 'uisettingsInfo') {
+    if (formName === 'editwordlistInfo') {
+      return this.editwordlistInfo;
+    } else if (formName === 'editruleInfo') {
+      return this.editruleInfo;
+    } else if (formName === 'editotherInfo') {
+      return this.editotherInfo;
+    } else if (formName === 'uisettingsInfo') {
       return this.uisettingsInfo;
-    } if (formName === 'newcrackerInfo') {
+    } else if (formName === 'newcrackerInfo') {
       return this.newcrackerInfo;
     } else if (formName === 'newagentbinaryInfo') {
       return this.newagentbinaryInfo;
