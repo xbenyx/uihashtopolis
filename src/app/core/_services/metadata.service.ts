@@ -66,8 +66,21 @@ export class MetadataService {
   // Create title between fields. use  { label: 'More settings', isTitle: true }
 
   // // // // // // // //
+  // ACCOUNT SECTION   //
+  // // // // // // // //
+
+  // //
+  // Notifications
+  // //
+
+  // // // // // // // //
   // TASKS SECTION     //
   // // // // // // // //
+
+  // //
+  // Pretask
+  // //
+
 
   // //
   // Supertask
@@ -76,6 +89,20 @@ export class MetadataService {
   supertaskInfo = [
     { title: 'New Supertask', customform: false, subtitle: false, submitok: 'New SuperTask created!', submitokredirect: 'tasks/supertasks'},
   ];
+
+  supertask = [
+    { name: 'supertaskName', label: 'Name', type: 'text', requiredasterisk: true, tooltip: false, validators: [Validators.required] },
+    { name: 'pretasks', label: 'Select or search tasks assigned to this supertask:', type: 'select', selectOptions: [], requiredasterisk: true, tooltip: false, validators: [Validators.required]},
+  ];
+
+  // // // // // // // //
+  // FILES SECTION    //
+  // // // // // // // //
+
+  // //
+  // Files
+  // //
+
 
   // // // // // // // //
   // CONFIG SECTION    //
@@ -323,18 +350,28 @@ export class MetadataService {
     { title: 'New User', customform: false, subtitle: false, submitok: 'New User created!', submitokredirect: 'users/all-users'},
   ];
 
+  // This variable edit information about the user page.
+  editInfo = [
+    { title: 'Edit User', customform: false, subtitle: false, submitok: 'Saved!', submitokredirect: 'users/all-users'},
+  ];
+
   //This variable holds information about the fields required when creating a new user.
   newuser = [
     { name: 'name', label: 'User Name', type: 'text', requiredasterisk: true, validators: [Validators.required] },
     { name: 'email', label: 'Email', type: 'email', requiredasterisk: true, validators: [Validators.required, Validators.email] },
-    { name: 'globalPermissionGroupId', label: 'Access Permission Group', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], validators: [Validators.required] },
+    { name: 'globalPermissionGroupId', label: 'Set user Global Permission Group:', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], validators: [Validators.required] },
   ];
 
   //This variable is similar to newuser but is used for editing an existing user.
   edituser = [
-    { name: 'name', label: 'User Name', type: 'text', requiredasterisk: true, validators: [Validators.required] },
-    { name: 'email', label: 'Email', type: 'email', requiredasterisk: true, validators: [Validators.required, Validators.email] },
-    { name: 'globalPermissionGroupId', label: 'Access Permission Group', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], validators: [Validators.required] },
+    { name: 'id', label: 'User ID', type: 'number', disabled: true },
+    { name: 'name', label: 'User Name', type: 'text', disabled: true},
+    { name: 'email', label: 'Email', type: 'email',  disabled: true},
+    { name: 'registered', label: 'Creation date', type: 'date',  disabled: true},
+    { name: 'lastLogin', label: 'Last login', type: 'date',  disabled: true},
+    { name: 'globalPermissionGroupId', label: 'Set user Global Permission Group:', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], validators: [Validators.required] },
+    { name: 'password', type: 'password' },
+    { name: 'isValid', label: 'Valid', type: 'checkbox', requiredasterisk: false, tooltip: false, validators: false, defaultValue: false },
   ];
 
   // //
@@ -513,4 +550,5 @@ export class MetadataService {
 
 
 }
+
 

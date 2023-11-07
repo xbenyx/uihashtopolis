@@ -173,11 +173,17 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!field.isTitle) {
         const fieldName = field.name;
         const validators: ValidatorFn[] = field.validators ? field.validators : [];
+        let initialValue;
 
-        // Set the initial value for the form control
-        let initialValue = this.formValues[fieldName] || '';
-
-        // Set the initial value based on the mode (create/update) and field's default value
+        // Set the initial value for the form control.
+        if (field.type === 'checkbox'){
+          initialValue = this.formValues[fieldName];
+        } else{
+          initialValue = this.formValues[fieldName] || '';
+        }
+        // Set the initial value for the form control.
+        // If the field type is 'checkbox', use the value from formValues directly.
+        // For other field types, use formValues[fieldName] or an empty string if it's not provided.
         if (this.isCreateMode && field.defaultValue !== undefined) {
           initialValue = field.defaultValue;
         }

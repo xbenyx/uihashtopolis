@@ -165,6 +165,8 @@ export class FormConfigComponent implements OnInit, OnDestroy {
     for (const key in currentFormValues) {
       if (Object.prototype.hasOwnProperty.call(currentFormValues, key)) {
         if (currentFormValues[key] !== initialFormValues[key]) {
+          // Convert boolean values to 1 (true) or 0 (false)
+          // const value = currentFormValues[key] === true ? 0 : (currentFormValues[key] === false ? 1 : currentFormValues[key]);
           changedFields[key] = currentFormValues[key];
         }
       }
