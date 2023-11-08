@@ -360,7 +360,19 @@ export class MetadataService {
     { name: "baseHost", label: "Base hostname/port/protocol to use. Only fill this in to override the auto-determined value", type: "text", tooltip: false },
     { name: "contactEmail", label: "Admin email address displayed on the webpage footer (hidden if empty)", type: "text", tooltip: false },
     { name: "serverLogLevel", label: "Server level to be logged on the server to file", type: "select", selectOptions: serverlog, tooltip: false },
-];
+ ];
+
+   // //
+  // Health Check
+  // //
+
+  // This variable holds information about the fields required when creating a new health check.
+  newhealthcheck = [
+    { name: 'attack', label: 'Attack', type: 'select',requiredasterisk: true, selectOptions: [{ value: 0, label: 'Brute-Force' }], validators: [Validators.required] },
+    { name: 'hashtypeId', label: 'Hashtype', type: 'select',requiredasterisk: true, selectOptions: [{ value: 0, label: 'MD5' },{ value: 3200, label: 'BCRYPT' }], validators: [Validators.required] },
+    { name: 'crackerBinaryType', label: 'Binary', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], fieldMapping: { id: 'crackerBinaryTypeId', name: 'typeName' },validators: [Validators.required]},
+    { name: 'crackerBinaryId', label: 'Binary Version', type: 'selectd', requiredasterisk: true, selectEndpoint$: SERV.ACCESS_PERMISSIONS_GROUPS, selectOptions$: [], fieldMapping: { id: 'crackerBinaryId', name: 'version' },validators: [Validators.required]},
+  ];
 
   // // // // // // // //
   // USER SECTION      //

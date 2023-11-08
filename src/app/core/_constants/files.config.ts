@@ -6,5 +6,3 @@ export const fileFormat = [
   {value: 1, label:'Rule'},
   {value: 2, label:'Other'},
 ];
-
-

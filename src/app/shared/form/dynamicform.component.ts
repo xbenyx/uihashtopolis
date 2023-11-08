@@ -16,6 +16,7 @@ import { ChangeDetectorRef } from '@angular/core';
 <app-page-subtitle [subtitle]="subtitle"></app-page-subtitle>
 <grid-main [class]="'width:100%;'" [centered]="true">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
+   <grid-autocol [itemCount]="formMetadata.length">
      <!-- <div *ngFor="let row of customLayout">
         <div class="row g-3">
            <ng-container *ngFor="let field of row">
@@ -88,6 +89,7 @@ import { ChangeDetectorRef } from '@angular/core';
         <button-submit name="Delete" [disabled]="false" type="delete" *ngIf="!isCreateMode && showDeleteButton" (click)="onDelete()">Delete</button-submit>
         <button-submit [name]="buttonText" [disabled]="!formIsValid()"></button-submit>
       </grid-buttons>
+   </grid-autocol>
   </form>
 </grid-main>
   `,
@@ -178,9 +180,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    * This method is called when the dynamic form component is initialized.
    */
   ngOnInit() {
-    // Initialize an object to store the configuration of form controls.
-    const controlsConfig = {};
+  // Check if this.customLayout is iterable and fallback to an empty array if it's not.
+  const customLayout = Array.isArray(this.customLayout) ? this.customLayout : [];
 
+  // Initialize an object to store the configuration of form controls.
+  const formRows = [];
+
+  if (customLayout.length === 0) {
+    // Create a default layout with a single column if customLayout is empty.
+    const defaultRow = new FormGroup({});
     // Iterate through the form metadata to create and configure form controls.
     for (const field of this.formMetadata) {
       // Exclude fields marked as titles from form control creation.
@@ -211,17 +219,79 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
         // Create a form control with the initial value and any specified validators.
         if (!this.isCreateMode && field.disabled) {
           // If in 'update' mode and the field is disabled, create a disabled form control.
-          controlsConfig[fieldName] = { value: initialValue, disabled: true };
+          formRows[fieldName] = { value: initialValue, disabled: true };
         } else {
           // Create a form control with the initial value and optional validators.
-          controlsConfig[fieldName] = new FormControl(initialValue, validators);
+          formRows[fieldName] = new FormControl(initialValue, validators);
         }
+
+        const controlsConfig = new FormControl(formRows);
+
+        // Add the form control to the defaultRow with fieldName as the key.
+        defaultRow.addControl(fieldName, controlsConfig);
+
       }
     }
+    // Add the defaultRow (FormGroup for the default layout) to the list of rows.
+    formRows.push(defaultRow);
+  } else {
+      // Initialize an object to store the configuration of form rows.
+    const formRows = [];
+    // Iterate through customLayout to define the structure of form rows and columns.
+    for (const row of customLayout) {
+      // Create a FormGroup for each row.
+      const formRow = new FormGroup({});
 
-    // Create the Angular FormGroup with the configured controls.
-    this.form = this.fb.group(controlsConfig);
-    console.log(this.form)
+      // Iterate through the fields in the formMetadata to create and configure form controls.
+      for (const field of this.formMetadata) {
+        // Exclude fields marked as titles from form control creation.
+        if (!field.isTitle) {
+          // Get the name of the field.
+          const fieldName = field.name;
+
+          // Determine the validators for the field, defaulting to an empty array if none are provided.
+          const validators: ValidatorFn[] = field.validators ? field.validators : [];
+
+          // Initialize the initial value for the form control.
+          let initialValue;
+
+          // Set the initial value for the form control based on the field's type.
+          if (field.type === 'checkbox') {
+            // For checkboxes, use the value directly from formValues.
+            initialValue = this.formValues[fieldName];
+          } else {
+            // For other field types, use formValues[fieldName] or 0 as a default value if not provided.
+            initialValue = fieldName in this.formValues ? this.formValues[fieldName] : 0;
+          }
+
+          // In 'create' mode, override the initial value if a default value is specified in the field's metadata.
+          if (this.isCreateMode && field.defaultValue !== undefined) {
+            initialValue = field.defaultValue;
+          }
+
+          // Create a form control with the initial value and any specified validators.
+          if (!this.isCreateMode && field.disabled) {
+            // If in 'update' mode and the field is disabled, create a disabled form control.
+            formRows[fieldName] = { value: initialValue, disabled: true };
+          } else {
+            // Create a form control with the initial value and optional validators.
+            formRows[fieldName] = new FormControl(initialValue, validators);
+          }
+
+          // Create a form control with the initial value and any specified validators.
+          const formControl = new FormControl(formRows);
+
+          // Add the form control to the formRow with fieldName as the key.
+          formRow.addControl(fieldName, formControl);
+        }
+      }
+
+      // Add the formRow (FormGroup for the current row) to the list of rows.
+      formRows.push(formRow);
+    }
+  }
+  // Create the Angular FormGroup with the configured controls.
+  this.form = this.fb.group(formRows);
   }
 
   /**
