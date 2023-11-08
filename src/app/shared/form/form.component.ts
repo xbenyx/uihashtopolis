@@ -183,6 +183,7 @@ export class FormComponent implements OnInit, OnDestroy {
     }
     if (this.type === 'create') {
       // Create mode: Submit form data for creating a new item
+      console.log(formValues)
       this.mySubscription = this.gs.create(this.apiPath, formValues).subscribe(() => {
         this.alert.okAlert(this.globalMetadata['submitok'], '');
         this.router.navigate([this.globalMetadata['submitokredirect']]);

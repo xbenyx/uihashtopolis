@@ -97,29 +97,35 @@ export class NewNotificationComponent implements OnInit, OnDestroy {
    */
   changeAction(action: string): void {
     const path = this.actionToServiceMap[action];
-    if (path) {
-      const params = { 'maxResults': this.maxResults };
-      this.active = true;
-
-      this.subscriptions.push(this.gs.getAll(path, params).subscribe((res: any) => {
-        const _filters: Filter[] = []
-        for (let i = 0; i < res.values.length; i++) {
-          if (path === SERV.AGENTS) {
-            _filters.push({ 'id': res.values[i]['_id'], 'name': res.values[i]['agentName'] });
-          }
-          if (path === SERV.TASKS) {
-            _filters.push({ 'id': res.values[i]['_id'], 'name': res.values[i]['taskName'] });
-          }
-          if (path === SERV.USERS || path === SERV.HASHLISTS) {
-            _filters.push({ 'id': res.values[i]['_id'], 'name': res.values[i]['name'] });
-          }
-        }
-        this.filters = _filters;
-      }));
-    } else {
+    if (!path) {
       this.active = false;
+      return;
     }
+
+    const params = { 'maxResults': this.maxResults };
+    this.active = true;
+
+    const mapFunction = this.getMapFunctionForPath(path);
+
+    this.subscriptions.push(this.gs.getAll(path, params).subscribe((res: any) => {
+      this.filters = res.values.map(mapFunction);
+    }));
   }
+
+  private getMapFunctionForPath(path: string): (value: any) => Filter {
+    if (path === SERV.AGENTS) {
+      return (value: any) => ({ 'id': value['_id'], 'name': value['agentName'] });
+    }
+    if (path === SERV.TASKS) {
+      return (value: any) => ({ 'id': value['_id'], 'name': value['taskName'] });
+    }
+    if (path === SERV.USERS || path === SERV.HASHLISTS) {
+      return (value: any) => ({ 'id': value['_id'], 'name': value['name'] });
+    }
+    // Default map function (you can customize it based on your needs)
+    return (value: any) => ({ 'id': value['_id'], 'name': value['name'] });
+  }
+
 
   /**
    * Checks if the form for creating a new notification is valid.

@@ -17,65 +17,73 @@ import { ChangeDetectorRef } from '@angular/core';
 <grid-main [class]="'width:100%;'" [centered]="true">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
    <grid-autocol [itemCount]="formMetadata.length">
-      <div *ngFor="let field of formMetadata">
-        <div class="form-group" *ngIf="field.type !== 'hidden'">
-          <ng-container *ngIf="field.isTitle">
-            <h5>{{ field.label }}</h5>
-          </ng-container>
-          <ng-container *ngIf="!field.isTitle">
-            <div class="form-group">
-              <div class="form-outline form-input-custom">
-                <label [class.requiredak]="field.requiredasterisk" class="form-label" [for]="field.name">{{ field.label }}</label>
-                <fa-icon
-                      placement="bottom"
-                      ngbTooltip="{{field.tooltip}}"
-                      container="body"
-                      [icon]="faInfoCircle"
-                      aria-hidden="true"
-                      class="gray-light-ico display-col"
-                      *ngIf="field.tooltip"
-                ></fa-icon>
-                <ng-container [ngSwitch]="field.type">
-                  <td *ngSwitchCase="'number'">
-                    <input class="form-control" type="number" [formControlName]="field.name">
-                  </td>
-                  <div *ngSwitchCase="'text'">
-                    <input class="form-control" [type]="field.type" [formControlName]="field.name">
+     <div *ngFor="let row of customLayout">
+        <div class="row g-3">
+           <ng-container *ngFor="let field of row">
+              <div class="col-md-{{ 12 / row.length }}">
+                <div *ngFor="let field of formMetadata">
+                  <div class="form-group" *ngIf="field.type !== 'hidden'">
+                    <ng-container *ngIf="field.isTitle">
+                      <h5>{{ field.label }}</h5>
+                    </ng-container>
+                    <ng-container *ngIf="!field.isTitle">
+                      <div class="form-group">
+                        <div class="form-outline form-input-custom">
+                          <label [class.requiredak]="field.requiredasterisk" class="form-label" [for]="field.name">{{ field.label }}</label>
+                          <fa-icon
+                                placement="bottom"
+                                ngbTooltip="{{field.tooltip}}"
+                                container="body"
+                                [icon]="faInfoCircle"
+                                aria-hidden="true"
+                                class="gray-light-ico display-col"
+                                *ngIf="field.tooltip"
+                          ></fa-icon>
+                          <ng-container [ngSwitch]="field.type">
+                            <td *ngSwitchCase="'number'">
+                              <input class="form-control" type="number" [formControlName]="field.name">
+                            </td>
+                            <div *ngSwitchCase="'text'">
+                              <input class="form-control" [type]="field.type" [formControlName]="field.name">
+                            </div>
+                            <div *ngSwitchCase="'password'">
+                              <input class="form-control" type="password" [formControlName]="field.name">
+                            </div>
+                            <div *ngSwitchCase="'textarea'">
+                              <textarea class="form-control" [formControlName]="field.name"></textarea>
+                            </div>
+                            <div *ngSwitchCase="'email'">
+                              <input class="form-control" [type]="field.type" [formControlName]="field.name">
+                            </div>
+                            <div *ngSwitchCase="'select'">
+                              <select class="form-select" [formControlName]="field.name">
+                                <option *ngFor="let option of field.selectOptions" [ngValue]="option.value">{{ option.label }}</option>
+                              </select>
+                            </div>
+                            <div *ngSwitchCase="'selectd'">
+                            <select class="form-select" [formControlName]="field.name">
+                              <ng-container *ngIf="isLoadingSelect; else options">
+                                <option disabled>Loading...</option>
+                              </ng-container>
+                              <ng-template #options>
+                                <option [ngValue]="null">Please Select an Option</option>
+                                <option *ngFor="let option of field.selectOptions$" [ngValue]="option.id">{{ option.name }}</option>
+                              </ng-template>
+                            </select>
+                            </div>
+                            <td *ngSwitchCase="'checkbox'" class="form-check form-switch">
+                              <input type="checkbox" [formControlName]="field.name" [id]="field.name" class="form-check-input">
+                            </td>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </ng-container>
                   </div>
-                  <div *ngSwitchCase="'password'">
-                    <input class="form-control" type="password" [formControlName]="field.name">
-                  </div>
-                  <div *ngSwitchCase="'textarea'">
-                    <textarea class="form-control" [formControlName]="field.name"></textarea>
-                  </div>
-                  <div *ngSwitchCase="'email'">
-                    <input class="form-control" [type]="field.type" [formControlName]="field.name">
-                  </div>
-                  <div *ngSwitchCase="'select'">
-                    <select class="form-select" [formControlName]="field.name">
-                      <option *ngFor="let option of field.selectOptions" [ngValue]="option.value">{{ option.label }}</option>
-                    </select>
-                  </div>
-                  <div *ngSwitchCase="'selectd'">
-                    <select class="form-select" [formControlName]="field.name">
-                      <ng-container *ngIf="isLoadingSelect; else options">
-                        <option disabled>Loading...</option>
-                      </ng-container>
-                      <ng-template #options>
-                        <option [ngValue]="null">Please Select an Option</option>
-                        <option *ngFor="let option of field.selectOptions$" [ngValue]="option.id">{{ option.name }}</option>
-                      </ng-template>
-                    </select>
-                  </div>
-                  <td *ngSwitchCase="'checkbox'" class="form-check form-switch">
-                    <input type="checkbox" [formControlName]="field.name" [id]="field.name" class="form-check-input">
-                  </td>
-                </ng-container>
+                </div>
               </div>
-            </div>
-          </ng-container>
+           </ng-container>
         </div>
-      </div>
+     </div>
      <grid-buttons>
         <button-submit name="Cancel" [disabled]="false" type="cancel" *ngIf="isCreateMode"></button-submit>
         <button-submit name="Delete" [disabled]="false" type="delete" *ngIf="!isCreateMode && showDeleteButton" (click)="onDelete()">Delete</button-submit>
@@ -119,6 +127,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() form: FormGroup;
 
   /**
+   * Define the custom layout array.
+   */
+  @Input() customLayout: any[];
+
+  /**
    * Indicates whether the form is in "create" mode or "update" mode.
    * When true, it's in "create" mode, and when false, it's in "update" mode.
   */
@@ -148,8 +161,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   @Output() deleteAction: EventEmitter<void> = new EventEmitter();
 
-  @Output() selectTypeChange: EventEmitter<number> = new EventEmitter<number>();
-
   /**
    * A Subject used for managing the lifecycle and unsubscribing from observables when the component is destroyed.
    * The `destroy$` subject is used to signal the component's destruction.
@@ -169,49 +180,64 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
    * This method is called when the dynamic form component is initialized.
    */
   ngOnInit() {
-  // Initialize an object to store the configuration of form controls.
-  const controlsConfig = {};
+  // Check if this.customLayout is iterable and fallback to an empty array if it's not.
+  const customLayout = Array.isArray(this.customLayout) ? this.customLayout : [];
 
-  // Iterate through the form metadata to create and configure form controls.
-  for (const field of this.formMetadata) {
-    // Exclude fields marked as titles from form control creation.
-    if (!field.isTitle) {
-      // Get the name of the field.
-      const fieldName = field.name;
+      // Initialize an object to store the configuration of form rows.
+    const formRows = [];
+    // Iterate through customLayout to define the structure of form rows and columns.
+    for (const row of customLayout) {
+      // Create a FormGroup for each row.
+      const formRow = new FormGroup({});
 
-      // Determine the validators for the field, defaulting to an empty array if none are provided.
-      const validators: ValidatorFn[] = field.validators ? field.validators : [];
+      // Iterate through the fields in the formMetadata to create and configure form controls.
+      for (const field of this.formMetadata) {
+        // Exclude fields marked as titles from form control creation.
+        if (!field.isTitle) {
+          // Get the name of the field.
+          const fieldName = field.name;
 
-      // Initialize the initial value for the form control.
-      let initialValue;
+          // Determine the validators for the field, defaulting to an empty array if none are provided.
+          const validators: ValidatorFn[] = field.validators ? field.validators : [];
 
-      // Set the initial value for the form control based on the field's type.
-      if (field.type === 'checkbox') {
-        // For checkboxes, use the value directly from formValues.
-        initialValue = this.formValues[fieldName];
-      } if (!this.isCreateMode) {
-        // For other field types, use formValues[fieldName] or 0 as a default value if not provided.
-        initialValue = fieldName in this.formValues ? this.formValues[fieldName] : 0;
-      }
+          // Initialize the initial value for the form control.
+          let initialValue;
 
-      // In 'create' mode, override the initial value if a default value is specified in the field's metadata.
-      if (this.isCreateMode && field.defaultValue !== undefined) {
-        initialValue = field.defaultValue;
-      }
+          // Set the initial value for the form control based on the field's type.
+          if (field.type === 'checkbox') {
+            // For checkboxes, use the value directly from formValues.
+            initialValue = this.formValues[fieldName];
+          } else {
+            // For other field types, use formValues[fieldName] or 0 as a default value if not provided.
+            initialValue = fieldName in this.formValues ? this.formValues[fieldName] : 0;
+          }
 
-      // Create a form control with the initial value and any specified validators.
-      if (!this.isCreateMode && field.disabled) {
-        // If in 'update' mode and the field is disabled, create a disabled form control.
-        controlsConfig[fieldName] = { value: initialValue, disabled: true };
-      } else {
-        // Create a form control with the initial value and optional validators.
-        controlsConfig[fieldName] = new FormControl(initialValue, validators);
-      }
+          // In 'create' mode, override the initial value if a default value is specified in the field's metadata.
+          if (this.isCreateMode && field.defaultValue !== undefined) {
+            initialValue = field.defaultValue;
+          }
+
+          // Create a form control with the initial value and any specified validators.
+          if (!this.isCreateMode && field.disabled) {
+            // If in 'update' mode and the field is disabled, create a disabled form control.
+            formRows[fieldName] = { value: initialValue, disabled: true };
+          } else {
+            // Create a form control with the initial value and optional validators.
+            formRows[fieldName] = new FormControl(initialValue, validators);
+          }
+
+          // Create a form control with the initial value and any specified validators.
+          const formControl = new FormControl(formRows);
+
+          // Add the form control to the formRow with fieldName as the key.
+          formRow.addControl(fieldName, formControl);
+        }
+      // Add the formRow (FormGroup for the current row) to the list of rows.
+      formRows.push(formRow);
     }
   }
-
   // Create the Angular FormGroup with the configured controls.
-  this.form = this.fb.group(controlsConfig);
+  this.form = this.fb.group(formRows);
   }
 
   /**
@@ -325,14 +351,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   */
   onDelete(){
     this.deleteAction.emit();
-  }
-
-  /**
-   * Handles the onchange action.
-   * Emits the change action to the parent component when the select option is selected.
-  */
-  onChange(value: any) {
-    this.selectTypeChange.emit(value);
   }
 
   /**
